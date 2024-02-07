@@ -1,0 +1,24 @@
+
+
+@media screen and (max-width: 800px) {
+    .dashboardTitle {
+        font-family: var(--main);
+        font-size: 5rem;
+        margin: 0px;
+        text-align: center;
+    }
+    
+    .box {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .boxItem {
+        width: 300px;
+        padding: 10px;
+    }
+
+    .libaryButtons {
+        width: 300px;
+    }
+}

@@ -1,0 +1,51 @@
+.searchBackCon {
+    margin: 1rem;
+}
+
+:where(.css-dev-only-do-not-override-gzal6t).ant-input-search >.ant-input-group >.ant-input-group-addon:last-child .ant-input-search-button {
+    background-color: black;
+}
+
+:where(.css-gzal6t).ant-input-search >.ant-input-group >.ant-input-group-addon:last-child .ant-input-search-button {
+    background-color: black;
+}
+
+:where(.css-dev-only-do-not-override-gzal6t).ant-input-search >.ant-input-group >.ant-input-group-addon:last-child .ant-input-search-button:hover {
+    background-color: var(--tertiaryColor);
+}
+
+:where(.css-gzal6t).ant-input-search >.ant-input-group >.ant-input-group-addon:last-child .ant-input-search-button:hover {
+    background-color: var(--tertiaryColor);
+}
+
+:where(.css-gzal6t).ant-input-affix-wrapper:active {
+border-color: var(--tertiaryColor);
+}
+
+:where(.css-dev-only-do-not-override-gzal6t).ant-input-affix-wrapper:active {
+    border-color: var(--tertiaryColor);
+}
+
+:where(.css-gzal6t).ant-input-affix-wrapper:focus {
+    border-color: var(--tertiaryColor);
+}
+    
+:where(.css-dev-only-do-not-override-gzal6t).ant-input-affix-wrapper:focus {
+    border-color: var(--tertiaryColor);
+    }
+
+:where(.css-dev-only-do-not-override-gzal6t).ant-input-affix-wrapper:hover {
+    border-color: var(--tertiaryColor);
+}
+
+:where(.css-gzal6t).ant-input-affix-wrapper:hover {
+    border-color: var(--tertiaryColor);
+}
+
+:where(.css-dev-only-do-not-override-gzal6t).ant-input-affix-wrapper:focus-within {
+    border-color: var(--tertiaryColor);
+}
+
+:where(.css-gzal6t).ant-input-affix-wrapper:focus-within {
+    border-color: var(--tertiaryColor);
+}

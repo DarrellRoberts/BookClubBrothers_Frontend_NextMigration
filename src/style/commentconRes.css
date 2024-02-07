@@ -1,0 +1,7 @@
+@media screen and (max-width: 800px) {
+    .commentCon {
+    width: 300px;
+    margin: 2rem 0px;
+    padding: 0px 1rem;
+    }
+}

@@ -1,0 +1,63 @@
+.bookTitle {
+    font-family: var(--main);
+    font-size: 5rem;
+    margin: 1rem;
+}
+
+.bookCover {
+    width: 600px;
+    height: 400px;
+}
+
+.bookTitleCoverCon {
+    width: 600px;
+    height: 400px;
+}
+
+.bookRightCon {
+    font-family: var(--main);
+    border-width: 2px;
+    border-color: black;
+    padding: 1.5rem 2rem;
+    width: 400px;
+}
+
+.ratingAndCommentCon {
+    display: flex;
+    margin-bottom: 2rem;
+}
+
+/* delete section */
+:where(.css-dev-only-do-not-override-gzal6t).ant-popover .ant-popover-inner {
+    background-color: var(--tertiaryColor);
+    color: white;
+}
+
+:where(.css-dev-only-do-not-override-gzal6t).ant-popconfirm .ant-popconfirm-message .ant-popconfirm-title {
+    color: white;
+}
+
+:where(.css-dev-only-do-not-override-gzal6t).ant-popconfirm .ant-popconfirm-message .ant-popconfirm-description {
+    color: white;
+}
+
+:where(.css-gzal6t).ant-popover .ant-popover-inner {
+    background-color: var(--tertiaryColor);
+    color: white;
+    }
+    
+    :where(.css-gzal6t).ant-popconfirm .ant-popconfirm-message .ant-popconfirm-title {
+    color: white;
+    }
+    
+    :where(.css-gzal6t).ant-popconfirm .ant-popconfirm-message .ant-popconfirm-description {
+    color: white;
+    }
+
+.authorisationMessage {
+    font-weight: bold;
+    background-color: red;
+    margin-top: 0.5rem;
+    padding: 2rem;
+    color: white;
+}

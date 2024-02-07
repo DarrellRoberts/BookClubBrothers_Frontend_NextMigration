@@ -1,0 +1,12 @@
+.bookQuizCon {
+    font-size: 1.5rem;
+}
+
+
+.quizCon {
+    border-width: 2px;
+    padding: 1rem 1.5rem;
+    width: 350px;
+    height: 300px;
+    top: 90px;
+}

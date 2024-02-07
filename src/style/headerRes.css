@@ -1,0 +1,23 @@
+@media screen and (max-width: 800px) {
+    .greeting {
+        font-size: 1.25rem;
+    }
+    .headerLinksMobCon {
+        color: white;
+        display: flex;
+        justify-content: center;
+    }
+    .headerLinksMobile {
+        background-color: var(--tertiaryColor);
+        z-index: 10;
+        position: absolute;
+        top: 10%;
+        display: flex;
+        padding: 20px;
+        font-family: var(--main);
+        border-bottom-right-radius: 50%;
+    }
+    .bookMenuMobile {
+
+    }
+}

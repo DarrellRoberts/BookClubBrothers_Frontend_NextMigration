@@ -1,0 +1,89 @@
+.clubGrid {
+display: grid;
+grid-template-rows: 1fr 5fr 1fr;
+grid-template-columns: 1fr 2fr 1fr;
+}
+
+.clubGrid p {
+    font-family: var(--main);
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.clubTitle {
+    font-size: 6rem;
+    font-family: var(--main);
+    align-self: center;
+}
+
+.clubImageWide1 {
+border-width: 1rem;
+border-style: solid;
+border-color: black;
+padding: 1rem;
+align-self: center;
+justify-self: center;
+width: 400px;
+height: 300px;
+grid-row-start: 2;
+grid-column-start: 1;   
+}
+
+.clubImageWide2 {
+border-width: 1rem;
+border-style: solid;
+border-color: black;
+padding: 1rem;
+justify-self: center;
+width: 500px;
+height: 400px;
+grid-row-start: 3;
+grid-column-start: 2;   
+}
+
+.clubImageWide3 {
+border-width: 1rem;
+border-style: solid;
+border-color: black;
+padding: 1rem;
+align-self: center;
+justify-self: center;
+width: 400px;
+height: 300px;
+grid-row-start: 2;
+grid-column-start: 3;   
+}
+
+.clubImage1 {
+border-width: 1rem;
+padding: 5px;
+border-style: solid;
+border-color: black;
+justify-self: center;
+width: 300px;
+height: 400px;
+grid-column-start: 1;
+grid-row-start: 1;
+}
+
+.clubTitle {
+grid-column-start: 2;
+grid-row-start: 1;   
+}
+
+.clubImage2 {
+border-width: 1rem;
+padding: 5px;
+border-style: solid;
+border-color: black;
+justify-self: center;
+width: 300px;
+height: 400px;
+grid-column-start: 3;
+grid-row-start: 1;
+    }
+
+.clubInfo {
+    grid-row-start: 2;
+    grid-column-start: 2;
+}

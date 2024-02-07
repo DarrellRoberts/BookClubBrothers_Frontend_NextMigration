@@ -1,0 +1,45 @@
+@media screen and (max-width: 800px) {
+    .randomTitle {
+        font-family: var(--main);
+        font-size: 4rem;
+        margin-top: 3rem;
+        text-align: center;
+    }
+    .randomBox {
+        aspect-ratio: 1/1.5;
+        width: 350px;
+    }
+    .bookBox, .bookDeleteBox {
+        padding: 1rem 0px;
+        display: flex;
+        flex-direction: column;
+    }
+    .bookBox h2, .bookDeleteBox h2 {
+        font-size: 1rem;
+        text-align: center;
+    }
+    .bookBox p, .bookDeleteBox p {
+        font-size: 0.75rem;
+        text-align: center;
+    }
+    .randomBoxRight {
+        display: flex;
+        flex-direction: column;
+        padding: 0px;
+        border-width: 0px;
+        max-width: 180px;
+    }
+    .randomDetailsCon {
+        margin-left: 5px;
+    }
+    .randomDetailsCon h2 {
+        font-size: 1.5rem;
+        text-align: center;
+    }
+    .randomDetailsCon li {
+        font-size: 1.25rem;
+    }
+    .deleteUnreadButton {
+        margin-top: 0px;
+    }
+}

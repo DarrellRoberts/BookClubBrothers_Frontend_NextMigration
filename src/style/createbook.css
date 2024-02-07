@@ -1,0 +1,7 @@
+:where(.css-dev-only-do-not-override-gzal6t).ant-radio-wrapper span.ant-radio+* {
+color: white;
+}
+
+:where(.css-gzal6t).ant-radio-wrapper span.ant-radio+* {
+color: white;
+}

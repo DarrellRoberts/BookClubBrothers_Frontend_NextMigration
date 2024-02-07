@@ -1,0 +1,145 @@
+.randomTitle {
+font-family: var(--main);
+font-size: 8rem;
+margin-left: 2rem;
+text-align: center;
+}
+
+.randomCon {
+display: flex;
+justify-content: center;
+align-items: center;
+flex-direction: column;
+/* height: 100vh; */
+}
+
+.randomBox {
+display: grid;
+aspect-ratio: 2/1.5;
+width: 900px;
+grid-template-columns: 1fr 2fr;
+grid-template-rows: 1fr;
+/* background-color: blue; */
+padding: 1rem;
+border-style: solid;
+border-color: black;
+border-width: 2px;
+}
+
+.randomBoxLeft {
+border-color: black;
+border-style: solid;
+border-width: 5px;
+display: flex;
+align-items: center;
+flex-direction: column;
+}
+
+.bookBox {
+display: grid;
+grid-template-columns: 1fr;
+grid-template-rows: 1fr;
+justify-items: center;
+border-radius: 20px;
+background-color: var(--tertiaryColor);
+padding: 1rem 2rem;
+margin-top: 1rem;
+cursor: pointer;
+}
+
+.bookDeleteBox {
+display: grid;
+grid-template-columns: 3fr 1fr;
+grid-template-rows: 1fr;
+justify-items: center;
+border-radius: 20px;
+background-color: var(--tertiaryColor);
+padding: 1rem 2rem;
+margin-top: 1rem;
+cursor: pointer;
+}
+
+.bookBox h2, .bookDeleteBox h2  {
+font-family: var(--main);
+color: white;
+font-size: 2rem;
+}
+
+.bookBox p, .bookDeleteBox p {
+color: white;
+}
+
+.bookX {
+align-self: flex-end;
+justify-self: flex-end;
+margin-left: 10px;
+margin-top: 0px;
+font-size: 1rem;
+}
+
+.randomBoxRight {
+display: grid;
+grid-template-rows: 1fr 1fr;
+border-color: black;
+border-style: solid;
+border-width: 5px;
+padding: 3rem;
+}
+
+.randomDetailsCon {
+font-family: var(--main);
+display: flex;
+justify-content: center;
+align-items: center;
+flex-direction: column;
+border-color: black;
+border-style: solid;
+border-width: 5px;
+height: 400px;
+}
+
+.randomDetailsCon h2 {
+font-size: 3rem;
+text-decoration: underline;
+text-align: center;
+}
+
+.randomDetailsCon li {
+font-size: 1.5rem;
+}
+
+.randomiseCon {
+display: flex;
+justify-content: space-evenly;
+align-items: center;
+}
+
+:where(.css-dev-only-do-not-override-1rqnfsa).ant-btn-default {
+    background-color: black;
+    color: white;
+}
+
+:where(.css-1rqnfsa).ant-btn-default {
+    background-color: black;
+    color: white;
+}
+
+:where(.css-1rqnfsa).ant-btn >span:hover {
+    color: white;
+}
+
+:where(.css-dev-only-do-not-override-1rqnfsa).ant-btn >span:hover {
+    color: white;
+}
+
+:where(.css-dev-only-do-not-override-1rqnfsa).ant-btn-default:not(:disabled):not(.ant-btn-disabled):hover {
+    color: white;
+    border-color: black;
+    background-color: var(--tertiaryColor);
+}
+
+:where(.css-1rqnfsa).ant-btn-default:not(:disabled):not(.ant-btn-disabled):hover {
+    color: white;
+    border-color: black;
+    background-color: var(--tertiaryColor);
+}

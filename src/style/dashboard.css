@@ -1,0 +1,15 @@
+.dashboardTitle {
+    font-family: var(--main);
+    font-size: 8rem;
+    margin-left: 2rem;
+}
+
+.libaryButtons {
+    width: 200px;
+    text-align: center;
+    transition: all ease-in 0.15s;
+}
+
+.boxItem {
+    padding: 10px;
+}

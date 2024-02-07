@@ -1,0 +1,30 @@
+
+@media screen and (max-width: 800px) {
+    .clubGridCon {
+        margin: 0px;
+        margin-bottom: 1rem;
+    }
+    .clubGrid {
+        margin-top: 1rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        }
+    .clubGrid p {
+        margin-top: 1rem;
+        font-size: 1.5rem;
+    }
+    .clubInfo {
+        width: 90%;
+        }
+    .clubImage1, .clubImage2 {
+        width: 200px;
+        height: 300px;
+    }
+    .clubImageWide1, .clubImageWide2, .clubImageWide3 {
+        margin-top: 3rem;
+        align-self: center;
+        width: 350px;
+        height: 250px;
+        }       
+}

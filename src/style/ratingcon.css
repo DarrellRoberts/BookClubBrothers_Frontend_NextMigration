@@ -1,0 +1,21 @@
+.ratingCon {
+border-width: 2px;
+border-color: black;
+display: flex;
+flex-direction: column;
+width: 300px;
+margin-left: 1rem;
+}
+
+.ratingTitle {
+font-size: 2rem;
+text-align: center;
+font-family: var(--main);
+}
+
+.ratingGraph {
+    background-color: var(--tertiaryColor);
+    color: white;
+    text-align: center;
+    font-weight: 500;
+}
