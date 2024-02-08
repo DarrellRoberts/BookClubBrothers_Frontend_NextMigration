@@ -61,15 +61,17 @@ return (
       Logout
       </Button>
     </div>
-    <div 
-    className="headerLinks"
-    style={!handleDesktop ? {visibility: "hidden", display: "none"} : {display: "flex"}}>
+
+    {handleDesktop ? (
+    <div className="headerLinks">
     <HeaderLinks />
     </div>
-    <div className="headerLinksMobCon"
-    style={!handleDesktop ? {display: "flex"} : {display: "none"}}>
+    ) : (
+    <div className="headerLinksMobCon">
     <HeaderLinksMobile />
     </div>
+)}
+
     <div className="flex items-center mr-10">
       <Link href="/">
       <h2 className="text-white text-3xl greeting">
@@ -81,17 +83,15 @@ return (
 ) : (
   <>
     <Login />
-    {/* <HeaderLinks />
-    <HeaderLinksMobile /> */}
-    <div 
-    className="headerLinks"
-    style={!handleDesktop ? {visibility: "hidden", display: "none"} : {display: "flex"}}>
+
+{handleDesktop ? (
+    <div className="headerLinks">
     <HeaderLinks />
-    </div>
-    <div className="headerLinksMobCon"
-    style={!handleDesktop ? {display: "flex"} : {display: "none"}}>
+    </div>) : (
+    <div className="headerLinksMobCon">
     <HeaderLinksMobile />
     </div>
+)}
     <Link href="/">
     <div className="border-4 border-white border-solid pr-5 pl-5 pt-2 pb-2 mr-5 mb-2 mt-2">
       <h2 className="logo">
