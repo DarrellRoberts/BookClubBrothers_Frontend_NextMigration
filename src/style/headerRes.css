@@ -1,6 +1,7 @@
 @media screen and (max-width: 800px) {
     .greeting {
         font-size: 1.25rem;
+        text-align: end;
     }
     .headerLinksMobCon {
         color: white;
