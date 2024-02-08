@@ -2,9 +2,9 @@
 
 import { useState, useContext } from "react";
 import axios from "axios";
-import { PlusOutlined } from '@ant-design/icons';
-import { Upload, Form, Button } from "antd";
-import { AuthContext } from "../../../context/authContext";
+import { AuthContext } from "../../../../../../context/authContext";
+import { Button, Form, Upload } from "antd";
+import { PlusOutlined } from "@ant-design/icons";
 
 const normFile = (e) => {
   if (Array.isArray(e)) {
@@ -14,8 +14,7 @@ const normFile = (e) => {
 };
 
 interface props {
-    id: string,
-    inImage: string
+  id: string | string[];
 }
 
 interface imageInt {
@@ -33,21 +32,21 @@ interface imageInt {
   stream: () => ReadableStream<Uint8Array>
 }
 
-const PictureUpload: React.FC<props> = ({id, inImage  }) => {
+const EditImage: React.FC<props> = ({ id }) => {
+  const [image, setImage] = useState<imageInt>();
+  const [error, setError] = useState("");
+  const [loadings, setLoadings] = useState([]);
   const { token } = useContext(AuthContext);
 
   const [form] = Form.useForm(); // Create a form instance
-  const [image, setImage] = useState<imageInt>();
-  const [error, setError] = useState(null);
-  const [loadings, setLoadings] = useState([])
 
   const handleSubmit = async () => {
     try {
       const formData = new FormData();
-      formData.append("avatar", image, image?.name);
+      formData.append("picture", image, image?.name);
       console.log("FORM DATA", image);
       await axios.post(
-        `https://bookclubbrothers-backend.onrender.com/users/upload/${id}`,
+        `https://bookclubbrothers-backend.onrender.com/books/${id}`,
         formData,
         {
           headers: {
@@ -81,21 +80,14 @@ const PictureUpload: React.FC<props> = ({id, inImage  }) => {
       });
     }, 4000);
   };
-
   return (
+    <>
     <Form
       form={form}
       onFinish={handleSubmit}
       name="picture_upload_form"
       initialValues={{ fileList: [] }}
     >
-      <div className="flex justify-center round mb-10">
-      <img 
-      className="rounded"
-      src={inImage} 
-      alt="profile_pic" 
-      width="200px"/>
-      </div>
       <Form.Item
         name="fileList"
         valuePropName="fileList"
@@ -110,9 +102,7 @@ const PictureUpload: React.FC<props> = ({id, inImage  }) => {
         >
               <div>
               <PlusOutlined />
-              <div 
-              className="text-white"
-              style={{ marginTop: 8 }}>Upload</div>
+              <div style={{ marginTop: 8 }}>Upload</div>
             </div>
         </Upload>
       </Form.Item>
@@ -130,7 +120,8 @@ const PictureUpload: React.FC<props> = ({id, inImage  }) => {
       {error ? 
       <p>{error}</p> : null}
     </Form>
+    </>
   );
-}
+};
 
-export default PictureUpload
+export default EditImage;

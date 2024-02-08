@@ -2,45 +2,44 @@
 
 import {useState} from "react"
 import {Modal, Button} from "antd"
-import CreateBookForm from "./CreateBookForm"
+import RatingForm from "./RatingForm"
 
 interface props {
-    setShowCreateBook: React.Dispatch<React.SetStateAction<boolean>>
-    showCreateBook: boolean
+    setShowRating: React.Dispatch<React.SetStateAction<boolean>>
+    showRating: boolean
+    id: string | string[]
 }
 
-const CreateBook: React.FC<props> = ({setShowCreateBook, showCreateBook}) => {
-const [modalText, setModalText] = useState(<CreateBookForm />)
+const RatingButton: React.FC<props> = ({showRating, setShowRating, id}) => {
+const [modalText, setModalText] = useState(<RatingForm id={id} />)
 const [confirmLoading, setConfirmLoading] = useState<boolean>(false);
 
 const showModal = () => {
-    setShowCreateBook(true);
+    setShowRating(true);
   };
   const handleOk = () => {
     setConfirmLoading(true);
     setTimeout(() => {
-    setShowCreateBook(false);
+    setShowRating(false);
     }, 4000);
-    setModalText(<CreateBookForm />)
+    setModalText(<RatingForm id={id}/>)
   };
   const handleCancel = () => {
-    setShowCreateBook(false);
+    setShowRating(false);
   };
 return (
 <>
 <div className="flex items-center">
       <Button
         className="m-5"
-        ghost
-        type="primary"
         onClick={showModal}
       >
-        Add book
+        Submit rating
       </Button>
       </div>
       <Modal
-        title="Add a book"
-        open={showCreateBook}
+        title="Submit Rating"
+        open={showRating}
         onOk={handleOk}
         confirmLoading={confirmLoading}
         onCancel={handleCancel}
@@ -52,4 +51,4 @@ return (
     )
 }
 
-export default CreateBook
+export default RatingButton

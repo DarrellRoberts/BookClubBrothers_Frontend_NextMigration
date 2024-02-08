@@ -1,3 +1,5 @@
+"use client";
+
 import { useState, useEffect } from "react"
 import "../../../style/bookcover.css"
 import "../../../style/bookcoverRes.css"

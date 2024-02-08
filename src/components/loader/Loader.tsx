@@ -1,3 +1,5 @@
+"use client"
+
 import "../../style/loader.css";
 import { useState, useEffect } from "react";
 import LoaderQuiz from "./LoaderQuiz";

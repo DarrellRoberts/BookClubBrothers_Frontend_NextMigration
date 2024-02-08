@@ -1,18 +1,16 @@
 "use client"
 
 import { useState, useContext } from "react";
-import { AuthContext } from "../../../context/authContext";
+import { AuthContext } from "../../../../../../context/authContext";
 import { Button, Form, Input } from "antd";
 
 interface props {
-  id: string;
-  inCity: string;
-  inCountry: string;
+  id: string | string[];
+  inTitle: string;
 }
 
-const EditCityAndCountry: React.FC<props> = ({ id, inCity, inCountry}) => {
-  const [country, setCountry] = useState(inCountry);  
-  const [city, setCity] = useState(inCity);
+const EditTitle: React.FC<props> = ({ id, inTitle }) => {
+  const [title, setTitle] = useState(inTitle);
   const [error, setError] = useState("");
   const [loadings, setLoadings] = useState([]);
   const { token } = useContext(AuthContext);
@@ -21,7 +19,7 @@ const EditCityAndCountry: React.FC<props> = ({ id, inCity, inCountry}) => {
     try {
       setError(null);
       const response = await fetch(
-        `https://bookclubbrothers-backend.onrender.com/users/${id}`,
+        `https://bookclubbrothers-backend.onrender.com/books/${id}`,
         {
           method: "PUT",
           headers: {
@@ -29,7 +27,7 @@ const EditCityAndCountry: React.FC<props> = ({ id, inCity, inCountry}) => {
             Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify({
-            userInfo: { residence: { country, city }},
+            title,
           }),
         }
       );
@@ -81,39 +79,22 @@ const EditCityAndCountry: React.FC<props> = ({ id, inCity, inCountry}) => {
           remember: true,
         }}
       >
-        {/* Country */}
+        {/* Title */}
         <Form.Item
-          label="Country"
-          name="country"
+          label="Title"
+          name="title"
           rules={[
             {
-              message: "Please write your country",
+              required: true,
+              message: "Please write the title of the book!",
             },
           ]}
         >
           <Input
-              type="text"
-            onChange={(e) => setCountry(e.target.value)}
-            defaultValue={country}
-            value={country}
-          />
-        </Form.Item>
-
-        {/* City */}
-        <Form.Item
-          label="City"
-          name="city"
-          rules={[
-            {
-              message: "Please write your city",
-            },
-          ]}
-        >
-          <Input
-              type="text"
-            onChange={(e) => setCity(e.target.value)}
-            defaultValue={city}
-            value={city}
+            //   type="text"
+            onChange={(e) => setTitle(e.target.value)}
+            defaultValue={title}
+            value={title}
           />
         </Form.Item>
 
@@ -139,4 +120,4 @@ const EditCityAndCountry: React.FC<props> = ({ id, inCity, inCountry}) => {
   );
 };
 
-export default EditCityAndCountry;
+export default EditTitle;

@@ -1,3 +1,5 @@
+"use client"
+
 import { Button, Modal, Form } from "antd";
 // import Signup from "./Signup";
 import { useState } from "react";

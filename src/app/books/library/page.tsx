@@ -1,9 +1,11 @@
+"use client";
+
 import { useEffect, useState } from "react";
-import Loader from "../../loader/Loader";
+import Loader from "../../../components/loader/Loader";
 import BookCover from "./BookCover";
-import { Link } from "react-router-dom";
-import Back from "../../misc/Back";
-import Search from "../../misc/Search";
+import Link from "next/link";
+import Back from "../../../components/misc/Back";
+import Search from "../../../components/misc/Search";
 import CreateBook from "./bookform/CreateBook";
 import {Button} from "antd";
 import "../../../style/booklibrary.css";
@@ -68,7 +70,7 @@ console.log(bookData)
           filteredResults?.map((book) => (
             <div key={book.id}>
               {book.reviewImageURL ? (
-                <Link to={`/books/library/${book._id}`}>
+                <Link href={`/books/library/${book._id}`}>
                   <h2 className="smallBookTitle">{book.title}</h2>
                   <img
                     src={book.reviewImageURL}
@@ -79,7 +81,7 @@ console.log(bookData)
                   />
                 </Link>
               ) : (
-                <Link to={`/books/library/${book._id}`}>
+                <Link href={`/books/library/${book._id}`}>
                   <h2 className="smallBookTitle">{book.title}</h2>
                   <div className="bookCoverCon flex justify-center text-center items-center border-4 m-5 border-black border-solid">
                     <BookCover

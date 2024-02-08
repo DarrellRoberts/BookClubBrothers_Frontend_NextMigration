@@ -1,11 +1,10 @@
+"use client"
+
 import { useState } from "react"
 import "../../style/quiz.css"
 import "../../style/quizRes.css"
 
-
-
 const Quiz: React.FC = () => {
-
 const [showCorrect, setShowCorrect] = useState(false)
 const [index, setIndex] = useState(0)
 const [counter, setCounter] = useState(0)

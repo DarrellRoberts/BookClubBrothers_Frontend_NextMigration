@@ -1,6 +1,8 @@
+"use client"
+
 import { Button, Form, Input } from 'antd';
 import { useState, useContext } from "react";
-import { AuthContext } from "../../context/authContext.tsx";
+import { AuthContext } from "../../context/authContext";
 
 interface Login {
   setLoginOpen: React.Dispatch<React.SetStateAction<React.ReactNode>>;

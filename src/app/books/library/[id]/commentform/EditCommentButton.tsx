@@ -2,54 +2,53 @@
 
 import {useState} from "react"
 import {Modal, Button} from "antd"
-import CreateBookForm from "./CreateBookForm"
+import EditCommentForm from "./EditCommentForm"
 
 interface props {
-    setShowCreateBook: React.Dispatch<React.SetStateAction<boolean>>
-    showCreateBook: boolean
+    setShowEditComment: React.Dispatch<React.SetStateAction<boolean>>
+    showEditComment: boolean
+    id: string | string[]
+    inComment: string
 }
 
-const CreateBook: React.FC<props> = ({setShowCreateBook, showCreateBook}) => {
-const [modalText, setModalText] = useState(<CreateBookForm />)
+const EditRatingButton: React.FC<props> = ({showEditComment, setShowEditComment, id, inComment}) => {
+
 const [confirmLoading, setConfirmLoading] = useState<boolean>(false);
 
 const showModal = () => {
-    setShowCreateBook(true);
+    setShowEditComment(true);
   };
   const handleOk = () => {
     setConfirmLoading(true);
     setTimeout(() => {
-    setShowCreateBook(false);
+    setShowEditComment(false);
     }, 4000);
-    setModalText(<CreateBookForm />)
   };
   const handleCancel = () => {
-    setShowCreateBook(false);
+    setShowEditComment(false);
   };
 return (
 <>
 <div className="flex items-center">
       <Button
         className="m-5"
-        ghost
-        type="primary"
         onClick={showModal}
       >
-        Add book
+        Edit comment
       </Button>
       </div>
       <Modal
-        title="Add a book"
-        open={showCreateBook}
+        title="Change Rating"
+        open={showEditComment}
         onOk={handleOk}
         confirmLoading={confirmLoading}
         onCancel={handleCancel}
         footer={null}
       >
-        <p>{modalText}</p>
+        {showEditComment && <EditCommentForm id={id} inComment={inComment} />}
       </Modal>
 </>
     )
 }
 
-export default CreateBook
+export default EditRatingButton

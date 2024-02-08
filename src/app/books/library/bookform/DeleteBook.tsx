@@ -1,3 +1,5 @@
+"use client"
+
 import { Button, Popconfirm } from 'antd';
 import { useState, useContext } from 'react';
 import { AuthContext } from "../../../../context/authContext";
@@ -5,7 +7,7 @@ import { useJwt } from "react-jwt";
 
 interface props {
     setShowDelete: React.Dispatch<React.SetStateAction<boolean>>
-    id: string
+    id: string | string[]
 }
 
 const DeleteBook:React.FC<props> = ({id, setShowDelete}) => {

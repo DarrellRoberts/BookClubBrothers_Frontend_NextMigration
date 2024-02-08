@@ -38,7 +38,7 @@ const Club: React.FC = () => {
         If you have any inquiries, please feel free to email me at: mrdarrellroberts@gmail.com.
         <br/>
         <br/>
-        To view the source code, here is the GitHub <a target="_blank" className="underline font-bold" href="https://github.com/DarrellRoberts/BookClubBrothers_Frontend">repo</a>.
+        To view the source code, here is the GitHub <a target="_blank" className="underline font-bold" href="https://github.com/DarrellRoberts/BookClubBrothers_Frontend_NextMigration">repo</a>.
         </p>
         </div>
         <Image className="clubImageWide1" src={Meeting2} alt="clubmeeting2" />

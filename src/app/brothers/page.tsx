@@ -1,7 +1,9 @@
+"use client"
+
 import { useEffect, useState, useContext } from "react"
-import { Link } from "react-router-dom"
+import Link from "next/link"
 import { DoubleLeftOutlined } from "@ant-design/icons"
-import Loader from "../loader/Loader"
+import Loader from "../../components/loader/Loader"
 import { AuthContext } from "../../context/authContext";
 import { useJwt } from "react-jwt";
 
@@ -11,8 +13,8 @@ import EditUsernameButton from "./brotherform/EditUsernameButton"
 import EditCityAndCountryButton from "./brotherform/EditCityAndCountryButton"
 import EditGenreButton from "./brotherform/EditGenreButton"
 
-import Back from "../misc/Back"
-import Search from "../misc/Search"
+import Back from "../../components/misc/Back"
+import Search from "../../components/misc/Search"
 import "../../style/brothercat.css"
 import "../../style/brothercatRes.css"
 
@@ -118,7 +120,7 @@ console.log(userBookObj)
                 ) : (
                     <h2 className="text-black underline">{user?.username}</h2>
                 )}  
-                <Link to={`/brothers/${user.username}`}>
+                <Link href={`/brothers/${user.username}`}>
                     <img
                     className="opacity-60 grayscale"
                     src={user?.userInfo?.profileURL} 

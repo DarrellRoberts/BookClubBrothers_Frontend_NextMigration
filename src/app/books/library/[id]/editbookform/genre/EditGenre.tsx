@@ -1,28 +1,28 @@
 "use client"
 
 import { useState, useContext } from "react";
-import { AuthContext } from "../../../context/authContext";
+import { AuthContext } from "../../../../../../context/authContext";
 import { Button, Form, Select, Space } from "antd";
 
 const { Option } = Select
 
 interface props {
-  id: string;
-  inGenre: [string] | null;
+  id: string | string[];
+  inGenre: Array<string>;
 }
 
 const EditGenre: React.FC<props> = ({ id, inGenre }) => {
-  const [favGenre, setFavGenre] = useState(inGenre?.map(genre => `${genre}`));
+  const [genre, setGenre] = useState(inGenre.map(type => `${type}`));
   const [error, setError] = useState("");
   const [loadings, setLoadings] = useState([]);
   const { token } = useContext(AuthContext);
 
-console.log(favGenre)
+  console.log(genre)
   const handleSubmit = async () => {
     try {
       setError(null);
       const response = await fetch(
-        `https://bookclubbrothers-backend.onrender.com/users/${id}`,
+        `https://bookclubbrothers-backend.onrender.com/books/${id}`,
         {
           method: "PUT",
           headers: {
@@ -30,7 +30,7 @@ console.log(favGenre)
             Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify({
-            userInfo: { favGenre },
+            genre,
           }),
         }
       );
@@ -83,20 +83,21 @@ console.log(favGenre)
         }}
       >
         {/* Genre */}
-    <Form.Item
-    htmlFor="favGenre"
-    name="Genres"
-      >
-      <Select
-      mode="multiple"
-      style={{
+        <Form.Item
+          label="Genre"
+          name="genre"
+        >
+
+<Select
+    mode="multiple"
+    style={{
       width: '100%',
     }}
     placeholder="Select the genres"
     optionLabelProp="label"
-    value={favGenre}
-    defaultValue={favGenre}
-    onChange={setFavGenre}
+    value={genre}
+    defaultValue={genre}
+    onChange={setGenre}
   >
     <Option value="Horror" label="Horror">
       <Space>
@@ -207,10 +208,11 @@ console.log(favGenre)
         <span role="img" aria-label="Non-fiction">
         📈
         </span>
-        Non-fiction
+        Anthology
       </Space>
     </Option>
   </Select>
+
         </Form.Item>
 
         {/* Submission */}

@@ -1,3 +1,5 @@
+"use client"
+
 import { Modal, Button } from "antd"
 import { useState } from "react"
 import EditCityAndCountry from "./EditCityAndCountry"
