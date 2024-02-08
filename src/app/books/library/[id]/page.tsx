@@ -73,7 +73,9 @@ const SingleBook: React.FC = () => {
   const getBookData = async () => {
     try {
       const data = await fetch(
-        `https://bookclubbrothers-backend.onrender.com/books/${id}`
+        `https://bookclubbrothers-backend.onrender.com/books/${id}`, {
+          cache: "force-cache"
+        }
       );
       const book = await data.json();
       setBook(book);
@@ -86,9 +88,6 @@ const SingleBook: React.FC = () => {
   useEffect(() => {
     getBookData();
   }, []);
-
-  console.log(bookData);
-
   return (
     <>
       <Back />

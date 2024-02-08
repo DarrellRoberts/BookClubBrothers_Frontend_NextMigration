@@ -5,11 +5,11 @@ import { useJwt } from "react-jwt";
 
 interface props {
     bookId: string
+    setError: React.Dispatch<React.SetStateAction<string>>
 }
 
-const SelectBook:React.FC<props> = ({ bookId }) => {
+const SelectBook:React.FC<props> = ({ bookId, setError }) => {
     const [loadings, setLoadings] = useState([])
-    const [error, setError] = useState("")
     
     const read = true;
     
@@ -73,7 +73,6 @@ const enterLoading = (index) => {
     >
     Select
     </Button>
-    {(<h2>{error}</h2>)}
     </Form>
         </>
     )

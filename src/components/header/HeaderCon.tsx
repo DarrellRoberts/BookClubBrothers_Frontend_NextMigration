@@ -49,7 +49,7 @@ const headerMessage = getTime();
 return (
 <div className="bg-black flex justify-between items-center">
 {token ? (
-  <div>
+  <>
     <div className="flex items-center">
       <Button
       className="m-5"
@@ -61,9 +61,15 @@ return (
       Logout
       </Button>
     </div>
-    {/* <HeaderLinks />
-    <HeaderLinksMobile /> */}
-    {/* {handleDesktop ? <HeaderLinks /> : <HeaderLinksMobile />} */}
+    <div 
+    className="headerLinks"
+    style={!handleDesktop ? {visibility: "hidden", display: "none"} : {display: "flex"}}>
+    <HeaderLinks />
+    </div>
+    <div className="headerLinksMobCon"
+    style={!handleDesktop ? {display: "flex"} : {display: "none"}}>
+    <HeaderLinksMobile />
+    </div>
     <div className="flex items-center mr-10">
       <Link href="/">
       <h2 className="text-white text-3xl greeting">
@@ -71,7 +77,7 @@ return (
       </h2>
       </Link>
     </div>
-  </div>
+    </>
 ) : (
   <>
     <Login />

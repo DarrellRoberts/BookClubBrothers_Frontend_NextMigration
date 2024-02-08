@@ -66,68 +66,77 @@ useEffect(() => {
 }, [])
 
     return (
-        <div>
-        <h1 className="randomTitle">Randomiser</h1>
-        <div className="randomCon">
-            <div className="randomBox">
-                <div className="randomBoxLeft">
-                {loading ? (
-                  <div className="flex justify-center items-center mt-20">
-                  <LoaderNoText />
-                  </div>
-                ) : 
-                bookData?.map((book) => 
-                (
-                <>
-                <div 
-                className={decodedToken ? "bookDeleteBox" : "bookBox"}
-                onClick={() => setIndex(bookData.indexOf(book))}
-                >
-                <h2>{book?.title}</h2>
-                {decodedToken ? (
-                <div 
-                className="bookX"
-                ><DeleteBook id={book?._id} /></div>) : null} 
-                <p> - suggested by {findUser(book?.suggestedBy)}</p>
-                </div>
-                </>
-                ))
-                }
-                <CreateUnreadBook 
-                showCreateBook={showCreateBook} 
-                setShowCreateBook={setShowCreateBook}/>
-                </div>
-                <div className="randomBoxRight" 
-                style={{
-                  backgroundImage: `URL(${bookData[index]?.imageURL})`, backgroundRepeat: "no-repeat",
-                  backgroundSize: "cover",
-                  backgroundPosition: "center",
-                  maxHeight: "750px"}}>
-                {loading ? (
-                  <div className="flex justify-center items-center mt-20">
-                  <LoaderNoText />
-                  </div>
-                ) : (
-                  <div className="randomDetailsCon bg-white">
-                    <h2>{bookData[index]?.title}</h2>
-                    <ul className="text-center">
-                      <li>Author: {bookData[index]?.author}</li>
-                      <li>Published: {bookData[index]?.yearPublished}</li>
-                      <li>Pages: {bookData[index]?.pages}</li>
-                      <li>Genre: {bookData[index]?.genre.map((theme) => (
-                        <li>{theme}</li>
-                      ))}</li>
-                      <li>Suggested by: {findUser(bookData[index]?.suggestedBy)} </li>
-                    </ul>
-                    <Randomiser bookLength={bookData?.length} bookId={bookData[index]?._id} setIndex={setIndex}/>
-                    </div>
-                    
-                  )
-                }
-                </div>
-            </div>
+<div>
+  <h1 className="randomTitle">Randomiser</h1>
+    <div className="randomCon">
+      <div className="randomBox">
+        <div className="randomBoxLeft">
+        {loading ? (
+        <div className="flex justify-center items-center mt-20">
+        <LoaderNoText />
         </div>
+        ) : 
+        bookData?.map((book) => 
+        (
+        <>
+        <div 
+        className={decodedToken ? "bookDeleteBox" : "bookBox"}
+        onClick={() => setIndex(bookData.indexOf(book))}
+        >
+        <h2>{book?.title}</h2>
+        {decodedToken ? (
+          <div 
+          className="bookX"
+          ><DeleteBook id={book?._id} /></div>) : null} 
+          <p> - suggested by {findUser(book?.suggestedBy)}</p>
+          </div>
+        </>
+        ))}
+        <CreateUnreadBook 
+        showCreateBook={showCreateBook} 
+        setShowCreateBook={setShowCreateBook}/>
         </div>
+
+        <div className="randomBoxRight" 
+        style={{
+        backgroundImage: `URL(${bookData[index]?.imageURL})`, backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        maxHeight: "750px"}}>
+        {loading ? (
+          <div className="flex justify-center items-center mt-20">
+          <LoaderNoText />
+          </div>
+          ) : (
+        <div className="randomDetailsCon bg-white">
+        {error ? (
+          <h2 className="text-red-500 bg-black">{error}</h2>
+          ) : (
+          <>
+            <h2>{bookData[index]?.title}</h2>
+            <ul className="text-center">
+              <li>Author: {bookData[index]?.author}</li>
+              <li>Published: {bookData[index]?.yearPublished}</li>
+              <li>Pages: {bookData[index]?.pages}</li>
+              <li>Genre: {bookData[index]?.genre.map((theme) => (
+                <li>{theme}</li>
+              ))}</li>
+              <li>Suggested by: {findUser(bookData[index]?.suggestedBy)} </li>
+            </ul>
+            <Randomiser 
+            bookLength={bookData?.length} 
+            bookId={bookData[index]?._id} 
+            setIndex={setIndex}
+            setError={setError}
+            />
+          </>
+        )}
+      </div>
+      )}
+    </div>
+  </div>
+</div>
+</div>
     )
 }
 

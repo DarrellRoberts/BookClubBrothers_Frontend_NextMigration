@@ -5,7 +5,6 @@ const HeaderLinksMobile: React.FC = () => {
 const [showMenu, setShowMenu] = useState(false)
 return (
 <>
-{/* <div className="headerLinksMobCon"> */}
 <span
 onClick={() => showMenu ? setShowMenu(false) : setShowMenu(true)} 
 className="text-4xl">|||</span>
@@ -30,13 +29,8 @@ className="text-4xl">|||</span>
     <Link className="underline ml-5 text-3xl" href="/brothers">Brothers</Link>
     </div>
     </div>
-{/* </ul> */}
-
-{/* <div className="bookHover">
-</div> */}
 </>
 ) : null}
-{/* </div> */}
 </>
 )
 }

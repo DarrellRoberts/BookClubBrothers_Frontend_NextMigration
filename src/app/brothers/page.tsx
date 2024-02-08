@@ -48,7 +48,9 @@ const [editGenre, setEditGenre] = useState<boolean>(false);
         setUserData(user);
         setLoading(false);
         } else {
-        const data = await fetch(`https://bookclubbrothers-backend.onrender.com/users`);
+        const data = await fetch(`https://bookclubbrothers-backend.onrender.com/users`, {
+            cache: "force-cache"
+          });
         const user = await data.json()
         setUserData(user);
         setLoading(false);   

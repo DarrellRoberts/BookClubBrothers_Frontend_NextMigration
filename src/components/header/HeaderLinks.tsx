@@ -3,7 +3,6 @@ import Link from "next/link"
 const HeaderLinks: React.FC = () => {
 return (
 <>
-{/* <div className="headerLinks"> */}
     <div className="bookMenu">
     <Link href="/books">Book</Link>
     <ul className="bookHover">
@@ -17,11 +16,6 @@ return (
     <Link href="/club">Club</Link>
 
     <Link href="/brothers">Brothers</Link>
-{/* </div> */}
-
-{/* <div className="bookHover">
-
-</div>  */}
 </>
 )
 }

@@ -33,7 +33,9 @@ const Booklibrary: React.FC = () => {
     setLoading(false);
     } else {
     const data = await fetch(
-        `https://bookclubbrothers-backend.onrender.com/books`
+        `https://bookclubbrothers-backend.onrender.com/books`, {
+          cache: "force-cache"
+        }
     );
     const book = await data.json();
     setBookData(book);

@@ -28,31 +28,37 @@
 }
 
 /* delete section */
-:where(.css-dev-only-do-not-override-gzal6t).ant-popover .ant-popover-inner {
+:where(.css-dev-only-do-not-override-1rqnfsa).ant-popover .ant-popover-inner {
     background-color: var(--tertiaryColor);
     color: white;
 }
 
-:where(.css-dev-only-do-not-override-gzal6t).ant-popconfirm .ant-popconfirm-message .ant-popconfirm-title {
+:where(.css-dev-only-do-not-override-1rqnfsa).ant-popconfirm .ant-popconfirm-message .ant-popconfirm-title {
     color: white;
 }
 
-:where(.css-dev-only-do-not-override-gzal6t).ant-popconfirm .ant-popconfirm-message .ant-popconfirm-description {
+:where(.css-dev-only-do-not-override-1rqnfsa).ant-popconfirm .ant-popconfirm-message .ant-popconfirm-description {
     color: white;
 }
 
-:where(.css-gzal6t).ant-popover .ant-popover-inner {
+:where(.css-1rqnfsa).ant-popover .ant-popover-inner {
     background-color: var(--tertiaryColor);
     color: white;
-    }
+}
     
-    :where(.css-gzal6t).ant-popconfirm .ant-popconfirm-message .ant-popconfirm-title {
+:where(.css-1rqnfsa).ant-popconfirm .ant-popconfirm-message .ant-popconfirm-title {
     color: white;
-    }
-    
-    :where(.css-gzal6t).ant-popconfirm .ant-popconfirm-message .ant-popconfirm-description {
+}
+
+:where(.css-1rqnfsa).ant-popconfirm .ant-popconfirm-message .ant-popconfirm-description {
     color: white;
-    }
+}
+:where(.css-dev-only-do-not-override-1rqnfsa).ant-btn-default:not(:disabled):not(.ant-btn-disabled):hover {
+    background-color: var(--tertiaryColor);
+}
+:where(.css-1rqnfsa).ant-btn-default:not(:disabled):not(.ant-btn-disabled):hover {
+    background-color: var(--tertiaryColor);
+}
 
 .authorisationMessage {
     font-weight: bold;

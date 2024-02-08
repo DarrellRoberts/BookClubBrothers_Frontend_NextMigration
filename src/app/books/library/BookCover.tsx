@@ -21,7 +21,7 @@ const BookCover: React.FC<props> = ({title, totalScore, ratingArr, raterArr}) =>
 
 const getData = async () => {
   try {
-  const data = await fetch(`https://bookclubbrothers-backend.onrender.com/users`);
+  const data = await fetch(`https://bookclubbrothers-backend.onrender.com/users`, {cache: "force-cache"});
   const user = await data.json()
   setUserData(user);
   } catch(err) {

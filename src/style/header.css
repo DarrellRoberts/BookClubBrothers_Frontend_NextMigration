@@ -39,6 +39,7 @@ border-color: black;
     visibility: hidden;
     background-color: var(--tertiaryColor);
     position: absolute;
+    z-index: 2;
 }
 
 .bookHover li {
