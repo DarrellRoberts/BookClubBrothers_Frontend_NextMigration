@@ -1,5 +1,7 @@
+"use client"
+
 import { useState } from "react"
-import Back from "../../misc/Back"
+import Back from "../../../components/misc/Back"
 import "../../../style/quiz.css"
 import "../../../style/quizRes.css"
 
@@ -71,7 +73,7 @@ const Quiz: React.FC = () => {
             "correctAnswer": "Robert Louis Stevenson"
           },
           {
-            "question": `You got ${counter} correct. ${counter > 7 ? "Great job!🤓" : "Very poor...you might need brush up on your Aurelianos.🧔"}`,
+            "question": `You got ${counter} correct. ${counter > 7 ? "Great job 🤓!" : "Very poor...you might need brush up on your Aurelianos🧔"}`,
           },
         ]
       }
