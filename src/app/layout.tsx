@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import AuthContextProvider from "../context/authContext";
+import ScrollToTop from "../functions/ScrollToTop"
 import "./globals.css";
-import HeaderCon from "@/components/header/HeaderCon";
 import dynamic from "next/dynamic"
 
 const NoSSRHeader = dynamic(() => import("../components/header/HeaderCon"), { ssr: false})
@@ -20,6 +20,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <AuthContextProvider>
+        <ScrollToTop />
         <head>
           <link rel="icon" href="./icon.svg" type="image/svg+xml" />
         </head>
