@@ -43,3 +43,36 @@
         margin-top: 0px;
     }
 }
+@media screen and (max-width: 400px) {
+    .randomTitle {
+        font-size: 2.5rem; 
+    }
+    .randomBox {
+        width: 275px;
+    }
+    .randomBoxLeft h2 {
+        font-size: 0.75rem;
+    }
+    .randomBoxRight {
+        width: 125px;
+    }
+    .randomDetailsCon {
+        justify-content: flex-start;
+        height: 300px;
+    }
+    .randomDetailsCon h2 {
+        font-size: 1rem;
+    }
+    .randomDetailsCon li {
+        font-size: 0.75rem;
+    }
+    .randomiseCon {
+        flex-direction: column;
+    }
+    :where(.css-dev-only-do-not-override-1rqnfsa).ant-btn {
+    font-size: 10px;
+    }
+    :where(.css-1rqnfsa).ant-btn {
+        font-size: 10px;
+    }
+}

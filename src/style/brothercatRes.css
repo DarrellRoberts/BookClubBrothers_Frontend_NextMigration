@@ -1,4 +1,3 @@
-
 @media screen and (max-width: 800px) {
     
 .brothersTitle {
@@ -53,4 +52,33 @@
     padding-right: 5px;
 }
 
+}
+
+@media screen and (max-width: 350px) {
+.brothersTitle {
+    font-size: 2.5rem;
+}
+.brotherBook {
+    width: 250px;
+    height: 300px;
+}
+:where(.css-dev-only-do-not-override-1rqnfsa).ant-btn {
+    font-size: 10px;
+    height: auto;
+    padding: 2px 7px;
+}
+:where(.css-1rqnfsa).ant-btn {
+    font-size: 10px;
+    height: auto;
+    padding: 2px 7px;
+}
+.brotherBookLeft h2 {
+    font-size: 1.5rem;
+}
+.brotherBookRight li {
+    font-size: 0.75rem;
+}
+.clickPhoto {
+    font-size: 0.55rem;
+}
 }

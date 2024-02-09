@@ -22,3 +22,24 @@
         text-decoration: overline;
     }
 }
+
+@media screen and (max-width: 350px) {
+    .bookLibraryTitle {
+        font-size: 2.5rem;
+    }
+    .smallBookTitle {
+        font-size: 1.5rem;
+    }
+    .bookCon img {
+        width: 275px;
+        height: 200px;
+        margin-right: 0px;
+        margin-left: 0px;
+    }
+    .bookCoverCon {
+        width: 275px;
+        height: 200px;
+        margin-right: 0px;
+        margin-left: 0px;
+    }
+}

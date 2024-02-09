@@ -90,7 +90,7 @@ const SingleBook: React.FC = () => {
   }, []);
   return (
     <>
-      <Back />
+      {/* <Back /> */}
       {showDelete ? (
         <h1 className="bookTitle flex justify-center items-center h-screen text-center">
           Book is deleted

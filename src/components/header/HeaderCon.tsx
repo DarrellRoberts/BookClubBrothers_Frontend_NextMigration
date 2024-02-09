@@ -72,7 +72,7 @@ return (
     </div>
 )}
 
-    <div className="flex items-center mr-10">
+    <div className="flex items-center mr-10 greetingCon">
       <Link href="/">
       <h2 className="text-white text-3xl greeting">
       {`${headerMessage} ${decodedToken?.username}`}

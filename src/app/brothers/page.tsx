@@ -17,6 +17,9 @@ import Back from "../../components/misc/Back"
 import Search from "../../components/misc/Search"
 import "../../style/brothercat.css"
 import "../../style/brothercatRes.css"
+import "../../style/search.css"
+import "../../style/searchRes.css"
+import "../../style/button.css"
 
 
 const Brothercat: React.FC = () => {   
@@ -93,14 +96,11 @@ const filteredResults = Array.isArray(userData)
 ? userData?.filter((user) => user.username.includes(searchBar))
 : ["No results"];
 
-console.log(userData)
-console.log(bookData)
-console.log(userBookObj)
     return (
         <>
     <div className="searchBackCon">
     <Search setSearchBar={setSearchBar} />
-    <Back />
+    {/* <Back /> */}
     </div>
     {loading ? (
     <Loader />

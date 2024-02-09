@@ -53,4 +53,14 @@
         flex-direction: column;
         align-items: center;
     }
+}
+
+@media screen and (max-width: 400px) {
+    .bookTitle {
+        font-size: 2.5rem; 
     }
+    .bookCover {
+        height: 225px;
+        width: 275px;
+    }
+}

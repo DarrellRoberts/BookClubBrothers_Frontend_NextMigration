@@ -80,7 +80,7 @@ const Quiz: React.FC = () => {
     
         return (
     <>
-    <Back />
+    {/* <Back /> */}
     <div className="bookQuizCon flex flex-col items-center mt-20">
     <h1 className="underline">Quiz</h1>
     <div className="quizTitle flex mb-5">

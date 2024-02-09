@@ -5,7 +5,8 @@ import Link from "next/link";
 import { AuthContext } from "../../../context/authContext";
 import { useJwt } from "react-jwt";
 import LoaderNoText from "../../../components/loader/LoaderNoText";
-import "../../../style/dashboard.css";
+import "../../../style/dashboard.css"
+import "../../../style/dashboardRes.css";
 
 const Dashboard: React.FC = () => {
   const [userData, setUserData] = useState([]);

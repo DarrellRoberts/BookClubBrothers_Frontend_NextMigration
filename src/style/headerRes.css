@@ -19,7 +19,15 @@
         font-family: var(--main);
         border-bottom-right-radius: 50%;
     }
-    .bookMenuMobile {
+}
+@media screen and (max-width: 400px) {
+    .greetingCon {
+        margin-right: 0px;
+    }
+}
 
+@media screen and (max-width: 330px) {
+    .headerLinksMobile a {
+        font-size: 1rem;
     }
 }

@@ -12,9 +12,9 @@ import "../../style/clubRes.css"
 const Club: React.FC = () => {
     return (
         <>
-    <Link href="/">
+    {/* <Link href="/">
     <span className="float-right m-5 font-semibold text-4xl ">Back</span>
-      </Link>
+      </Link> */}
         <div className="clubGridCon flex justify-center ml-10 mt-10">
     <div className="clubGrid">
         <Image className="clubImage1" src={Meeting1} alt="clubmeeting1" />
