@@ -25,9 +25,11 @@ const getBookData = async () => {
     try {
     setError(null)
     const data = await fetch(
-      `https://bookclubbrothers-backend.onrender.com/books/unread/all`, {
-        cache: "force-cache"
-      }
+      `https://bookclubbrothers-backend.onrender.com/books/unread/all`
+      // , {
+      //   cache: "force-cache"
+      // },
+      // {next: {revalidate: 3000}}
     );
     const book = await data.json();
     setBookData(book);
@@ -71,6 +73,7 @@ useEffect(() => {
     <div className="randomCon">
       <div className="randomBox">
         <div className="randomBoxLeft">
+          <div className="randomBoxLeftList">
         {loading ? (
         <div className="flex justify-center items-center mt-20">
         <LoaderNoText />
@@ -97,12 +100,25 @@ useEffect(() => {
         setShowCreateBook={setShowCreateBook}/>
         </div>
 
+          <div className="leftBottomInfo mt-5">
+            <h2 className="text-black mt-5">
+            Scroll the list above for suggested books or add your own at the end
+            </h2>
+            <h2 className="text-black mt-5">
+              Click randomise on the right to randomise the selection or click on each item in the list to see its details.
+            </h2>
+            <h2 className="text-red-500 bg-black mt-5 rounded">
+              Only the admin can select the book.
+            </h2>
+          </div>
+        </div>
+
         <div className="randomBoxRight" 
         style={{
         backgroundImage: `URL(${bookData[index]?.imageURL})`, backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
-        backgroundPosition: "center",
-        maxHeight: "750px"}}>
+        backgroundPosition: "center"
+        }}>
         {loading ? (
           <div className="flex justify-center items-center mt-20">
           <LoaderNoText />
