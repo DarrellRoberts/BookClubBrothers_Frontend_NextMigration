@@ -73,10 +73,7 @@ const SingleBook: React.FC = () => {
   const getBookData = async () => {
     try {
       const data = await fetch(
-        `https://bookclubbrothers-backend.onrender.com/books/${id}`, {
-          cache: "force-cache"
-        }
-      );
+        `https://bookclubbrothers-backend.onrender.com/books/${id}`);
       const book = await data.json();
       setBook(book);
       setLoading(false);
@@ -95,7 +92,7 @@ const SingleBook: React.FC = () => {
         <h1 className="bookTitle flex justify-center items-center h-screen text-center">
           Book is deleted
         </h1>
-      ) : loading ? (
+      ) : loading && !bookData ? (
         <Loader />
       ) : (
         <div className="mainSingleCon flex items-center">
