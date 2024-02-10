@@ -26,10 +26,6 @@ const getBookData = async () => {
     setError(null)
     const data = await fetch(
       `https://bookclubbrothers-backend.onrender.com/books/unread/all`
-      // , {
-      //   cache: "force-cache"
-      // },
-      // {next: {revalidate: 3000}}
     );
     const book = await data.json();
     setBookData(book);
@@ -74,7 +70,7 @@ useEffect(() => {
       <div className="randomBox">
         <div className="randomBoxLeft">
           <div className="randomBoxLeftList">
-        {loading ? (
+        {loading && !bookData ? (
         <div className="flex justify-center items-center mt-20">
         <LoaderNoText />
         </div>
