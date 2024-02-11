@@ -93,9 +93,6 @@ const handleSubmit = async () => {
       ]}
     >
       <Input
-      min={0}
-      max={10}
-      type="number"
       onChange={(e) => setRating(Number(e.target.value))}
       value={rating}
       />
