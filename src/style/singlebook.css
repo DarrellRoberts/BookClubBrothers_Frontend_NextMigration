@@ -67,3 +67,26 @@
     padding: 2rem;
     color: white;
 }
+
+/* button */
+:where(.css-dev-only-do-not-override-1rqnfsa).ant-btn-default {
+    background-color: black;
+    color: white;
+}
+
+:where(.css-dev-only-do-not-override-1rqnfsa).ant-btn-default:not(:disabled):not(.ant-btn-disabled):hover {
+    background-color: var(--tertiaryColor);
+    border-color: var(--tertiaryColor);
+    color: white;
+}
+
+:where(.css-1rqnfsa).ant-btn-default {
+    background-color: black;
+    color: white;
+}
+
+:where(.css-1rqnfsa).ant-btn-default:not(:disabled):not(.ant-btn-disabled):hover {
+    background-color: var(--tertiaryColor);
+    border-color: var(--tertiaryColor);
+    color: white;
+}
