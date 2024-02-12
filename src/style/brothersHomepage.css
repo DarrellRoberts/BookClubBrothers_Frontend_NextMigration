@@ -1,0 +1,11 @@
+
+.booksTitle {
+    font-family: var(--main);
+    font-size: 5rem;
+    margin-left: 3rem;
+}
+
+.bookHomeGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}

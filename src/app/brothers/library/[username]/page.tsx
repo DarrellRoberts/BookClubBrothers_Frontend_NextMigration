@@ -1,12 +1,11 @@
-"use client"
+"use client";
 
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
-import { AuthContext } from "../../../context/authContext";
-import { useJwt } from "react-jwt";
-import LoaderNoText from "../../../components/loader/LoaderNoText";
-import "../../../style/dashboard.css"
-import "../../../style/dashboardRes.css";
+import LoaderNoText from "../../../../components/loader/LoaderNoText";
+import { useParams } from "next/navigation";
+import "../../../../style/dashboard.css";
+import "../../../../style/dashboardRes.css";
 
 const Dashboard: React.FC = () => {
   const [userData, setUserData] = useState([]);
@@ -14,31 +13,21 @@ const Dashboard: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  const { token } = useContext(AuthContext);
-
-  const {
-    decodedToken,
-  }: {
-    decodedToken?: {
-      username: string;
-      _id: string;
-    };
-  } = useJwt(token);
-
   const getData = async () => {
     try {
-    const data = await fetch(
-      `https://bookclubbrothers-backend.onrender.com/users`
-    );
-    const user = await data.json();
-    setUserData(user);
+      const data = await fetch(
+        `https://bookclubbrothers-backend.onrender.com/users`
+      );
+      const user = await data.json();
+      setUserData(user);
     } catch (err) {
-      setError(err)
-      console.log(error)
+      setError(err);
+      console.log(error);
     }
   };
-  const id: string = decodedToken?._id;
-  const findUser = userData.find((user) => user._id === id);
+
+  const { username } = useParams();
+  const findUser = userData.find((user) => user.username === username);
 
   // find min score
   // use index in books scored
@@ -68,21 +57,21 @@ const Dashboard: React.FC = () => {
 
   const getBookData = async () => {
     try {
-    const data = await fetch(
-      `https://bookclubbrothers-backend.onrender.com/books`
-    );
-    const book = await data.json();
-    setBookData(book);
-    setLoading(false);
+      const data = await fetch(
+        `https://bookclubbrothers-backend.onrender.com/books`
+      );
+      const book = await data.json();
+      setBookData(book);
+      setLoading(false);
     } catch (err) {
-      setError(err)
-      console.log(err)
+      setError(err);
+      console.log(error);
     }
   };
 
   const findMinBook = bookData.find((book) => book._id === minScoreBook);
   const findMaxBook = bookData.find((book) => book._id === maxScoreBook);
-  const readBooks = bookData.filter((book) => book.read === true)
+  const readBooks = bookData.filter((book) => book.read === true);
 
   //Additional Stats
   const percentageBooks = parseFloat(
@@ -100,17 +89,17 @@ const Dashboard: React.FC = () => {
 
   // all scores
   const filterBooks = bookData.filter((book) =>
-    book.scoreRatings.raterId.includes(decodedToken._id)
+    book.scoreRatings.raterId.includes(findUser?._id)
   );
 
   //unread books
   const filterUnreadBooks = bookData.filter(
-    (book) => !book.scoreRatings.raterId.includes(decodedToken._id) && book.read === true
+    (book) => !book.scoreRatings.raterId.includes(findUser?._id)
   );
 
   // comments
   const filterComments = bookData.filter((book) =>
-    book.commentInfo.commentId.includes(decodedToken._id)
+    book.commentInfo.commentId.includes(findUser?._id)
   );
 
   useEffect(() => {
@@ -121,19 +110,19 @@ const Dashboard: React.FC = () => {
   return (
     <>
       {loading ? (
-      <>
-      <div className="flex m-10">
-      <LoaderNoText />
-      </div>
-      <div className="box">
+        <>
+          <div className="flex m-10">
+            <LoaderNoText />
+          </div>
+          <div className="box">
             <div className="boxItem">
               <h2 className="underline">Worst rated book</h2>
-            <LoaderNoText />
+              <LoaderNoText />
             </div>
 
             <div className="boxItem">
               <h2 className="underline">Best rated book</h2>
-            <LoaderNoText />
+              <LoaderNoText />
             </div>
 
             <div className="boxItem">
@@ -171,7 +160,7 @@ const Dashboard: React.FC = () => {
             <h2 className="underline">Comments</h2>
             <LoaderNoText />
           </div>
-      </>
+        </>
       ) : (
         <>
           <h1 className="dashboardTitle">{findUser?.username}</h1>
@@ -223,7 +212,7 @@ const Dashboard: React.FC = () => {
                 <li
                   className={
                     book?.scoreRatings?.rating[
-                      book?.scoreRatings?.raterId.indexOf(decodedToken._id)
+                      book?.scoreRatings?.raterId.indexOf(findUser?._id)
                     ] >= 5
                       ? "text-green-500"
                       : "text-red-500"
@@ -232,7 +221,7 @@ const Dashboard: React.FC = () => {
                   {book.title}:{" "}
                   {
                     book?.scoreRatings?.rating[
-                      book?.scoreRatings?.raterId.indexOf(decodedToken._id)
+                      book?.scoreRatings?.raterId.indexOf(findUser?._id)
                     ]
                   }{" "}
                 </li>
@@ -246,7 +235,9 @@ const Dashboard: React.FC = () => {
               {filterUnreadBooks.length === 0 ? (
                 <li> You're up to date, well done!</li>
               ) : (
-                filterUnreadBooks.map((book) => <li>{book.title}</li>)
+                filterUnreadBooks.map(
+                  (book) => book.read === true && <li>{book.title}</li>
+                )
               )}
             </ul>
           </div>
@@ -262,7 +253,7 @@ const Dashboard: React.FC = () => {
                     {book.title}: "
                     {
                       book.commentInfo.comments[
-                        book?.commentInfo?.commentId?.indexOf(decodedToken._id)
+                        book?.commentInfo?.commentId?.indexOf(findUser?._id)
                       ]
                     }
                     "

@@ -15,7 +15,13 @@ return (
 
     <Link href="/club">Club</Link>
 
+    <div className="bookMenu">
     <Link href="/brothers">Brothers</Link>
+    <ul className="bookHover">
+        <li><Link href="/brothers/library">Brothers Library</Link></li>
+        <li className="w-[85%]"><Link href="/brothers/stats">Brothers Stats</Link></li>
+    </ul>
+    </div>
 </>
 )
 }

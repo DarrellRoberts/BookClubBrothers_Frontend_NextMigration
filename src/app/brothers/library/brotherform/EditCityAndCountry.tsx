@@ -1,16 +1,18 @@
-"use client"
+"use client";
 
 import { useState, useContext } from "react";
-import { AuthContext } from "../../../context/authContext";
+import { AuthContext } from "../../../../context/authContext";
 import { Button, Form, Input } from "antd";
 
 interface props {
   id: string;
-  inUsername: string;
+  inCity: string;
+  inCountry: string;
 }
 
-const EditUsername: React.FC<props> = ({ id, inUsername }) => {
-  const [username, setUsername] = useState(inUsername);
+const EditCityAndCountry: React.FC<props> = ({ id, inCity, inCountry }) => {
+  const [country, setCountry] = useState(inCountry);
+  const [city, setCity] = useState(inCity);
   const [error, setError] = useState("");
   const [loadings, setLoadings] = useState([]);
   const { token } = useContext(AuthContext);
@@ -19,7 +21,7 @@ const EditUsername: React.FC<props> = ({ id, inUsername }) => {
     try {
       setError(null);
       const response = await fetch(
-        `https://bookclubbrothers-backend.onrender.com/users/username/${id}`,
+        `https://bookclubbrothers-backend.onrender.com/users/${id}`,
         {
           method: "PUT",
           headers: {
@@ -27,7 +29,7 @@ const EditUsername: React.FC<props> = ({ id, inUsername }) => {
             Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify({
-            username,
+            userInfo: { residence: { country, city } },
           }),
         }
       );
@@ -79,22 +81,39 @@ const EditUsername: React.FC<props> = ({ id, inUsername }) => {
           remember: true,
         }}
       >
-        {/* Username */}
+        {/* Country */}
         <Form.Item
-          // label="Username"
-          name="username"
+          label="Country"
+          name="country"
           rules={[
             {
-              required: true,
-              message: "Please write your username",
+              message: "Please write your country",
             },
           ]}
         >
           <Input
-              type="text"
-            onChange={(e) => setUsername(e.target.value)}
-            defaultValue={username}
-            value={username}
+            type="text"
+            onChange={(e) => setCountry(e.target.value)}
+            defaultValue={country}
+            value={country}
+          />
+        </Form.Item>
+
+        {/* City */}
+        <Form.Item
+          label="City"
+          name="city"
+          rules={[
+            {
+              message: "Please write your city",
+            },
+          ]}
+        >
+          <Input
+            type="text"
+            onChange={(e) => setCity(e.target.value)}
+            defaultValue={city}
+            value={city}
           />
         </Form.Item>
 
@@ -120,4 +139,4 @@ const EditUsername: React.FC<props> = ({ id, inUsername }) => {
   );
 };
 
-export default EditUsername;
+export default EditCityAndCountry;

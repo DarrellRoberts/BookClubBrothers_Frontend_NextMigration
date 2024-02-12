@@ -1,10 +1,10 @@
-"use client"
+"use client";
 
 import { useState, useContext } from "react";
 import axios from "axios";
-import { PlusOutlined } from '@ant-design/icons';
+import { PlusOutlined } from "@ant-design/icons";
 import { Upload, Form, Button } from "antd";
-import { AuthContext } from "../../../context/authContext";
+import { AuthContext } from "../../../../context/authContext";
 
 const normFile = (e) => {
   if (Array.isArray(e)) {
@@ -14,32 +14,30 @@ const normFile = (e) => {
 };
 
 interface props {
-    id: string,
-    inImage: string
+  id: string;
+  inImage: string;
 }
 
 interface imageInt {
-  image: string
-  name?: string
-  size: number
-  type: string
-  text: () => Promise<string>
-  arrayBuffer: () => Promise<ArrayBuffer>
+  image: string;
+  name?: string;
+  size: number;
+  type: string;
+  text: () => Promise<string>;
+  arrayBuffer: () => Promise<ArrayBuffer>;
   slice: {
-    (start?: number, 
-      end?: number, 
-      contentType?: string)
-  }
-  stream: () => ReadableStream<Uint8Array>
+    (start?: number, end?: number, contentType?: string);
+  };
+  stream: () => ReadableStream<Uint8Array>;
 }
 
-const PictureUpload: React.FC<props> = ({id, inImage  }) => {
+const PictureUpload: React.FC<props> = ({ id, inImage }) => {
   const { token } = useContext(AuthContext);
 
   const [form] = Form.useForm(); // Create a form instance
   const [image, setImage] = useState<imageInt>();
   const [error, setError] = useState(null);
-  const [loadings, setLoadings] = useState([])
+  const [loadings, setLoadings] = useState([]);
 
   const handleSubmit = async () => {
     try {
@@ -51,8 +49,8 @@ const PictureUpload: React.FC<props> = ({id, inImage  }) => {
         formData,
         {
           headers: {
-            'Authorization': `Bearer ${token}`,
-          }
+            Authorization: `Bearer ${token}`,
+          },
         }
       );
     } catch (error) {
@@ -62,8 +60,8 @@ const PictureUpload: React.FC<props> = ({id, inImage  }) => {
   };
 
   const handleImageChange = (info) => {
-      setImage(info.file);
-      console.log(info);
+    setImage(info.file);
+    console.log(info);
   };
 
   const enterLoading = (index) => {
@@ -90,11 +88,12 @@ const PictureUpload: React.FC<props> = ({id, inImage  }) => {
       initialValues={{ fileList: [] }}
     >
       <div className="flex justify-center round mb-10">
-      <img 
-      className="rounded"
-      src={inImage} 
-      alt="profile_pic" 
-      width="200px"/>
+        <img
+          className="rounded"
+          src={inImage}
+          alt="profile_pic"
+          width="200px"
+        />
       </div>
       <Form.Item
         name="fileList"
@@ -108,29 +107,28 @@ const PictureUpload: React.FC<props> = ({id, inImage  }) => {
           onChange={handleImageChange}
           beforeUpload={() => false}
         >
-              <div>
-              <PlusOutlined />
-              <div 
-              className="text-white"
-              style={{ marginTop: 8 }}>Upload</div>
+          <div>
+            <PlusOutlined />
+            <div className="text-white" style={{ marginTop: 8 }}>
+              Upload
             </div>
+          </div>
         </Upload>
       </Form.Item>
 
-      <Button 
-      type="primary"
-      className="bg-black"
-      htmlType="submit"
-      loading={loadings[0]} 
-      onClick={() => enterLoading(0)}
+      <Button
+        type="primary"
+        className="bg-black"
+        htmlType="submit"
+        loading={loadings[0]}
+        onClick={() => enterLoading(0)}
       >
         Submit
       </Button>
 
-      {error ? 
-      <p>{error}</p> : null}
+      {error ? <p>{error}</p> : null}
     </Form>
   );
-}
+};
 
-export default PictureUpload
+export default PictureUpload;

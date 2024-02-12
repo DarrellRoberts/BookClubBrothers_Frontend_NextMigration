@@ -1,4 +1,15 @@
 @media screen and (max-width: 800px) {
+    .bookMenuMobile {
+        padding-left: 1rem;
+    }
+    
+    .brothersMenuMobile {
+        text-align: end;
+        margin-left: 1.5rem;
+    }
+    .bookMenuMobile ul, .brothersMenuMobile ul {
+        list-style: outside;
+    }
     .greeting {
         font-size: 1.25rem;
         text-align: end;

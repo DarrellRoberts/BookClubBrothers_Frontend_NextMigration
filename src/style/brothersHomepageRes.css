@@ -1,0 +1,14 @@
+@media screen and (max-width: 800px) {
+    .booksTitle {
+        font-family: var(--main);
+        font-size: 3.5rem;
+        margin: 0px;
+        padding-top: 0px;
+        text-align: center;
+    }
+    
+    .bookHomeGrid {
+        display: flex;
+        flex-direction: column;
+    }
+}

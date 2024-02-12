@@ -26,7 +26,13 @@ className="text-4xl">|||</span>
     </div>
 
     <div className="brothersMenuMobile">
+    <div className="bookMenuMobile">
     <Link className="underline ml-5 text-3xl" href="/brothers" onClick={() => setShowMenu(false)}>Brothers</Link>
+    <ul>
+        <li onClick={() => setShowMenu(false)}><Link href="/brothers/library">Brothers Library</Link></li>
+        <li className="w-[85%]" onClick={() => setShowMenu(false)}><Link href="/brothers/stats">Brothers Stats</Link></li>
+    </ul>
+    </div>
     </div>
     </div>
 </>
