@@ -6,7 +6,7 @@ We choose the books as a group, read them and then discuss - either over a warm 
 
 I finally decided to document our progress on a website with its own database, which is what brought me to this project.
 
-For the Frontend I am using TypeScript and Tailwind CSS on the Next.ts framework.
+For the Frontend I am using TypeScript and Tailwind CSS on the Next.ts framework and deploy on Vercel (I've migrated this project from React and Netlify).
 
 It also includes a Docker file in order to run the application on a container.
 
