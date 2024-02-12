@@ -1,0 +1,21 @@
+
+.statsTitle {
+    font-family: var(--main);
+    font-size: 5rem;
+    margin-left: 3rem;
+}
+
+.leagueCon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* height: 100vh; */
+}
+
+.leagueTable {
+    display: grid;
+    grid-template-rows: 1fr 2fr 2fr 2fr 2fr 2fr;
+    grid-template-columns: 1fr 2fr 2fr 2fr 2fr 2fr;
+    border-width: 5px;
+
+}
