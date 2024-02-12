@@ -1,25 +1,29 @@
 import { Button } from "antd"
 
-interface props {
-    setPageEdit: React.Dispatch<React.SetStateAction<boolean>>,
-    showPageEdit: boolean
+type ActionType = {
+  type: string
 }
 
-const EditPagesButton: React.FC<props> = ({setPageEdit, showPageEdit}) => {
+interface props {
+  dispatch: React.Dispatch<ActionType>,
+  showPage: boolean
+}
+
+const EditPagesButton: React.FC<props> = ({dispatch, showPage}) => {
 return(
     <>
     <div className="flex items-center">
-        {showPageEdit ? (
+        {showPage ? (
     <Button
         className="mb-5"
-        onClick={() => setPageEdit(false)}
+        onClick={() => dispatch({ type: 'toggleShowPage'})}
       >
         X
       </Button>
       ) : (
       <Button
         className="mb-5"
-        onClick={() => setPageEdit(true)}
+        onClick={() => dispatch({ type: 'toggleShowPage'})}
       >
         Edit Pages
       </Button>

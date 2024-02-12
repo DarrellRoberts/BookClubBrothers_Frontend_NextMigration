@@ -1,11 +1,10 @@
 "use client"
 
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext, useReducer } from "react";
 import { useParams } from "next/navigation";
 import Loader from "../../../../components/loader/Loader";
 import BookCover from "../BookCover";
 import { dateFormatter } from "../../../../functions/dateFormatter.js";
-import Back from "../../../../components/misc/Back";
 import DeleteBook from "../bookform/DeleteBook";
 import RatingCon from "./RatingCon";
 import CommentCon from "./CommentCon"
@@ -30,6 +29,7 @@ import EditTitle from "./editbookform/title/EditTitle";
 import EditImageButton from "./editbookform/image/EditImageButton";
 import EditImage from "./editbookform/image/EditImage";
 
+//Declare TypeScript types
 interface book {
   _id : string
   author: string;
@@ -51,18 +51,55 @@ interface book {
   };
 }
 
+type StateType = {
+  showDelete: boolean;
+  showAuthor: boolean;
+  showPublish: boolean;
+  showPage: boolean;
+  showDate: boolean;
+  showGenre: boolean;
+  showTitle: boolean;
+  showImage: boolean;
+}
+
+const reducer = (state: StateType, action) => {
+  switch (action.type) {
+    case "toggleShowDelete":
+      return {showDelete: !state.showDelete}
+    case "toggleShowAuthor":
+      return {showAuthor: !state.showAuthor}
+    case "toggleShowPublish":
+      return {showPublish: !state.showPublish}
+    case "toggleShowPage":
+      return {showPage: !state.showPage}
+    case "toggleShowDate":
+      return {showDate: !state.showDate}
+    case "toggleShowGenre":
+      return {showGenre: !state.showGenre}
+    case "toggleShowTitle":
+      return {showTitle: !state.showTitle}
+    case "toggleShowImage":
+      return {showImage: !state.showImage}
+    default:
+      return state
+  }
+}
+
 const SingleBook: React.FC = () => {
   const [bookData, setBook] = useState<book>();
   const [loading, setLoading] = useState(true);
-  const [showDelete, setShowDelete] = useState(false);
-  const [showAuthorEdit, setAuthorEdit] = useState(false);
-  const [showPublishEdit, setPublishEdit] = useState(false);
-  const [showPageEdit, setPageEdit] = useState(false);
-  const [showDateEdit, setDateEdit] = useState(false)
-  const [showGenreEdit, setGenreEdit] = useState(false)
-  const [showTitleEdit, setTitleEdit] = useState(false)
-  const [showImageEdit, setImageEdit] = useState(false)
   const [error, setError] = useState("");
+
+  const [state, dispatch] = useReducer(reducer, {
+    showDelete: false, 
+    showAuthor: false, 
+    showPublish: false, 
+    showPage: false, 
+    showDate: false, 
+    showGenre: false, 
+    showTitle: false, 
+    showImage: false
+  })
 
   const { token } = useContext(AuthContext);
   const { decodedToken }: { decodedToken?: { username: string, _id: string } } =
@@ -88,7 +125,7 @@ const SingleBook: React.FC = () => {
   return (
     <>
       {/* <Back /> */}
-      {showDelete ? (
+      {state.showDelete ? (
         <h1 className="bookTitle flex justify-center items-center h-screen text-center">
           Book is deleted
         </h1>
@@ -98,9 +135,9 @@ const SingleBook: React.FC = () => {
         <div className="mainSingleCon flex items-center">
           <div className="bookTitleCon flex flex-col">
             {decodedToken?._id === AdId ? (
-              <DeleteBook id={id} setShowDelete={setShowDelete} />
+              <DeleteBook id={id} dispatch={dispatch} />
             ) : null}
-            {showTitleEdit ? (
+            {state.showTitle ? (
               <div className="flex mt-5">
               <EditTitle id={id} inTitle={bookData?.title}/>
               </div>
@@ -108,7 +145,7 @@ const SingleBook: React.FC = () => {
             <h1 className="bookTitle">{bookData.title}</h1>
             )}
             {decodedToken?._id === AdId ? (
-              <EditTitleButton showTitleEdit={showTitleEdit} setTitleEdit={setTitleEdit}/>
+              <EditTitleButton showTitle={state.showTitle} dispatch={dispatch}/>
             ) : null}
             <div>
               {bookData?.reviewImageURL ? (
@@ -130,13 +167,13 @@ const SingleBook: React.FC = () => {
                 </div>
               )}
             </div>
-            {showImageEdit ? (
+            {state.showImage ? (
               <div className="ml-5">
               <EditImage id={id} />
               </div>
             ) : null}
             {decodedToken?._id === AdId ? (
-              <EditImageButton showImageEdit={showImageEdit} setImageEdit={setImageEdit}/>
+              <EditImageButton showImage={state.showImage} dispatch={dispatch}/>
             ) : null}
           </div>
 
@@ -146,7 +183,7 @@ const SingleBook: React.FC = () => {
             <ul>
               <li className="mt-5 underline">Author</li>
               <li className="">
-                {showAuthorEdit ? (
+                {state.showAuthor ? (
                   <EditAuthor inAuthor={bookData?.author} id={id} />
                 ) : (
                   bookData?.author
@@ -155,15 +192,15 @@ const SingleBook: React.FC = () => {
               {decodedToken?._id === AdId ? (
                 <span>
                   <EditAuthorButton
-                    setAuthorEdit={setAuthorEdit}
-                    showAuthorEdit={showAuthorEdit}
+                    dispatch={dispatch}
+                    showAuthor={state.showAuthor}
                   />
                 </span>
               ) : null}
               
               <li className="mt-5 underline">Published in</li>
               <li className="">
-                {showPublishEdit ? (
+                {state.showPublish ? (
                   <EditPublished inPublish={bookData?.yearPublished} id={id}/>
                 ) :
                 bookData?.yearPublished < 0
@@ -172,20 +209,20 @@ const SingleBook: React.FC = () => {
               </li>
                   {decodedToken?._id === AdId ? (
                     <EditPublishButton 
-                    showPublishEdit={showPublishEdit} 
-                    setPublishEdit={setPublishEdit} />
+                    showPublish={state.showPublish} 
+                    dispatch={dispatch} />
                   ) : null}
               <li className="mt-5 underline">Number of pages</li>
-              {showPageEdit ? (
+              {state.showPage ? (
                 <EditPages inPages={bookData?.pages} id={id}/>
               ) : (
               <li className="">{bookData?.pages}</li>)}
               {decodedToken?._id === AdId ? (
-                <EditPagesButton showPageEdit={showPageEdit} setPageEdit={setPageEdit}/>
+                <EditPagesButton showPage={state.showPage} dispatch={dispatch}/>
               ) : null}
 
               <li className="mt-5 underline">Genres</li>
-              {showGenreEdit ? (
+              {state.showGenre ? (
                 <EditGenre id={id} inGenre={bookData?.genre.map((type) => type)}/>
               ) :
               bookData?.genre.map((type) => (
@@ -194,7 +231,7 @@ const SingleBook: React.FC = () => {
                 </li>
               ))}
                 {decodedToken?._id === AdId ? (
-                <EditGenreButton showGenreEdit={showGenreEdit} setGenreEdit={setGenreEdit} />
+                <EditGenreButton showGenre={state.showGenre} dispatch={dispatch} />
               ) : null}
 
               <li className="mt-5 underline">Read</li>
@@ -202,7 +239,7 @@ const SingleBook: React.FC = () => {
 
               <li className="mt-5 underline">Date of meeting</li>
               <li className="">
-                {showDateEdit ? (
+                {state.showDate ? (
                   <EditDate id={id}/>
                 ) :
                 bookData?.dateOfMeeting
@@ -210,7 +247,7 @@ const SingleBook: React.FC = () => {
                   : "???"}
               </li>
               {decodedToken?._id === AdId ? (
-                <EditDateButton showDateEdit={showDateEdit} setDateEdit={setDateEdit} />
+                <EditDateButton showDate={state.showDate} dispatch={dispatch} />
               ) : null}
 
               <li className="mt-5 underline">Score</li>

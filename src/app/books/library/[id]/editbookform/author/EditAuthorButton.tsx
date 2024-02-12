@@ -1,25 +1,29 @@
 import { Button } from "antd"
 
-interface props {
-    setAuthorEdit: React.Dispatch<React.SetStateAction<boolean>>,
-    showAuthorEdit: boolean
+type ActionType = {
+  type: string
 }
 
-const EditAuthorButton: React.FC<props> = ({setAuthorEdit, showAuthorEdit}) => {
+interface props {
+  dispatch: React.Dispatch<ActionType>,
+  showAuthor: boolean
+}
+
+const EditAuthorButton: React.FC<props> = ({dispatch, showAuthor}) => {
 return(
     <>
     <div className="flex items-center">
-        {showAuthorEdit ? (
+        {showAuthor ? (
     <Button
         className="mb-5"
-        onClick={() => setAuthorEdit(false)}
+        onClick={() => dispatch({type: "toggleShowAuthor"})}
       >
         X
       </Button>
       ) : (
       <Button
         className="mb-5"
-        onClick={() => setAuthorEdit(true)}
+        onClick={() => dispatch({type: "toggleShowAuthor"})}
       >
         Edit Author
       </Button>

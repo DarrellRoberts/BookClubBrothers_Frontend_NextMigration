@@ -1,25 +1,29 @@
 import { Button } from "antd"
 
-interface props {
-    setImageEdit: React.Dispatch<React.SetStateAction<boolean>>,
-    showImageEdit: boolean
+type ActionType = {
+  type: string
 }
 
-const EditImageButton: React.FC<props> = ({setImageEdit, showImageEdit}) => {
+interface props {
+  dispatch: React.Dispatch<ActionType>,
+  showImage: boolean
+}
+
+const EditImageButton: React.FC<props> = ({dispatch, showImage}) => {
 return(
     <>
     <div className="flex items-center">
-        {showImageEdit ? (
+        {showImage ? (
     <Button
         className="m-5"
-        onClick={() => setImageEdit(false)}
+        onClick={() => dispatch({type: "toggleShowImage"})}
       >
         X
       </Button>
       ) : (
       <Button
         className="ml-5 mb-5"
-        onClick={() => setImageEdit(true)}
+        onClick={() => dispatch({type: "toggleShowImage"})}
       >
         Change image 
       </Button>

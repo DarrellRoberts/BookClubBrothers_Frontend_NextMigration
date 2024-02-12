@@ -4,38 +4,42 @@ import { Button, Modal } from "antd"
 import { useState } from "react"
 import EditGenre from "./EditGenre"
 
+type ActionType = {
+  type: string
+}
+
 interface props {
-    setEditGenre: React.Dispatch<React.SetStateAction<boolean>>,
-    editGenre: boolean,
-    id: string,
-    inGenre: [string] | null
+  dispatch: React.Dispatch<ActionType>,
+  showGenre: boolean,
+  id: string,
+  inGenre: [string] | null
 }
 
 const EditGenreButton: React.FC<props> = ({
-  setEditGenre, 
-  editGenre, 
+  dispatch, 
+  showGenre, 
   id, 
   inGenre}) => {
     const [modalText, setModalText] = useState(<EditGenre id={id} inGenre={inGenre} />)
     const [confirmLoading, setConfirmLoading] = useState<boolean>(false);
   
     const showModal = () => {
-        setEditGenre(true);
+      dispatch({ type: 'toggleGenre'});
       };
       const handleOk = () => {
         setConfirmLoading(true);
         setTimeout(() => {
-        setEditGenre(false);
+        dispatch({ type: 'toggleGenre'});
         }, 4000);
         setModalText(<EditGenre id={id} inGenre={inGenre} />)
       };
       const handleCancel = () => {
-        setEditGenre(false);
+        dispatch({ type: 'toggleGenre'});
     };
 return(
     <>
     <div className="flex items-center">
-        {editGenre ? null : (
+        {showGenre ? null : (
       <Button
         className=""
         onClick={showModal}
@@ -46,7 +50,7 @@ return(
       </div>
       <Modal
         title="Add your favourite Genres"
-        open={editGenre}
+        open={showGenre}
         onOk={handleOk}
         confirmLoading={confirmLoading}
         onCancel={handleCancel}

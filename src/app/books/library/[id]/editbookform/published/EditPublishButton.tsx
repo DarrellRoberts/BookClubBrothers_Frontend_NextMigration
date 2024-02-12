@@ -1,25 +1,29 @@
 import { Button } from "antd"
 
-interface props {
-    setPublishEdit: React.Dispatch<React.SetStateAction<boolean>>,
-    showPublishEdit: boolean
+type ActionType = {
+  type: string
 }
 
-const EditPublishButton: React.FC<props> = ({setPublishEdit, showPublishEdit}) => {
+interface props {
+  dispatch: React.Dispatch<ActionType>,
+  showPublish: boolean
+}
+
+const EditPublishButton: React.FC<props> = ({dispatch, showPublish}) => {
 return(
     <>
     <div className="flex items-center">
-        {showPublishEdit ? (
+        {showPublish ? (
     <Button
         className="mb-5"
-        onClick={() => setPublishEdit(false)}
+        onClick={() => dispatch({ type: 'toggleShowPublish'})}
       >
         X
       </Button>
       ) : (
       <Button
         className="mb-5"
-        onClick={() => setPublishEdit(true)}
+        onClick={() => dispatch({ type: 'toggleShowPublish'})}
       >
         Edit Year
       </Button>

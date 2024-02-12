@@ -4,17 +4,21 @@ import { Modal, Button } from "antd"
 import { useState } from "react"
 import EditCityAndCountry from "./EditCityAndCountry"
 
+type ActionType = {
+  type: string
+}
+
 interface props {
-    setEditCountry: React.Dispatch<React.SetStateAction<boolean>>,
-    editCountry: boolean,
-    id: string,
-    inCountry: string,
-    inCity: string
+  dispatch: React.Dispatch<ActionType>,
+  showCountry: boolean,
+  id: string,
+  inCountry: string,
+  inCity: string
 }
 
 const EditCityAndCountryButton: React.FC<props> = ({
-  setEditCountry, 
-  editCountry, 
+  dispatch, 
+  showCountry, 
   id, 
   inCountry, 
   inCity
@@ -23,17 +27,17 @@ const EditCityAndCountryButton: React.FC<props> = ({
   const [confirmLoading, setConfirmLoading] = useState<boolean>(false);
 
   const showModal = () => {
-    setEditCountry(true);
+    dispatch({ type: 'toggleCountry'});
   };
   const handleOk = () => {
     setConfirmLoading(true);
     setTimeout(() => {
-    setEditCountry(false);
+    dispatch({ type: 'toggleCountry'});
     }, 4000);
     setModalText(<EditCityAndCountry id={id} inCountry={inCountry} inCity={inCity} />)
   };
   const handleCancel = () => {
-    setEditCountry(false);
+    dispatch({ type: 'toggleCountry'});
   };
 return(
     <>
@@ -45,7 +49,7 @@ return(
       </Button>
       <Modal
         title="Change your Country and City"
-        open={editCountry}
+        open={showCountry}
         onOk={handleOk}
         confirmLoading={confirmLoading}
         onCancel={handleCancel}

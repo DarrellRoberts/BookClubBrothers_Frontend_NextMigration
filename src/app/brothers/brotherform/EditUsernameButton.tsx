@@ -4,38 +4,42 @@ import { Button, Modal } from "antd"
 import { useState } from "react"
 import EditUsername from "./EditUsername"
 
+type ActionType = {
+  type: string
+}
+
 interface props {
-    setEditUsername: React.Dispatch<React.SetStateAction<boolean>>,
-    editUsername: boolean,
-    id: string,
-    inUsername: string
+  dispatch: React.Dispatch<ActionType>,
+  showUsername: boolean,
+  id: string,
+  inUsername: string
 }
 
 const EditUsernameButton: React.FC<props> = ({
-  setEditUsername, 
-  editUsername, 
+  dispatch, 
+  showUsername, 
   id, 
   inUsername}) => {
   const [modalText, setModalText] = useState(<EditUsername id={id} inUsername={inUsername} />)
   const [confirmLoading, setConfirmLoading] = useState<boolean>(false);
 
   const showModal = () => {
-      setEditUsername(true);
+    dispatch({ type: 'toggleUsername'});
     };
     const handleOk = () => {
       setConfirmLoading(true);
       setTimeout(() => {
-      setEditUsername(false);
+      dispatch({ type: 'toggleUsername'});
       }, 4000);
       setModalText(<EditUsername id={id} inUsername={inUsername} />)
     };
     const handleCancel = () => {
-      setEditUsername(false);
+      dispatch({ type: 'toggleUsername'});
     };
 return(
     <>
     <div className="flex items-center">
-        {editUsername ? null : (
+        {showUsername ? null : (
       <Button
         className=""
         onClick={showModal}
@@ -46,7 +50,7 @@ return(
       </div>
       <Modal
         title="Change your Username"
-        open={editUsername}
+        open={showUsername}
         onOk={handleOk}
         confirmLoading={confirmLoading}
         onCancel={handleCancel}

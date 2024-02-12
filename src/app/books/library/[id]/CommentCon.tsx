@@ -35,7 +35,6 @@ id: string | string[]
 type commentObj = Record<string, number> | [string, number][];
 
 const RatingCon:React.FC<book> = ({bookData, id}) => {
-
     const [users, setUserData] = useState([])
     const [addComment, setAddComment] = useState<boolean>(false)
     const [showEditComment, setShowEditComment] = useState<boolean>(false)

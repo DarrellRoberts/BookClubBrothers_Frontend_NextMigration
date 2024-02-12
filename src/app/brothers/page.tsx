@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState, useContext } from "react"
+import { useEffect, useState, useContext, useReducer } from "react"
 import Link from "next/link"
 import { DoubleLeftOutlined } from "@ant-design/icons"
 import Loader from "../../components/loader/Loader"
@@ -13,7 +13,6 @@ import EditUsernameButton from "./brotherform/EditUsernameButton"
 import EditCityAndCountryButton from "./brotherform/EditCityAndCountryButton"
 import EditGenreButton from "./brotherform/EditGenreButton"
 
-import Back from "../../components/misc/Back"
 import Search from "../../components/misc/Search"
 import "../../style/brothercat.css"
 import "../../style/brothercatRes.css"
@@ -21,6 +20,27 @@ import "../../style/search.css"
 import "../../style/searchRes.css"
 import "../../style/button.css"
 
+type StateType = {
+    showImage: boolean;
+    showUsername: boolean;
+    showCountry: boolean;
+    showGenre: boolean;
+  }
+  
+  const reducer = (state: StateType, action) => {
+    switch (action.type) {
+      case "toggleImage":
+        return {showImage: !state.showImage}
+      case "toggleUsername":
+        return {showUsername: !state.showUsername}
+      case "toggleCountry":
+        return {showCountry: !state.showCountry}
+      case "toggleGenre":
+        return {showGenre: !state.showGenre}
+      default:
+        return state
+    }
+  }
 
 const Brothercat: React.FC = () => {   
 const { token } = useContext(AuthContext);
@@ -38,10 +58,17 @@ const [searchBar, setSearchBar] = useState("");
 const [error, setError] = useState("")
 
 // useState for edit buttons
-const [imageUpload, setImageUpload] = useState<boolean>(false);
-const [editUsername, setEditUsername] = useState<boolean>(false);
-const [editCountry, setEditCountry] = useState<boolean>(false);
-const [editGenre, setEditGenre] = useState<boolean>(false);
+// const [imageUpload, setImageUpload] = useState<boolean>(false);
+// const [editUsername, setEditUsername] = useState<boolean>(false);
+// const [editCountry, setEditCountry] = useState<boolean>(false);
+// const [editGenre, setEditGenre] = useState<boolean>(false);
+
+const [state, dispatch] = useReducer(reducer, {
+    showImage: false,
+    showUsername: false,
+    showCountry: false,
+    showGenre: false,
+  })
 
     const getData = async () => {
         try {
@@ -116,7 +143,7 @@ const filteredResults = Array.isArray(userData)
                 <div className="brotherBookLeft flex flex-col justify-evenly items-center">             
                 {decodedToken?._id === user?._id ? (
                     <div className="flex">
-                    <EditUsernameButton setEditUsername={setEditUsername} editUsername={editUsername} inUsername={user?.username} id={user?._id}  />
+                    <EditUsernameButton dispatch={dispatch} showUsername={state.showUsername} inUsername={user?.username} id={user?._id}  />
                     <h2 className="text-black underline">{user?.username}</h2>
                     </div>
                 ) : (
@@ -132,8 +159,8 @@ const filteredResults = Array.isArray(userData)
                         <PictureUploadButton  
                         id={user?._id} 
                         inImage={user?.userInfo?.profileURL}
-                        imageUpload={imageUpload}
-                        setImageUpload={setImageUpload}/>
+                        showImage={state.showImage}
+                        dispatch={dispatch}/>
                     </div>
                 ) : null}
                 </div>
@@ -143,8 +170,8 @@ const filteredResults = Array.isArray(userData)
                     <li className="brotherList underline pt-5">Location
                     {decodedToken?._id === user?._id ? (
                         <EditCityAndCountryButton 
-                        editCountry={editCountry} 
-                        setEditCountry={setEditCountry} 
+                        showCountry={state.showCountry} 
+                        dispatch={dispatch} 
                         id={user?._id} 
                         inCity={user?.userInfo?.residence?.city} 
                         inCountry={user?.userInfo?.residence?.country}  />
@@ -172,7 +199,7 @@ const filteredResults = Array.isArray(userData)
                     <div className="flex">
                     <li className="brotherList underline pt-5">Favourite Genres</li>
                     {decodedToken?._id === user._id ? (
-                    <EditGenreButton setEditGenre={setEditGenre} editGenre={editGenre} inGenre={user?.userInfo?.favGenre?.map(genre => genre)} id={decodedToken?._id}/>
+                    <EditGenreButton dispatch={dispatch} showGenre={state.showGenre} inGenre={user?.userInfo?.favGenre?.map(genre => genre)} id={decodedToken?._id}/>
                     ) : null}
                     </div>
                     {user?.userInfo?.favGenre?.length > 0 ? user?.userInfo?.favGenre?.map((genre) =>

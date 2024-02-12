@@ -4,33 +4,37 @@ import { Button, Modal } from "antd"
 import { useState } from "react"
 import PictureUpload from "./PictureUpload"
 
+type ActionType = {
+  type: string
+}
+
 interface props {
-    setImageUpload: React.Dispatch<React.SetStateAction<boolean>>,
-    imageUpload: boolean,
-    id: string,
-    inImage: string
+  dispatch: React.Dispatch<ActionType>,
+  showImage: boolean,
+  id: string,
+  inImage: string
 }
 
 const PictureUploadButton: React.FC<props> = ({
-  setImageUpload, 
-  imageUpload, 
+  dispatch, 
+  showImage, 
   id, 
   inImage}) => {
   const [modalText, setModalText] = useState(<PictureUpload id={id} inImage={inImage} />)
   const [confirmLoading, setConfirmLoading] = useState<boolean>(false);
 
   const showModal = () => {
-      setImageUpload(true);
+    dispatch({ type: 'toggleImage'});
     };
     const handleOk = () => {
       setConfirmLoading(true);
       setTimeout(() => {
-      setImageUpload(false);
+      dispatch({ type: 'toggleImage'});
       }, 4000);
       setModalText(<PictureUpload id={id} inImage={inImage} />)
     };
     const handleCancel = () => {
-      setImageUpload(false);
+      dispatch({ type: 'toggleImage'});
     };
 return(
     <>
@@ -44,7 +48,7 @@ return(
       </div>
       <Modal
         title="Change your profile picture"
-        open={imageUpload}
+        open={showImage}
         onOk={handleOk}
         confirmLoading={confirmLoading}
         onCancel={handleCancel}

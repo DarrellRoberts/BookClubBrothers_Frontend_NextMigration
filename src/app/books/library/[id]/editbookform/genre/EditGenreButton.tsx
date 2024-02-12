@@ -1,25 +1,29 @@
 import { Button } from "antd"
 
-interface props {
-    setGenreEdit: React.Dispatch<React.SetStateAction<boolean>>,
-    showGenreEdit: boolean
+type ActionType = {
+  type: string
 }
 
-const EditGenreButton: React.FC<props> = ({setGenreEdit, showGenreEdit}) => {
+interface props {
+  dispatch: React.Dispatch<ActionType>,
+  showGenre: boolean
+}
+
+const EditGenreButton: React.FC<props> = ({dispatch, showGenre}) => {
 return(
     <>
     <div className="flex items-center">
-        {showGenreEdit ? (
+        {showGenre ? (
     <Button
         className="mb-5"
-        onClick={() => setGenreEdit(false)}
+        onClick={() => dispatch({ type: 'toggleShowGenre'})}
       >
         X
       </Button>
       ) : (
       <Button
         className="mb-5"
-        onClick={() => setGenreEdit(true)}
+        onClick={() => dispatch({ type: 'toggleShowGenre'})}
       >
         Edit Genre
       </Button>

@@ -1,25 +1,29 @@
 import { Button } from "antd"
 
-interface props {
-    setDateEdit: React.Dispatch<React.SetStateAction<boolean>>,
-    showDateEdit: boolean
+type ActionType = {
+  type: string
 }
 
-const EditDateButton: React.FC<props> = ({setDateEdit, showDateEdit}) => {
+interface props {
+  dispatch: React.Dispatch<ActionType>,
+  showDate: boolean
+}
+
+const EditDateButton: React.FC<props> = ({dispatch, showDate}) => {
 return(
     <>
     <div className="flex items-center">
-        {showDateEdit ? (
+        {showDate ? (
     <Button
         className="mb-5"
-        onClick={() => setDateEdit(false)}
+        onClick={() => dispatch({ type: 'toggleShowDate'})}
       >
         X
       </Button>
       ) : (
       <Button
         className="mb-5"
-        onClick={() => setDateEdit(true)}
+        onClick={() => dispatch({ type: 'toggleShowDate'})}
       >
         Edit Date
       </Button>

@@ -5,12 +5,16 @@ import { useState, useContext } from 'react';
 import { AuthContext } from "../../../../context/authContext";
 import { useJwt } from "react-jwt";
 
+type ActionType = {
+  type: string
+}
+
 interface props {
-    setShowDelete: React.Dispatch<React.SetStateAction<boolean>>
+    dispatch: React.Dispatch<ActionType>
     id: string | string[]
 }
 
-const DeleteBook:React.FC<props> = ({id, setShowDelete}) => {
+const DeleteBook:React.FC<props> = ({id, dispatch}) => {
     const [error, setError] = useState("")
     
     const { token } = useContext(AuthContext);
@@ -34,7 +38,7 @@ const DeleteBook:React.FC<props> = ({id, setShowDelete}) => {
     
         if (response.ok) {
           console.log("SUCCESS!!!")
-          setShowDelete(true);
+          dispatch({ type: 'toggleShowDelete'});
         }
     } catch(error) {
         setError(error)

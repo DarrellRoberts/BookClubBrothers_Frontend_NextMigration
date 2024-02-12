@@ -1,25 +1,29 @@
 import { Button } from "antd"
 
-interface props {
-    setTitleEdit: React.Dispatch<React.SetStateAction<boolean>>,
-    showTitleEdit: boolean
+type ActionType = {
+  type: string
 }
 
-const EditTitleButton: React.FC<props> = ({setTitleEdit, showTitleEdit}) => {
+interface props {
+    dispatch: React.Dispatch<ActionType>,
+    showTitle: boolean
+}
+
+const EditTitleButton: React.FC<props> = ({dispatch, showTitle}) => {
 return(
     <>
     <div className="flex items-center">
-        {showTitleEdit ? (
+        {showTitle ? (
     <Button
         className="ml-5"
-        onClick={() => setTitleEdit(false)}
+        onClick={() => dispatch({type: "toggleShowTitle"})}
       >
         X
       </Button>
       ) : (
       <Button
         className="ml-5"
-        onClick={() => setTitleEdit(true)}
+        onClick={() => dispatch({type: "toggleShowTitle"})}
       >
         Edit Title
       </Button>
