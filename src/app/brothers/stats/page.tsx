@@ -1,12 +1,13 @@
 import "../../../style/brotherStats.css"
+import React from "react"
 
 async function getUserData() {
-    const response = await fetch("https://bookclubbrothers-backend.onrender.com/users", { method: "GET"});
+    const response = await fetch("https://bookclubbrothers-backend.onrender.com/users", {next: {revalidate: 5}});
     return response.json();
 }
 
 async function getBookData() {
-    const response = await fetch("https://bookclubbrothers-backend.onrender.com/books", { method: "GET"});
+    const response = await fetch("https://bookclubbrothers-backend.onrender.com/books", {next: {revalidate: 5}});
     return response.json();
 }
 
@@ -27,7 +28,6 @@ const readBooks = book.filter((book) => book.read === true);
 //     ).toFixed(2)
 //   );
 
-console.log(user)
 return (
 <>
 <h1 className="statsTitle">Brothers Stats</h1>

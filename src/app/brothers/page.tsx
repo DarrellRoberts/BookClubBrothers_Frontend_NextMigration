@@ -17,7 +17,7 @@ className="libaryButtons m-10 border-4 border-black p-3 rounded-lg bg-black text
 <div 
 className="libaryButtons m-10 border-4 border-black p-3 rounded-lg bg-black text-white"
 >
-<Link href="/books/stats"><h2>Brothers Stats</h2></Link>
+<Link href="/brothers/stats"><h2>Brothers Stats</h2></Link>
 </div>
 </div>
 </div>
