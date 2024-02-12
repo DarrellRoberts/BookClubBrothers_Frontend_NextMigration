@@ -1,5 +1,6 @@
 import "../../../style/brotherStats.css"
 import "../../../style/brotherStatsRes.css"
+//style bug
 
 async function getUserData() {
     const response = await fetch("https://bookclubbrothers-backend.onrender.com/users", {next: {revalidate: 5}});
