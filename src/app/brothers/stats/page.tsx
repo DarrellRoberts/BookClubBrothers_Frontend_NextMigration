@@ -116,17 +116,6 @@ return (
         <h2 key={index}>{title.username}</h2>
         ))}
     </div>
-    <div className="highestBookColumn Nexttable">
-    <h2 className="underline">Best book</h2>
-        {user?.map((title, index) => (
-        <h2 key={index}>
-            {book.find(book => book._id ===
-                //matching id of book with highest score
-                //then accessing its title 
-                title.userInfo?.books?.booksScored[title.userInfo?.books?.score?.indexOf(Math.max(...title.userInfo?.books?.score))])?.title}
-            </h2>
-        ))}
-    </div>
 
     <div className="lowestBookColumn Nexttable">
         <h2 className="underline">Worst Book</h2>
@@ -139,6 +128,18 @@ return (
             </h2>
         ))}
         </div>
+        
+    <div className="highestBookColumn Nexttable">
+    <h2 className="underline">Best book</h2>
+        {user?.map((title, index) => (
+        <h2 key={index}>
+            {book.find(book => book._id ===
+                //matching id of book with highest score
+                //then accessing its title 
+                title.userInfo?.books?.booksScored[title.userInfo?.books?.score?.indexOf(Math.max(...title.userInfo?.books?.score))])?.title}
+            </h2>
+        ))}
+    </div>
     </div>
 </div>
 </>
