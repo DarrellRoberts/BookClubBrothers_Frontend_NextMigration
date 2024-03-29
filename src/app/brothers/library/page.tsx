@@ -19,6 +19,7 @@ import "../../../style/brothercatRes.css";
 import "../../../style/search.css";
 import "../../../style/searchRes.css";
 import "../../../style/button.css";
+import LoaderNoText from "@/components/loader/LoaderNoText";
 
 type StateType = {
   showImage: boolean;
@@ -248,13 +249,17 @@ const Brothercat: React.FC = () => {
                       <li className="brotherList underline pt-5">
                         Last rating given
                       </li>
-                      <li>Book: {userBookObj[userData.indexOf(user)][1]}</li>
+                      <li>Book: {
+                      userBookObj[userData?.indexOf(user)][1] !== "book not found"  ? 
+                      userBookObj[userData?.indexOf(user)][1] :  
+                      (<LoaderNoText />)}
+                      </li>
                       <li>
-                        Score:{" "}
+                        Score:
                         {
-                          user?.userInfo?.books?.score[
+                          ` ${user?.userInfo?.books?.score[
                             user?.userInfo?.books?.score.length - 1
-                          ]
+                          ]}`
                         }
                       </li>
                     </ul>

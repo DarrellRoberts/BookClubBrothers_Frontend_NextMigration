@@ -4,6 +4,7 @@ import {useState, useEffect, useContext} from "react"
 import LoaderNoText from "../../../components/loader/LoaderNoText"
 import CreateUnreadBook from "./bookform/CreateUnreadBook"
 import DeleteBook from "./bookform/DeleteBook"
+import EditUnreadBook from "./bookform/EditUnreadBook"
 import Randomiser from "./Randomiser"
 import { AuthContext } from "../../../context/authContext";
 import { useJwt } from "react-jwt";
@@ -11,12 +12,13 @@ import "../../../style/randomiser.css"
 import "../../../style/randomiserRes.css"
 
 const RandomiserHomepage: React.FC = () => {
-const [showCreateBook, setShowCreateBook] = useState(false)
-const [index, setIndex] = useState(0)
+const [showCreateBook, setShowCreateBook] = useState<boolean>(false)
+const [showEditBook, setShowEditBook] = useState<boolean>(false)
+const [index, setIndex] = useState<number>(0)
 const [bookData, setBookData] = useState([])
 const [userData, setUserData] = useState([])
 const [error, setError] = useState(null)
-const [loading, setLoading] = useState(true)
+const [loading, setLoading] = useState<boolean>(true)
 
 const { token } = useContext(AuthContext);
 const { decodedToken }: { decodedToken?: { username: string} } = useJwt(token);
@@ -62,7 +64,7 @@ useEffect(() => {
     getBookData();
     getUserData();
 }, [])
-
+console.log(index);
     return (
 <div>
   <h1 className="randomTitle">Randomiser</h1>
@@ -70,12 +72,12 @@ useEffect(() => {
       <div className="randomBox">
         <div className="randomBoxLeft">
           <div className="randomBoxLeftList">
-        {loading && !bookData ? (
+        {bookData.length === 0 ? (
         <div className="flex justify-center items-center mt-20">
         <LoaderNoText />
         </div>
         ) : 
-        bookData?.map((book) => 
+        bookData?.map((book, i) => 
         (
         <>
         <div 
@@ -84,11 +86,23 @@ useEffect(() => {
         >
         <h2>{book?.title}</h2>
         {decodedToken ? (
-          <div 
-          className="bookX"
-          ><DeleteBook id={book?._id} /></div>) : null} 
-          <p> - suggested by {findUser(book?.suggestedBy)}</p>
-          </div>
+          <div className="bookX">
+            <DeleteBook id={book?._id} />
+            <EditUnreadBook 
+                setShowEditBook = {setShowEditBook}
+                showEditBook = {showEditBook}
+                editBookId = {book?._id}
+                prevTitle =  {book?.title}
+                prevAuthor = {book?.author}
+                prevPages= {book?.pages}
+                prevYearPublished = {book?.yearPublished} 
+                prevGenre = {book?.genre}
+                prevImageURL = {book?.imageURL}
+            />
+          </div>) : null} 
+          <p> - suggested by {findUser(book?.suggestedBy) === "user not found" 
+          ? " (...loading)" : findUser(book?.suggestedBy)}</p>
+        </div>
         </>
         ))}
         <CreateUnreadBook 
@@ -133,7 +147,8 @@ useEffect(() => {
               <li>Genre: {bookData[index]?.genre.map((theme) => (
                 <li>{theme}</li>
               ))}</li>
-              <li>Suggested by: {findUser(bookData[index]?.suggestedBy)} </li>
+              <li>Suggested by: {findUser(bookData[index]?.suggestedBy) === "user not found" ? 
+              " (loading...)" : findUser(bookData[index]?.suggestedBy)} </li>
             </ul>
             <Randomiser 
             bookLength={bookData?.length} 

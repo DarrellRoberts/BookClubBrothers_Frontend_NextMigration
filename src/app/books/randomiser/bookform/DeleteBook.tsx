@@ -50,7 +50,6 @@ setError("You need the admin's permission to delete a book. You are not the admi
       handleSubmit(); 
     }, 3000);
     });
-
     return (
         <>
     <Popconfirm
@@ -58,7 +57,7 @@ setError("You need the admin's permission to delete a book. You are not the admi
       title="WARNING"
       description="Are you sure you want to delete this book?"
       onConfirm={confirm}
-      onOpenChange={() => console.log('open change')}
+      onOpenChange={() => console.log(id)}
     >
     <Button 
     className="deleteUnreadButton" 
