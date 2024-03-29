@@ -1,6 +1,6 @@
 // use date string as argument
 function dateFormatter(dateValue) {
-    let dateString = dateValue.split('T')[0];
+    let dateString = dateValue?.split('T')[0];
     const date = new Date(dateString);
     console.log("Date line 3:  " + date)
     const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];

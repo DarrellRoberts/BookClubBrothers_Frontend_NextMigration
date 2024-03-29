@@ -1,0 +1,18 @@
+.titleCover {
+    font-family: var(--main);
+    font-size: 1.5rem;
+}
+
+.rightcover {
+    font-family: var(--main);
+    font-size: 1.25rem;
+}
+
+@media screen and (max-width: 800px) {
+    .titleCover {
+        font-size: 1rem;
+    }
+    .rightcover {
+        font-size: 1rem;
+    }
+}

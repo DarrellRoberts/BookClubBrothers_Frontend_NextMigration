@@ -56,7 +56,6 @@ console.log(bookData)
     <>
     <div className="searchBackCon">
     <Search setSearchBar={setSearchBar} />
-    {/* <Back /> */}
     </div>
     <h1 className="bookLibraryTitle">Book Library</h1>
       {loading && bookData.length <= 0 ? (
@@ -101,7 +100,7 @@ console.log(bookData)
           )}
         </div>
       )}
-                <div className="addBookCon">
+      <div className="addBookCon">
           <Button
           onClick={() => setShowCreateBook(true)}>
           Add book
@@ -109,7 +108,7 @@ console.log(bookData)
           {showCreateBook ? (
           <CreateBook setShowCreateBook={setShowCreateBook} showCreateBook={showCreateBook}/>
           ) : null}
-          </div>
+      </div>
     </>
   );
 };

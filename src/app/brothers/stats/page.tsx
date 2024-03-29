@@ -1,6 +1,5 @@
 import "../../../style/brotherStats.css"
 import "../../../style/brotherStatsRes.css"
-//style bug
 
 async function getUserData() {
     const response = await fetch("https://bookclubbrothers-backend.onrender.com/users", {next: {revalidate: 5}});
@@ -20,7 +19,6 @@ const user = await userPromise;
 const book = await bookPromise;
 
 const readBooks = book.filter((book) => book.read === true);
-
 return (
 <>
 <h1 className="statsTitle">Brothers Stats</h1>
