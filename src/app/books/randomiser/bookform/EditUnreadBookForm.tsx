@@ -21,7 +21,7 @@ type BookProps = {
   prevImageURL: string
 }
 
-const CreateBook:React.FC<BookProps> = (
+const EditUnreadBookForm:React.FC<BookProps> = (
   {
   editBookId, 
   prevTitle, 
@@ -357,4 +357,4 @@ rules={[
 )
 }
 
-export default CreateBook
+export default EditUnreadBookForm

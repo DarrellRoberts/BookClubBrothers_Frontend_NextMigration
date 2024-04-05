@@ -14,7 +14,7 @@ interface props {
     prevImageURL: string
 }
 
-const CreateBook: React.FC<props> = (
+const EditUnreadBook: React.FC<props> = (
   {
   setShowEditBook, 
   showEditBook, 
@@ -87,4 +87,4 @@ return (
     )
 }
 
-export default CreateBook
+export default EditUnreadBook

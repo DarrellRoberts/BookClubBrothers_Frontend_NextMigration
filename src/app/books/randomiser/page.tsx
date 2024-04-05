@@ -79,8 +79,8 @@ console.log(index);
         ) : 
         bookData?.map((book, i) => 
         (
-        <>
         <div 
+        key={i}
         className={decodedToken ? "bookDeleteBox" : "bookBox"}
         onClick={() => setIndex(bookData.indexOf(book))}
         >
@@ -103,7 +103,6 @@ console.log(index);
           <p> - suggested by {findUser(book?.suggestedBy) === "user not found" 
           ? " (...loading)" : findUser(book?.suggestedBy)}</p>
         </div>
-        </>
         ))}
         <CreateUnreadBook 
         showCreateBook={showCreateBook} 
@@ -144,8 +143,8 @@ console.log(index);
               <li>Author: {bookData[index]?.author}</li>
               <li>Published: {bookData[index]?.yearPublished}</li>
               <li>Pages: {bookData[index]?.pages}</li>
-              <li>Genre: {bookData[index]?.genre.map((theme) => (
-                <li>{theme}</li>
+              <li>Genre: {bookData[index]?.genre.map((theme, i) => (
+                <li key={i}>{theme}</li>
               ))}</li>
               <li>Suggested by: {findUser(bookData[index]?.suggestedBy) === "user not found" ? 
               " (loading...)" : findUser(bookData[index]?.suggestedBy)} </li>
