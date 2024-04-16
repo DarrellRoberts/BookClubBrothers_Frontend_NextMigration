@@ -5,7 +5,7 @@ import EditUnreadBookForm from "./EditUnreadBookForm"
 interface props {
     setShowEditBook: React.Dispatch<React.SetStateAction<boolean>>
     showEditBook: boolean
-    editBookId: number,
+    id: number,
     prevTitle: string, 
     prevAuthor: string,
     prevPages: number,
@@ -18,7 +18,7 @@ const EditUnreadBook: React.FC<props> = (
   {
   setShowEditBook, 
   showEditBook, 
-  editBookId,
+  id,
   prevTitle, 
   prevAuthor,
   prevPages,
@@ -30,7 +30,7 @@ const EditUnreadBook: React.FC<props> = (
 
 const [modalText, setModalText] = useState(
 <EditUnreadBookForm 
-  editBookId = {editBookId}
+  id = {id}
   prevTitle = {prevTitle}
   prevAuthor = {prevAuthor}
   prevPages = {prevPages}
@@ -51,7 +51,7 @@ const showModal = () => {
     }, 4000);
     setModalText(
     <EditUnreadBookForm 
-      editBookId = {editBookId}
+      id = {id}
       prevTitle = {prevTitle}
       prevAuthor = {prevAuthor}
       prevPages = {prevPages}

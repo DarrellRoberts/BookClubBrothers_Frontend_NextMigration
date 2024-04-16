@@ -12,7 +12,7 @@ import "../../../../style/createbook.css"
 const { Option } = Select
 
 type BookProps = {
-  editBookId: number,
+  id: number,
   prevTitle: string, 
   prevAuthor: string,
   prevPages: number,
@@ -23,7 +23,7 @@ type BookProps = {
 
 const EditUnreadBookForm:React.FC<BookProps> = (
   {
-  editBookId, 
+  id, 
   prevTitle, 
   prevAuthor, 
   prevPages, 
@@ -46,7 +46,7 @@ const { token } = useContext(AuthContext);
 const handleSubmit = async () => {
     try {
         setError(null);
-        const response = await fetch(`https://bookclubbrothers-backend.onrender.com/books/${editBookId}`, {
+        const response = await fetch(`https://bookclubbrothers-backend.onrender.com/books/${id}`, {
           method: "PUT",
           headers: { 
             "Content-Type": "application/json",
@@ -75,25 +75,23 @@ const handleSubmit = async () => {
     }
 };
 
-      const enterLoading = (index) => {
+      const enterLoading = (i) => {
         setLoadings((prevLoadings) => {
           const newLoadings = [...prevLoadings];
-          newLoadings[index] = true;
+          newLoadings[i] = true;
           return newLoadings;
         });
         setTimeout(() => {
           setLoadings((prevLoadings) => {
             const newLoadings = [...prevLoadings];
-            newLoadings[index] = false;
-            document.location.reload();
+            newLoadings[i] = false;
+            // document.location.reload();
             return newLoadings;
           });
         }, 4000);
       };
-console.log(editBookId);
-console.log(`https://bookclubbrothers-backend.onrender.com/books/${editBookId}`)
+console.log(`https://bookclubbrothers-backend.onrender.com/books/${id}`)
 return (
-<>
 <Form
     onFinish={handleSubmit}
     name="basic"
@@ -126,7 +124,7 @@ return (
       type="text"
       onChange={(e) => setEditTitle(e.target.value)}
       value={editTitle}
-      defaultValue={editTitle}
+      // defaultValue={editTitle}
       />
     </Form.Item>
 
@@ -146,7 +144,7 @@ return (
       type="text"
       onChange={(e) => setEditAuthor(e.target.value)}
       value={editAuthor}
-      defaultValue={editAuthor}
+      // defaultValue={editAuthor}
       />
     </Form.Item>
 
@@ -164,7 +162,7 @@ return (
       type="number"
       onChange={(e) => setEditPages(Number(e.target.value))}
       value={editPages}
-      defaultValue={editPages}
+      // defaultValue={editPages}
       />
     </Form.Item>
 
@@ -182,7 +180,7 @@ return (
       type="number"
       onChange={(e) => setYearPublished(Number(e.target.value))}
       value={editYearPublished}
-      defaultValue={editYearPublished}
+      // defaultValue={editYearPublished}
       />
       </Form.Item>
 
@@ -330,7 +328,7 @@ rules={[
       type="text"
       onChange={(e) => setEditImageURL(e.target.value)}
       value={editImageURL}
-      defaultValue={editImageURL}
+      // defaultValue={editImageURL}
       />
     </Form.Item>
 
@@ -352,8 +350,7 @@ rules={[
       </Button>
       {error ? <h4 className="errorH">{error}</h4> : null}
     </Form.Item>
-      </Form>
-</>
+</Form>
 )
 }
 
