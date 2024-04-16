@@ -19,6 +19,7 @@ const [bookData, setBookData] = useState([])
 const [userData, setUserData] = useState([])
 const [error, setError] = useState(null)
 const [loading, setLoading] = useState<boolean>(true)
+const [bookId, setBookId] = useState<string>("")
 
 const { token } = useContext(AuthContext);
 const { decodedToken }: { decodedToken?: { username: string} } = useJwt(token);
@@ -82,7 +83,8 @@ console.log(index);
         <div 
         key={i}
         className={decodedToken ? "bookDeleteBox" : "bookBox"}
-        onClick={() => setIndex(bookData.indexOf(book))}
+        // add conditional as otherwise creates bug for onClick Modal
+        onClick={() => !showEditBook ? setIndex(bookData.indexOf(book)) : null}
         >
         <h2>{book?.title}</h2>
         {decodedToken ? (
@@ -91,7 +93,7 @@ console.log(index);
             <EditUnreadBook 
                 setShowEditBook = {setShowEditBook}
                 showEditBook = {showEditBook}
-                editBookId = {book?._id}
+                id = {book?._id}
                 prevTitle =  {book?.title}
                 prevAuthor = {book?.author}
                 prevPages= {book?.pages}
