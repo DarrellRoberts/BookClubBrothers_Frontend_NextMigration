@@ -19,7 +19,6 @@ const [bookData, setBookData] = useState([])
 const [userData, setUserData] = useState([])
 const [error, setError] = useState(null)
 const [loading, setLoading] = useState<boolean>(true)
-const [bookId, setBookId] = useState<string>("")
 
 const { token } = useContext(AuthContext);
 const { decodedToken }: { decodedToken?: { username: string} } = useJwt(token);
@@ -65,7 +64,7 @@ useEffect(() => {
     getBookData();
     getUserData();
 }, [])
-console.log(index);
+
     return (
 <div>
   <h1 className="randomTitle">Randomiser</h1>
@@ -81,26 +80,16 @@ console.log(index);
         bookData?.map((book, i) => 
         (
         <div 
-        key={i}
         className={decodedToken ? "bookDeleteBox" : "bookBox"}
         // add conditional as otherwise creates bug for onClick Modal
         onClick={() => !showEditBook ? setIndex(bookData.indexOf(book)) : null}
         >
         <h2>{book?.title}</h2>
         {decodedToken ? (
-          <div className="bookX">
+          <div 
+          key = {i}
+          className="bookX">
             <DeleteBook id={book?._id} />
-            <EditUnreadBook 
-                setShowEditBook = {setShowEditBook}
-                showEditBook = {showEditBook}
-                id = {book?._id}
-                prevTitle =  {book?.title}
-                prevAuthor = {book?.author}
-                prevPages= {book?.pages}
-                prevYearPublished = {book?.yearPublished} 
-                prevGenre = {book?.genre}
-                prevImageURL = {book?.imageURL}
-            />
           </div>) : null} 
           <p> - suggested by {findUser(book?.suggestedBy) === "user not found" 
           ? " (...loading)" : findUser(book?.suggestedBy)}</p>
@@ -151,12 +140,25 @@ console.log(index);
               <li>Suggested by: {findUser(bookData[index]?.suggestedBy) === "user not found" ? 
               " (loading...)" : findUser(bookData[index]?.suggestedBy)} </li>
             </ul>
-            <Randomiser 
-            bookLength={bookData?.length} 
-            bookId={bookData[index]?._id} 
-            setIndex={setIndex}
-            setError={setError}
-            />
+            <div className="flex">
+              <Randomiser 
+              bookLength={bookData?.length} 
+              bookId={bookData[index]?._id} 
+              setIndex={setIndex}
+              setError={setError}
+              />
+              <EditUnreadBook 
+              setShowEditBook = {setShowEditBook}
+              showEditBook = {showEditBook}
+              id = {bookData[index]?._id}
+              prevTitle =  {bookData[index]?.title}
+              prevAuthor = {bookData[index]?.author}
+              prevPages= {bookData[index]?.pages}
+              prevYearPublished = {bookData[index]?.yearPublished} 
+              prevGenre = {bookData[index]?.genre}
+              prevImageURL = {bookData[index]?.imageURL}
+              />
+            </div>
           </>
         )}
       </div>

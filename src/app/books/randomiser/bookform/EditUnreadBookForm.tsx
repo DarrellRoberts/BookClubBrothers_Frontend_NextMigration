@@ -12,7 +12,7 @@ import "../../../../style/createbook.css"
 const { Option } = Select
 
 type BookProps = {
-  id: number,
+  id: string,
   prevTitle: string, 
   prevAuthor: string,
   prevPages: number,
@@ -90,6 +90,7 @@ const handleSubmit = async () => {
           });
         }, 4000);
       };
+console.log(id);
 console.log(`https://bookclubbrothers-backend.onrender.com/books/${id}`)
 return (
 <Form
@@ -124,7 +125,7 @@ return (
       type="text"
       onChange={(e) => setEditTitle(e.target.value)}
       value={editTitle}
-      // defaultValue={editTitle}
+      defaultValue={editTitle}
       />
     </Form.Item>
 
@@ -144,7 +145,7 @@ return (
       type="text"
       onChange={(e) => setEditAuthor(e.target.value)}
       value={editAuthor}
-      // defaultValue={editAuthor}
+      defaultValue={editAuthor}
       />
     </Form.Item>
 
@@ -162,7 +163,7 @@ return (
       type="number"
       onChange={(e) => setEditPages(Number(e.target.value))}
       value={editPages}
-      // defaultValue={editPages}
+      defaultValue={editPages}
       />
     </Form.Item>
 
@@ -180,7 +181,7 @@ return (
       type="number"
       onChange={(e) => setYearPublished(Number(e.target.value))}
       value={editYearPublished}
-      // defaultValue={editYearPublished}
+      defaultValue={editYearPublished}
       />
       </Form.Item>
 
@@ -202,6 +203,7 @@ rules={[
     placeholder="Select the genres"
     optionLabelProp="label"
     value={editGenre}
+    defaultValue={editGenre}
     onChange={setEditGenre}
   >
     <Option value="Horror" label="Horror">
@@ -328,7 +330,7 @@ rules={[
       type="text"
       onChange={(e) => setEditImageURL(e.target.value)}
       value={editImageURL}
-      // defaultValue={editImageURL}
+      defaultValue={editImageURL}
       />
     </Form.Item>
 
