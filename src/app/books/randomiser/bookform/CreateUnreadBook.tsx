@@ -1,28 +1,31 @@
-import {useState} from "react"
+import {Dispatch, useState} from "react"
 import {Modal, Button} from "antd"
 import CreateBookForm from "./CreateUnreadBookForm"
+import {ACTIONS} from "../actions"
 
 interface props {
-    setShowCreateBook: React.Dispatch<React.SetStateAction<boolean>>
+    dispatch: Dispatch<any>
     showCreateBook: boolean
 }
 
-const CreateBook: React.FC<props> = ({setShowCreateBook, showCreateBook}) => {
+const CreateBook: React.FC<props> = ({
+  dispatch, 
+  showCreateBook}) => {
 const [modalText, setModalText] = useState(<CreateBookForm />)
 const [confirmLoading, setConfirmLoading] = useState<boolean>(false);
 
 const showModal = () => {
-    setShowCreateBook(true);
+    dispatch({type: ACTIONS.SHOWCREATEBOOK, payload: true})
   };
   const handleOk = () => {
     setConfirmLoading(true);
     setTimeout(() => {
-    setShowCreateBook(false);
+    dispatch({type: ACTIONS.SHOWCREATEBOOK, payload: false})
     }, 4000);
     setModalText(<CreateBookForm />)
   };
   const handleCancel = () => {
-    setShowCreateBook(false);
+    dispatch({type: ACTIONS.SHOWCREATEBOOK, payload: false})
   };
 return (
 <>

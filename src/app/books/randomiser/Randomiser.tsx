@@ -1,21 +1,23 @@
-import {useState} from "react"
+import {Dispatch, useState} from "react"
+import {ACTIONS} from "./actions"
 import { Button } from "antd"
 import SelectBook from "./bookform/SelectBook"
 
 interface props {
-    setIndex: React.Dispatch<React.SetStateAction<number>>
-    setError: React.Dispatch<React.SetStateAction<string>>
-    bookLength: number,
+    dispatch: Dispatch<any>
+    bookLength: number
     bookId: string
 }
 
-const Randomiser: React.FC<props> = ({setIndex, setError, bookLength, bookId}) => {
-const [showRandom, setShowRandom] = useState(true)
+const Randomiser: React.FC<props> = ({
+  dispatch, 
+  bookLength, bookId}) => {
+const [showRandom, setShowRandom] = useState<boolean>(true)
 
 const handleRandomise = () => {
     setShowRandom(false)
     const Int = setInterval(() => {
-        setIndex(Math.floor(Math.random() * bookLength));
+        dispatch({ type: ACTIONS.SETINDEX, payload: Math.floor(Math.random() * bookLength)})
       }, 50);
       setTimeout(() => {
         clearInterval(Int);
@@ -33,7 +35,10 @@ return (
     >
     Randomise
     </Button>
-    <SelectBook bookId={bookId} setError={setError}/>
+    <SelectBook 
+    bookId={bookId} 
+    dispatch={dispatch}
+    />
     </>
 ) : null}
   </div>

@@ -1,10 +1,11 @@
-import {useState} from "react"
+import {Dispatch, useState} from "react"
 import {Modal, Button} from "antd"
 import EditUnreadBookForm from "./EditUnreadBookForm"
+import {ACTIONS} from "../actions"
 
 interface props {
-    setShowEditBook: React.Dispatch<React.SetStateAction<boolean>>
     showEditBook: boolean
+    dispatch: Dispatch<any> 
     id: string,
     prevTitle: string, 
     prevAuthor: string,
@@ -16,8 +17,8 @@ interface props {
 
 const EditUnreadBook: React.FC<props> = (
   {
-  setShowEditBook, 
   showEditBook, 
+  dispatch,
   id,
   prevTitle, 
   prevAuthor,
@@ -42,17 +43,17 @@ const [modalText, setModalText] = useState(
 const [confirmLoading, setConfirmLoading] = useState<boolean>(false);
 
 const showModal = () => {
-  setShowEditBook(true);
+  dispatch({type: ACTIONS.SHOWEDITBOOK, payload: true})
   console.log(id);
   };
   const handleOk = () => {
     setConfirmLoading(true);
     setTimeout(() => {
-      setShowEditBook(false);
+      dispatch({type: ACTIONS.SHOWEDITBOOK, payload: false})
     }, 4000);
   };
   const handleCancel = () => {
-    setShowEditBook(false);
+    dispatch({type: ACTIONS.SHOWEDITBOOK, payload: false})
     console.log(id);
   };
 return (
