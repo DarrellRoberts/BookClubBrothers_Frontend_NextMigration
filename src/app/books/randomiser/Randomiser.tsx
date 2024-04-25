@@ -1,5 +1,5 @@
 import {Dispatch, useState} from "react"
-import {ACTIONS} from "./page"
+import {ACTIONS} from "./actions"
 import { Button } from "antd"
 import SelectBook from "./bookform/SelectBook"
 

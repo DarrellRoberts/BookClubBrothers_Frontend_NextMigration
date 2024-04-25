@@ -1,7 +1,7 @@
 import {Dispatch, useState} from "react"
 import {Modal, Button} from "antd"
 import CreateBookForm from "./CreateUnreadBookForm"
-import {ACTIONS} from "../page"
+import {ACTIONS} from "../actions"
 
 interface props {
     dispatch: Dispatch<any>

@@ -1,7 +1,7 @@
 import {Dispatch, useState} from "react"
 import {Modal, Button} from "antd"
 import EditUnreadBookForm from "./EditUnreadBookForm"
-import {ACTIONS} from "../page"
+import {ACTIONS} from "../actions"
 
 interface props {
     showEditBook: boolean

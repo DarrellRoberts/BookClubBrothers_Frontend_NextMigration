@@ -2,7 +2,7 @@ import { Button, Form } from 'antd';
 import { useState, useContext, Dispatch } from 'react';
 import { AuthContext } from "../../../../context/authContext";
 import { useJwt } from "react-jwt";
-import {ACTIONS} from "../page"
+import {ACTIONS} from "../actions"
 
 interface props {
     bookId: string

@@ -1,6 +1,7 @@
 "use client";
 
 import {useEffect, useContext, useReducer} from "react"
+import {ACTIONS} from "./actions"
 import LoaderNoText from "../../../components/loader/LoaderNoText"
 import CreateUnreadBook from "./bookform/CreateUnreadBook"
 import DeleteBook from "./bookform/DeleteBook"
@@ -10,16 +11,6 @@ import { AuthContext } from "../../../context/authContext";
 import { useJwt } from "react-jwt";
 import "../../../style/randomiser.css"
 import "../../../style/randomiserRes.css"
-
-export const ACTIONS = {
-  SHOWCREATEBOOK: 'showCreateBook',
-  SHOWEDITBOOK: 'showEditBook',
-  SETINDEX: 'setIndex',
-  SETBOOKDATA: 'setBookData',
-  SETUSERDATA: 'setUserData',
-  SETERROR: 'setError',
-  SHOWLOADING: 'setLoading'
-}
 
 const reducer = (state, action) => {
   switch (action.type) {
