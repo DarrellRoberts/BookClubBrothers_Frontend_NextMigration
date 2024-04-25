@@ -1,14 +1,18 @@
 import { Button, Form } from 'antd';
-import { useState, useContext } from 'react';
+import { useState, useContext, Dispatch } from 'react';
 import { AuthContext } from "../../../../context/authContext";
 import { useJwt } from "react-jwt";
+import {ACTIONS} from "../page"
 
 interface props {
     bookId: string
-    setError: React.Dispatch<React.SetStateAction<string>>
+    dispatch: Dispatch<any>
 }
 
-const SelectBook:React.FC<props> = ({ bookId, setError }) => {
+const SelectBook:React.FC<props> = ({ 
+  bookId,
+  dispatch, 
+}) => {
     const [loadings, setLoadings] = useState([])
     
     const read = true;
@@ -19,7 +23,7 @@ const SelectBook:React.FC<props> = ({ bookId, setError }) => {
     const handleSubmit = async () => {
         if (decodedToken?.username === "Darrell") {
         try {
-        setError(null);
+        dispatch({type: ACTIONS.SETERROR, payload: null})
         const response = await fetch(`https://bookclubbrothers-backend.onrender.com/books/${bookId}`, {
           method: "PUT",
           headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}`},
@@ -30,7 +34,7 @@ const SelectBook:React.FC<props> = ({ bookId, setError }) => {
         const data = await response.json();
     
         if (!response.ok) {
-          setError(data.error);
+          dispatch({type: ACTIONS.SETERROR, payload: data.error})
           console.log("something has happened");
         }
     
@@ -38,10 +42,11 @@ const SelectBook:React.FC<props> = ({ bookId, setError }) => {
           console.log("SUCCESS!!!")
         }
     } catch(error) {
-        setError(error)
+        dispatch({type: ACTIONS.SETERROR, payload: error})
     }
 } else {
-setError("You need the admin's permission to select a book. You are not the admin...move along")
+dispatch({type: ACTIONS.SETERROR, payload: "You need the admin's permission to select a book. You are not the admin...move along"})
+
 }
 };
     
