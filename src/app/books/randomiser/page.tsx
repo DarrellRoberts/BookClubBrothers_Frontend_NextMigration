@@ -122,10 +122,11 @@ useEffect(() => {
           ? " (...loading)" : findUser(book?.suggestedBy)}</p>
         </div>
         ))}
+        {decodedToken ? (
         <CreateUnreadBook 
         showCreateBook={state.showCreateBook} 
         dispatch={dispatch}
-        />
+        />) : null}
         </div>
 
           <div className="leftBottomInfo mt-5">
@@ -174,7 +175,7 @@ useEffect(() => {
               bookId={state.bookData[state.index]?._id}
               dispatch={dispatch}
               />
-              <EditUnreadBook 
+              {/*<EditUnreadBook 
               dispatch={dispatch}
               showEditBook = {state.showEditBook}
               id = {state.bookData[state.index]?._id}
@@ -184,7 +185,7 @@ useEffect(() => {
               prevYearPublished = {state.bookData[state.index]?.yearPublished} 
               prevGenre = {state.bookData[state.index]?.genre}
               prevImageURL = {state.bookData[state.index]?.imageURL}
-              />
+            />*/}
             </div>
           </>
         )}
