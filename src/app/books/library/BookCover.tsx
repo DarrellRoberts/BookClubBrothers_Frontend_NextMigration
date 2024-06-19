@@ -59,19 +59,19 @@ return (
   <div className={`${styles.rightcover} flex flex-col items-start ml-2`}>
   <h2 className="underline mb-5">Book Club Brothers</h2>
 
-{Array.isArray(raterObj)
+{Array.isArray(raterObj) && raterObj.length > 0
         ? raterObj.map(([name, value]) => (
             <li className="list-none mb-1 ml-2" key={name}>
               {name}: {value}
             </li>
           ))
-        : Object.entries(raterObj).map(([name, value]) => (
-            <li className="list-none mb-1 ml-2" key={name}>
-              {name}: {value}
+        : 
+            <li className="list-none mb-1 ml-2">
+              Score Pending...
             </li>
-          ))}
+          }
 
-  <li className="list-none mt-auto font-bold">Group Rating: {Math.floor(totalScore * 100) / 100}</li>
+  <li className="list-none mt-auto font-bold">Group Rating: {totalScore ? Math.floor(totalScore * 100) / 100 : "Pending..."}</li>
   </div>
 </div>
 </>
