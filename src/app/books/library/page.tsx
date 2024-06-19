@@ -47,13 +47,6 @@ const Booklibrary: React.FC = () => {
   const filteredResults = Array.isArray(bookData)
       ? bookData?.filter((book) => book.title.includes(searchBar) && book.read === true)
       : ["No results"];
-
-//sorting read books by date of meeting
-filteredResults.sort(function(a, b) { 
-  let c = Date.parse(a.dateOfMeeting);
-  let d = Date.parse(b.dateOfMeeting) ? Date.parse(b.dateOfMeeting) : 0;
-  return d-c;
-  })
   return (
     <>
     <div className="searchBackCon">
