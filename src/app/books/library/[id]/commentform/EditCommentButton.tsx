@@ -1,41 +1,44 @@
-"use client"
+/* eslint-disable react/react-in-jsx-scope */
+/* eslint-disable react/prop-types */
+"use client";
 
-import {useState} from "react"
-import {Modal, Button} from "antd"
-import EditCommentForm from "./EditCommentForm"
+import { useState } from "react";
+import { Modal, Button } from "antd";
+import EditCommentForm from "./EditCommentForm";
 
 interface props {
-    setShowEditComment: React.Dispatch<React.SetStateAction<boolean>>
-    showEditComment: boolean
-    id: string | string[]
-    inComment: string
+  setShowEditComment: React.Dispatch<React.SetStateAction<boolean>>;
+  showEditComment: boolean;
+  id: string | string[];
+  inComment: string;
 }
 
-const EditRatingButton: React.FC<props> = ({showEditComment, setShowEditComment, id, inComment}) => {
+const EditRatingButton: React.FC<props> = ({
+  showEditComment,
+  setShowEditComment,
+  id,
+  inComment,
+}) => {
+  const [confirmLoading, setConfirmLoading] = useState<boolean>(false);
 
-const [confirmLoading, setConfirmLoading] = useState<boolean>(false);
-
-const showModal = () => {
+  const showModal = () => {
     setShowEditComment(true);
   };
   const handleOk = () => {
     setConfirmLoading(true);
     setTimeout(() => {
-    setShowEditComment(false);
+      setShowEditComment(false);
     }, 4000);
   };
   const handleCancel = () => {
     setShowEditComment(false);
   };
-return (
-<>
-<div className="flex items-center">
-      <Button
-        className="m-5"
-        onClick={showModal}
-      >
-        Edit comment
-      </Button>
+  return (
+    <>
+      <div className="flex items-center">
+        <Button className="m-5" onClick={showModal}>
+          Edit comment
+        </Button>
       </div>
       <Modal
         title="Change Rating"
@@ -47,8 +50,8 @@ return (
       >
         {showEditComment && <EditCommentForm id={id} inComment={inComment} />}
       </Modal>
-</>
-    )
-}
+    </>
+  );
+};
 
-export default EditRatingButton
+export default EditRatingButton;

@@ -1,3 +1,5 @@
+/* eslint-disable react/no-unescaped-entities */
+/* eslint-disable react/react-in-jsx-scope */
 "use client";
 
 import { useEffect, useState } from "react";
@@ -208,8 +210,9 @@ const Dashboard: React.FC = () => {
           <div className="m-10 border-4 border-black p-3 rounded-lg bg-black text-white">
             <h2 className="underline">Books scored</h2>
             <ul>
-              {filterBooks.map((book) => (
+              {filterBooks.map((book, i) => (
                 <li
+                  key={i}
                   className={
                     book?.scoreRatings?.rating[
                       book?.scoreRatings?.raterId.indexOf(findUser?._id)
@@ -233,10 +236,10 @@ const Dashboard: React.FC = () => {
             <h2 className="underline">Unread Books</h2>
             <ul>
               {filterUnreadBooks.length === 0 ? (
-                <li> You're up to date, well done!</li>
+                <li> You are up to date, well done!</li>
               ) : (
                 filterUnreadBooks.map(
-                  (book) => book.read === true && <li>{book.title}</li>
+                  (book, i) => book.read === true && <li key={i}>{book.title}</li>
                 )
               )}
             </ul>
@@ -248,8 +251,8 @@ const Dashboard: React.FC = () => {
               {filterComments.length === 0 ? (
                 <li> You have written no comments</li>
               ) : (
-                filterComments.map((book) => (
-                  <li>
+                filterComments.map((book, i) => (
+                  <li key={i}>
                     {book.title}: "
                     {
                       book.commentInfo.comments[

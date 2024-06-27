@@ -1,20 +1,22 @@
-"use client"
+/* eslint-disable react/prop-types */
+/* eslint-disable react/react-in-jsx-scope */
+"use client";
 
 import { useState, useEffect, createContext, ReactNode } from "react";
 
 interface AuthContextValue {
-    token: string;
-    login: (string) => void;
-    logout: () => void;
-    children?: ReactNode | undefined; 
-  }
+  token: string;
+  login: (string) => void;
+  logout: () => void;
+  children?: ReactNode | undefined;
+}
 
-  const defaultValue: AuthContextValue = {
-    token: '',
-    login: () => {},
-    logout: () => {},
-    children: undefined
-  };
+const defaultValue: AuthContextValue = {
+  token: "",
+  login: () => {},
+  logout: () => {},
+  children: undefined,
+};
 
 export const AuthContext = createContext(defaultValue);
 
@@ -48,6 +50,6 @@ const AuthContextProvider: React.FC<{ children?: ReactNode }> = (props) => {
     <AuthContext.Provider value={{ token, login, logout }}>
       {props.children}
     </AuthContext.Provider>
-  )
-}
-export default AuthContextProvider
+  );
+};
+export default AuthContextProvider;

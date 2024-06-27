@@ -1,41 +1,38 @@
-import {Dispatch, useState} from "react"
-import {Modal, Button} from "antd"
-import CreateBookForm from "./CreateUnreadBookForm"
-import {ACTIONS} from "../actions"
+/* eslint-disable react/react-in-jsx-scope */
+/* eslint-disable react/prop-types */
+import { Dispatch, useState } from "react";
+import { Modal, Button } from "antd";
+import CreateBookForm from "./CreateUnreadBookForm";
+import { ACTIONS } from "../actions";
 
 interface props {
-    dispatch: Dispatch<any>
-    showCreateBook: boolean
+  dispatch: Dispatch<unknown>;
+  showCreateBook: boolean;
 }
 
-const CreateBook: React.FC<props> = ({
-  dispatch, 
-  showCreateBook}) => {
-const [modalText, setModalText] = useState(<CreateBookForm />)
-const [confirmLoading, setConfirmLoading] = useState<boolean>(false);
+const CreateBook: React.FC<props> = ({ dispatch, showCreateBook }) => {
+  const [modalText, setModalText] = useState(<CreateBookForm />);
+  const [confirmLoading, setConfirmLoading] = useState<boolean>(false);
 
-const showModal = () => {
-    dispatch({type: ACTIONS.SHOWCREATEBOOK, payload: true})
+  const showModal = () => {
+    dispatch({ type: ACTIONS.SHOWCREATEBOOK, payload: true });
   };
   const handleOk = () => {
     setConfirmLoading(true);
     setTimeout(() => {
-    dispatch({type: ACTIONS.SHOWCREATEBOOK, payload: false})
+      dispatch({ type: ACTIONS.SHOWCREATEBOOK, payload: false });
     }, 4000);
-    setModalText(<CreateBookForm />)
+    setModalText(<CreateBookForm />);
   };
   const handleCancel = () => {
-    dispatch({type: ACTIONS.SHOWCREATEBOOK, payload: false})
+    dispatch({ type: ACTIONS.SHOWCREATEBOOK, payload: false });
   };
-return (
-<>
-<div className="flex items-center">
-      <Button
-        className="m-5"
-        onClick={showModal}
-      >
-        Add book
-      </Button>
+  return (
+    <>
+      <div className="flex items-center">
+        <Button className="m-5" onClick={showModal}>
+          Add book
+        </Button>
       </div>
       <Modal
         title="Add a book"
@@ -47,8 +44,8 @@ return (
       >
         <p>{modalText}</p>
       </Modal>
-</>
-    )
-}
+    </>
+  );
+};
 
-export default CreateBook
+export default CreateBook;

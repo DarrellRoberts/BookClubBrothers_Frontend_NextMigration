@@ -1,4 +1,6 @@
-"use client"
+/* eslint-disable react/react-in-jsx-scope */
+/* eslint-disable react/prop-types */
+"use client";
 
 import { useState, useContext } from "react";
 import { AuthContext } from "../../../../../../context/authContext";
@@ -91,7 +93,7 @@ const EditPages: React.FC<props> = ({ id, inPages }) => {
           ]}
         >
           <Input
-              type="number"
+            type="number"
             onChange={(e) => setPages(Number(e.target.value))}
             defaultValue={pages}
             value={pages}

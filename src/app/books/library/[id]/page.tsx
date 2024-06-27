@@ -1,4 +1,5 @@
-"use client"
+/* eslint-disable react/react-in-jsx-scope */
+"use client";
 
 import { useState, useEffect, useContext, useReducer } from "react";
 import { useParams } from "next/navigation";
@@ -7,7 +8,7 @@ import BookCover from "../BookCover";
 import { dateFormatter } from "../../../../functions/dateFormatter.js";
 import DeleteBook from "../bookform/DeleteBook";
 import RatingCon from "./RatingCon";
-import CommentCon from "./CommentCon"
+import CommentCon from "./CommentCon";
 import { AuthContext } from "../../../../context/authContext";
 import { useJwt } from "react-jwt";
 import "../../../../style/singlebook.css";
@@ -31,7 +32,7 @@ import EditImage from "./editbookform/image/EditImage";
 
 //Declare TypeScript types
 interface book {
-  _id : string
+  _id: string;
   author: string;
   genre: [string];
   reviewImageURL: string;
@@ -60,30 +61,30 @@ type StateType = {
   showGenre: boolean;
   showTitle: boolean;
   showImage: boolean;
-}
+};
 
 const reducer = (state: StateType, action) => {
   switch (action.type) {
-    case "toggleShowDelete":
-      return {showDelete: !state.showDelete}
-    case "toggleShowAuthor":
-      return {showAuthor: !state.showAuthor}
-    case "toggleShowPublish":
-      return {showPublish: !state.showPublish}
-    case "toggleShowPage":
-      return {showPage: !state.showPage}
-    case "toggleShowDate":
-      return {showDate: !state.showDate}
-    case "toggleShowGenre":
-      return {showGenre: !state.showGenre}
-    case "toggleShowTitle":
-      return {showTitle: !state.showTitle}
-    case "toggleShowImage":
-      return {showImage: !state.showImage}
-    default:
-      return state
+  case "toggleShowDelete":
+    return { showDelete: !state.showDelete };
+  case "toggleShowAuthor":
+    return { showAuthor: !state.showAuthor };
+  case "toggleShowPublish":
+    return { showPublish: !state.showPublish };
+  case "toggleShowPage":
+    return { showPage: !state.showPage };
+  case "toggleShowDate":
+    return { showDate: !state.showDate };
+  case "toggleShowGenre":
+    return { showGenre: !state.showGenre };
+  case "toggleShowTitle":
+    return { showTitle: !state.showTitle };
+  case "toggleShowImage":
+    return { showImage: !state.showImage };
+  default:
+    return state;
   }
-}
+};
 
 const SingleBook: React.FC = () => {
   const [bookData, setBook] = useState<book>();
@@ -91,26 +92,27 @@ const SingleBook: React.FC = () => {
   const [error, setError] = useState("");
 
   const [state, dispatch] = useReducer(reducer, {
-    showDelete: false, 
-    showAuthor: false, 
-    showPublish: false, 
-    showPage: false, 
-    showDate: false, 
-    showGenre: false, 
-    showTitle: false, 
-    showImage: false
-  })
+    showDelete: false,
+    showAuthor: false,
+    showPublish: false,
+    showPage: false,
+    showDate: false,
+    showGenre: false,
+    showTitle: false,
+    showImage: false,
+  });
 
   const { token } = useContext(AuthContext);
-  const { decodedToken }: { decodedToken?: { username: string, _id: string } } =
+  const { decodedToken }: { decodedToken?: { username: string; _id: string } } =
     useJwt(token);
   const { id } = useParams();
-  const AdId = "65723ac894b239fe25fe6871"
+  const AdId = "65723ac894b239fe25fe6871";
 
   const getBookData = async () => {
     try {
       const data = await fetch(
-        `https://bookclubbrothers-backend.onrender.com/books/${id}`);
+        `https://bookclubbrothers-backend.onrender.com/books/${id}`
+      );
       const book = await data.json();
       setBook(book);
       setLoading(false);
@@ -139,13 +141,16 @@ const SingleBook: React.FC = () => {
             ) : null}
             {state.showTitle ? (
               <div className="flex mt-5">
-              <EditTitle id={id} inTitle={bookData?.title}/>
+                <EditTitle id={id} inTitle={bookData?.title} />
               </div>
             ) : (
-            <h1 className="bookTitle">{bookData.title}</h1>
+              <h1 className="bookTitle">{bookData.title}</h1>
             )}
             {decodedToken?._id === AdId ? (
-              <EditTitleButton showTitle={state.showTitle} dispatch={dispatch}/>
+              <EditTitleButton
+                showTitle={state.showTitle}
+                dispatch={dispatch}
+              />
             ) : null}
             <div>
               {bookData?.reviewImageURL ? (
@@ -169,15 +174,18 @@ const SingleBook: React.FC = () => {
             </div>
             {state.showImage ? (
               <div className="ml-5">
-              <EditImage id={id} />
+                <EditImage id={id} />
               </div>
             ) : null}
             {decodedToken?._id === AdId ? (
-              <EditImageButton showImage={state.showImage} dispatch={dispatch}/>
+              <EditImageButton
+                showImage={state.showImage}
+                dispatch={dispatch}
+              />
             ) : null}
           </div>
 
-{/* rightside */}
+          {/* rightside */}
           <div className="bookRightCon flex flex-col m-20">
             <h2 className="text-5xl underline">Details</h2>
             <ul>
@@ -197,41 +205,56 @@ const SingleBook: React.FC = () => {
                   />
                 </span>
               ) : null}
-              
+
               <li className="mt-5 underline">Published in</li>
               <li className="">
                 {state.showPublish ? (
-                  <EditPublished inPublish={bookData?.yearPublished} id={id}/>
-                ) :
-                bookData?.yearPublished < 0
-                  ? Math.abs(bookData?.yearPublished) + " BCE"
-                  : bookData?.yearPublished}
+                  <EditPublished inPublish={bookData?.yearPublished} id={id} />
+                ) : bookData?.yearPublished < 0 ? (
+                  Math.abs(bookData?.yearPublished) + " BCE"
+                ) : (
+                  bookData?.yearPublished
+                )}
               </li>
-                  {decodedToken?._id === AdId ? (
-                    <EditPublishButton 
-                    showPublish={state.showPublish} 
-                    dispatch={dispatch} />
-                  ) : null}
+              {decodedToken?._id === AdId ? (
+                <EditPublishButton
+                  showPublish={state.showPublish}
+                  dispatch={dispatch}
+                />
+              ) : null}
               <li className="mt-5 underline">Number of pages</li>
               {state.showPage ? (
-                <EditPages inPages={bookData?.pages} id={id}/>
+                <EditPages inPages={bookData?.pages} id={id} />
               ) : (
-              <li className="">{bookData?.pages}</li>)}
+                <li className="">{bookData?.pages}</li>
+              )}
               {decodedToken?._id === AdId ? (
-                <EditPagesButton showPage={state.showPage} dispatch={dispatch}/>
+                <EditPagesButton
+                  showPage={state.showPage}
+                  dispatch={dispatch}
+                />
               ) : null}
 
               <li className="mt-5 underline">Genres</li>
               {state.showGenre ? (
-                <EditGenre id={id} inGenre={bookData?.genre.map((type) => type)}/>
-              ) :
-              bookData?.genre.map((type) => (
-                <li>
-                  {type[bookData?.genre?.length - 1] ? ` ${type}` : ` ${type},`}
-                </li>
-              ))}
-                {decodedToken?._id === AdId ? (
-                <EditGenreButton showGenre={state.showGenre} dispatch={dispatch} />
+                <EditGenre
+                  id={id}
+                  inGenre={bookData?.genre.map((type) => type)}
+                />
+              ) : (
+                bookData?.genre.map((type, i) => (
+                  <li key={i}>
+                    {type[bookData?.genre?.length - 1]
+                      ? ` ${type}`
+                      : ` ${type},`}
+                  </li>
+                ))
+              )}
+              {decodedToken?._id === AdId ? (
+                <EditGenreButton
+                  showGenre={state.showGenre}
+                  dispatch={dispatch}
+                />
               ) : null}
 
               <li className="mt-5 underline">Read</li>
@@ -240,11 +263,12 @@ const SingleBook: React.FC = () => {
               <li className="mt-5 underline">Date of meeting</li>
               <li className="">
                 {state.showDate ? (
-                  <EditDate id={id}/>
-                ) :
-                bookData?.dateOfMeeting
-                  ? dateFormatter(bookData?.dateOfMeeting)
-                  : "???"}
+                  <EditDate id={id} />
+                ) : bookData?.dateOfMeeting ? (
+                  dateFormatter(bookData?.dateOfMeeting)
+                ) : (
+                  "???"
+                )}
               </li>
               {decodedToken?._id === AdId ? (
                 <EditDateButton showDate={state.showDate} dispatch={dispatch} />
@@ -257,8 +281,8 @@ const SingleBook: React.FC = () => {
         </div>
       )}
       <div className="ratingAndCommentCon">
-      <RatingCon bookData={bookData} id={id} />
-      <CommentCon bookData={bookData} id={id} />
+        <RatingCon bookData={bookData} id={id} />
+        <CommentCon bookData={bookData} id={id} />
       </div>
     </>
   );

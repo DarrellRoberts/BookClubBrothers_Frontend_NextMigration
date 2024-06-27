@@ -1,43 +1,38 @@
-import "../../style/homepage.css"
-import "../../style/homepageRes.css"
-import Link from "next/link"
+/* eslint-disable react/react-in-jsx-scope */
+import "../../style/homepage.css";
+import "../../style/homepageRes.css";
+import Link from "next/link";
 
 const Homepage: React.FC = () => {
-    return (
-        <>
-        <div className="flex justify-center mt-10 text-center">
+  return (
+    <>
+      <div className="flex justify-center mt-10 text-center">
         <h1 className="homepageTitle">The Book Club Brothers</h1>
-        </div>
+      </div>
 
-        <div className="brothersCon">
-        
+      <div className="brothersCon">
         <div className="book">
-
-            <Link href="/books">
+          <Link href="/books">
             <div className="bookEgg">
-                <h2 className="mt-5">Book</h2>
+              <h2 className="mt-5">Book</h2>
             </div>
-            </Link>
+          </Link>
 
-
-            <Link href="/club">
+          <Link href="/club">
             <div className="clubEgg">
-                <h2 className="mt-5">Club</h2>
+              <h2 className="mt-5">Club</h2>
             </div>
-            </Link>
+          </Link>
 
-            <Link href="/brothers">
+          <Link href="/brothers">
             <div className="brothersEgg">
-                <h2 className="mt-10">Brothers</h2>
+              <h2 className="mt-10">Brothers</h2>
             </div>
-            </Link>
-
+          </Link>
         </div>
+      </div>
+    </>
+  );
+};
 
-        </div>
-
-        </>
-    )
-}
-
-export default Homepage
+export default Homepage;

@@ -1,70 +1,67 @@
-import {Dispatch, useState} from "react"
-import {Modal, Button} from "antd"
-import EditUnreadBookForm from "./EditUnreadBookForm"
-import {ACTIONS} from "../actions"
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable react/react-in-jsx-scope */
+/* eslint-disable react/prop-types */
+import { Dispatch, useState } from "react";
+import { Modal, Button } from "antd";
+import EditUnreadBookForm from "./EditUnreadBookForm";
+import { ACTIONS } from "../actions";
 
 interface props {
-    showEditBook: boolean
-    dispatch: Dispatch<any> 
-    id: string,
-    prevTitle: string, 
-    prevAuthor: string,
-    prevPages: number,
-    prevYearPublished: number, 
-    prevGenre: string[],
-    prevImageURL: string
+  showEditBook: boolean;
+  dispatch: Dispatch<unknown>;
+  id: string;
+  prevTitle: string;
+  prevAuthor: string;
+  prevPages: number;
+  prevYearPublished: number;
+  prevGenre: string[];
+  prevImageURL: string;
 }
 
-const EditUnreadBook: React.FC<props> = (
-  {
-  showEditBook, 
+const EditUnreadBook: React.FC<props> = ({
+  showEditBook,
   dispatch,
   id,
-  prevTitle, 
+  prevTitle,
   prevAuthor,
   prevPages,
-  prevYearPublished, 
+  prevYearPublished,
   prevGenre,
-  prevImageURL
-  }
-) => {
+  prevImageURL,
+}) => {
+  const [modalText, setModalText] = useState(
+    <EditUnreadBookForm
+      id={id}
+      prevTitle={prevTitle}
+      prevAuthor={prevAuthor}
+      prevPages={prevPages}
+      prevYearPublished={prevYearPublished}
+      prevGenre={prevGenre}
+      prevImageURL={prevImageURL}
+    />
+  );
+  const [confirmLoading, setConfirmLoading] = useState<boolean>(false);
 
-const [modalText, setModalText] = useState(
-<EditUnreadBookForm 
-  id={id}
-  prevTitle={prevTitle}
-  prevAuthor={prevAuthor}
-  prevPages={prevPages}
-  prevYearPublished={prevYearPublished}
-  prevGenre={prevGenre}
-  prevImageURL={prevImageURL}
-/>
-)
-const [confirmLoading, setConfirmLoading] = useState<boolean>(false);
-
-const showModal = () => {
-  dispatch({type: ACTIONS.SHOWEDITBOOK, payload: true})
-  console.log(id);
+  const showModal = () => {
+    dispatch({ type: ACTIONS.SHOWEDITBOOK, payload: true });
+    console.log(id);
   };
   const handleOk = () => {
     setConfirmLoading(true);
     setTimeout(() => {
-      dispatch({type: ACTIONS.SHOWEDITBOOK, payload: false})
+      dispatch({ type: ACTIONS.SHOWEDITBOOK, payload: false });
     }, 4000);
   };
   const handleCancel = () => {
-    dispatch({type: ACTIONS.SHOWEDITBOOK, payload: false})
+    dispatch({ type: ACTIONS.SHOWEDITBOOK, payload: false });
     console.log(id);
   };
-return (
-<>
-<div className="flex items-center">
-      <Button
-        className="m-5"
-        onClick={showModal}
-      >
-        Edit book
-      </Button>
+  return (
+    <>
+      <div className="flex items-center">
+        <Button className="m-5" onClick={showModal}>
+          Edit book
+        </Button>
       </div>
       <Modal
         title="Edit book"
@@ -76,17 +73,17 @@ return (
       >
         {/* <p>{modalText}</p> */}
         <EditUnreadBookForm
-            id={id}
-            prevTitle={prevTitle}
-            prevAuthor={prevAuthor}
-            prevPages={prevPages}
-            prevYearPublished={prevYearPublished}
-            prevGenre={prevGenre}
-            prevImageURL={prevImageURL}
+          id={id}
+          prevTitle={prevTitle}
+          prevAuthor={prevAuthor}
+          prevPages={prevPages}
+          prevYearPublished={prevYearPublished}
+          prevGenre={prevGenre}
+          prevImageURL={prevImageURL}
         />
       </Modal>
-</>
-    )
-}
+    </>
+  );
+};
 
-export default EditUnreadBook
+export default EditUnreadBook;

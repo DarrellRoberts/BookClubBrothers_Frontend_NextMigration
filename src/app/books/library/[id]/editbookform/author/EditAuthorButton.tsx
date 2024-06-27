@@ -1,36 +1,38 @@
-import { Button } from "antd"
+/* eslint-disable react/react-in-jsx-scope */
+/* eslint-disable react/prop-types */
+import { Button } from "antd";
 
 type ActionType = {
-  type: string
-}
+  type: string;
+};
 
 interface props {
-  dispatch: React.Dispatch<ActionType>,
-  showAuthor: boolean
+  dispatch: React.Dispatch<ActionType>;
+  showAuthor: boolean;
 }
 
-const EditAuthorButton: React.FC<props> = ({dispatch, showAuthor}) => {
-return(
+const EditAuthorButton: React.FC<props> = ({ dispatch, showAuthor }) => {
+  return (
     <>
-    <div className="flex items-center">
+      <div className="flex items-center">
         {showAuthor ? (
-    <Button
-        className="mb-5"
-        onClick={() => dispatch({type: "toggleShowAuthor"})}
-      >
-        X
-      </Button>
-      ) : (
-      <Button
-        className="mb-5"
-        onClick={() => dispatch({type: "toggleShowAuthor"})}
-      >
-        Edit Author
-      </Button>
-      )}
+          <Button
+            className="mb-5"
+            onClick={() => dispatch({ type: "toggleShowAuthor" })}
+          >
+            X
+          </Button>
+        ) : (
+          <Button
+            className="mb-5"
+            onClick={() => dispatch({ type: "toggleShowAuthor" })}
+          >
+            Edit Author
+          </Button>
+        )}
       </div>
     </>
-)
-}
+  );
+};
 
-export default EditAuthorButton
+export default EditAuthorButton;
