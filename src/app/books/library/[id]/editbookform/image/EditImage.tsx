@@ -1,4 +1,6 @@
-"use client"
+/* eslint-disable react/prop-types */
+/* eslint-disable react/react-in-jsx-scope */
+"use client";
 
 import { useState, useContext } from "react";
 import axios from "axios";
@@ -18,18 +20,16 @@ interface props {
 }
 
 interface imageInt {
-  image: string
-  name?: string
-  size: number
-  type: string
-  text: () => Promise<string>
-  arrayBuffer: () => Promise<ArrayBuffer>
+  image: string;
+  name?: string;
+  size: number;
+  type: string;
+  text: () => Promise<string>;
+  arrayBuffer: () => Promise<ArrayBuffer>;
   slice: {
-    (start?: number, 
-      end?: number, 
-      contentType?: string)
-  }
-  stream: () => ReadableStream<Uint8Array>
+    (start?: number, end?: number, contentType?: string);
+  };
+  stream: () => ReadableStream<Uint8Array>;
 }
 
 const EditImage: React.FC<props> = ({ id }) => {
@@ -50,8 +50,8 @@ const EditImage: React.FC<props> = ({ id }) => {
         formData,
         {
           headers: {
-            'Authorization': `Bearer ${token}`,
-          }
+            Authorization: `Bearer ${token}`,
+          },
         }
       );
     } catch (error) {
@@ -61,8 +61,8 @@ const EditImage: React.FC<props> = ({ id }) => {
   };
 
   const handleImageChange = (info) => {
-      setImage(info.file);
-      console.log(info);
+    setImage(info.file);
+    console.log(info);
   };
 
   const enterLoading = (index) => {
@@ -82,44 +82,43 @@ const EditImage: React.FC<props> = ({ id }) => {
   };
   return (
     <>
-    <Form
-      form={form}
-      onFinish={handleSubmit}
-      name="picture_upload_form"
-      initialValues={{ fileList: [] }}
-    >
-      <Form.Item
-        name="fileList"
-        valuePropName="fileList"
-        getValueFromEvent={normFile}
+      <Form
+        form={form}
+        onFinish={handleSubmit}
+        name="picture_upload_form"
+        initialValues={{ fileList: [] }}
       >
-        <Upload
-          name="picture"
-          action={`https://bookclubbrothers-backend.onrender.com/users/${id}`}
-          listType="picture-card"
-          onChange={handleImageChange}
-          beforeUpload={() => false}
+        <Form.Item
+          name="fileList"
+          valuePropName="fileList"
+          getValueFromEvent={normFile}
         >
-              <div>
+          <Upload
+            name="picture"
+            action={`https://bookclubbrothers-backend.onrender.com/users/${id}`}
+            listType="picture-card"
+            onChange={handleImageChange}
+            beforeUpload={() => false}
+          >
+            <div>
               <PlusOutlined />
               <div style={{ marginTop: 8 }}>Upload</div>
             </div>
-        </Upload>
-      </Form.Item>
+          </Upload>
+        </Form.Item>
 
-      <Button 
-      type="primary"
-      className="bg-black"
-      htmlType="submit"
-      loading={loadings[0]} 
-      onClick={() => enterLoading(0)}
-      >
-        Submit
-      </Button>
+        <Button
+          type="primary"
+          className="bg-black"
+          htmlType="submit"
+          loading={loadings[0]}
+          onClick={() => enterLoading(0)}
+        >
+          Submit
+        </Button>
 
-      {error ? 
-      <p>{error}</p> : null}
-    </Form>
+        {error ? <p>{error}</p> : null}
+      </Form>
     </>
   );
 };

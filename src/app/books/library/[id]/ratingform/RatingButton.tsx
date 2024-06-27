@@ -1,41 +1,40 @@
-"use client"
+/* eslint-disable react/prop-types */
+/* eslint-disable react/react-in-jsx-scope */
+"use client";
 
-import {useState} from "react"
-import {Modal, Button} from "antd"
-import RatingForm from "./RatingForm"
+import { useState } from "react";
+import { Modal, Button } from "antd";
+import RatingForm from "./RatingForm";
 
 interface props {
-    setShowRating: React.Dispatch<React.SetStateAction<boolean>>
-    showRating: boolean
-    id: string | string[]
+  setShowRating: React.Dispatch<React.SetStateAction<boolean>>;
+  showRating: boolean;
+  id: string | string[];
 }
 
-const RatingButton: React.FC<props> = ({showRating, setShowRating, id}) => {
-const [modalText, setModalText] = useState(<RatingForm id={id} />)
-const [confirmLoading, setConfirmLoading] = useState<boolean>(false);
+const RatingButton: React.FC<props> = ({ showRating, setShowRating, id }) => {
+  const [modalText, setModalText] = useState(<RatingForm id={id} />);
+  const [confirmLoading, setConfirmLoading] = useState<boolean>(false);
 
-const showModal = () => {
+  const showModal = () => {
     setShowRating(true);
   };
   const handleOk = () => {
     setConfirmLoading(true);
     setTimeout(() => {
-    setShowRating(false);
+      setShowRating(false);
     }, 4000);
-    setModalText(<RatingForm id={id}/>)
+    setModalText(<RatingForm id={id} />);
   };
   const handleCancel = () => {
     setShowRating(false);
   };
-return (
-<>
-<div className="flex items-center">
-      <Button
-        className="m-5"
-        onClick={showModal}
-      >
-        Submit rating
-      </Button>
+  return (
+    <>
+      <div className="flex items-center">
+        <Button className="m-5" onClick={showModal}>
+          Submit rating
+        </Button>
       </div>
       <Modal
         title="Submit Rating"
@@ -47,8 +46,8 @@ return (
       >
         <p>{modalText}</p>
       </Modal>
-</>
-    )
-}
+    </>
+  );
+};
 
-export default RatingButton
+export default RatingButton;

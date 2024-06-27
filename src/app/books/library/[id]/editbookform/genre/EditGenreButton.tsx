@@ -1,36 +1,38 @@
-import { Button } from "antd"
+/* eslint-disable react/react-in-jsx-scope */
+/* eslint-disable react/prop-types */
+import { Button } from "antd";
 
 type ActionType = {
-  type: string
-}
+  type: string;
+};
 
 interface props {
-  dispatch: React.Dispatch<ActionType>,
-  showGenre: boolean
+  dispatch: React.Dispatch<ActionType>;
+  showGenre: boolean;
 }
 
-const EditGenreButton: React.FC<props> = ({dispatch, showGenre}) => {
-return(
+const EditGenreButton: React.FC<props> = ({ dispatch, showGenre }) => {
+  return (
     <>
-    <div className="flex items-center">
+      <div className="flex items-center">
         {showGenre ? (
-    <Button
-        className="mb-5"
-        onClick={() => dispatch({ type: 'toggleShowGenre'})}
-      >
-        X
-      </Button>
-      ) : (
-      <Button
-        className="mb-5"
-        onClick={() => dispatch({ type: 'toggleShowGenre'})}
-      >
-        Edit Genre
-      </Button>
-      )}
+          <Button
+            className="mb-5"
+            onClick={() => dispatch({ type: "toggleShowGenre" })}
+          >
+            X
+          </Button>
+        ) : (
+          <Button
+            className="mb-5"
+            onClick={() => dispatch({ type: "toggleShowGenre" })}
+          >
+            Edit Genre
+          </Button>
+        )}
       </div>
     </>
-)
-}
+  );
+};
 
-export default EditGenreButton
+export default EditGenreButton;

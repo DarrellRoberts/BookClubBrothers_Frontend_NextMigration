@@ -1,4 +1,6 @@
-"use client"
+/* eslint-disable react/react-in-jsx-scope */
+/* eslint-disable react/prop-types */
+"use client";
 
 import { useState, useContext } from "react";
 import { AuthContext } from "../../../../../../context/authContext";
@@ -79,14 +81,8 @@ const EditDate: React.FC<props> = ({ id }) => {
         }}
       >
         {/* Date of Meeting */}
-        <Form.Item
-          label="Date of Meeting"
-          name="Date of Meeting"
-        >
-        <DatePicker
-          onChange={setDateOfMeeting}
-          value={dateOfMeeting}
-        />
+        <Form.Item label="Date of Meeting" name="Date of Meeting">
+          <DatePicker onChange={setDateOfMeeting} value={dateOfMeeting} />
         </Form.Item>
 
         {/* Submission */}

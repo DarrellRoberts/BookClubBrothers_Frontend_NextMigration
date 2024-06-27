@@ -1,50 +1,53 @@
-"use client"
+/* eslint-disable react/prop-types */
+/* eslint-disable react/react-in-jsx-scope */
+"use client";
 
-import { Modal, Button } from "antd"
-import { useState } from "react"
-import EditCityAndCountry from "./EditCityAndCountry"
+import { Modal, Button } from "antd";
+import { useState } from "react";
+import EditCityAndCountry from "./EditCityAndCountry";
 
 type ActionType = {
-  type: string
-}
+  type: string;
+};
 
 interface props {
-  dispatch: React.Dispatch<ActionType>,
-  showCountry: boolean,
-  id: string,
-  inCountry: string,
-  inCity: string
+  dispatch: React.Dispatch<ActionType>;
+  showCountry: boolean;
+  id: string;
+  inCountry: string;
+  inCity: string;
 }
 
 const EditCityAndCountryButton: React.FC<props> = ({
-  dispatch, 
-  showCountry, 
-  id, 
-  inCountry, 
-  inCity
+  dispatch,
+  showCountry,
+  id,
+  inCountry,
+  inCity,
 }) => {
-  const [modalText, setModalText] = useState(<EditCityAndCountry id={id} inCountry={inCountry} inCity={inCity}/>)
+  const [modalText, setModalText] = useState(
+    <EditCityAndCountry id={id} inCountry={inCountry} inCity={inCity} />
+  );
   const [confirmLoading, setConfirmLoading] = useState<boolean>(false);
 
   const showModal = () => {
-    dispatch({ type: 'toggleCountry'});
+    dispatch({ type: "toggleCountry" });
   };
   const handleOk = () => {
     setConfirmLoading(true);
     setTimeout(() => {
-    dispatch({ type: 'toggleCountry'});
+      dispatch({ type: "toggleCountry" });
     }, 4000);
-    setModalText(<EditCityAndCountry id={id} inCountry={inCountry} inCity={inCity} />)
+    setModalText(
+      <EditCityAndCountry id={id} inCountry={inCountry} inCity={inCity} />
+    );
   };
   const handleCancel = () => {
-    dispatch({ type: 'toggleCountry'});
+    dispatch({ type: "toggleCountry" });
   };
-return(
+  return (
     <>
-      <Button
-        className=""
-        onClick={showModal}
-      >
+      <Button className="" onClick={showModal}>
         Edit
       </Button>
       <Modal
@@ -58,7 +61,7 @@ return(
         <p>{modalText}</p>
       </Modal>
     </>
-)
-}
+  );
+};
 
-export default EditCityAndCountryButton
+export default EditCityAndCountryButton;

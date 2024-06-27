@@ -1,4 +1,5 @@
-"use client"
+/* eslint-disable react/react-in-jsx-scope */
+"use client";
 
 import "../../style/loader.css";
 import { useState, useEffect } from "react";

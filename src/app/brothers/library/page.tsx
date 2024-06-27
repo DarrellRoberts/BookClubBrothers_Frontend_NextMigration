@@ -1,3 +1,4 @@
+/* eslint-disable react/react-in-jsx-scope */
 "use client";
 
 import { useEffect, useState, useContext, useReducer } from "react";
@@ -30,16 +31,16 @@ type StateType = {
 
 const reducer = (state: StateType, action) => {
   switch (action.type) {
-    case "toggleImage":
-      return { showImage: !state.showImage };
-    case "toggleUsername":
-      return { showUsername: !state.showUsername };
-    case "toggleCountry":
-      return { showCountry: !state.showCountry };
-    case "toggleGenre":
-      return { showGenre: !state.showGenre };
-    default:
-      return state;
+  case "toggleImage":
+    return { showImage: !state.showImage };
+  case "toggleUsername":
+    return { showUsername: !state.showUsername };
+  case "toggleCountry":
+    return { showCountry: !state.showCountry };
+  case "toggleGenre":
+    return { showGenre: !state.showGenre };
+  default:
+    return state;
   }
 };
 
@@ -249,18 +250,22 @@ const Brothercat: React.FC = () => {
                       <li className="brotherList underline pt-5">
                         Last rating given
                       </li>
-                      <li>Book: {
-                      userBookObj[userData?.indexOf(user)][1] !== "book not found"  ? 
-                      userBookObj[userData?.indexOf(user)][1] :  
-                      (<LoaderNoText />)}
+                      <li>
+                        Book:{" "}
+                        {userBookObj[userData?.indexOf(user)][1] !==
+                        "book not found" ? (
+                            userBookObj[userData?.indexOf(user)][1]
+                          ) : (
+                            <LoaderNoText />
+                          )}
                       </li>
                       <li>
                         Score:
-                        {
-                          ` ${user?.userInfo?.books?.score[
+                        {` ${
+                          user?.userInfo?.books?.score[
                             user?.userInfo?.books?.score.length - 1
-                          ]}`
-                        }
+                          ]
+                        }`}
                       </li>
                     </ul>
                     <div className="clickPhotoCon mt-auto mb-5 flex">

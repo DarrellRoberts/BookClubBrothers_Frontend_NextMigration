@@ -1,121 +1,120 @@
-"use client"
+/* eslint-disable react/prop-types */
+/* eslint-disable react/react-in-jsx-scope */
+"use client";
 
-import { useState, useContext } from "react"
+import { useState, useContext } from "react";
 import { AuthContext } from "../../../../../context/authContext";
-import { 
-    Button, 
-    Form, 
-    Input,
-} from 'antd';
+import { Button, Form, Input } from "antd";
 
-const { TextArea } = Input
+const { TextArea } = Input;
 
 interface props {
-    id: string | string[]
+  id: string | string[];
 }
 
-const CommentForm:React.FC<props> = ({id}) => {
-const [comments, setComment] = useState<string>()
-const [error, setError] = useState("")
-const [loadings, setLoadings] = useState([])
+const CommentForm: React.FC<props> = ({ id }) => {
+  const [comments, setComment] = useState<string>();
+  const [error, setError] = useState("");
+  const [loadings, setLoadings] = useState([]);
 
-const { token } = useContext(AuthContext);
+  const { token } = useContext(AuthContext);
 
-const handleSubmit = async () => {
+  const handleSubmit = async () => {
     try {
-        setError(null);
-        const response = await fetch(`https://bookclubbrothers-backend.onrender.com/books/comment/${id}`, {
+      setError(null);
+      const response = await fetch(
+        `https://bookclubbrothers-backend.onrender.com/books/comment/${id}`,
+        {
           method: "POST",
-          headers: { 
+          headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`
-        },
-          body: JSON.stringify({                 
-            comments}),
-        });
-        const data = await response.json();
-        if (!response.ok) {
-            setError(data.error);
-            console.log("something has happened");
-          }
-      
-          if (response.ok) {
-            console.log("SUCCESS!!!")
-          }
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            comments,
+          }),
+        }
+      );
+      const data = await response.json();
+      if (!response.ok) {
+        setError(data.error);
+        console.log("something has happened");
+      }
+
+      if (response.ok) {
+        console.log("SUCCESS!!!");
+      }
     } catch (error) {
-        setError(error)
-        console.log(error)
+      setError(error);
+      console.log(error);
     }
-      };
+  };
 
-      const enterLoading = (index) => {
-        setLoadings((prevLoadings) => {
-          const newLoadings = [...prevLoadings];
-          newLoadings[index] = true;
-          return newLoadings;
-        });
-        setTimeout(() => {
-          setLoadings((prevLoadings) => {
-            const newLoadings = [...prevLoadings];
-            newLoadings[index] = false;
-            document.location.reload();
-            return newLoadings;
-          });
-        }, 4000);
-      };
-    return (
-        <>
-<Form
-    onFinish={handleSubmit}
-    name="basic"
-    labelCol={{
-      span: 8,
-    }}
-    wrapperCol={{
-      span: 16,
-    }}
-    style={{
-      maxWidth: 600,
-    }}
-    initialValues={{
-      remember: true,
-    }}
-  >
+  const enterLoading = (index) => {
+    setLoadings((prevLoadings) => {
+      const newLoadings = [...prevLoadings];
+      newLoadings[index] = true;
+      return newLoadings;
+    });
+    setTimeout(() => {
+      setLoadings((prevLoadings) => {
+        const newLoadings = [...prevLoadings];
+        newLoadings[index] = false;
+        document.location.reload();
+        return newLoadings;
+      });
+    }, 4000);
+  };
+  return (
+    <>
+      <Form
+        onFinish={handleSubmit}
+        name="basic"
+        labelCol={{
+          span: 8,
+        }}
+        wrapperCol={{
+          span: 16,
+        }}
+        style={{
+          maxWidth: 600,
+        }}
+        initialValues={{
+          remember: true,
+        }}
+      >
+        {/* comment */}
+        <Form.Item label="Comment" name="comment">
+          <TextArea
+            rows={8}
+            placeholder="Say a few words about the book"
+            onChange={(e) => setComment(e.target.value)}
+            value={comments}
+          />
+        </Form.Item>
 
-{/* comment */}
-    <Form.Item
-      label="Comment"
-      name="comment"
-    >
-      <TextArea 
-      rows={8}
-      placeholder="Say a few words about the book"
-      onChange={(e) => setComment((e.target.value))}
-      value={comments}
-      />
-      </Form.Item>
-
-{/* Submission */}
-    <Form.Item
-      wrapperCol={{
-        offset: 8,
-        span: 16,
-      }}
-    >
-      <Button 
-      type="primary"
-      ghost
-      className="loginButtons"
-      loading={loadings[0]} 
-      onClick={() => enterLoading(0)} 
-      htmlType="submit">
-        Submit
-      </Button>
-      {error ? <h4 className="errorH">{error}</h4> : null}
-    </Form.Item>
+        {/* Submission */}
+        <Form.Item
+          wrapperCol={{
+            offset: 8,
+            span: 16,
+          }}
+        >
+          <Button
+            type="primary"
+            ghost
+            className="loginButtons"
+            loading={loadings[0]}
+            onClick={() => enterLoading(0)}
+            htmlType="submit"
+          >
+            Submit
+          </Button>
+          {error ? <h4 className="errorH">{error}</h4> : null}
+        </Form.Item>
       </Form>
-        </>
-    )
-}
+    </>
+  );
+};
 
-export default CommentForm
+export default CommentForm;
