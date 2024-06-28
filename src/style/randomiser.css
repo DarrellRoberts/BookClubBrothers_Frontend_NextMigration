@@ -1,6 +1,6 @@
 .randomTitle {
 font-family: var(--main);
-font-size: 8rem;
+font-size: clamp(4rem, 8vw, 8rem);
 margin-left: 2rem;
 text-align: center;
 }
@@ -10,16 +10,14 @@ display: flex;
 justify-content: center;
 align-items: center;
 flex-direction: column;
-/* height: 100vh; */
 }
 
 .randomBox {
 display: grid;
 aspect-ratio: 2/1.5;
-width: 900px;
+width: clamp(250px, 100vw, 900px);
 grid-template-columns: 1fr 2fr;
 grid-template-rows: 1fr;
-/* background-color: blue; */
 padding: 1rem;
 border-style: solid;
 border-color: black;

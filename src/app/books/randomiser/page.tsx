@@ -10,8 +10,7 @@ import DeleteBook from "./bookform/DeleteBook";
 import Randomiser from "./Randomiser";
 import { AuthContext } from "../../../context/authContext";
 import { useJwt } from "react-jwt";
-import "../../../style/randomiser.css";
-import "../../../style/randomiserRes.css";
+import style from "./randomiser.module.css";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -94,11 +93,11 @@ const RandomiserHomepage: React.FC = () => {
 
   return (
     <div>
-      <h1 className="randomTitle">Randomiser</h1>
-      <div className="randomCon">
-        <div className="randomBox">
-          <div className="randomBoxLeft">
-            <div className="randomBoxLeftList">
+      <h1 className={style.randomTitle}>Randomiser</h1>
+      <div className={style.randomCon}>
+        <div className={style.randomBox}>
+          <div className={style.randomBoxLeft}>
+            <div className={style.randomBoxLeftList}>
               {state.bookData.length === 0 ? (
                 <div className="flex justify-center items-center mt-20">
                   <LoaderNoText />
@@ -107,7 +106,7 @@ const RandomiserHomepage: React.FC = () => {
                 state.bookData?.map((book, i) => (
                   <div
                     key={i}
-                    className={decodedToken ? "bookDeleteBox" : "bookBox"}
+                    className={decodedToken ? style.bookDeleteBox : style.bookBox}
                     // add conditional as otherwise creates bug for onClick Modal
                     onClick={() =>
                       !state.showEditBook
@@ -120,12 +119,11 @@ const RandomiserHomepage: React.FC = () => {
                   >
                     <h2>{book?.title}</h2>
                     {decodedToken ? (
-                      <div className="bookX">
+                      <div className={style.bookX}>
                         <DeleteBook id={book?._id} />
                       </div>
                     ) : null}
                     <p>
-                      {" "}
                       - suggested by{" "}
                       {findUser(book?.suggestedBy) === "user not found"
                         ? " (...loading)"
@@ -142,7 +140,7 @@ const RandomiserHomepage: React.FC = () => {
               ) : null}
             </div>
 
-            <div className="leftBottomInfo mt-5">
+            <div className={style.leftBottomInfo + " mt-5"}>
               <h2 className="text-black mt-5">
                 Scroll the list above for suggested books or add your own at the
                 end
@@ -158,7 +156,7 @@ const RandomiserHomepage: React.FC = () => {
           </div>
 
           <div
-            className="randomBoxRight"
+            className={style.randomBoxRight}
             style={{
               backgroundImage: `URL(${state.bookData[state.index]?.imageURL})`,
               backgroundRepeat: "no-repeat",
@@ -171,7 +169,7 @@ const RandomiserHomepage: React.FC = () => {
                 <LoaderNoText />
               </div>
             ) : (
-              <div className="randomDetailsCon bg-white">
+              <div className={style.randomDetailsCon + " bg-white"}>
                 {state.error ? (
                   <h2 className="text-red-500 bg-black">{state.error}</h2>
                 ) : (
