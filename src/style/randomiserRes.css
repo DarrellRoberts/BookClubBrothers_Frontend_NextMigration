@@ -1,13 +1,15 @@
 @media screen and (max-width: 800px) {
     .randomTitle {
         font-family: var(--main);
-        font-size: 4rem;
+        /* font-size: 4rem; */
         margin-top: 3rem;
         text-align: center;
     }
     .randomBox {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
         aspect-ratio: 1/1.5;
-        width: 350px;
     }
     .bookBox, .bookDeleteBox {
         padding: 1rem 0px;
@@ -22,15 +24,14 @@
         font-size: 0.75rem;
         text-align: center;
     }
-    .leftBottomInfo h2 {
-        font-size: 1rem;
+    .leftBottomInfo {
+        display: none;
     }
     .randomBoxRight {
         display: flex;
         flex-direction: column;
         padding: 0px;
         border-width: 0px;
-        max-width: 165px;
     }
     .randomDetailsCon {
         margin-left: 5px;
@@ -45,8 +46,6 @@
     .deleteUnreadButton {
         margin-top: 0px;
     }
-}
-@media screen and (max-width: 400px) {
     .randomTitle {
         font-size: 2.5rem; 
     }
@@ -54,28 +53,23 @@
         width: 275px;
     }
     .randomBoxLeft h2 {
-        font-size: 0.75rem;
+        font-size: 1rem;
     }
-    .randomBoxRight {
-        width: 125px;
+    .randomBoxLeftList {
+        height: 80%;
     }
     .randomDetailsCon {
         justify-content: flex-start;
         height: 300px;
+        margin: 2rem;
     }
     .randomDetailsCon h2 {
         font-size: 1rem;
     }
     .randomDetailsCon li {
-        font-size: 0.75rem;
+        font-size: 1rem;
     }
     .randomiseCon {
         flex-direction: column;
-    }
-    :where(.css-dev-only-do-not-override-1rqnfsa).ant-btn {
-    font-size: 10px;
-    }
-    :where(.css-1rqnfsa).ant-btn {
-        font-size: 10px;
     }
 }

@@ -4,6 +4,7 @@ import { Dispatch, useState } from "react";
 import { ACTIONS } from "./actions";
 import { Button } from "antd";
 import SelectBook from "./bookform/SelectBook";
+import style from "./randomiser.module.css";
 
 interface props {
   dispatch: Dispatch<unknown>;
@@ -30,7 +31,7 @@ const Randomiser: React.FC<props> = ({ dispatch, bookLength, bookId }) => {
 
   return (
     <>
-      <div className="randomiseCon">
+      <div className={style.randomiseCon}>
         {showRandom ? (
           <>
             <Button onClick={handleRandomise}>Randomise</Button>
