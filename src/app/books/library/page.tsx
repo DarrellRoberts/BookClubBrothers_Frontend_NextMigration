@@ -10,6 +10,7 @@ import "../../../style/booklibrary.css";
 import "../../../style/booklibraryRes.css";
 import "../../../style/search.css";
 import "../../../style/searchRes.css";
+import { Button } from "antd";
 
 const Booklibrary: React.FC = () => {
   const [bookData, setBookData] = useState([]);
@@ -55,6 +56,11 @@ const Booklibrary: React.FC = () => {
     <>
       <div className="searchBackCon">
         <Search setSearchBar={setSearchBar} />
+        <Link href="/books/library/3d">
+          <Button>
+        3D View
+          </Button>
+        </Link>
       </div>
       <h1 className="bookLibraryTitle">Book Library</h1>
       {loading && bookData.length <= 0 ? (
