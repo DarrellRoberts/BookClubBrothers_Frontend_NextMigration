@@ -8,6 +8,9 @@ const HeaderLinks: React.FC = () => {
         <Link href="/books">Book</Link>
         <ul className="bookHover">
           <li>
+            <Link href="/books">Books Dashboard</Link>
+          </li>
+          <li>
             <Link href="/books/library">Book Library</Link>
           </li>
           <li>
@@ -27,6 +30,9 @@ const HeaderLinks: React.FC = () => {
       <div className="bookMenu">
         <Link href="/brothers">Brothers</Link>
         <ul className="bookHover">
+          <li>
+            <Link href="/brothers">Brothers Dashboard</Link>
+          </li>
           <li>
             <Link href="/brothers/library">Brothers Library</Link>
           </li>
