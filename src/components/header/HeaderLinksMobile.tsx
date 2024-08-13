@@ -39,25 +39,22 @@ const HeaderLinksMobile: React.FC = () => {
                   <li onClick={() => handleLinkClick()}>
                     <Link href="/books">Book Dashboard</Link>
                   </li>
-                  <hr/>
                   <li onClick={() => handleLinkClick()}>
                     <Link href="/books/library">Book Library</Link>
                   </li>
-                  <hr/>
                   <li onClick={() => handleLinkClick()}>
                     <Link href="/books/randomiser">Book Randomiser</Link>
                   </li>
-                  <hr/>
                   <li onClick={() => handleLinkClick()}>
                     <Link href="/books/quiz">Quiz</Link>
                   </li>
-                  <hr/>
                   <li className="w-[85%]" onClick={() => handleLinkClick()}>
                     <Link href="/books/stats">Book Stats</Link>
                   </li>
-                  <hr/>
                 </ul>
-              ) : <ul className="submenuLinks"></ul>}
+              ) : (
+                <ul className="submenuLinks"></ul>
+              )}
             </div>
 
             <div className="clubMenuMobile">
@@ -78,23 +75,24 @@ const HeaderLinksMobile: React.FC = () => {
                     setShowBrothers(!showBrothers);
                     setShowBooks(false);
                   }}
-                >Brothers</h2>
+                >
+                  Brothers
+                </h2>
                 {showBrothers ? (
                   <ul className="submenuLinks">
                     <li onClick={() => handleLinkClick()}>
                       <Link href="/brothers">Brothers Dashboard</Link>
                     </li>
-                    <hr/>
                     <li onClick={() => handleLinkClick()}>
                       <Link href="/brothers/library">Brothers Library</Link>
                     </li>
-                    <hr/>
                     <li onClick={() => handleLinkClick()}>
                       <Link href="/brothers/stats">Brothers Stats</Link>
                     </li>
-                    <hr/>
                   </ul>
-                ) : <ul className="submenuLinks"></ul>}
+                ) : (
+                  <ul className="submenuLinks"></ul>
+                )}
               </div>
             </div>
           </div>

@@ -48,7 +48,7 @@ const HeaderCon: React.FC = () => {
   const headerMessage = getTime();
 
   return (
-    <div className="bg-black flex justify-between items-center">
+    <div className={token ? "bg-black flex justify-between items-center pb-4" : "bg-black flex justify-between items-center"}>
       {token ? (
         <>
           <div className="flex items-center">
