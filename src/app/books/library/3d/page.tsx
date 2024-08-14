@@ -1,10 +1,22 @@
 /* eslint-disable react/react-in-jsx-scope */
-import style from "./3d.module.css";
+import ThreeScene from "./threeJS/Base";
 
-const Book3D: React.FC = () => {
+async function getBookData() {
+  const response = await fetch(
+    "https://bookclubbrothers-backend.onrender.com/books",
+    { next: { revalidate: 5 } }
+  );
+  return response.json();
+}
+
+const Homepage: React.FC = async () => {
+  const bookPromise = getBookData();
+  const books = await bookPromise;
+  const readBooks = books.filter((book) => book.read === true);
+  const readIds = readBooks.map((book) => book._id);
   return (
-    <h1 className={style.title}>Coming (very) Soon!</h1>
+    <ThreeScene readBooks={readBooks} readIds={readIds} />
   );
 };
 
-export default Book3D;
+export default Homepage;
