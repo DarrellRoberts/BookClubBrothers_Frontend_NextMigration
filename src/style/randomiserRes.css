@@ -12,7 +12,7 @@
         aspect-ratio: 1/1.5;
     }
     .bookBox, .bookDeleteBox {
-        padding: 1rem 0px;
+        /* padding: 1rem 0px; */
         display: flex;
         flex-direction: column;
     }

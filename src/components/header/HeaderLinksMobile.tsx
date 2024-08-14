@@ -6,6 +6,7 @@ const HeaderLinksMobile: React.FC = () => {
   const [showMenu, setShowMenu] = useState<boolean>(false);
   const [showBooks, setShowBooks] = useState<boolean>(false);
   const [showBrothers, setShowBrothers] = useState<boolean>(false);
+  const [showAnimation, setShowAnimation] = useState<boolean>(false);
 
   const handleLinkClick = () => {
     setShowMenu(false);
@@ -16,14 +17,14 @@ const HeaderLinksMobile: React.FC = () => {
   return (
     <>
       <span
-        onClick={() => (showMenu ? setShowMenu(false) : setShowMenu(true))}
+        onClick={() => {setShowMenu(!showMenu); setShowAnimation(true);}}
         className="text-4xl"
       >
         |||
       </span>
-      {showMenu ? (
-        <>
-          <div className="headerLinksMobile">
+      <div className={showMenu ? "headerLinksMobile" : showAnimation ? "noHeaderLinksMobile" : ""}>
+        {showMenu ? (
+          <>
             <div className="bookMenuMobile">
               <h2
                 className="underline text-3xl"
@@ -95,9 +96,9 @@ const HeaderLinksMobile: React.FC = () => {
                 )}
               </div>
             </div>
-          </div>
-        </>
-      ) : null}
+          </>
+        ) : null}
+      </div>
     </>
   );
 };
