@@ -1,5 +1,5 @@
 /* eslint-disable react/react-in-jsx-scope */
-import ThreeScene from "./threeJS/Base";
+import Base from "./threeJS/Base";
 
 async function getBookData() {
   const response = await fetch(
@@ -15,7 +15,7 @@ const Homepage: React.FC = async () => {
   const readBooks = books.filter((book) => book.read === true);
   const readIds = readBooks.map((book) => book._id);
   return (
-    <ThreeScene readBooks={readBooks} readIds={readIds} />
+    <Base readBooks={readBooks} readIds={readIds} />
   );
 };
 

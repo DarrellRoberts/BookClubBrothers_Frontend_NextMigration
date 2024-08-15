@@ -11,11 +11,12 @@ type Props = {
 
 export default function Base({ readBooks, readIds }: Props) {
   const [clicked, setClicked] = useState<boolean>(true);
+  const [clickId, setClickId] = useState<string>(null);
   return (
     <>
       <div className="flex justify-center align-center h-screen">
-        {!clicked ? <TextInfo readBooks={readBooks} /> : null}
-        <ThreeScene clicked={clicked} setClicked={setClicked} readIds={readIds} />
+        {!clicked ? <TextInfo readBooks={readBooks} clickId={clickId} /> : null}
+        <ThreeScene clicked={clicked} setClicked={setClicked} setClickId={setClickId} readIds={readIds} />
       </div>
     </>
   );
