@@ -6,7 +6,6 @@ import {
   useRef,
   useLayoutEffect,
   useState,
-  useEffect,
   Dispatch,
   SetStateAction,
 } from "react";
@@ -52,7 +51,7 @@ export default function Books3D({
     tl.current.seek(scroll.offset * tl.current.duration());
   });
 
-  useLayoutEffect(() => {
+  const gsapFunc = () => {
     tl.current = gsap.timeline();
     tl.current.to(
       group.current.position,
@@ -62,7 +61,7 @@ export default function Books3D({
       },
       0
     );
-  }, []);
+  };
 
   const handleClick = (e) => {
     setClicked(!clicked);
@@ -101,7 +100,8 @@ export default function Books3D({
   };
   createHeightArr();
 
-  useEffect(() => {
+  useLayoutEffect(() => {
+    gsapFunc();
     const handleResize = () => {
       if (window.innerWidth > 800) {
         setShowTablet(false);
@@ -114,6 +114,7 @@ export default function Books3D({
         setShowTablet(false);
       }
     };
+    handleResize();
     window.addEventListener("resize", handleResize);
     setLoading(false);
     return () => {
