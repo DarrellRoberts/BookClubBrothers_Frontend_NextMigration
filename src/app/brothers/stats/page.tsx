@@ -1,8 +1,5 @@
 /* eslint-disable no-unsafe-optional-chaining */
 /* eslint-disable react/react-in-jsx-scope */
-// import "../../../style/brotherStatsRes.css"
-// import "../../../style/brotherStats.css"
-
 import style from "./stats.module.css";
 
 async function getUserData() {
