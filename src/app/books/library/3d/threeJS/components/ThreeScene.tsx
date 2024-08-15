@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unknown-property */
 "use client";
 import React from "react";
 import Books3D from "./Books3D";
@@ -10,27 +11,33 @@ interface Props {
   clicked: boolean;
   setClicked: Dispatch<SetStateAction<boolean>>;
   setClickId: Dispatch<SetStateAction<string>>;
+  setLoading: Dispatch<SetStateAction<boolean>>;
   readIds: string[];
 }
 
-export default function ThreeScene({ clicked, setClicked, setClickId, readIds }: Props) {
+export default function ThreeScene({
+  clicked,
+  setClicked,
+  setClickId,
+  setLoading,
+  readIds,
+}: Props) {
   return (
-    <div className="fixed h-screen w-screen">
-      <Canvas camera={{ position: [0, 0, -2.15] }}>
-        <ambientLight intensity={1} />
-        <pointLight position={[0, 0, -5]} intensity={45} />
-        <ScrollControls pages={3} damping={0.35}>
-          <Books3D
-            clicked={clicked}
-            setClicked={setClicked}
-            setClickId={setClickId}
-            readIds={readIds}
-          />
-          <Scroll html>
-            <h1 className={style.title}>Books 3D Library</h1>
-          </Scroll>
-        </ScrollControls>
-      </Canvas>
-    </div>
+    <Canvas camera={{ position: [0, 0, -2.15] }}>
+      <ambientLight intensity={1} />
+      <pointLight position={[0, 0, -5]} intensity={45} />
+      <ScrollControls pages={readIds.length} damping={1}>
+        <Books3D
+          clicked={clicked}
+          setClicked={setClicked}
+          setClickId={setClickId}
+          setLoading={setLoading}
+          readIds={readIds}
+        />
+        <Scroll html>
+          <h1 className={style.title}>Books 3D Library</h1>
+        </Scroll>
+      </ScrollControls>
+    </Canvas>
   );
 }

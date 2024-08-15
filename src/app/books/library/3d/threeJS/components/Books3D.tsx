@@ -1,3 +1,5 @@
+/* eslint-disable for-direction */
+/* eslint-disable react/no-unknown-property */
 "use client";
 import React from "react";
 import {
@@ -17,23 +19,34 @@ type Props = {
   clicked: boolean;
   setClicked: Dispatch<SetStateAction<boolean>>;
   setClickId: Dispatch<SetStateAction<string>>;
+  setLoading: Dispatch<SetStateAction<boolean>>;
   readIds: string[];
 };
 
-export default function Books3D({ clicked, setClicked, setClickId, readIds }: Props) {
+type Book = {
+  scene: object;
+};
+
+export default function Books3D({
+  clicked,
+  setClicked,
+  setClickId,
+  setLoading,
+  readIds,
+}: Props) {
   const [showTablet, setShowTablet] = useState<boolean>(false);
   const [showMobile, setShowMobile] = useState<boolean>(false);
 
-  const FLOOR_HEIGHT: number = 3;
-  const NB_FLOORS: number = 3;
+  const FLOOR_HEIGHT: number = readIds.length / 2.5;
+  const NB_FLOORS: number = readIds.length / 2.5;
 
-  const GLTFLoader = require("three/examples/jsm/loaders/GLTFLoader").GLTFLoader;
+  const GLTFLoader =
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    require("three/examples/jsm/loaders/GLTFLoader").GLTFLoader;
   const mesh = useRef<Mesh>(null!);
   const tl = useRef<GSAPTimeline>(null!);
   const group = useRef<Group>(null!);
   const scroll = useScroll();
-
-  const trimmedIds = [readIds[readIds.length - 3], readIds[readIds.length - 2], readIds[readIds.length - 1]].reverse();
 
   useFrame(() => {
     tl.current.seek(scroll.offset * tl.current.duration());
@@ -51,7 +64,7 @@ export default function Books3D({ clicked, setClicked, setClickId, readIds }: Pr
     );
   }, []);
 
-  const handleClick = (e: Node | any) => {
+  const handleClick = (e) => {
     setClicked(!clicked);
     setClickId(e.eventObject.name);
     gsap.to(e.eventObject.rotation, {
@@ -66,15 +79,27 @@ export default function Books3D({ clicked, setClicked, setClickId, readIds }: Pr
     });
   };
 
-  const filearray2: object[] = trimmedIds.map((id) =>
+  const filearray2: Book[] = readIds.map((id) =>
     useLoader(GLTFLoader, `/book-model/${id}/scene.gltf`)
   );
 
-  const heightArray = [
-    0,
-    showTablet ? -1 : showMobile ? -0.65 : -1.4,
-    showTablet ? -2 : showMobile ? -1.3 : -2.8,
-  ];
+  const heightArr = [];
+  const createHeightArr = () => {
+    let j = -0.65;
+    let k = -1.4;
+    for (let i = 0; readIds.length > heightArr.length; i--) {
+      if (i === 0) {
+        heightArr.push(i);
+      } else {
+        const resValue = showTablet ? i : showMobile ? j : k;
+        heightArr.push(resValue);
+        j = j - 0.65;
+        k = k - 1.4;
+      }
+    }
+    return heightArr;
+  };
+  createHeightArr();
 
   useEffect(() => {
     const handleResize = () => {
@@ -90,18 +115,18 @@ export default function Books3D({ clicked, setClicked, setClickId, readIds }: Pr
       }
     };
     window.addEventListener("resize", handleResize);
-    // return () => {
-    //   window.removeEventListener("resize", handleResize);
-    // };
+    setLoading(false);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
   }, []);
-
   return (
     <group ref={group}>
-      {filearray2.map((book: object, i: number) => (
+      {filearray2.map((book, i: number) => (
         <mesh
           key={i}
-          name={trimmedIds[i]}
-          position={[0, heightArray[i], -0.5]}
+          name={readIds[i]}
+          position={[0, heightArr[i], -0.5]}
           rotation={[0, 4.75, 0.45]}
           ref={mesh}
           onClick={handleClick}

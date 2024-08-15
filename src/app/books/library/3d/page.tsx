@@ -13,7 +13,8 @@ const Homepage: React.FC = async () => {
   const bookPromise = getBookData();
   const books = await bookPromise;
   const readBooks = books.filter((book) => book.read === true);
-  const readIds = readBooks.map((book) => book._id);
+  let readIds = readBooks.map((book) => book._id);
+  readIds = readIds.reverse();
   return (
     <Base readBooks={readBooks} readIds={readIds} />
   );

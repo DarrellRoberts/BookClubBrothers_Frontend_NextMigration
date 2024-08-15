@@ -4,7 +4,16 @@ import Link from "next/link";
 import { Button } from "antd";
 
 type Props = {
-  readBooks: object[];
+  readBooks: [
+    {
+      _id: string;
+      title: string;
+      pages: number;
+      author: string;
+      yearPublished: number;
+      totalScore: number;
+    }
+  ];
   clickId: string;
 };
 
