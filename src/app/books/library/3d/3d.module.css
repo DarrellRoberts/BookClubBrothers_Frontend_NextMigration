@@ -34,13 +34,10 @@
     text-align: center;
   }
   .textInfo {
-    position: absolute;
     top: 90%;
-    bottom: 0;
     right: 0;
-    height: 30%;
     width: 100%;
-    padding: 2rem 0rem;
+    padding: 2rem;
     background-color: black;
     color: white;
     z-index: 3;

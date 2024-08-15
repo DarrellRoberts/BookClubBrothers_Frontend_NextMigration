@@ -26,8 +26,8 @@ export default function Base({ readBooks, readIds }: Props) {
 
   return (
     <>
+      {!clicked ? <TextInfo readBooks={readBooks} clickId={clickId} /> : null}
       <div className="flex justify-center align-center h-screen">
-        {!clicked ? <TextInfo readBooks={readBooks} clickId={clickId} /> : null}
         {loading && readBooks.length < 0 ? (
           <Loader />
         ) : (
