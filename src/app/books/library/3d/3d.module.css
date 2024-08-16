@@ -4,6 +4,11 @@
   margin-left: 3rem;
 }
 
+.loadTitle {
+  font-family: var(--main);
+  font-size: 5rem;
+}
+
 .textInfo {
   display: flex;
   flex-direction: column;

@@ -22,20 +22,18 @@ type Props = {
 export default function Base({ readBooks, readIds }: Props) {
   const [clicked, setClicked] = useState<boolean>(true);
   const [clickId, setClickId] = useState<string>(null);
-  const [loading, setLoading] = useState<boolean>(true);
 
   return (
     <>
       {!clicked ? <TextInfo readBooks={readBooks} clickId={clickId} /> : null}
       <div className="flex justify-center align-center h-screen">
-        {loading && readBooks.length < 0 ? (
+        {readBooks.length < 0 ? (
           <Loader />
         ) : (
           <ThreeScene
             clicked={clicked}
             setClicked={setClicked}
             setClickId={setClickId}
-            setLoading={setLoading}
             readIds={readIds}
           />
         )}
