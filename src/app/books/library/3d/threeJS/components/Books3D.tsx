@@ -18,7 +18,6 @@ type Props = {
   clicked: boolean;
   setClicked: Dispatch<SetStateAction<boolean>>;
   setClickId: Dispatch<SetStateAction<string>>;
-  setLoading: Dispatch<SetStateAction<boolean>>;
   readIds: string[];
 };
 
@@ -30,7 +29,6 @@ export default function Books3D({
   clicked,
   setClicked,
   setClickId,
-  setLoading,
   readIds,
 }: Props) {
   const [showTablet, setShowTablet] = useState<boolean>(false);
@@ -116,7 +114,6 @@ export default function Books3D({
     };
     handleResize();
     window.addEventListener("resize", handleResize);
-    setLoading(false);
     return () => {
       window.removeEventListener("resize", handleResize);
     };
