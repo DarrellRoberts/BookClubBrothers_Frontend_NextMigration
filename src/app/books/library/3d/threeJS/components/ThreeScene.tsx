@@ -25,7 +25,7 @@ export default function ThreeScene({
     <Canvas camera={{ position: [0, 0, -2.15] }}>
       <ambientLight intensity={1} />
       <pointLight position={[0, 0, -5]} intensity={45} />
-      <ScrollControls pages={readIds.length} damping={1}>
+      <ScrollControls pages={readIds.length} damping={0.5}>
         <Suspense fallback={<Loader />}>
           <Books3D
             clicked={clicked}
