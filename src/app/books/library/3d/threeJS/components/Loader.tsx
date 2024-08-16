@@ -7,7 +7,7 @@ export default function Loader() {
   return (
     <Html as="div" center>
       <LoaderNoText />
-      <h1 className={style.loadTitle}> Loading... </h1>
+      <h1 className={style.loadTitle}>Loading</h1>
     </Html>
   );
 }
