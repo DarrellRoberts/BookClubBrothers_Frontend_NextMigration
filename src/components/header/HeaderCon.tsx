@@ -7,7 +7,7 @@ import "../../style/headerRes.css";
 import HeaderLinks from "./HeaderLinks";
 import HeaderLinksMobile from "./HeaderLinksMobile";
 import { Button } from "antd";
-import { useContext, useState } from "react";
+import { useContext, useState, useRef } from "react";
 import { AuthContext } from "../../context/authContext";
 import { useJwt } from "react-jwt";
 import { getTime } from "../../functions/timeFunction";
@@ -21,6 +21,7 @@ const HeaderCon: React.FC = () => {
     useJwt(token);
 
   const handleDesktop = useMediaQuery({ query: "(min-device-width: 801px)" });
+  const headerCon = useRef(null);
 
   const enterLoading = (index) => {
     setLoadings((prevLoadings) => {
@@ -46,9 +47,9 @@ const HeaderCon: React.FC = () => {
     }, 5000);
   };
   const headerMessage = getTime();
-
+  headerCon.current ? headerCon.current.parentElement.style.position = "static" : "";
   return (
-    <div className={token ? "bg-black flex justify-between items-center pb-4" : "bg-black flex justify-between items-center"}>
+    <div ref={headerCon} className={token ? "bg-black flex justify-between items-center pb-4" : "bg-black flex justify-between items-center"}>
       {token ? (
         <>
           <div className="flex items-center">
