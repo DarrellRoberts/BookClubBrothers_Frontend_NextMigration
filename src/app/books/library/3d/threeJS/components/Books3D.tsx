@@ -82,10 +82,10 @@ export default function Books3D({
 
   const heightArr = [];
   const createHeightArr = () => {
-    let j = -0.65;
-    let k = -1.4;
-    for (let i = 0; readIds.length > heightArr.length; i--) {
-      if (i === 0) {
+    let j = -1.15;
+    let k = -1.9;
+    for (let i = -0.5; readIds.length > heightArr.length; i--) {
+      if (i === -0.5) {
         heightArr.push(i);
       } else {
         const resValue = showTablet ? i : showMobile ? j : k;

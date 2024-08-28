@@ -2,11 +2,12 @@
 "use client";
 import React from "react";
 import Books3D from "./Books3D";
-import { Dispatch, SetStateAction, Suspense } from "react";
+import { Dispatch, SetStateAction, Suspense} from "react";
 import { Canvas } from "@react-three/fiber";
 import { Scroll, ScrollControls } from "@react-three/drei";
 import Loader from "./Loader";
 import style from "../../3d.module.css";
+import HeaderCon from "@/components/header/HeaderCon";
 
 interface Props {
   clicked: boolean;
@@ -34,7 +35,9 @@ export default function ThreeScene({
             readIds={readIds}
           />
         </Suspense>
-        <Scroll html>
+        <Scroll
+          html>
+          <HeaderCon />
           <h1 className={style.title}>Books 3D Library</h1>
         </Scroll>
       </ScrollControls>
