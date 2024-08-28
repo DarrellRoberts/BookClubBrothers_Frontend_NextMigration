@@ -1,5 +1,6 @@
 /* eslint-disable react/react-in-jsx-scope */
 import Base from "./threeJS/Base";
+import style from "./3d.module.css";
 
 async function getBookData() {
   const response = await fetch(
@@ -16,7 +17,9 @@ const Homepage: React.FC = async () => {
   let readIds = readBooks.map((book) => book._id);
   readIds = readIds.reverse();
   return (
-    <Base readBooks={readBooks} readIds={readIds} />
+    <html className={style.noScroll}>
+      <Base readBooks={readBooks} readIds={readIds} />
+    </html>
   );
 };
 
