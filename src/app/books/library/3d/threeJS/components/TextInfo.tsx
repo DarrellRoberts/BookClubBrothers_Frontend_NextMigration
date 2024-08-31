@@ -29,7 +29,7 @@ export default function TextInfo({ readBooks, clickId }: Props) {
         <li>Score: {bookInfo?.totalScore}</li>
       </ul>
       <Link href={`/books/library/${bookInfo._id}`}>
-        <Button>More Info</Button>
+        <Button onClick={() => location.replace(`/books/library/${bookInfo._id}`)}>More Info</Button>
       </Link>
     </div>
   );

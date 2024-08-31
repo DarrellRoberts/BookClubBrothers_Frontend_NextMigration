@@ -7,8 +7,8 @@ export default function Layout({
   children: React.ReactNode;
 }>) {
   return (
-    <html className={style.noScroll} lang="en">
+    <body className={style.noScroll} lang="en">
       {children}
-    </html>
+    </body>
   );
 }

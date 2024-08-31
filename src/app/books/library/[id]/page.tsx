@@ -121,6 +121,7 @@ const SingleBook: React.FC = () => {
       console.log(error);
     }
   };
+
   useEffect(() => {
     getBookData();
   }, []);

@@ -24,7 +24,7 @@ export default function Base({ readBooks, readIds }: Props) {
   const [clickId, setClickId] = useState<string>(null);
 
   return (
-    <body>
+    <>
       {!clicked ? <TextInfo readBooks={readBooks} clickId={clickId} /> : null}
       <div className="flex justify-center align-center h-screen">
         {readBooks.length < 0 ? (
@@ -38,6 +38,6 @@ export default function Base({ readBooks, readIds }: Props) {
           />
         )}
       </div>
-    </body>
+    </>
   );
 }
