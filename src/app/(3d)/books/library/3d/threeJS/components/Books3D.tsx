@@ -11,7 +11,7 @@ import {
 } from "react";
 import { useFrame, useLoader } from "@react-three/fiber";
 import { Mesh, Group } from "three";
-import { useScroll } from "@react-three/drei";
+import { useScroll, PresentationControls } from "@react-three/drei";
 import gsap from "gsap";
 
 type Props = {
@@ -129,14 +129,23 @@ export default function Books3D({
           ref={mesh}
           onClick={handleClick}
         >
-          <primitive
-            scale={[
-              showTablet ? 0.007 : showMobile ? 0.0045 : 0.01,
-              showTablet ? 0.007 : showMobile ? 0.0045 : 0.01,
-              showTablet ? 0.007 : showMobile ? 0.0045 : 0.01,
-            ]}
-            object={book.scene}
-          />
+          <PresentationControls
+            global={false}
+            cursor={true}
+            config={{ mass: 5, tension: 500 }}
+            snap={{ mass: 10, tension: 150 }}
+            polar={[-Infinity, Infinity]}
+            azimuth={[-Infinity, Infinity]}
+          >
+            <primitive
+              scale={[
+                showTablet ? 0.007 : showMobile ? 0.0045 : 0.01,
+                showTablet ? 0.007 : showMobile ? 0.0045 : 0.01,
+                showTablet ? 0.007 : showMobile ? 0.0045 : 0.01,
+              ]}
+              object={book.scene}
+            />
+          </PresentationControls>
         </mesh>
       ))}
     </group>
