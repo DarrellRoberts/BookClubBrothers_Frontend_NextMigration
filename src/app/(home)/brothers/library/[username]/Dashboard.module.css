@@ -1,0 +1,49 @@
+.boxLayout {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.box h2 {
+  font-family: var(--main);
+  font-size: 1.5rem;
+}
+
+.boxItem {
+  border-width: 5px;
+  border-color: black;
+}
+
+.boxItem img {
+  width: 400px;
+  height: 250px;
+  padding: 0px;
+  margin: 0px;
+}
+
+@media screen and (max-width: 800px) {
+  .boxLayout {
+      flex-direction: column;
+      align-items: center;
+  }
+
+  .boxItem {
+      padding: 10px;
+      margin: 1rem 0px;
+  }
+
+  .boxItem img {
+    width: 300px;
+    height: 200px;
+  }
+
+  .libaryButtons {
+      width: 300px;
+  }
+}

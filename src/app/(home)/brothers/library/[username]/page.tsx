@@ -2,18 +2,34 @@
 /* eslint-disable react/react-in-jsx-scope */
 "use client";
 
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Link from "next/link";
-import LoaderNoText from "../../../../../components/loader/LoaderNoText";
 import { useParams } from "next/navigation";
 import "../../../../../style/dashboard.css";
 import "../../../../../style/dashboardRes.css";
+import LoadingScreen from "./LoadingScreen";
+import { AuthContext } from "../../../../../context/authContext";
+import { useJwt } from "react-jwt";
+import BookImageCover from "@/app/(home)/books/library/BookImageCover";
+import BookCover from "@/app/(home)/books/library/BookCover";
+import style from "./Dashboard.module.css";
 
 const Dashboard: React.FC = () => {
   const [userData, setUserData] = useState([]);
   const [bookData, setBookData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+
+  const { token } = useContext(AuthContext);
+
+  const {
+    decodedToken,
+  }: {
+    decodedToken?: {
+      username: string;
+      _id: string;
+    };
+  } = useJwt(token);
 
   const getData = async () => {
     try {
@@ -29,7 +45,8 @@ const Dashboard: React.FC = () => {
   };
 
   const { username } = useParams();
-  const findUser = userData.find((user) => user.username === username);
+  const id: string = decodedToken?._id;
+  const findUser = userData.find((user) => user.username === username) ?? userData.find((user) => user._id === id);
 
   // find min score
   // use index in books scored
@@ -112,79 +129,45 @@ const Dashboard: React.FC = () => {
   return (
     <>
       {loading ? (
-        <>
-          <div className="flex m-10">
-            <LoaderNoText />
-          </div>
-          <div className="box">
-            <div className="boxItem">
-              <h2 className="underline">Worst rated book</h2>
-              <LoaderNoText />
-            </div>
-
-            <div className="boxItem">
-              <h2 className="underline">Best rated book</h2>
-              <LoaderNoText />
-            </div>
-
-            <div className="boxItem">
-              <h2>Share of books read:</h2>
-              <h2>Average Score:</h2>
-              <LoaderNoText />
-            </div>
-          </div>
-
-          <div className="flex">
-            <div className="libaryButtons m-10 border-4 border-black p-3 rounded-lg bg-black text-white">
-              <Link href="/books">
-                <h2>The Books</h2>
-              </Link>
-            </div>
-
-            <div className="libaryButtons m-10 border-4 border-black p-3 rounded-lg bg-black text-white">
-              <Link href="/brothers">
-                <h2>The Brothers</h2>
-              </Link>
-            </div>
-          </div>
-
-          <div className="m-10 border-4 border-black p-3 rounded-lg bg-black text-white">
-            <h2 className="underline">Books scored</h2>
-            <LoaderNoText />
-          </div>
-
-          <div className="m-10 border-4 border-black p-3 rounded-lg bg-black text-white">
-            <h2 className="underline">Unread Books</h2>
-            <LoaderNoText />
-          </div>
-
-          <div className="m-10 border-4 border-black p-3 rounded-lg bg-black text-white">
-            <h2 className="underline">Comments</h2>
-            <LoaderNoText />
-          </div>
-        </>
+        <LoadingScreen />
       ) : (
         <>
           <h1 className="dashboardTitle">{findUser?.username}</h1>
-          <div className="box">
-            <div className="boxItem">
-              <h2 className="underline">Worst rated book</h2>
-              <h2>{findMinBook?.title}</h2>
-              <ul>
-                <li>Author: {findMinBook?.author}</li>
-                <li>Score: {minScore1}</li>
-                <li>Total Score: {findMinBook?.totalScore}</li>
-              </ul>
+          <div className={style.boxLayout}>
+            <div className={style.box}>
+              <h2 className="underline">Worst book</h2>
+              <div className={style.boxItem}>
+                <Link href={`/books/library/${findMinBook?._id}`}>
+                  {findMinBook?.reviewImageURL ? (
+                    <BookImageCover
+                      imageURL={findMinBook?.reviewImageURL}
+                    />
+                  ) : <BookCover
+                    title={findMinBook?.title}
+                    totalScore={findMinBook?.totalScore}
+                    ratingArr={findMinBook?.scoreRatings?.rating}
+                    raterArr={findMinBook?.scoreRatings?.raterId}
+                  />}
+                </Link>
+              </div>
             </div>
 
-            <div className="boxItem">
-              <h2 className="underline">Best rated book</h2>
-              <h2>{findMaxBook?.title}</h2>
-              <ul>
-                <li>Author: {findMaxBook?.author}</li>
-                <li>Score: {maxScore1}</li>
-                <li>Total Score: {findMaxBook?.totalScore}</li>
-              </ul>
+            <div className={style.box}>
+              <h2 className="underline">Best book</h2>
+              <div className={style.boxItem}>
+                <Link href={`/books/library/${findMaxBook?._id}`}>
+                  {findMaxBook?.reviewImageURL ? (
+                    <BookImageCover
+                      imageURL={findMaxBook?.reviewImageURL}
+                    />
+                  ) : <BookCover
+                    title={findMaxBook?.title}
+                    totalScore={findMaxBook?.totalScore}
+                    ratingArr={findMaxBook?.scoreRatings?.rating}
+                    raterArr={findMaxBook?.scoreRatings?.raterId}
+                  />}
+                </Link>
+              </div>
             </div>
 
             <div className="boxItem">

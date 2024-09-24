@@ -11,6 +11,7 @@ import "../../../../style/booklibraryRes.css";
 import "../../../../style/search.css";
 import "../../../../style/searchRes.css";
 import { Button } from "antd";
+import BookImageCover from "./BookImageCover";
 
 const Booklibrary: React.FC = () => {
   const [bookData, setBookData] = useState([]);
@@ -71,13 +72,9 @@ const Booklibrary: React.FC = () => {
                 <div key={book.id}>
                   {book.reviewImageURL ? (
                     <Link href={`/books/library/${book._id}`}>
-                      <h2 className="smallBookTitle">{book.title}</h2>
-                      <img
-                        src={book.reviewImageURL}
-                        alt="book_review_image"
-                        width=""
-                        height=""
-                        className="border-black border-4 border-black border-solid m-5"
+                      <BookImageCover
+                        title={book?.title}
+                        imageURL={book?.reviewImageURL}
                       />
                     </Link>
                   ) : (
