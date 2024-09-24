@@ -8,6 +8,15 @@
     font-size: 1.25rem;
 }
 
+.smallBookTitle {
+    font-family: var(--main);
+    font-size: 2rem;
+    font-weight: bolder;
+    text-align: center;
+    text-decoration: underline;
+    margin: 0px;
+}
+
 @media screen and (max-width: 800px) {
     .titleCover {
         font-size: 1rem;
@@ -15,4 +24,27 @@
     .rightcover {
         font-size: 1rem;
     }
+    .smallBookTitle {
+        font-size: 1.75rem;
+        text-decoration: overline;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .smallBookTitle {
+        width: 300px;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .smallBookTitle {
+        width: 300px;
+    }
+}
+
+@media screen and (max-width: 300px) {
+.smallBookTitle {
+    font-size: 1.5rem;
+    width: 250px;
+}
 }
