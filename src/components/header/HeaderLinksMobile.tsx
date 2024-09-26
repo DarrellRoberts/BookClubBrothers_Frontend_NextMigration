@@ -35,27 +35,26 @@ const HeaderLinksMobile: React.FC = () => {
               >
                 Book
               </h2>
-              {showBooks ? (
-                <ul className="submenuLinks">
-                  <li onClick={() => handleLinkClick()}>
-                    <Link href="/books">Book Dashboard</Link>
-                  </li>
-                  <li onClick={() => handleLinkClick()}>
-                    <Link href="/books/library">Book Library</Link>
-                  </li>
-                  <li onClick={() => handleLinkClick()}>
-                    <Link href="/books/randomiser">Book Randomiser</Link>
-                  </li>
-                  <li onClick={() => handleLinkClick()}>
-                    <Link href="/books/quiz">Quiz</Link>
-                  </li>
-                  <li className="w-[85%]" onClick={() => handleLinkClick()}>
-                    <Link href="/books/stats">Book Stats</Link>
-                  </li>
-                </ul>
-              ) : (
-                <ul className="submenuLinks"></ul>
-              )}
+              <ul className="submenuLinks">
+                <li onClick={() => handleLinkClick()}>
+                  <Link href="/books">Book Dashboard</Link>
+                </li>
+                <li onClick={() => handleLinkClick()}>
+                  <Link href="/books/library">Book Library</Link>
+                </li>
+                <li onClick={() => handleLinkClick()}>
+                  <Link href="/books/library/3d">3D Book Library</Link>
+                </li>
+                <li onClick={() => handleLinkClick()}>
+                  <Link href="/books/randomiser">Book Randomiser</Link>
+                </li>
+                <li onClick={() => handleLinkClick()}>
+                  <Link href="/books/quiz">Quiz</Link>
+                </li>
+                <li className="w-[85%]" onClick={() => handleLinkClick()}>
+                  <Link href="/books/stats">Book Stats</Link>
+                </li>
+              </ul>
             </div>
 
             <div className="clubMenuMobile">
@@ -79,21 +78,17 @@ const HeaderLinksMobile: React.FC = () => {
                 >
                   Brothers
                 </h2>
-                {showBrothers ? (
-                  <ul className="submenuLinks">
-                    <li onClick={() => handleLinkClick()}>
-                      <Link href="/brothers">Brothers Dashboard</Link>
-                    </li>
-                    <li onClick={() => handleLinkClick()}>
-                      <Link href="/brothers/library">Brothers Library</Link>
-                    </li>
-                    <li onClick={() => handleLinkClick()}>
-                      <Link href="/brothers/stats">Brothers Stats</Link>
-                    </li>
-                  </ul>
-                ) : (
-                  <ul className="submenuLinks"></ul>
-                )}
+                <ul className="submenuLinks">
+                  <li onClick={() => handleLinkClick()}>
+                    <Link href="/brothers">Brothers Dashboard</Link>
+                  </li>
+                  <li onClick={() => handleLinkClick()}>
+                    <Link href="/brothers/library">Brothers Library</Link>
+                  </li>
+                  <li onClick={() => handleLinkClick()}>
+                    <Link href="/brothers/stats">Brothers Stats</Link>
+                  </li>
+                </ul>
               </div>
             </div>
           </>

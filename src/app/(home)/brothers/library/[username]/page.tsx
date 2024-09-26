@@ -170,11 +170,25 @@ const Dashboard: React.FC = () => {
               </div>
             </div>
 
-            <div className="boxItem">
-              <h2>Share of books read: {percentageBooks}%</h2>
-              <h2>Average Score: {averageScore}</h2>
+            <div className={style.box}>
+              <h2 className="underline">Books read</h2>
+              <Link href="/brothers/stats">
+                <div className={style.boxItem}>
+                  <h2 className={style.userScore}> {percentageBooks}%</h2>
+                </div>
+              </Link>
+            </div>
+
+            <div className={style.box}>
+              <h2 className="underline">Average Score</h2>
+              <Link href="/brothers/stats">
+                <div className={style.boxItem}>
+                  <h2 className={style.userScore}> {averageScore}</h2>
+                </div>
+              </Link>
             </div>
           </div>
+
 
           <div className="flex">
             <div className="libaryButtons m-10 border-4 border-black p-3 rounded-lg bg-black text-white">
@@ -190,7 +204,7 @@ const Dashboard: React.FC = () => {
             </div>
           </div>
 
-          <div className="m-10 border-4 border-black p-3 rounded-lg bg-black text-white">
+          <div className="mt-10 border-4 border-black p-3 rounded-lg bg-black text-white">
             <h2 className="underline">Books scored</h2>
             <ul>
               {filterBooks.map((book, i) => (
@@ -215,7 +229,7 @@ const Dashboard: React.FC = () => {
             </ul>
           </div>
 
-          <div className="m-10 border-4 border-black p-3 rounded-lg bg-black text-white">
+          <div className="mt-10 border-4 border-black p-3 rounded-lg bg-black text-white">
             <h2 className="underline">Unread Books</h2>
             <ul>
               {filterUnreadBooks.length === 0 ? (
@@ -229,7 +243,7 @@ const Dashboard: React.FC = () => {
             </ul>
           </div>
 
-          <div className="m-10 border-4 border-black p-3 rounded-lg bg-black text-white">
+          <div className="mt-10 border-4 border-black p-3 rounded-lg bg-black text-white">
             <h2 className="underline">Comments</h2>
             <ul>
               {filterComments.length === 0 ? (
