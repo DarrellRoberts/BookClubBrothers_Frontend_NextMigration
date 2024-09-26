@@ -14,6 +14,9 @@ const HeaderLinks: React.FC = () => {
             <Link href="/books/library">Book Library</Link>
           </li>
           <li>
+            <Link href="/books/library/3d">3D Book Library</Link>
+          </li>
+          <li>
             <Link href="/books/randomiser">Book Randomiser</Link>
           </li>
           <li>

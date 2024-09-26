@@ -5,17 +5,17 @@
 }
 
 .headerCon {
-    background-color: black;
+    /* background-color: black; */
 }
 
 .box {
-    display: flex;
+    /* display: flex; */
 }
 
 .boxItem {
-border-width: 5px;
+/* border-width: 5px;
 margin: 5px;
-border-color: black;
+border-color: black; */
 }
 
 .headerLinks {
