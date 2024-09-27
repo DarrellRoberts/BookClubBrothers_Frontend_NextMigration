@@ -17,32 +17,18 @@ import Logo from "../misc/Logo";
 const HeaderCon: React.FC = () => {
   const [loadings, setLoadings] = useState([]);
   const { logout, token } = useContext(AuthContext);
-  const { decodedToken }: { decodedToken?: { username: string } } =
+  const { decodedToken }: { decodedToken?: { token: string, username: string } } =
     useJwt(token);
 
   const handleDesktop = useMediaQuery({ query: "(min-device-width: 801px)" });
   const headerCon = useRef(null);
 
-  const enterLoading = (index) => {
-    setLoadings((prevLoadings) => {
-      const newLoadings = [...prevLoadings];
-      newLoadings[index] = true;
-      return newLoadings;
-    });
-    setTimeout(() => {
-      setLoadings((prevLoadings) => {
-        const newLoadings = [...prevLoadings];
-        newLoadings[index] = false;
-        return newLoadings;
-      });
-    }, 6000);
-  };
-
   const handleClick = () => {
-    enterLoading(0);
+    setLoadings([true]);
     setTimeout(() => {
       localStorage.removeItem("token");
       localStorage.removeItem("username");
+      setLoadings([false]);
       logout();
     }, 5000);
   };
