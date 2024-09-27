@@ -4,27 +4,13 @@
     font-size: 2rem;
 }
 
-.headerCon {
-    /* background-color: black; */
-}
-
-.box {
-    /* display: flex; */
-}
-
-.boxItem {
-/* border-width: 5px;
-margin: 5px;
-border-color: black; */
-}
-
 .headerLinks {
     display: flex;
-    color: white;
     justify-content: space-evenly;
     width: 50%;
     font-family: var(--main);
-    font-size: 1.75rem;
+    font-size: 1.75rem; 
+    color: white;
 }
 
 .bookMenu:hover .bookHover {
@@ -33,7 +19,6 @@ border-color: black; */
 }
 
 .bookHover {
-    display: flex;
     padding: 1rem 0rem;
     border-bottom-right-radius: 50%;
     visibility: hidden;

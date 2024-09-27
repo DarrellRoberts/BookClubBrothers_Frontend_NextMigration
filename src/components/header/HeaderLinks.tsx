@@ -1,5 +1,7 @@
 /* eslint-disable react/react-in-jsx-scope */
 import Link from "next/link";
+import "../../style/header.css";
+import "../../style/headerRes.css";
 
 const HeaderLinks: React.FC = () => {
   return (

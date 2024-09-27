@@ -2,8 +2,6 @@
 "use client";
 
 import Login from "../user/Login";
-import "../../style/header.css";
-import "../../style/headerRes.css";
 import HeaderLinks from "./HeaderLinks";
 import HeaderLinksMobile from "./HeaderLinksMobile";
 import { Button } from "antd";
@@ -13,6 +11,8 @@ import { useJwt } from "react-jwt";
 import { getTime } from "../../functions/timeFunction";
 import Link from "next/link";
 import { useMediaQuery } from "react-responsive";
+import style from "./HeaderCob.module.css";
+import Logo from "../misc/Logo";
 
 const HeaderCon: React.FC = () => {
   const [loadings, setLoadings] = useState([]);
@@ -47,9 +47,11 @@ const HeaderCon: React.FC = () => {
     }, 5000);
   };
   const headerMessage = getTime();
+
+  //neccessary for the (3d) layout
   headerCon.current ? headerCon.current.parentElement.style.position = "static" : "";
   return (
-    <div ref={headerCon} className={token ? "bg-black flex justify-between items-center pb-4" : "bg-black flex justify-between items-center"}>
+    <header ref={headerCon} className={token ? style.headerConToken : style.headerConNoToken}>
       {token ? (
         <>
           <div className="flex items-center">
@@ -65,18 +67,18 @@ const HeaderCon: React.FC = () => {
           </div>
 
           {handleDesktop ? (
-            <div className="headerLinks">
+            <div className={style.headerLinks}>
               <HeaderLinks />
             </div>
           ) : (
-            <div className="headerLinksMobCon">
+            <div className={style.headerLinksMobCon}>
               <HeaderLinksMobile />
             </div>
           )}
 
-          <div className="flex items-center mr-10 greetingCon">
+          <div className={`${style.greetingCon} flex items-center mr-10`}>
             <Link href="/">
-              <h2 className="text-white text-3xl greeting">
+              <h2 className={`text-white text-3xl ${style.greeting}`}>
                 {`${headerMessage} ${decodedToken?.username}`}
               </h2>
             </Link>
@@ -87,22 +89,18 @@ const HeaderCon: React.FC = () => {
           <Login />
 
           {handleDesktop ? (
-            <div className="headerLinks">
+            <div className={style.headerLinks}>
               <HeaderLinks />
             </div>
           ) : (
-            <div className="headerLinksMobCon">
+            <div className={style.headerLinksMobCon}>
               <HeaderLinksMobile />
             </div>
           )}
-          <Link href="/">
-            <div className="border-4 border-white border-solid pr-5 pl-5 pt-2 pb-2 mr-5 mb-2 mt-2">
-              <h2 className="logo">B</h2>
-            </div>
-          </Link>
+          <Logo />
         </>
       )}
-    </div>
+    </header>
   );
 };
 
