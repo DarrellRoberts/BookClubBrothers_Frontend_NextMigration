@@ -14,8 +14,8 @@ const LoginForm: React.FC<Login> = ({ setLoginOpen }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
-  const [loadings, setLoadings] = useState([]);
-  const { login, token } = useContext(AuthContext);
+  const [loadings, setLoadings] = useState([false]);
+  const { login } = useContext(AuthContext);
 
   const handleSubmit = async () => {
     try {
@@ -37,6 +37,7 @@ const LoginForm: React.FC<Login> = ({ setLoginOpen }) => {
       }
 
       if (response.ok) {
+        setLoadings([true]);
         setTimeout(() => {
           localStorage.setItem("token", data.token);
           localStorage.setItem("username", username);
@@ -48,22 +49,6 @@ const LoginForm: React.FC<Login> = ({ setLoginOpen }) => {
     } catch (err) {
       setError(err);
       console.log(error);
-    }
-  };
-  const enterLoading = (index: number) => {
-    setLoadings((prevLoadings) => {
-      const newLoadings = [...prevLoadings];
-      newLoadings[index] = true;
-      return newLoadings;
-    });
-    if (token) {
-      setTimeout(() => {
-        setLoadings((prevLoadings) => {
-          const newLoadings = [...prevLoadings];
-          newLoadings[index] = false;
-          return newLoadings;
-        });
-      }, 6000);
     }
   };
 
@@ -136,7 +121,6 @@ const LoginForm: React.FC<Login> = ({ setLoginOpen }) => {
               className="loginButtons"
               htmlType="submit"
               loading={loadings[0]}
-              onClick={() => enterLoading(0)}
             >
               Submit
             </Button>
