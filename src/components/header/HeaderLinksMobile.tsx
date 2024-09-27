@@ -1,6 +1,8 @@
 /* eslint-disable react/react-in-jsx-scope */
 import Link from "next/link";
 import { useState } from "react";
+import "../../style/header.css";
+import "../../style/headerRes.css";
 
 const HeaderLinksMobile: React.FC = () => {
   const [showMenu, setShowMenu] = useState<boolean>(false);
