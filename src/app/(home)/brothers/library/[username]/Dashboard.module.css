@@ -17,7 +17,12 @@
   font-size: 1.5rem;
 }
 
-.boxItem {
+.boxItemLoading {
+  display: flex;
+  justify-content: center;
+}
+
+.boxItem, .boxItemLoading {
   border-width: 5px;
   border-color: black;
   width: 400px;
