@@ -39,7 +39,7 @@ const Graph: React.FC<Props> = ({bookTitles, totalBookScores, bookScores, userna
 
   const options = {
     responsive: true,
-    maintainAspectRation: true,
+    maintainAspectRation: false,
     plugins: {
       legend: {
         labels: {
