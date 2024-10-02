@@ -8,21 +8,35 @@ const LoadingScreen = () => (
     <div className="flex m-10">
       <LoaderNoText />
     </div>
-    <div className={style.box}>
-      <div className={style.boxItem}>
+    <div className={style.boxLayout}>
+      <div className={style.box}>
         <h2 className="underline">Worst rated book</h2>
-        <LoaderNoText />
+        <div className={style.boxItemLoading}>
+          <LoaderNoText />
+        </div>
       </div>
 
-      <div className={style.boxItem}>
+      <div className={style.box}>
         <h2 className="underline">Best rated book</h2>
-        <LoaderNoText />
+        <div className={style.boxItemLoading}>
+          <LoaderNoText />
+        </div>
       </div>
 
-      <div className={style.boxItem}>
+
+      <div className={style.box}>
         <h2>Share of books read:</h2>
-        <h2>Average Score:</h2>
-        <LoaderNoText />
+        <div className={style.boxItemLoading}>
+          <LoaderNoText />
+        </div>
+      </div>
+
+
+      <div className={style.box}>
+        <h2>Average Score</h2>
+        <div className={style.boxItemLoading}>
+          <LoaderNoText />
+        </div>
       </div>
     </div>
 
