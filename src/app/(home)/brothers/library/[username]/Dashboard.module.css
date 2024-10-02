@@ -34,6 +34,7 @@
 .boxItem img {
   padding: 0px;
   margin: 0px;
+  height: 100%;
 }
 
 .userScore {
@@ -43,6 +44,19 @@
   height: 100%;
   font-size: clamp(4rem, 2vw, 8rem);
   font-family: var(--main);
+}
+
+.graphCon {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  margin-left: 2rem;
+  padding: 0;
+}
+
+.graphCon h2 {
+  font-family: var(--main);
+  font-size: 3.5rem;
 }
 
 @media screen and (max-width: 800px) {
@@ -59,4 +73,19 @@
   .libaryButtons {
       width: 300px;
   }
+  .graphCon {
+    align-items: center;
+    margin: 0;
+   }
+  .graphCon h2 {
+   margin-bottom: 5rem;
+  }
 }
+
+@media screen and (max-width: 450px) {
+
+.boxItem, .boxItemLoading {
+  width: 300px;
+  height: 250px;
+}
+ }
