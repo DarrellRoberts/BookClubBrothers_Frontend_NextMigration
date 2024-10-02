@@ -12,6 +12,7 @@ import { AuthContext } from "../../../../../context/authContext";
 import { useJwt } from "react-jwt";
 import BookImageCover from "@/app/(home)/books/library/BookImageCover";
 import BookCover from "@/app/(home)/books/library/BookCover";
+import Graph from "@/components/graphs/brothers/Graph";
 import style from "./Dashboard.module.css";
 
 const Dashboard: React.FC = () => {
@@ -46,7 +47,9 @@ const Dashboard: React.FC = () => {
 
   const { username } = useParams();
   const id: string = decodedToken?._id;
-  const findUser = userData.find((user) => user.username === username) ?? userData.find((user) => user._id === id);
+  const findUser =
+    userData.find((user) => user.username === username) ??
+    userData.find((user) => user._id === id);
 
   // find min score
   // use index in books scored
@@ -139,15 +142,15 @@ const Dashboard: React.FC = () => {
               <div className={style.boxItem}>
                 <Link href={`/books/library/${findMinBook?._id}`}>
                   {findMinBook?.reviewImageURL ? (
-                    <BookImageCover
-                      imageURL={findMinBook?.reviewImageURL}
+                    <BookImageCover imageURL={findMinBook?.reviewImageURL} />
+                  ) : (
+                    <BookCover
+                      title={findMinBook?.title}
+                      totalScore={findMinBook?.totalScore}
+                      ratingArr={findMinBook?.scoreRatings?.rating}
+                      raterArr={findMinBook?.scoreRatings?.raterId}
                     />
-                  ) : <BookCover
-                    title={findMinBook?.title}
-                    totalScore={findMinBook?.totalScore}
-                    ratingArr={findMinBook?.scoreRatings?.rating}
-                    raterArr={findMinBook?.scoreRatings?.raterId}
-                  />}
+                  )}
                 </Link>
               </div>
             </div>
@@ -157,15 +160,15 @@ const Dashboard: React.FC = () => {
               <div className={style.boxItem}>
                 <Link href={`/books/library/${findMaxBook?._id}`}>
                   {findMaxBook?.reviewImageURL ? (
-                    <BookImageCover
-                      imageURL={findMaxBook?.reviewImageURL}
+                    <BookImageCover imageURL={findMaxBook?.reviewImageURL} />
+                  ) : (
+                    <BookCover
+                      title={findMaxBook?.title}
+                      totalScore={findMaxBook?.totalScore}
+                      ratingArr={findMaxBook?.scoreRatings?.rating}
+                      raterArr={findMaxBook?.scoreRatings?.raterId}
                     />
-                  ) : <BookCover
-                    title={findMaxBook?.title}
-                    totalScore={findMaxBook?.totalScore}
-                    ratingArr={findMaxBook?.scoreRatings?.rating}
-                    raterArr={findMaxBook?.scoreRatings?.raterId}
-                  />}
+                  )}
                 </Link>
               </div>
             </div>
@@ -189,7 +192,6 @@ const Dashboard: React.FC = () => {
             </div>
           </div>
 
-
           <div className="flex">
             <div className="libaryButtons m-10 border-4 border-black p-3 rounded-lg bg-black text-white">
               <Link href="/books">
@@ -204,29 +206,19 @@ const Dashboard: React.FC = () => {
             </div>
           </div>
 
-          <div className="mt-10 border-4 border-black p-3 rounded-lg bg-black text-white">
+          <div className={style.graphCon}>
             <h2 className="underline">Books scored</h2>
-            <ul>
-              {filterBooks.map((book, i) => (
-                <li
-                  key={i}
-                  className={
-                    book?.scoreRatings?.rating[
-                      book?.scoreRatings?.raterId.indexOf(findUser?._id)
-                    ] >= 5
-                      ? "text-green-500"
-                      : "text-red-500"
-                  }
-                >
-                  {book.title}:{" "}
-                  {
-                    book?.scoreRatings?.rating[
-                      book?.scoreRatings?.raterId.indexOf(findUser?._id)
-                    ]
-                  }{" "}
-                </li>
-              ))}
-            </ul>
+            <Graph
+              bookTitles={filterBooks?.map((book) => book.title)}
+              totalBookScores={filterBooks?.map((book) => book.totalScore)}
+              bookScores={filterBooks?.map(
+                (book) =>
+                  book?.scoreRatings?.rating[
+                    book?.scoreRatings?.raterId.indexOf(findUser?._id)
+                  ]
+              )}
+              username={findUser?.username}
+            />
           </div>
 
           <div className="mt-10 border-4 border-black p-3 rounded-lg bg-black text-white">
