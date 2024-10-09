@@ -8,14 +8,15 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 type Props = {
   booksRead: number[],
   unreadBooks: string[],
-  userReadBooks: string[]
+  userReadBooks: string[],
+  bookTotal: number,
 }
 
-const PieChart: React.FC<Props> = ({booksRead, unreadBooks, userReadBooks}: Props) => {
+const PieChart: React.FC<Props> = ({booksRead, unreadBooks, userReadBooks, bookTotal}: Props) => {
 
+  const booksReadPercentage: string = ((userReadBooks?.length/bookTotal) * 100).toFixed(2);
   const dataset1: number[] = booksRead ?? [];
   const labels1 = [["Read Books", ...userReadBooks], ["Unread Books", ...unreadBooks]];
-  const booksReadPercentage: string = booksRead ? ((booksRead[0]/(booksRead[0] + booksRead[1])) * 100).toFixed(2) : "Loading";
 
   const data = {
     labels: labels1,
@@ -51,16 +52,18 @@ const PieChart: React.FC<Props> = ({booksRead, unreadBooks, userReadBooks}: Prop
   const myPlugin = {
     id: 'myPlugin',
     beforeDraw: (chart) => {
-      const ctx = chart.ctx;
-      const xCoor = chart.chartArea.left + (chart.chartArea.right - chart.chartArea.left) / 2;
-      const yCoor = chart.chartArea.top + (chart.chartArea.bottom - chart.chartArea.top) / 2;
-      ctx.save();
-      ctx.font = "32px Gentium Book Plus";
-      ctx.fillStyle = '#000000';
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'middle';
-      ctx.fillText(`${booksReadPercentage} %`, xCoor, yCoor);
-      ctx.restore();
+      if (userReadBooks.length > 0) {
+        const ctx = chart.ctx;
+        const xCoor = chart.chartArea.left + (chart.chartArea.right - chart.chartArea.left) / 2;
+        const yCoor = chart.chartArea.top + (chart.chartArea.bottom - chart.chartArea.top) / 2;
+        ctx.save();
+        ctx.font = "32px Gentium Book Plus";
+        ctx.fillStyle = '#000000';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(`${booksReadPercentage} %`, xCoor, yCoor);
+        ctx.restore();
+      }
     }
   };
 

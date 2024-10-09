@@ -108,12 +108,11 @@ const Dashboard: React.FC = () => {
   const userReadBooks: string[] = filterReadBooks.map(book => book.title);
 
   //Additional Stats
-  const averageScore = parseFloat(
+  const averageScore =
     (
       findUser?.userInfo?.books?.score?.reduce((a, c) => a + c, 0) /
       findUser?.userInfo?.books?.score?.length
-    ).toFixed(2)
-  );
+    ).toFixed(2);
 
   // all scores
   const filterBooks = bookData.filter((book) =>
@@ -181,6 +180,7 @@ const Dashboard: React.FC = () => {
                   userReadBooks={userReadBooks}
                   booksRead={[noUserReadBooks, filterUnreadBooks.length]}
                   unreadBooks={unreadBooks}
+                  bookTotal={readBooks.length}
                 />
               </div>
             </div>
