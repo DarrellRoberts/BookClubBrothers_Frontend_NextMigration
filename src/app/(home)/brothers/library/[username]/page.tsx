@@ -14,6 +14,7 @@ import BookImageCover from "@/app/(home)/books/library/BookImageCover";
 import BookCover from "@/app/(home)/books/library/BookCover";
 import Graph from "@/components/graphs/brothers/Graph";
 import style from "./Dashboard.module.css";
+import PieChart from "@/components/graphs/brothers/PieChart";
 
 const Dashboard: React.FC = () => {
   const [userData, setUserData] = useState([]);
@@ -94,14 +95,19 @@ const Dashboard: React.FC = () => {
   const findMinBook = bookData.find((book) => book._id === minScoreBook);
   const findMaxBook = bookData.find((book) => book._id === maxScoreBook);
   const readBooks = bookData.filter((book) => book.read === true);
+  const noUserReadBooks: number = findUser?.userInfo?.books?.score?.length;
+  const filterReadBooks = readBooks.filter(
+    (book) => book.scoreRatings.raterId.includes(findUser?._id)
+  );
+
+  //unread books
+  const filterUnreadBooks = readBooks.filter(
+    (book) => !book.scoreRatings.raterId.includes(findUser?._id)
+  );
+  const unreadBooks: string[] = filterUnreadBooks.map(book => book.title);
+  const userReadBooks: string[] = filterReadBooks.map(book => book.title);
 
   //Additional Stats
-  const percentageBooks = parseFloat(
-    (
-      (findUser?.userInfo?.books?.score?.length / readBooks?.length) *
-      100
-    ).toFixed(2)
-  );
   const averageScore = parseFloat(
     (
       findUser?.userInfo?.books?.score?.reduce((a, c) => a + c, 0) /
@@ -112,11 +118,6 @@ const Dashboard: React.FC = () => {
   // all scores
   const filterBooks = bookData.filter((book) =>
     book.scoreRatings.raterId.includes(findUser?._id)
-  );
-
-  //unread books
-  const filterUnreadBooks = bookData.filter(
-    (book) => !book.scoreRatings.raterId.includes(findUser?._id)
   );
 
   // comments
@@ -175,11 +176,13 @@ const Dashboard: React.FC = () => {
 
             <div className={style.box}>
               <h2 className="underline">Books read</h2>
-              <Link href="/brothers/stats">
-                <div className={style.boxItem}>
-                  <h2 className={style.userScore}> {percentageBooks}%</h2>
-                </div>
-              </Link>
+              <div className={style.boxPieItem}>
+                <PieChart
+                  userReadBooks={userReadBooks}
+                  booksRead={[noUserReadBooks, filterUnreadBooks.length]}
+                  unreadBooks={unreadBooks}
+                />
+              </div>
             </div>
 
             <div className={style.box}>
@@ -222,24 +225,10 @@ const Dashboard: React.FC = () => {
           </div>
 
           <div className="mt-10 border-4 border-black p-3 rounded-lg bg-black text-white">
-            <h2 className="underline">Unread Books</h2>
-            <ul>
-              {filterUnreadBooks.length === 0 ? (
-                <li> You are up to date, well done!</li>
-              ) : (
-                filterUnreadBooks.map(
-                  (book, i) =>
-                    book.read === true && <li key={i}>{book.title}</li>
-                )
-              )}
-            </ul>
-          </div>
-
-          <div className="mt-10 border-4 border-black p-3 rounded-lg bg-black text-white">
             <h2 className="underline">Comments</h2>
             <ul>
               {filterComments.length === 0 ? (
-                <li> You have written no comments</li>
+                <li> {findUser?.username} has written no comments</li>
               ) : (
                 filterComments.map((book, i) => (
                   <li key={i}>
