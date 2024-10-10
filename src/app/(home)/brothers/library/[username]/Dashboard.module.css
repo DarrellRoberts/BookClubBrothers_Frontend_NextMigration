@@ -1,3 +1,14 @@
+.headerCon {
+  display: flex;
+  align-items: center;
+  margin-top: 1rem;
+  justify-content: space-between;
+}
+
+.headerCon img {
+  margin-right: 2rem;
+}
+
 .boxLayout {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
@@ -81,6 +92,16 @@
 }
 
 @media screen and (max-width: 450px) {
+
+  .headerCon {
+    flex-direction: column-reverse;
+    align-items: center;
+  }
+
+  
+.headerCon img {
+  margin-right: 0;
+}
 
 .boxItem, .boxItemLoading {
   width: 300px;

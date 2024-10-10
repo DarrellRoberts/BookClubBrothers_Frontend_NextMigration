@@ -21,6 +21,7 @@ import "../../../../style/search.css";
 import "../../../../style/searchRes.css";
 import "../../../../style/button.css";
 import LoaderNoText from "@/components/loader/LoaderNoText";
+import ProfileUnknownUserImage from "@/assets/Profile.unknown-profile-image.jpg";
 
 type StateType = {
   showImage: boolean;
@@ -170,7 +171,7 @@ const Brothercat: React.FC = () => {
                     <Link href={`/brothers/library/${user.username}`}>
                       <img
                         className="opacity-60 grayscale"
-                        src={user?.userInfo?.profileURL}
+                        src={user?.userInfo?.profileURL ? user?.userInfo?.profileURL : ProfileUnknownUserImage.src}
                         alt="profile_pic"
                       />
                     </Link>

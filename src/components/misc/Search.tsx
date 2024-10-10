@@ -5,11 +5,11 @@
 import { Input, Space } from "antd";
 import { useState } from "react";
 
-interface props {
+interface Props {
   setSearchBar: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const SearchBar: React.FC<props> = ({ setSearchBar }) => {
+const SearchBar: React.FC<Props> = ({ setSearchBar }) => {
   const [inputValue, setValue] = useState("");
   const { Search } = Input;
 
