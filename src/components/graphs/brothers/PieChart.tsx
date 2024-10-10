@@ -49,27 +49,11 @@ const PieChart: React.FC<Props> = ({booksRead, unreadBooks, userReadBooks, bookT
     },
   };
 
-  const myPlugin = {
-    id: 'myPlugin',
-    beforeDraw: (chart) => {
-      if (userReadBooks.length > 0) {
-        const ctx = chart.ctx;
-        const xCoor = chart.chartArea.left + (chart.chartArea.right - chart.chartArea.left) / 2;
-        const yCoor = chart.chartArea.top + (chart.chartArea.bottom - chart.chartArea.top) / 2;
-        ctx.save();
-        ctx.font = "32px Gentium Book Plus";
-        ctx.fillStyle = '#000000';
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
-        ctx.fillText(`${booksReadPercentage} %`, xCoor, yCoor);
-        ctx.restore();
-      }
-    }
-  };
-
   return (
     <div className={style.pieCon}>
-      <Doughnut data={data} options={options} plugins={[myPlugin]} />
+      <Doughnut data={data} options={options}
+      />
+      <h3 className={style.percentage}>{booksReadPercentage} %</h3>
     </div>
   );
 };
