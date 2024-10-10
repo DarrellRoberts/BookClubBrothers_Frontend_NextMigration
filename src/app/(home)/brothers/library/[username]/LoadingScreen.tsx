@@ -60,11 +60,6 @@ const LoadingScreen = () => (
     </div>
 
     <div className="m-10 border-4 border-black p-3 rounded-lg bg-black text-white">
-      <h2 className="underline">Unread Books</h2>
-      <LoaderNoText />
-    </div>
-
-    <div className="m-10 border-4 border-black p-3 rounded-lg bg-black text-white">
       <h2 className="underline">Comments</h2>
       <LoaderNoText />
     </div>
