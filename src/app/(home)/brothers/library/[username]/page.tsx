@@ -17,6 +17,7 @@ import style from "./Dashboard.module.css";
 import PieChart from "@/components/graphs/brothers/PieChart";
 import Profile from "@/components/misc/profile/Profile";
 import PictureUploadButton from "../brotherform/PictureUploadButton";
+import CommentCon from "@/components/comments/CommentCon";
 
 type StateType = {
   showImage: boolean;
@@ -259,25 +260,13 @@ const Dashboard: React.FC = () => {
             />
           </div>
 
-          <div className="mt-10 border-4 border-black p-3 rounded-lg bg-black text-white">
+          <div className={style.commentSection}>
             <h2 className="underline">Comments</h2>
-            <ul>
-              {filterComments.length === 0 ? (
-                <li> {findUser?.username} has written no comments</li>
-              ) : (
-                filterComments.map((book, i) => (
-                  <li key={i}>
-                    {book.title}: "
-                    {
-                      book.commentInfo.comments[
-                        book?.commentInfo?.commentId?.indexOf(findUser?._id)
-                      ]
-                    }
-                    "
-                  </li>
-                ))
-              )}
-            </ul>
+            <CommentCon
+              comments={filterComments}
+              username={findUser?.username}
+              userId={findUser?._id}
+            />
           </div>
         </>
       )}

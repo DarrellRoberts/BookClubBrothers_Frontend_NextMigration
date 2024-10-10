@@ -23,7 +23,7 @@
   justify-content: center;
 }
 
-.box h2:not(.userScore)  {
+.box h2:not(.userScore) {
   font-family: var(--main);
   font-size: 1.5rem;
 }
@@ -55,7 +55,7 @@
   font-family: var(--main);
 }
 
-.graphCon {
+.graphCon, .commentSection {
   display: flex;
   flex-direction: column;
   margin: 0;
@@ -63,7 +63,7 @@
   padding: 0;
 }
 
-.graphCon h2 {
+.graphCon h2, .commentSection h2 {
   font-family: var(--main);
   font-size: 3.5rem;
 }
