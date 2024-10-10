@@ -15,6 +15,7 @@ import BookCover from "@/app/(home)/books/library/BookCover";
 import Graph from "@/components/graphs/brothers/Graph";
 import style from "./Dashboard.module.css";
 import PieChart from "@/components/graphs/brothers/PieChart";
+import Profile from "@/components/misc/profile/Profile";
 
 const Dashboard: React.FC = () => {
   const [userData, setUserData] = useState([]);
@@ -135,7 +136,10 @@ const Dashboard: React.FC = () => {
         <LoadingScreen />
       ) : (
         <>
-          <h1 className="dashboardTitle">{findUser?.username}</h1>
+          <div className={style.headerCon}>
+            <h1 className="dashboardTitle">{findUser?.username}</h1>
+            <Profile imageURL={findUser?.userInfo?.profileURL} />
+          </div>
           <div className={style.boxLayout}>
             <div className={style.box}>
               <h2 className="underline">Worst book</h2>
