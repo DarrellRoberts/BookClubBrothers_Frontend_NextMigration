@@ -2,7 +2,7 @@
 /* eslint-disable react/react-in-jsx-scope */
 "use client";
 
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useReducer, useState } from "react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import "../../../../../style/dashboard.css";
@@ -16,12 +16,31 @@ import Graph from "@/components/graphs/brothers/Graph";
 import style from "./Dashboard.module.css";
 import PieChart from "@/components/graphs/brothers/PieChart";
 import Profile from "@/components/misc/profile/Profile";
+import PictureUploadButton from "../brotherform/PictureUploadButton";
+
+type StateType = {
+  showImage: boolean;
+}
+
+const reducer = (state: StateType, action) => {
+  switch (action.type) {
+  case "toggleImage":
+    return { showImage: !state.showImage };
+  default:
+    return state;
+  }
+};
+
 
 const Dashboard: React.FC = () => {
   const [userData, setUserData] = useState([]);
   const [bookData, setBookData] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState("");
+
+  const [state, dispatch] = useReducer(reducer, {
+    showImage: false,
+  });
 
   const { token } = useContext(AuthContext);
 
@@ -138,7 +157,19 @@ const Dashboard: React.FC = () => {
         <>
           <div className={style.headerCon}>
             <h1 className="dashboardTitle">{findUser?.username}</h1>
-            <Profile imageURL={findUser?.userInfo?.profileURL} />
+            <div className="flex-column">
+              <Profile imageURL={findUser?.userInfo?.profileURL} />
+              {decodedToken?._id === findUser?._id ? (
+                <div className="flex justify-center mt-2">
+                  <PictureUploadButton
+                    id={findUser?._id}
+                    inImage={findUser?.userInfo?.profileURL}
+                    showImage={state.showImage}
+                    dispatch={dispatch}
+                  />
+                </div>
+              ) : null}
+            </div>
           </div>
           <div className={style.boxLayout}>
             <div className={style.box}>
