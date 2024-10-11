@@ -17,7 +17,6 @@ type Props = {
 };
 
 const CommentCon: React.FC<Props> = ({ username, comments, userId }) => {
-  console.log(comments);
   return (
     <div className={style.commentCon}>
       {comments.length > 0 ? (

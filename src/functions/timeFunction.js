@@ -2,7 +2,7 @@ import { getDate } from "./dateFunction";
 
 const dateTimeString = getDate();
 
-function getTime() {
+const getTime = () => {
   const [datePart, timePart] = dateTimeString.split(", ");
   const date = datePart;
   date;
@@ -23,6 +23,6 @@ function getTime() {
   } else {
     return "Howdy";
   }
-}
+};
 
 export { getTime };

@@ -1,4 +1,4 @@
-function getDate() {
+const getDate = () => {
   const date = new Date(
     new Date().getFullYear(),
     new Date().getMonth(),
@@ -14,6 +14,6 @@ function getDate() {
     minute: "2-digit",
   });
   return todayResult;
-}
+};
 
 export { getDate };
