@@ -8,7 +8,6 @@ type Props = {
 }
 
 const Profile: React.FC<Props> = ({imageURL}) => {
-  console.log(imageURL);
   return (
     <div className={style.profileCon}>
       <Image src={imageURL ? imageURL : ProfileUnknownUserImage} width={150} height={300} alt="Profile picture"/>

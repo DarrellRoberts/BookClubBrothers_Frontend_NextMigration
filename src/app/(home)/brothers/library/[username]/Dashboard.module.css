@@ -9,6 +9,10 @@
   margin-right: 2rem;
 }
 
+.profileCon {
+  display: flex;
+}
+
 .boxLayout {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
@@ -93,7 +97,6 @@
 }
 
 @media screen and (max-width: 450px) {
-
   .headerCon {
     flex-direction: column-reverse;
     align-items: center;
@@ -102,6 +105,11 @@
   
 .headerCon img {
   margin-right: 0;
+}
+
+.profileCon {
+  flex-direction: column-reverse;
+  align-items: center;
 }
 
 .boxItem, .boxItemLoading {
