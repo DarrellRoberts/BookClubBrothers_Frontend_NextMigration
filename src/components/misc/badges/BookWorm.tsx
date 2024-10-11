@@ -34,7 +34,7 @@ const BookWorm: React.FC<Props> = ({ userData, userId }) => {
   return (
     <>
       {showWorm ? (
-        <BadgeTemplate borderColor={"#ffd700"} badgeImageURL={badge} />
+        <BadgeTemplate badgeImageURL={badge} />
       ) : null}
     </>
   );
