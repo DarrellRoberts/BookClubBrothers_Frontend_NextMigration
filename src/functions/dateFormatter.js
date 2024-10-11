@@ -1,5 +1,5 @@
 // use date string as argument
-function dateFormatter(dateValue) {
+const dateFormatter = dateValue => {
   const dateString = dateValue?.split("T")[0];
   const date = new Date(dateString);
   console.log("Date line 3:  " + date);
@@ -27,14 +27,11 @@ function dateFormatter(dateValue) {
     "December",
   ];
   const monthName = monthsOfYear[date.getMonth()];
-  console.log("Month Name, Line 7:" + monthName);
   const dayName = daysOfWeek[date.getDay()];
-  console.log("Day Name, Line 9:" + monthName);
   const year = date.getUTCFullYear();
   const day = date.getUTCDate().toString().padStart(2, "0");
-  console.log("Day Name, Line 11" + monthName);
   const formattedDate = `${dayName} ${day} ${monthName} ${year}`;
   return formattedDate;
-}
+};
 
 export { dateFormatter };

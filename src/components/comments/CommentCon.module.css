@@ -42,6 +42,7 @@
     color: #FFFFFF;
     font-family: var(--main);
     font-size: 1.25rem;
+    text-align: center;
     width: 350px;
     height: 400px;
     padding: 2rem 1rem;
@@ -67,5 +68,8 @@
     .commentRow p {
         width: fit-content;
         height: auto;
+    }
+    .noComment {
+        text-align: center;
     }
 }

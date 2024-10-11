@@ -1,6 +1,7 @@
 /* eslint-disable react/react-in-jsx-scope */
-import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, BarElement, Title, Tooltip, Legend, Filler, } from "chart.js";
+import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, BarElement, Title, Tooltip, Legend, Filler, ChartOptions } from "chart.js";
 import { Bar } from "react-chartjs-2";
+import { abbreviateString } from "@/functions/abbreviateString";
 import style from "./Graph.module.css";
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, BarElement, Title, Tooltip, Legend, Filler);
@@ -14,15 +15,18 @@ type Props = {
 
 const Graph: React.FC<Props> = ({bookTitles, totalBookScores, bookScores, username}: Props) => {
 
-  const labels: string[] = bookTitles;
+  const labelsLen = bookTitles.map(title =>
+    title.length > 22 ? abbreviateString(title) : title);
+
   const datasets: number[] = bookScores ?? null;
   const datasets2: number[] = totalBookScores;
 
   const data = {
-    labels: labels,
+    labels: labelsLen,
     datasets: [
       {
         label: `${username}'s Scores`,
+        axis: 'y',
         data: datasets,
         backgroundColor: ["#095d09"],
         barPercentage: 1,
@@ -30,6 +34,7 @@ const Graph: React.FC<Props> = ({bookTitles, totalBookScores, bookScores, userna
       },
       {
         label: "Total Score",
+        axis: 'y',
         data: datasets2,
         backgroundColor: ["black"],
         barPercentage: 1
@@ -37,9 +42,10 @@ const Graph: React.FC<Props> = ({bookTitles, totalBookScores, bookScores, userna
     ],
   };
 
-  const options = {
+  const options: ChartOptions<"bar"> = {
     responsive: true,
-    maintainAspectRation: false,
+    maintainAspectRatio: false,
+    indexAxis: 'y',
     plugins: {
       legend: {
         labels: {
@@ -57,6 +63,18 @@ const Graph: React.FC<Props> = ({bookTitles, totalBookScores, bookScores, userna
       y: {
         ticks: {
           font: {
+            size: 16,
+            family: 'Gentium Book Plus'
+          }
+        },
+        title: {
+          display: false,
+        },
+        display: true,
+      },
+      x: {
+        ticks: {
+          font: {
             size: 20,
             family: 'Gentium Book Plus'
           }
@@ -72,18 +90,6 @@ const Graph: React.FC<Props> = ({bookTitles, totalBookScores, bookScores, userna
         display: true,
         beginAtZero: true,
         max: 10,
-      },
-      x: {
-        ticks: {
-          font: {
-            size: 16,
-            family: 'Gentium Book Plus'
-          }
-        },
-        title: {
-          display: false,
-        },
-        display: true,
       },
     },
   };
