@@ -18,10 +18,11 @@ import PieChart from "@/components/graphs/brothers/PieChart";
 import Profile from "@/components/misc/profile/Profile";
 import PictureUploadButton from "../brotherform/PictureUploadButton";
 import CommentCon from "@/components/comments/CommentCon";
+import Badges from "@/components/misc/badges/Badges";
 
 type StateType = {
   showImage: boolean;
-}
+};
 
 const reducer = (state: StateType, action) => {
   switch (action.type) {
@@ -31,7 +32,6 @@ const reducer = (state: StateType, action) => {
     return state;
   }
 };
-
 
 const Dashboard: React.FC = () => {
   const [userData, setUserData] = useState([]);
@@ -117,23 +117,22 @@ const Dashboard: React.FC = () => {
   const findMaxBook = bookData.find((book) => book._id === maxScoreBook);
   const readBooks = bookData.filter((book) => book.read === true);
   const noUserReadBooks: number = findUser?.userInfo?.books?.score?.length;
-  const filterReadBooks = readBooks.filter(
-    (book) => book.scoreRatings.raterId.includes(findUser?._id)
+  const filterReadBooks = readBooks.filter((book) =>
+    book.scoreRatings.raterId.includes(findUser?._id)
   );
 
   //unread books
   const filterUnreadBooks = readBooks.filter(
     (book) => !book.scoreRatings.raterId.includes(findUser?._id)
   );
-  const unreadBooks: string[] = filterUnreadBooks.map(book => book.title);
-  const userReadBooks: string[] = filterReadBooks.map(book => book.title);
+  const unreadBooks: string[] = filterUnreadBooks.map((book) => book.title);
+  const userReadBooks: string[] = filterReadBooks.map((book) => book.title);
 
   //Additional Stats
-  const averageScore =
-    (
-      findUser?.userInfo?.books?.score?.reduce((a, c) => a + c, 0) /
-      findUser?.userInfo?.books?.score?.length
-    ).toFixed(2);
+  const averageScore = (
+    findUser?.userInfo?.books?.score?.reduce((a, c) => a + c, 0) /
+    findUser?.userInfo?.books?.score?.length
+  ).toFixed(2);
 
   // all scores
   const filterBooks = bookData.filter((book) =>
@@ -150,6 +149,7 @@ const Dashboard: React.FC = () => {
     getBookData();
   }, []);
 
+  console.log(userData);
   return (
     <>
       {loading ? (
@@ -158,18 +158,21 @@ const Dashboard: React.FC = () => {
         <>
           <div className={style.headerCon}>
             <h1 className="dashboardTitle">{findUser?.username}</h1>
-            <div className="flex-column">
-              <Profile imageURL={findUser?.userInfo?.profileURL} />
-              {decodedToken?._id === findUser?._id ? (
-                <div className="flex justify-center mt-2">
-                  <PictureUploadButton
-                    id={findUser?._id}
-                    inImage={findUser?.userInfo?.profileURL}
-                    showImage={state.showImage}
-                    dispatch={dispatch}
-                  />
-                </div>
-              ) : null}
+            <div className={style.profileCon}>
+              <Badges userId={findUser?._id} userData={userData} />
+              <div className="flex-column">
+                <Profile imageURL={findUser?.userInfo?.profileURL} />
+                {decodedToken?._id === findUser?._id ? (
+                  <div className="flex justify-center mt-2">
+                    <PictureUploadButton
+                      id={findUser?._id}
+                      inImage={findUser?.userInfo?.profileURL}
+                      showImage={state.showImage}
+                      dispatch={dispatch}
+                    />
+                  </div>
+                ) : null}
+              </div>
             </div>
           </div>
           <div className={style.boxLayout}>
