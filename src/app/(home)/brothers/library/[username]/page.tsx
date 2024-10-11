@@ -158,8 +158,15 @@ const Dashboard: React.FC = () => {
         <>
           <div className={style.headerCon}>
             <h1 className="dashboardTitle">{findUser?.username}</h1>
+            <div className={style.achievementCon}>
+              <h2>Achievements</h2>
+              <Badges
+                userId={findUser?._id}
+                userData={userData}
+                userReadBooks={filterBooks}
+              />
+            </div>
             <div className={style.profileCon}>
-              <Badges userId={findUser?._id} userData={userData} />
               <div className="flex-column">
                 <Profile imageURL={findUser?.userInfo?.profileURL} />
                 {decodedToken?._id === findUser?._id ? (

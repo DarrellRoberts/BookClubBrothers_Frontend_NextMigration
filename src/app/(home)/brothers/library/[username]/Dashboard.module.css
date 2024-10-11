@@ -1,12 +1,24 @@
 .headerCon {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   margin-top: 1rem;
   justify-content: space-between;
 }
 
 .headerCon img {
   margin-right: 2rem;
+}
+
+.achievementCon {
+  display: flex;
+  flex-direction: column;
+  margin-right: 2rem;
+}
+
+.achievementCon h2 {
+  font-family: var(--main);
+  font-size: 2.5rem;
+  text-decoration: underline;
 }
 
 .profileCon {
@@ -98,13 +110,22 @@
 
 @media screen and (max-width: 450px) {
   .headerCon {
-    flex-direction: column-reverse;
+    flex-direction: column;
     align-items: center;
   }
 
-  
 .headerCon img {
   margin-right: 0;
+}
+
+.achievementCon {
+  margin-bottom: 1rem;
+  margin-right: 0;
+}
+
+.achievementCon h2 {
+  font-size: 1.75rem;
+  text-align: center;
 }
 
 .profileCon {
