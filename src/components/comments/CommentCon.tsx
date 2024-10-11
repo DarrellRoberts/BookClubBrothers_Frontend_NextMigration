@@ -43,7 +43,7 @@ const CommentCon: React.FC<Props> = ({ username, comments, userId }) => {
         <div className={style.commentItem}>
           <h3 className={style.noComment}>
             {username} has written no comments.
-            <br/>
+            <br/ >
             {username}, if you're reading
             this,{" "}
             <a href="/books/library"> click here to access the book library </a>{" "}
