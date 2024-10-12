@@ -1,16 +1,20 @@
 import React from 'react';
+import { Popover } from "antd";
 import style from "./Badges.module.css";
 
 type Props = {
   badgeImageURL: string,
+  title: string
 }
 
-const Badges: React.FC<Props> = ({badgeImageURL}) => {
+const Badges: React.FC<Props> = ({badgeImageURL, title}) => {
   return (
-    <img
-      className={style.badgeTemplate}
-      src={badgeImageURL}
-    ></img>
+    <Popover title={title}>
+      <img
+        className={style.badgeTemplate}
+        src={badgeImageURL}
+      ></img>
+    </Popover>
   );
 };
 

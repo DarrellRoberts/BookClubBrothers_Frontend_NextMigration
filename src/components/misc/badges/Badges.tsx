@@ -1,22 +1,22 @@
 import React from "react";
 import BookWorm from "./BookWorm";
-import { type User } from "@/types/UserInterface";
-import { type Book } from "@/types/BookInterface";
-import style from "./Badges.module.css";
 import LoneWolf from "./LoneWolf";
-
+import style from "./Badges.module.css";
 
 type Props = {
-  userId: string;
-  userData: User[];
-  userReadBooks: Book[];
+  badgeData: {
+    loneWolf: boolean,
+    allBooks: boolean,
+    mostBooks: boolean
+  };
 };
 
-const Badges: React.FC<Props> = ({ userId, userData, userReadBooks}) => {
+const Badges: React.FC<Props> = ({ badgeData}) => {
+
   return (
     <div className={style.badgesCon}>
-      <BookWorm userData={userData} userId={userId} />
-      <LoneWolf userReadBooks={userReadBooks}/>
+      <BookWorm  bookWorm={badgeData?.allBooks}/>
+      <LoneWolf  loneWolf={badgeData?.loneWolf}/>
     </div>
   );
 };

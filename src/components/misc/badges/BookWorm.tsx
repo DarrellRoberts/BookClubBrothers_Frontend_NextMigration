@@ -1,40 +1,21 @@
-import React, { useState } from "react";
+/* eslint-disable react/prop-types */
+/* eslint-disable react/react-in-jsx-scope */
 import BookWormImage from "@/assets/badges/Badge.worm-badge-image.jpg";
 import BadgeTemplate from "./BadgeTemplate";
-import { useEffect } from "react";
-import { type User } from "@/types/UserInterface";
 
 type Props = {
-  userId: string;
-  userData: User[];
+  bookWorm: boolean
 };
 
-const BookWorm: React.FC<Props> = ({ userData, userId }) => {
-  const [showWorm, setShowWorm] = useState<boolean>(false);
+const BookWorm: React.FC<Props> = ({ bookWorm }) => {
   const badge = BookWormImage.src;
 
-  const readLengthArray = userData?.map(
-    (user) => user.userInfo.books.booksScored.length
-  );
-
-  const longestLength = Math.max(...readLengthArray);
-
-  const userLongestLength = userData?.filter(
-    (user) => user.userInfo.books.booksScored.length === longestLength
-  );
-  const handleBadge = () => {
-    const idArrays = userLongestLength?.map((user) => user._id);
-    idArrays.includes(userId) ? setShowWorm(true) : setShowWorm(false);
-  };
-
-  useEffect(() => {
-    handleBadge();
-    [];
-  });
   return (
     <>
-      {showWorm ? (
-        <BadgeTemplate badgeImageURL={badge} />
+      {bookWorm ? (
+        <BadgeTemplate
+          title={"Book Worm - read the most books at one time"}
+          badgeImageURL={badge} />
       ) : null}
     </>
   );

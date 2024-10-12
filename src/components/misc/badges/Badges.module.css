@@ -7,15 +7,15 @@
 
 .badgeTemplate {
   border-radius: 50%;
-  width: 100px;
-  height: 100px;
+  width: 55px;
+  height: 55px;
   padding: 0.15rem;
 }
 
 @media screen and (max-width: 800px) { 
   .badgeTemplate {
-    width: 85px;
-    height: 85px;
+    width: 50px;
+    height: 50px;
   }
 }
 
@@ -25,7 +25,5 @@
   }
   .badgeTemplate {
     margin-top: 1rem;
-    width: 75px;
-    height: 75px;
   } 
 }

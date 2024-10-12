@@ -19,12 +19,23 @@ const HeaderLinksMobile: React.FC = () => {
   return (
     <>
       <span
-        onClick={() => {setShowMenu(!showMenu); setShowAnimation(true);}}
+        onClick={() => {
+          setShowMenu(!showMenu);
+          setShowAnimation(true);
+        }}
         className="text-4xl"
       >
         |||
       </span>
-      <div className={showMenu ? "headerLinksMobile" : showAnimation ? "noHeaderLinksMobile" : ""}>
+      <div
+        className={
+          showMenu
+            ? "headerLinksMobile"
+            : showAnimation
+              ? "noHeaderLinksMobile"
+              : ""
+        }
+      >
         {showMenu ? (
           <>
             <div className="bookMenuMobile">
@@ -67,6 +78,17 @@ const HeaderLinksMobile: React.FC = () => {
               >
                 Club
               </Link>
+              <ul className="submenuLinks">
+                <li onClick={() => handleLinkClick()}>
+                  <Link href="/club">Club Dashboard</Link>
+                </li>
+                <li onClick={() => handleLinkClick()}>
+                  <Link href="/club/about">About Us</Link>
+                </li>
+                <li onClick={() => handleLinkClick()}>
+                  <Link href="/club/badges">Club Badges</Link>
+                </li>
+              </ul>
             </div>
 
             <div className="brothersMenuMobile">

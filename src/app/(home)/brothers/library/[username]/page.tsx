@@ -148,8 +148,6 @@ const Dashboard: React.FC = () => {
     getData();
     getBookData();
   }, []);
-
-  console.log(userData);
   return (
     <>
       {loading ? (
@@ -161,9 +159,7 @@ const Dashboard: React.FC = () => {
             <div className={style.achievementCon}>
               <h2>Achievements</h2>
               <Badges
-                userId={findUser?._id}
-                userData={userData}
-                userReadBooks={filterBooks}
+                badgeData={findUser?.userInfo?.badges}
               />
             </div>
             <div className={style.profileCon}>
