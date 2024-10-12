@@ -30,7 +30,20 @@ const HeaderLinks: React.FC = () => {
         </ul>
       </div>
 
-      <Link href="/club">Club</Link>
+      <div className="bookMenu">
+        <Link href="/club">Club</Link>
+        <ul className="bookHover">
+          <li>
+            <Link href="/club">Club Dashboard</Link>
+          </li>
+          <li>
+            <Link href="/club/about">About Us</Link>
+          </li>
+          <li>
+            <Link href="/club/badges">Club Badges</Link>
+          </li>
+        </ul>
+      </div>
 
       <div className="bookMenu">
         <Link href="/brothers">Brothers</Link>

@@ -1,33 +1,20 @@
-import React, { useState } from "react";
+/* eslint-disable react/prop-types */
+/* eslint-disable react/react-in-jsx-scope */
 import LoneWolfImage from "@/assets/badges/Badge-lonewolf-badge-image.jpg";
 import BadgeTemplate from "./BadgeTemplate";
-import { useEffect } from "react";
-import { type Book } from "@/types/BookInterface";
 
 type Props = {
-  userReadBooks: Book[];
+  loneWolf: boolean;
 };
 
-const BookWorm: React.FC<Props> = ({ userReadBooks }) => {
-  const [showWolf, setShowWolf] = useState<boolean>(false);
+const BookWorm: React.FC<Props> = ({ loneWolf }) => {
   const badge = LoneWolfImage.src;
 
-  const handleBadge = () => {
-    const readLengthArray = userReadBooks?.map(book => book.scoreRatings.raterId.length);
-    readLengthArray.includes(1) ? setShowWolf(true) : setShowWolf(false);
-  };
-
-  useEffect(() => {
-    handleBadge();
-    [];
-  });
-  return (
-    <>
-      {showWolf ? (
-        <BadgeTemplate badgeImageURL={badge} />
-      ) : null}
-    </>
-  );
+  return (<>{loneWolf ?
+    <BadgeTemplate
+      title={"Lone Worm - have been the only person to score a book"}
+      badgeImageURL={badge} />
+    : null}</>);
 };
 
 export default BookWorm;
