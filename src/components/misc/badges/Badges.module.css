@@ -1,8 +1,5 @@
-.badgeCon {
+.badgesCon {
   display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  align-items: flex-start;
 }
 
 .badgeTemplate {
@@ -10,6 +7,10 @@
   width: 55px;
   height: 55px;
   padding: 0.15rem;
+}
+
+.badge :where(.css-dev-only-do-not-override-1rqnfsa).ant-popover .ant-popover-inner {
+background-color: red;
 }
 
 @media screen and (max-width: 800px) { 

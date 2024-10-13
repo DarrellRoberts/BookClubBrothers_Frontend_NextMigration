@@ -5,10 +5,6 @@
   justify-content: space-between;
 }
 
-.headerCon img {
-  margin-right: 2rem;
-}
-
 .achievementCon {
   display: flex;
   flex-direction: column;
@@ -23,6 +19,7 @@
 
 .profileCon {
   display: flex;
+  margin-right: 2rem;
 }
 
 .boxLayout {
