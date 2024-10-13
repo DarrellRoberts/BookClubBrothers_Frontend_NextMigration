@@ -12,7 +12,8 @@ const BookWorm: React.FC<Props> = ({ loneWolf }) => {
 
   return (<>{loneWolf ?
     <BadgeTemplate
-      title={"Lone Worm - have been the only person to score a book"}
+      title={"Lone Worm"}
+      content={"Have been the only person to score a book"}
       badgeImageURL={badge} />
     : null}</>);
 };

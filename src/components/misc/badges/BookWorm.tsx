@@ -14,7 +14,8 @@ const BookWorm: React.FC<Props> = ({ bookWorm }) => {
     <>
       {bookWorm ? (
         <BadgeTemplate
-          title={"Book Worm - read the most books at one time"}
+          title={"Book Worm"}
+          content={"Read the most books at one time"}
           badgeImageURL={badge} />
       ) : null}
     </>
