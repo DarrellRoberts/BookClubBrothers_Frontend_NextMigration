@@ -1,22 +1,30 @@
+/* eslint-disable react/no-unescaped-entities */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/react-in-jsx-scope */
 import BookWormImage from "@/assets/badges/Badge-monkworm-image.jpg";
-import BadgeTemplate from "./BadgeTemplate";
+import BadgeTemplate from "../BadgeTemplate";
 
 type Props = {
-  firstBookWorm: boolean
+  firstBookWorm: boolean;
 };
 
 const FirstBook: React.FC<Props> = ({ firstBookWorm }) => {
   const badge = BookWormImage.src;
 
+  const content = (
+    <>
+      <p>Have rated their first book</p>
+      <a className="underline" href="/club/badges">what's this?</a>
+    </>
+  );
   return (
     <>
       {firstBookWorm ? (
         <BadgeTemplate
-          title={"Welcome to The Book Club Brothers"}
-          content={"Rated their first book"}
-          badgeImageURL={badge} />
+          title={"Monk Worm"}
+          content={content}
+          badgeImageURL={badge}
+        />
       ) : null}
     </>
   );
