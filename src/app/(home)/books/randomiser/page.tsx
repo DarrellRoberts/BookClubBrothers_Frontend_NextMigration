@@ -6,11 +6,11 @@ import { ACTIONS } from "./actions";
 import LoaderNoText from "../../../../components/loader/LoaderNoText";
 import CreateUnreadBook from "./bookform/CreateUnreadBook";
 import DeleteBook from "./bookform/DeleteBook";
-// import EditUnreadBook from "./bookform/EditUnreadBook";
 import Randomiser from "./Randomiser";
 import { AuthContext } from "../../../../context/authContext";
 import { useJwt } from "react-jwt";
 import style from "./randomiser.module.css";
+import EditUnreadBook from "./bookform/edit/EditUnreadBook";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -199,23 +199,23 @@ const RandomiserHomepage: React.FC = () => {
                           )}{" "}
                       </li>
                     </ul>
-                    <div className="flex">
+                    <div className={style.buttonCon}>
                       <Randomiser
                         bookLength={state.bookData?.length}
                         bookId={state.bookData[state.index]?._id}
                         dispatch={dispatch}
                       />
-                      {/*<EditUnreadBook
-              dispatch={dispatch}
-              showEditBook = {state.showEditBook}
-              id = {state.bookData[state.index]?._id}
-              prevTitle =  {state.bookData[state.index]?.title}
-              prevAuthor = {state.bookData[state.index]?.author}
-              prevPages= {state.bookData[state.index]?.pages}
-              prevYearPublished = {state.bookData[state.index]?.yearPublished}
-              prevGenre = {state.bookData[state.index]?.genre}
-              prevImageURL = {state.bookData[state.index]?.imageURL}
-            />*/}
+                      <EditUnreadBook
+                        id={state.bookData[state.index]?._id}
+                        showEditBook={state.showEditBook}
+                        dispatch={dispatch}
+                        inAuthor={state.bookData[state.index]?.author}
+                        inTitle={state.bookData[state.index]?.title}
+                        inPublished={state.bookData[state.index]?.yearPublished}
+                        inPages={state.bookData[state.index]?.pages}
+                        inGenre={state.bookData[state.index]?.genre}
+                        inImageURL={state.bookData[state.index]?.imageURL}
+                      />
                     </div>
                   </>
                 )}
