@@ -71,7 +71,7 @@ const DeleteBook: React.FC<props> = ({ id }) => {
         onOpenChange={() => console.log(id)}
       >
         <Button className="deleteUnreadButton" danger>
-          X
+          Delete Book
         </Button>
       </Popconfirm>
       {error ? (

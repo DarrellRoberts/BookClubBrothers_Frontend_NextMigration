@@ -1,22 +1,27 @@
 /* eslint-disable react/react-in-jsx-scope */
 /* eslint-disable react/prop-types */
-import { Dispatch, useState } from "react";
+import { type Dispatch } from "react";
 import { ACTIONS } from "./actions";
 import { Button } from "antd";
 import SelectBook from "./bookform/SelectBook";
 import style from "./randomiser.module.css";
 
-interface props {
-  dispatch: Dispatch<unknown>;
-  bookLength: number;
-  bookId: string;
+type Props = {
+  dispatch: Dispatch<unknown>,
+  showRandom: boolean,
+  bookLength: number,
+  bookId: string,
+  adminId: string,
+  userId: string
 }
 
-const Randomiser: React.FC<props> = ({ dispatch, bookLength, bookId }) => {
-  const [showRandom, setShowRandom] = useState<boolean>(true);
+const Randomiser: React.FC<Props> = ({ dispatch, showRandom, bookLength, bookId, adminId, userId }) => {
 
   const handleRandomise = () => {
-    setShowRandom(false);
+    dispatch({
+      type: ACTIONS.SETRANDOM,
+      payload: false
+    });
     const Int = setInterval(() => {
       dispatch({
         type: ACTIONS.SETINDEX,
@@ -25,7 +30,10 @@ const Randomiser: React.FC<props> = ({ dispatch, bookLength, bookId }) => {
     }, 50);
     setTimeout(() => {
       clearInterval(Int);
-      setShowRandom(true);
+      dispatch({
+        type: ACTIONS.SETRANDOM,
+        payload: true
+      });
     }, 3000);
   };
 
@@ -35,7 +43,9 @@ const Randomiser: React.FC<props> = ({ dispatch, bookLength, bookId }) => {
         {showRandom ? (
           <>
             <Button onClick={handleRandomise}>Randomise</Button>
-            <SelectBook bookId={bookId} dispatch={dispatch} />
+            {adminId === userId ? (
+              <SelectBook bookId={bookId} dispatch={dispatch} />
+            ) : null}
           </>
         ) : null}
       </div>
