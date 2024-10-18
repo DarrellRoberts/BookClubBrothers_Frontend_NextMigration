@@ -246,6 +246,7 @@
     flex-direction: column;
   }
   .buttonCon {
-    
+    display: flex;
+    flex-direction: column;
   }
 }

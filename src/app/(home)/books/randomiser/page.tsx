@@ -28,6 +28,10 @@ const reducer = (state, action) => {
     return { ...state, error: action.payload };
   case ACTIONS.SHOWLOADING:
     return { ...state, loading: action.payload };
+  case ACTIONS.SHOWRANDOM:
+    return { ...state, showRandom: action.payload };
+  case ACTIONS.SETRANDOM:
+    return { ...state, showRandom: action.payload };
   default:
     return state;
   }
@@ -42,12 +46,16 @@ const RandomiserHomepage: React.FC = () => {
     userData: [],
     error: null,
     loading: true,
+    showRandom: true,
   });
 
   const { token } = useContext(AuthContext);
-  const { decodedToken }: { decodedToken?: { username: string } } =
+  const { decodedToken }: { decodedToken?: {
+    _id: string; username: string
+} } =
     useJwt(token);
 
+  const adminId = "65723ac894b239fe25fe6871";
   const getBookData = async () => {
     try {
       dispatch({ type: ACTIONS.SETERROR, payload: null });
@@ -106,9 +114,7 @@ const RandomiserHomepage: React.FC = () => {
                 state.bookData?.map((book, i) => (
                   <div
                     key={i}
-                    className={
-                      decodedToken ? style.bookDeleteBox : style.bookBox
-                    }
+                    className={style.bookBox}
                     // add conditional as otherwise creates bug for onClick Modal
                     onClick={() =>
                       !state.showEditBook
@@ -120,11 +126,6 @@ const RandomiserHomepage: React.FC = () => {
                     }
                   >
                     <h2>{book?.title}</h2>
-                    {decodedToken ? (
-                      <div className={style.bookX}>
-                        <DeleteBook id={book?._id} />
-                      </div>
-                    ) : null}
                     <p>
                       - suggested by{" "}
                       {findUser(book?.suggestedBy) === "user not found"
@@ -203,19 +204,30 @@ const RandomiserHomepage: React.FC = () => {
                       <Randomiser
                         bookLength={state.bookData?.length}
                         bookId={state.bookData[state.index]?._id}
+                        userId={decodedToken?._id}
+                        adminId={adminId}
+                        showRandom={state.showRandom}
                         dispatch={dispatch}
                       />
-                      <EditUnreadBook
-                        id={state.bookData[state.index]?._id}
-                        showEditBook={state.showEditBook}
-                        dispatch={dispatch}
-                        inAuthor={state.bookData[state.index]?.author}
-                        inTitle={state.bookData[state.index]?.title}
-                        inPublished={state.bookData[state.index]?.yearPublished}
-                        inPages={state.bookData[state.index]?.pages}
-                        inGenre={state.bookData[state.index]?.genre}
-                        inImageURL={state.bookData[state.index]?.imageURL}
-                      />
+                      {state.showRandom && state.bookData[state.index]?.suggestedBy ===
+                      decodedToken?._id || decodedToken?._id === adminId ? (
+                          <>
+                            <EditUnreadBook
+                              id={state.bookData[state.index]?._id}
+                              showEditBook={state.showEditBook}
+                              dispatch={dispatch}
+                              inAuthor={state.bookData[state.index]?.author}
+                              inTitle={state.bookData[state.index]?.title}
+                              inPublished={
+                                state.bookData[state.index]?.yearPublished
+                              }
+                              inPages={state.bookData[state.index]?.pages}
+                              inGenre={state.bookData[state.index]?.genre}
+                              inImageURL={state.bookData[state.index]?.imageURL}
+                            />
+                            <DeleteBook id={state.bookData[state.index]?._id} />
+                          </>
+                        ) : null}
                     </div>
                   </>
                 )}
