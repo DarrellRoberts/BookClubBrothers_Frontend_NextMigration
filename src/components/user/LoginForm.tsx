@@ -5,6 +5,7 @@
 import { Button, Form, Input } from "antd";
 import { useState, useContext } from "react";
 import { AuthContext } from "../../context/authContext";
+import styles from "./LoginForm.module.css";
 
 interface Login {
   setLoginOpen: React.Dispatch<React.SetStateAction<React.ReactNode>>;
@@ -107,7 +108,7 @@ const LoginForm: React.FC<Login> = ({ setLoginOpen }) => {
               value={password}
             />
           </Form.Item>
-          {error ? <h4 className="errorH">{error}</h4> : null}
+          {error ? <h4 className={styles.errorH}>{error}</h4> : null}
 
           <Form.Item
             wrapperCol={{
