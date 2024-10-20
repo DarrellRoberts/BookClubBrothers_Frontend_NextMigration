@@ -9,33 +9,14 @@ import { AuthContext } from "../../../../../context/authContext";
 import { useJwt } from "react-jwt";
 import "../../../../../style/ratingcon.css";
 import "../../../../../style/ratingconRes.css";
+import { Book } from "@/types/BookInterface";
 
-interface book {
-  bookData: {
-    author: string;
-    genre: [string];
-    reviewImageURL: string;
-    totalScore: number;
-    title: string;
-    scoreRatings: {
-      raterId: [string];
-      rating: [number];
-    };
-    yearPublished: number;
-    pages: number;
-    read: boolean;
-    dateOfMeeting: string;
-    commentInfo: {
-      commentId: [string];
-      comments: [string];
-    };
-  };
-  id: string | string[];
+type Props = {
+  bookData: Book,
+  id: string
 }
 
-type RaterObj = Record<string, number> | [string, number][];
-
-const RatingCon: React.FC<book> = ({ bookData, id }) => {
+const RatingCon: React.FC<Props> = ({ bookData, id }) => {
   const [users, setUserData] = useState([]);
   const [showRating, setShowRating] = useState<boolean>(false);
   const [showEditRating, setShowEditRating] = useState<boolean>(false);
@@ -67,7 +48,7 @@ const RatingCon: React.FC<book> = ({ bookData, id }) => {
 
   const raterArr2 = bookData?.scoreRatings?.raterId?.map((id) => findUser(id));
 
-  let raterObj: RaterObj = {};
+  let raterObj: object = {};
   const findBookScore = () => {
     for (let i = 0; i < raterArr2?.length; i++) {
       raterObj[raterArr2[i]] = bookData?.scoreRatings?.rating[i];
@@ -92,7 +73,6 @@ const RatingCon: React.FC<book> = ({ bookData, id }) => {
     }
   };
   const initialRating = findRatingByUsername(raterObj, username);
-  console.log();
   return (
     <>
       <div className="ratingCon">

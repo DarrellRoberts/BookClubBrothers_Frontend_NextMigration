@@ -5,14 +5,12 @@
 import { useState, useEffect } from "react";
 import styles from "./BookCover.module.css";
 
-interface Props {
+type Props = {
   title: string;
   totalScore: number;
-  ratingArr: [number];
-  raterArr: [string];
+  ratingArr: number[];
+  raterArr: string[];
 }
-
-type RaterObj = Record<string, number> | [string, number][];
 
 const BookCover: React.FC<Props> = ({
   title,
@@ -44,7 +42,7 @@ const BookCover: React.FC<Props> = ({
 
   const raterArr2 = raterArr?.map((id) => findUser(id));
 
-  let raterObj: RaterObj = {};
+  let raterObj: object = {};
   const findBookScore = () => {
     if (raterArr2) {
       for (let i = 0; i < raterArr2.length; i++) {

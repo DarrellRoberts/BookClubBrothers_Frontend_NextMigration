@@ -10,33 +10,14 @@ import { AuthContext } from "../../../../../context/authContext";
 import { useJwt } from "react-jwt";
 import "../../../../../style/commentcon.css";
 import "../../../../../style/commentconRes.css";
+import {type Book} from "@/types/BookInterface";
 
-interface book {
-  bookData: {
-    author: string;
-    genre: [string];
-    reviewImageURL: string;
-    totalScore: number;
-    title: string;
-    scoreRatings: {
-      raterId: [string];
-      rating: [number];
-    };
-    yearPublished: number;
-    pages: number;
-    read: boolean;
-    dateOfMeeting: string;
-    commentInfo?: {
-      commentId?: [string];
-      comments?: [string];
-    };
-  };
-  id: string | string[];
+type Props = {
+  bookData: Book,
+  id: string
 }
 
-type commentObj = Record<string, number> | [string, number][];
-
-const RatingCon: React.FC<book> = ({ bookData, id }) => {
+const RatingCon: React.FC<Props> = ({ bookData, id }) => {
   const [users, setUserData] = useState([]);
   const [addComment, setAddComment] = useState<boolean>(false);
   const [showEditComment, setShowEditComment] = useState<boolean>(false);
@@ -70,7 +51,7 @@ const RatingCon: React.FC<book> = ({ bookData, id }) => {
     findUser(id)
   );
 
-  let commentObj: commentObj = {};
+  let commentObj: object = {};
   const findComment = () => {
     for (let i = 0; i < commentArr2?.length; i++) {
       commentObj[commentArr2[i]] = bookData?.commentInfo?.comments[i];

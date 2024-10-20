@@ -29,28 +29,7 @@ import EditTitleButton from "./editbookform/title/EditTitleButton";
 import EditTitle from "./editbookform/title/EditTitle";
 import EditImageButton from "./editbookform/image/EditImageButton";
 import EditImage from "./editbookform/image/EditImage";
-
-//Declare TypeScript types
-interface book {
-  _id: string;
-  author: string;
-  genre: [string];
-  reviewImageURL: string;
-  totalScore: number;
-  title: string;
-  scoreRatings: {
-    raterId: [string];
-    rating: [number];
-  };
-  yearPublished: number;
-  pages: number;
-  read: boolean;
-  dateOfMeeting: string;
-  commentInfo: {
-    commentId: [string];
-    comments: [string];
-  };
-}
+import { Book } from "@/types/BookInterface";
 
 type StateType = {
   showDelete: boolean;
@@ -87,7 +66,7 @@ const reducer = (state: StateType, action) => {
 };
 
 const SingleBook: React.FC = () => {
-  const [bookData, setBook] = useState<book>();
+  const [bookData, setBook] = useState<Book>();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
@@ -105,8 +84,8 @@ const SingleBook: React.FC = () => {
   const { token } = useContext(AuthContext);
   const { decodedToken }: { decodedToken?: { username: string; _id: string } } =
     useJwt(token);
-  const { id } = useParams();
-  const AdId = "65723ac894b239fe25fe6871";
+  const { id } = useParams<{id: string}>();
+  const adminId = "65723ac894b239fe25fe6871";
 
   const getBookData = async () => {
     try {
@@ -136,7 +115,7 @@ const SingleBook: React.FC = () => {
       ) : (
         <div className="mainSingleCon flex items-center">
           <div className="bookTitleCon flex flex-col">
-            {decodedToken?._id === AdId ? (
+            {decodedToken?._id === adminId ? (
               <DeleteBook id={id} dispatch={dispatch} />
             ) : null}
             {state.showTitle ? (
@@ -146,7 +125,7 @@ const SingleBook: React.FC = () => {
             ) : (
               <h1 className="bookTitle">{bookData.title}</h1>
             )}
-            {decodedToken?._id === AdId ? (
+            {decodedToken?._id === adminId ? (
               <EditTitleButton
                 showTitle={state.showTitle}
                 dispatch={dispatch}
@@ -177,7 +156,7 @@ const SingleBook: React.FC = () => {
                 <EditImage id={id} />
               </div>
             ) : null}
-            {decodedToken?._id === AdId ? (
+            {decodedToken?._id === adminId ? (
               <EditImageButton
                 showImage={state.showImage}
                 dispatch={dispatch}
@@ -197,7 +176,7 @@ const SingleBook: React.FC = () => {
                   bookData?.author
                 )}
               </li>
-              {decodedToken?._id === AdId ? (
+              {decodedToken?._id === adminId ? (
                 <span>
                   <EditAuthorButton
                     dispatch={dispatch}
@@ -216,7 +195,7 @@ const SingleBook: React.FC = () => {
                   bookData?.yearPublished
                 )}
               </li>
-              {decodedToken?._id === AdId ? (
+              {decodedToken?._id === adminId ? (
                 <EditPublishButton
                   showPublish={state.showPublish}
                   dispatch={dispatch}
@@ -228,7 +207,7 @@ const SingleBook: React.FC = () => {
               ) : (
                 <li className="">{bookData?.pages}</li>
               )}
-              {decodedToken?._id === AdId ? (
+              {decodedToken?._id === adminId ? (
                 <EditPagesButton
                   showPage={state.showPage}
                   dispatch={dispatch}
@@ -250,7 +229,7 @@ const SingleBook: React.FC = () => {
                   </li>
                 ))
               )}
-              {decodedToken?._id === AdId ? (
+              {decodedToken?._id === adminId ? (
                 <EditGenreButton
                   showGenre={state.showGenre}
                   dispatch={dispatch}
@@ -270,7 +249,7 @@ const SingleBook: React.FC = () => {
                   "???"
                 )}
               </li>
-              {decodedToken?._id === AdId ? (
+              {decodedToken?._id === adminId ? (
                 <EditDateButton showDate={state.showDate} dispatch={dispatch} />
               ) : null}
 

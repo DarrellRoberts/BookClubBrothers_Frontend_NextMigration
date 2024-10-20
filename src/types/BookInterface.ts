@@ -5,15 +5,16 @@ interface Book {
         comments: string[]
     },
     dateOfMeeting: string,
+    reviewImageURL?: string,
     genre: string[],
-    imageURL: string,
+    imageURL?: string,
     pages: number,
     read: boolean,
     scoreRatings: {
-        raterId: string,
-        rating: number
+        raterId: string[],
+        rating: number[]
     },
-    suggestedBy: string,
+    suggestedBy?: string,
     title: string,
     totalScore: number,
     yearPublished: number,
