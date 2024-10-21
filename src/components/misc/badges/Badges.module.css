@@ -9,10 +9,6 @@
   padding: 0.15rem;
 }
 
-.badge :where(.css-dev-only-do-not-override-1rqnfsa).ant-popover .ant-popover-inner {
-background-color: red;
-}
-
 @media screen and (max-width: 800px) { 
   .badgeTemplate {
     width: 50px;
