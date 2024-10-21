@@ -21,7 +21,7 @@ const FirstBook: React.FC<Props> = ({ firstBookWorm }) => {
     <>
       {firstBookWorm ? (
         <BadgeTemplate
-          title={"Monk Worm"}
+          title={"Brother Worm"}
           content={content}
           badgeImageURL={badge}
         />

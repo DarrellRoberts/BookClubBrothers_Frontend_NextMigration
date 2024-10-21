@@ -5,8 +5,8 @@
 import { useContext, useEffect, useReducer, useState } from "react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import "../../../../../style/dashboard.css";
-import "../../../../../style/dashboardRes.css";
+import "@/style/dashboard.css";
+import "@/style/dashboardRes.css";
 import LoadingScreen from "./LoadingScreen";
 import { AuthContext } from "../../../../../context/authContext";
 import { useJwt } from "react-jwt";
@@ -19,6 +19,8 @@ import Profile from "@/components/misc/profile/Profile";
 import PictureUploadButton from "../brotherform/PictureUploadButton";
 import CommentCon from "@/components/comments/CommentCon";
 import Badges from "@/components/misc/badges/Badges";
+import { averageScore, findMinScoreBook, findMaxScoreBook, filterUserReadBooks, filterUserUnreadBooks, unreadBookTitles, userReadBookTitles } from "@/functions/stat-functions/scoreFunctions";
+import { Book } from "@/types/BookInterface";
 
 type StateType = {
   showImage: boolean;
@@ -73,39 +75,14 @@ const Dashboard: React.FC = () => {
     userData.find((user) => user.username === username) ??
     userData.find((user) => user._id === id);
 
-  // find min score
-  // use index in books scored
-  // fetch book data
-
-  const scoreArray = findUser?.userInfo?.books?.score;
-
-  //minScore
-  const minScore1 =
-    Array.isArray(scoreArray) && scoreArray.length > 0
-      ? Math.min(...scoreArray)
-      : undefined;
-  const minScoreIndex = scoreArray?.indexOf(minScore1)
-    ? scoreArray.indexOf(minScore1)
-    : 0;
-  const minScoreBook = findUser?.userInfo?.books?.booksScored[minScoreIndex];
-
-  //maxScore
-  const maxScore1 =
-    Array.isArray(scoreArray) && scoreArray.length > 0
-      ? Math.max(...scoreArray)
-      : undefined;
-  const maxScoreIndex = scoreArray?.indexOf(maxScore1)
-    ? scoreArray.indexOf(maxScore1)
-    : 0;
-  const maxScoreBook = findUser?.userInfo?.books?.booksScored[maxScoreIndex];
-
   const getBookData = async () => {
     try {
       const data = await fetch(
         `https://bookclubbrothers-backend.onrender.com/books`
       );
       const book = await data.json();
-      setBookData(book);
+      const readBooks = book.filter((item) => item.read === true);
+      setBookData(readBooks);
       setLoading(false);
     } catch (err) {
       setError(err);
@@ -113,31 +90,20 @@ const Dashboard: React.FC = () => {
     }
   };
 
-  const findMinBook = bookData.find((book) => book._id === minScoreBook);
-  const findMaxBook = bookData.find((book) => book._id === maxScoreBook);
-  const readBooks = bookData.filter((book) => book.read === true);
+  const scoreArray = findUser?.userInfo?.books?.score;
+
+  //statistics vars
+  const findMinBook: Book = findMinScoreBook(bookData, scoreArray, findUser);
+  const findMaxBook: Book = findMaxScoreBook(bookData, scoreArray, findUser);
+  const avgScore: string = averageScore(findUser);
+
+  const userReadBooks: Book[] = filterUserReadBooks(bookData, findUser?._id);
+  const userUnreadBooks: Book[] = filterUserUnreadBooks(bookData, findUser?._id);
+
+  const unreadBooksArr: string[] = unreadBookTitles(bookData, findUser?._id);
+  const readBooksArr: string[] = userReadBookTitles(bookData, findUser?._id);
+
   const noUserReadBooks: number = findUser?.userInfo?.books?.score?.length;
-  const filterReadBooks = readBooks.filter((book) =>
-    book.scoreRatings.raterId.includes(findUser?._id)
-  );
-
-  //unread books
-  const filterUnreadBooks = readBooks.filter(
-    (book) => !book.scoreRatings.raterId.includes(findUser?._id)
-  );
-  const unreadBooks: string[] = filterUnreadBooks.map((book) => book.title);
-  const userReadBooks: string[] = filterReadBooks.map((book) => book.title);
-
-  //Additional Stats
-  const averageScore = (
-    findUser?.userInfo?.books?.score?.reduce((a, c) => a + c, 0) /
-    findUser?.userInfo?.books?.score?.length
-  ).toFixed(2);
-
-  // all scores
-  const filterBooks = bookData.filter((book) =>
-    book.scoreRatings.raterId.includes(findUser?._id)
-  );
 
   // comments
   const filterComments = bookData.filter((book) =>
@@ -148,7 +114,6 @@ const Dashboard: React.FC = () => {
     getData();
     getBookData();
   }, []);
-  console.log(findUser);
   return (
     <>
       {loading ? (
@@ -220,10 +185,10 @@ const Dashboard: React.FC = () => {
               <h2 className="underline">Books read</h2>
               <div className={style.boxPieItem}>
                 <PieChart
-                  userReadBooks={userReadBooks}
-                  booksRead={[noUserReadBooks, filterUnreadBooks.length]}
-                  unreadBooks={unreadBooks}
-                  bookTotal={readBooks.length}
+                  userReadBooks={readBooksArr}
+                  unreadBooks={unreadBooksArr}
+                  booksRead={[noUserReadBooks, userUnreadBooks.length]}
+                  bookTotal={bookData.length}
                 />
               </div>
             </div>
@@ -232,7 +197,7 @@ const Dashboard: React.FC = () => {
               <h2 className="underline">Average Score</h2>
               <Link href="/brothers/stats">
                 <div className={style.boxItem}>
-                  <h2 className={style.userScore}> {averageScore}</h2>
+                  <h2 className={style.userScore}> {avgScore}</h2>
                 </div>
               </Link>
             </div>
@@ -255,9 +220,9 @@ const Dashboard: React.FC = () => {
           <div className={style.graphCon}>
             <h2 className="underline">Books scored</h2>
             <Graph
-              bookTitles={filterBooks?.map((book) => book.title)}
-              totalBookScores={filterBooks?.map((book) => book.totalScore)}
-              bookScores={filterBooks?.map(
+              bookTitles={userReadBooks?.map((book) => book.title)}
+              totalBookScores={userReadBooks?.map((book) => book.totalScore)}
+              bookScores={userReadBooks?.map(
                 (book) =>
                   book?.scoreRatings?.rating[
                     book?.scoreRatings?.raterId.indexOf(findUser?._id)

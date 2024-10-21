@@ -3,16 +3,16 @@
 
 import { useState, useEffect, useContext, useReducer } from "react";
 import { useParams } from "next/navigation";
-import Loader from "../../../../../components/loader/Loader";
+import Loader from "@/components/loader/Loader";
 import BookCover from "../BookCover";
-import { dateFormatter } from "../../../../../functions/dateFormatter.js";
+import { dateFormatter } from "@/functions/time-functions/dateFormatter";
 import DeleteBook from "../bookform/DeleteBook";
 import RatingCon from "./RatingCon";
 import CommentCon from "./CommentCon";
-import { AuthContext } from "../../../../../context/authContext";
+import { AuthContext } from "@/context/authContext";
 import { useJwt } from "react-jwt";
-import "../../../../../style/singlebook.css";
-import "../../../../../style/singlebookRes.css";
+import "@/style/singlebook.css";
+import "@/style/singlebookRes.css";
 
 // importing edit buttons
 import EditAuthorButton from "./editbookform/author/EditAuthorButton";
