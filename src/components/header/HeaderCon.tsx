@@ -10,7 +10,7 @@ import { useJwt } from "react-jwt";
 import { getTime } from "../../functions/timeFunction";
 import Link from "next/link";
 import { useMediaQuery } from "react-responsive";
-import style from "./HeaderCob.module.css";
+import style from "./headerCon.module.css";
 import Logo from "../misc/Logo";
 import Logout from "../user/Logout";
 

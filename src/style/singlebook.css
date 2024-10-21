@@ -28,35 +28,35 @@
 }
 
 /* delete section */
-:where(.css-dev-only-do-not-override-1rqnfsa).ant-popover .ant-popover-inner {
+:where(.css-dev-only-do-not-override-ni1kz0).ant-popover .ant-popover-inner {
     background-color: var(--tertiaryColor);
     color: white;
 }
 
-:where(.css-dev-only-do-not-override-1rqnfsa).ant-popconfirm .ant-popconfirm-message .ant-popconfirm-title {
+:where(.css-dev-only-do-not-override-ni1kz0).ant-popconfirm .ant-popconfirm-message .ant-popconfirm-title {
     color: white;
 }
 
-:where(.css-dev-only-do-not-override-1rqnfsa).ant-popconfirm .ant-popconfirm-message .ant-popconfirm-description {
+:where(.css-dev-only-do-not-override-ni1kz0).ant-popconfirm .ant-popconfirm-message .ant-popconfirm-description {
     color: white;
 }
 
-:where(.css-1rqnfsa).ant-popover .ant-popover-inner {
+:where(.css-ni1kz0).ant-popover .ant-popover-inner {
     background-color: var(--tertiaryColor);
     color: white;
 }
     
-:where(.css-1rqnfsa).ant-popconfirm .ant-popconfirm-message .ant-popconfirm-title {
+:where(.css-ni1kz0).ant-popconfirm .ant-popconfirm-message .ant-popconfirm-title {
     color: white;
 }
 
-:where(.css-1rqnfsa).ant-popconfirm .ant-popconfirm-message .ant-popconfirm-description {
+:where(.css-ni1kz0).ant-popconfirm .ant-popconfirm-message .ant-popconfirm-description {
     color: white;
 }
-:where(.css-dev-only-do-not-override-1rqnfsa).ant-btn-default:not(:disabled):not(.ant-btn-disabled):hover {
+:where(.css-dev-only-do-not-override-ni1kz0).ant-btn-default:not(:disabled):not(.ant-btn-disabled):hover {
     background-color: var(--tertiaryColor);
 }
-:where(.css-1rqnfsa).ant-btn-default:not(:disabled):not(.ant-btn-disabled):hover {
+:where(.css-ni1kz0).ant-btn-default:not(:disabled):not(.ant-btn-disabled):hover {
     background-color: var(--tertiaryColor);
 }
 
@@ -69,23 +69,23 @@
 }
 
 /* button */
-:where(.css-dev-only-do-not-override-1rqnfsa).ant-btn-default {
+:where(.css-dev-only-do-not-override-ni1kz0).ant-btn-default {
     background-color: black;
     color: white;
 }
 
-:where(.css-dev-only-do-not-override-1rqnfsa).ant-btn-default:not(:disabled):not(.ant-btn-disabled):hover {
+:where(.css-dev-only-do-not-override-ni1kz0).ant-btn-default:not(:disabled):not(.ant-btn-disabled):hover {
     background-color: var(--tertiaryColor);
     border-color: var(--tertiaryColor);
     color: white;
 }
 
-:where(.css-1rqnfsa).ant-btn-default {
+:where(.css-ni1kz0).ant-btn-default {
     background-color: black;
     color: white;
 }
 
-:where(.css-1rqnfsa).ant-btn-default:not(:disabled):not(.ant-btn-disabled):hover {
+:where(.css-ni1kz0).ant-btn-default:not(:disabled):not(.ant-btn-disabled):hover {
     background-color: var(--tertiaryColor);
     border-color: var(--tertiaryColor);
     color: white;
