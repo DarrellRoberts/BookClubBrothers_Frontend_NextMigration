@@ -12,6 +12,13 @@ interface User {
             country: string,
             city: string
         },
+        badges: {
+            allBooks: boolean,
+            loneWolf: boolean,
+            mostBooks: boolean,
+            fiveComments: boolean,
+            firstBook: boolean
+        }
         },
         username: string,
         _id: string

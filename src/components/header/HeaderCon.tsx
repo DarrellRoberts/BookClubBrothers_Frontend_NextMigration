@@ -7,7 +7,7 @@ import HeaderLinksMobile from "./HeaderLinksMobile";
 import { useContext, useRef } from "react";
 import { AuthContext } from "../../context/authContext";
 import { useJwt } from "react-jwt";
-import { getTime } from "../../functions/timeFunction";
+import { getTime } from "../../functions/time-functions/timeFunction";
 import Link from "next/link";
 import { useMediaQuery } from "react-responsive";
 import style from "./HeaderCob.module.css";

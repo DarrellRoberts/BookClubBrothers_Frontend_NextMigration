@@ -13,7 +13,7 @@ const BadgesHomepage: React.FC = () => {
     firstBook: true,
   };
   const badgeTitles = [
-    "Monk Worm",
+    "Brother Worm",
     "Book Worm",
     "Lone Worm",
     "Comment Worm",
