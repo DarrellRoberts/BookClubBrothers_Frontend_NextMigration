@@ -1,20 +1,20 @@
-:where(.css-dev-only-do-not-override-1rqnfsa).ant-btn-default {
+:where(.css-dev-only-do-not-override-ni1kz0).ant-btn-default {
     background-color: black;
     color: white;
 }
 
-:where(.css-dev-only-do-not-override-1rqnfsa).ant-btn-default:not(:disabled):not(.ant-btn-disabled):hover {
+:where(.css-dev-only-do-not-override-ni1kz0).ant-btn-default:not(:disabled):not(.ant-btn-disabled):hover {
     background-color: var(--tertiaryColor);
     border-color: var(--tertiaryColor);
     color: white;
 }
 
-:where(.css-1rqnfsa).ant-btn-default {
+:where(.css-ni1kz0).ant-btn-default {
     background-color: black;
     color: white;
 }
 
-:where(.css-1rqnfsa).ant-btn-default:not(:disabled):not(.ant-btn-disabled):hover {
+:where(.css-ni1kz0).ant-btn-default:not(:disabled):not(.ant-btn-disabled):hover {
     background-color: var(--tertiaryColor);
     border-color: var(--tertiaryColor);
     color: white;
