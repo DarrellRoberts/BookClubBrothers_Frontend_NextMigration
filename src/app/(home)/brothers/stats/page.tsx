@@ -5,7 +5,6 @@ import { userData } from "@/functions/data-fetch-functions/userData";
 import { bookData } from "@/functions/data-fetch-functions/bookData";
 
 const BrothersStats: React.FC = async () => {
-
   return (
     <>
       <h1 className={style.statsTitle}>Brothers Stats</h1>
@@ -69,8 +68,6 @@ const BrothersStats: React.FC = async () => {
                   bookData?.find(
                     (book) =>
                       book._id ===
-                      //matching id of book with highest score
-                      //then accessing its title
                       title.userInfo?.books?.booksScored[
                         title.userInfo?.books?.score?.indexOf(
                           Math.max(...title.userInfo?.books?.score)
@@ -164,8 +161,6 @@ const BrothersStats: React.FC = async () => {
                   bookData?.find(
                     (book) =>
                       book._id ===
-                      //matching id of book with highest score
-                      //then accessing its title
                       title.userInfo?.books?.booksScored[
                         title.userInfo?.books?.score?.indexOf(
                           Math.max(...title.userInfo?.books?.score)
