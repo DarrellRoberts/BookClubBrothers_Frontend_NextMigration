@@ -21,28 +21,45 @@ export const minScoreFunction = (scoreArr: number[], user: User): string => {
 
 export const averageScore = (user: User): string => {
   if (user) {
-    const accumulatedScore: number = (user.userInfo?.books?.score?.reduce((a, c) => a + c, 0));
+    const accumulatedScore: number = user.userInfo?.books?.score?.reduce(
+      (a, c) => a + c,
+      0
+    );
     const freqScore: number = user.userInfo?.books?.score?.length;
-    const averageScore = (accumulatedScore/freqScore).toFixed(2);
+    const averageScore = (accumulatedScore / freqScore).toFixed(2);
     return averageScore;
   }
 };
 
-export const findMinScoreBook = (bookArr: Book[], scoreArr: number[], userArr: User) => {
-  const book = bookArr.find((book) => book._id === minScoreFunction(scoreArr, userArr));
+export const findMinScoreBook = (
+  bookArr: Book[],
+  scoreArr: number[],
+  userArr: User
+) => {
+  const book = bookArr.find(
+    (book) => book._id === minScoreFunction(scoreArr, userArr)
+  );
   return book;
 };
 
-export const findMaxScoreBook = (bookArr: Book[], scoreArr: number[], userArr: User) => {
-  const book = bookArr.find((book) => book._id === maxScoreFunction(scoreArr, userArr));
+export const findMaxScoreBook = (
+  bookArr: Book[],
+  scoreArr: number[],
+  userArr: User
+) => {
+  const book = bookArr.find(
+    (book) => book._id === maxScoreFunction(scoreArr, userArr)
+  );
   return book;
 };
 
 export const filterUserReadBooks = (bookArr: Book[], userId: string) => {
-  return bookArr.filter((book) => book.scoreRatings.raterId.includes(userId));};
+  return bookArr.filter((book) => book.scoreRatings.raterId.includes(userId));
+};
 
 export const filterUserUnreadBooks = (bookArr: Book[], userId: string) => {
-  return bookArr.filter((book) => !book.scoreRatings.raterId.includes(userId));};
+  return bookArr.filter((book) => !book.scoreRatings.raterId.includes(userId));
+};
 
 export const unreadBookTitles = (bookArr: Book[], userId: string): string[] => {
   const unreadBooks = filterUserUnreadBooks(bookArr, userId);
@@ -52,4 +69,30 @@ export const unreadBookTitles = (bookArr: Book[], userId: string): string[] => {
 export const userReadBookTitles = (bookArr: Book[], userId: string) => {
   const readBooks = filterUserReadBooks(bookArr, userId);
   return readBooks.map((book) => book.title);
+};
+
+export const findBestBook = (user: User, bookData: Book[]): string => {
+  if (user && bookData.length > 0) {
+    const scoreArray: number[] = user.userInfo?.books?.score;
+    const booksScoredArray: string[] = user.userInfo?.books?.booksScored;
+    const bestBookId: string =
+      booksScoredArray[scoreArray.indexOf(Math.max(...scoreArray))];
+    const bestBookObject: Book = bookData.find(
+      (book) => book._id === bestBookId
+    );
+    return bestBookObject?.title;
+  }
+};
+
+export const findWorstBook = (user: User, bookData: Book[]): string => {
+  if (user && bookData.length > 0) {
+    const scoreArray: number[] = user.userInfo?.books?.score;
+    const booksScoredArray: string[] = user.userInfo?.books?.booksScored;
+    const bestBookId: string =
+      booksScoredArray[scoreArray.indexOf(Math.min(...scoreArray))];
+    const bestBookObject: Book = bookData.find(
+      (book) => book._id === bestBookId
+    );
+    return bestBookObject?.title;
+  }
 };
