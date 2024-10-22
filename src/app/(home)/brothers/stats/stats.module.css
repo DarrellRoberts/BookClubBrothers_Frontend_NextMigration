@@ -11,86 +11,48 @@
     flex-direction: column;
 }
 
-.leagueTable {
-    display: grid;
-    grid-template-rows: auto;
-    grid-template-columns: 2fr 2fr 2fr 2fr 2fr 4fr 4fr;
-    grid-gap: 1rem;
-    /* width: 100%; */
-    border-width: 2px;
-    border-color: black;
+.booksStatsCon {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
 }
 
-.leagueTableTwo, .leagueTableThree, #Nexttable{
-    display: none;
-}
-
-.leagueTable h2 {
-    font-size: 1.5rem;
+.booksStatsCon h2 {
     font-family: var(--main);
-    margin: 0.5rem;
-    /* text-align: center; */
+    font-size: 2.5rem;
+    text-decoration: underline;
+    margin: 2rem 0 2rem 3rem;
 }
 
-.usernameColumn {
-    border-right-width: 2px;
-    border-color: black;
-    border-style:dashed;
-    padding-right: 20px;
+.booksReadCon {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    overflow: hidden;
+    gap: 2rem;
 }
 
-@media screen and (max-width: 1300px) {
-    .leagueTable {
-        gap: 8px;
-    }
-    
-    .leagueTable h2 {
-        font-size: 0.9rem;
-        margin: 0rem;
-    }
+.booksReadCon h3 {
+    text-align: center;
+    font-family: var(--main);
+    font-size: 1.5rem;
 }
 
 @media screen and (max-width: 825px) {
     .statsTitle {
         font-size: 3.5rem;
     }
-    .leagueTable {
-        grid-template-columns: 1fr 2fr 2fr;
-    }
-    .leagueTableTwo, .leagueTableThree, #Nexttable {
-        display: block;
-    }
-    .leagueTableTwo {
-        grid-template-columns: 1fr 2fr 2fr;
-        font-family: var(--main);
-        display: grid;
-        grid-gap: 8px;
-        border-width: 2px;
-        border-color: black;
-        margin-top: 1rem;
-    }
-    #Nextcolumn {
-        display: none;
-    }
-    .leagueTableThree {
-        grid-template-columns: 1fr 3fr 3fr;
-        font-family: var(--main);
-        display: grid;
-        grid-gap: 8px;
-        border-width: 2px;
-        border-color: black;
-        margin-top: 1rem;
-    }
-    .leagueTableTwo h2, .leagueTableThree h2 {
-        font-size: 0.9rem;
-    }
 }
 
 @media screen and (max-width: 400px) {
+    .booksStatsCon h2 {
+        text-align: center;
+        margin: 2rem 0;
+    }
+    .booksReadCon {
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    }
+
     .statsTitle {
         font-size: 2.5rem;
-    }
-    .leagueTable h2, .leagueTableTwo h2, .leagueTableThree h2 {
-        font-size: 0.75rem;
     }
 }

@@ -1,0 +1,44 @@
+.leagueTable {
+    display: grid;
+    grid-template-rows: auto;
+    grid-template-columns: 1fr 2fr 2fr 2fr 3fr 3fr;
+    grid-gap: 1rem;
+    border-width: 2px;
+    border-color: black;
+}
+
+.leagueTableTwo {
+    display: none;
+}
+
+.leagueTable h2 {
+    font-size: 1.5rem;
+    font-family: var(--main);
+    margin: 0.5rem;
+}
+
+@media screen and (max-width: 1490px) {
+    .leagueTable {
+        gap: 8px;
+    }
+    
+    .leagueTable h2 {
+        font-size: 1rem;
+        margin: 0rem;
+    }
+}
+
+@media screen and (max-width: 920px) {
+    .leagueTable {
+        display: none;
+    }
+    .leagueTableTwo {
+        grid-template-columns: 1fr 2fr;
+        font-family: var(--main);
+        display: grid;
+        grid-gap: 8px;
+        border-width: 2px;
+        border-color: black;
+        margin-top: 1rem;
+    }
+}
