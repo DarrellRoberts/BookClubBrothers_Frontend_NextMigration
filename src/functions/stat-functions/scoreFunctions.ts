@@ -26,7 +26,7 @@ export const averageScore = (user: User): number => {
       0
     );
     const freqScore: number = user.userInfo?.books?.score?.length;
-    const averageScore: number = (accumulatedScore / freqScore);
+    const averageScore: number = accumulatedScore / freqScore;
     return averageScore;
   }
 };
@@ -96,3 +96,32 @@ export const findWorstBook = (user: User, bookData: Book[]): string => {
     return bestBookObject?.title;
   }
 };
+
+export const genreAverageScore = (bookData: Book[], genre: string): number => {
+  if (bookData.length > 0) {
+    const genreJson: Book[] = bookData?.filter((book) =>
+      book.genre[0].includes(genre)
+    );
+    if (genreJson.length > 0) {
+      const totalScoreArray: number[] = genreJson?.map(
+        (book) => book.totalScore
+      );
+      const totalScoreValue: number = totalScoreArray?.reduce(
+        (accum, currentValue) => accum + currentValue
+      );
+      const averageScore: number = totalScoreValue / genreJson.length;
+      return averageScore;
+    }
+  }
+};
+
+export const genreFrequency = (bookData: Book[], genre: string): number => {
+  if (bookData.length > 0) {
+    const genreJson: Book[] = bookData?.filter((book) =>
+      book.genre[0].includes(genre)
+    );
+    const genreLength: number = genreJson.length;
+    return genreLength;
+  }
+};
+
