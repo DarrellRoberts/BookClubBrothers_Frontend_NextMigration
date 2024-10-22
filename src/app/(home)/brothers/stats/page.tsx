@@ -84,6 +84,7 @@ const BrothersStats: React.FC = () => {
               <Graph
                 bookTitles={userData.map((user) => user.username)}
                 bookScores={userData.map((user) => averageScore(user))}
+                username="User"
               />
             </div>
           </>
