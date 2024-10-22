@@ -41,7 +41,7 @@
     color: white;
 }
 
-:where(.css-ni1kz0).ant-btn-default {
+:where(.css-1rqnfsa).ant-btn-default {
     background-color: black;
     color: white;
 }
@@ -51,12 +51,12 @@
     color:white;
 }
 
-:where(.css-ni1kz0).ant-btn-default:hover {
+:where(.css-1rqnfsa).ant-btn-default:hover {
     background-color: var(--tertiaryColor);
     color: white;
 }
 
-:where(.css-ni1kz0).ant-btn >span:hover {
+:where(.css-1rqnfsa).ant-btn >span:hover {
     color: white;
 }
 
@@ -69,7 +69,7 @@
     border-color: black;
 }
 
-:where(.css-ni1kz0).ant-btn-default:not(:disabled):not(.ant-btn-disabled):hover {
+:where(.css-1rqnfsa).ant-btn-default:not(:disabled):not(.ant-btn-disabled):hover {
     color: white;
     border-color: black;
 }
