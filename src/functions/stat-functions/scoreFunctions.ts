@@ -19,14 +19,14 @@ export const minScoreFunction = (scoreArr: number[], user: User): string => {
   }
 };
 
-export const averageScore = (user: User): string => {
+export const averageScore = (user: User): number => {
   if (user) {
     const accumulatedScore: number = user.userInfo?.books?.score?.reduce(
       (a, c) => a + c,
       0
     );
     const freqScore: number = user.userInfo?.books?.score?.length;
-    const averageScore = (accumulatedScore / freqScore).toFixed(2);
+    const averageScore: number = (accumulatedScore / freqScore);
     return averageScore;
   }
 };

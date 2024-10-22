@@ -15,6 +15,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
+    margin-left: 3rem;
 }
 
 .booksStatsCon h2 {
@@ -26,8 +27,7 @@
 
 .booksReadCon {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-    overflow: hidden;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: 2rem;
 }
 
@@ -43,13 +43,19 @@
     }
 }
 
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 600px) {
+    .booksReadCon {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .booksStatsCon {
+        margin: 0;
+    }
     .booksStatsCon h2 {
         text-align: center;
         margin: 2rem 0;
-    }
-    .booksReadCon {
-        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     }
 
     .statsTitle {

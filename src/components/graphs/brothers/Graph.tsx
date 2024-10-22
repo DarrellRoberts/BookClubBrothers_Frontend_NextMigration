@@ -8,7 +8,7 @@ ChartJS.register(CategoryScale, LinearScale, PointElement, BarElement, Title, To
 
 type Props = {
   bookTitles: string[],
-  totalBookScores: number[],
+  totalBookScores?: number[],
   bookScores?: number[],
   username?: string
 }
@@ -48,6 +48,7 @@ const Graph: React.FC<Props> = ({bookTitles, totalBookScores, bookScores, userna
     indexAxis: 'y',
     plugins: {
       legend: {
+        display: datasets2 ? true : false,
         labels: {
           font: {
             size: 20,
@@ -63,7 +64,7 @@ const Graph: React.FC<Props> = ({bookTitles, totalBookScores, bookScores, userna
       y: {
         ticks: {
           font: {
-            size: 16,
+            size: datasets2 ? 16 : 20,
             family: 'Gentium Book Plus'
           }
         },

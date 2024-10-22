@@ -165,12 +165,12 @@ align-items: center;
     color: white;
 }
 
-:where(.css-ni1kz0).ant-btn-default {
+:where(.css-1rqnfsa).ant-btn-default {
     background-color: black;
     color: white;
 }
 
-:where(.css-ni1kz0).ant-btn >span:hover {
+:where(.css-1rqnfsa).ant-btn >span:hover {
     color: white;
 }
 
@@ -184,7 +184,7 @@ align-items: center;
     background-color: var(--tertiaryColor);
 }
 
-:where(.css-ni1kz0).ant-btn-default:not(:disabled):not(.ant-btn-disabled):hover {
+:where(.css-1rqnfsa).ant-btn-default:not(:disabled):not(.ant-btn-disabled):hover {
     color: white;
     border-color: black;
     background-color: var(--tertiaryColor);

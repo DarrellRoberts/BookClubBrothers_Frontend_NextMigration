@@ -95,7 +95,7 @@ const Dashboard: React.FC = () => {
   //statistics vars
   const findMinBook: Book = findMinScoreBook(bookData, scoreArray, findUser);
   const findMaxBook: Book = findMaxScoreBook(bookData, scoreArray, findUser);
-  const avgScore: string = averageScore(findUser);
+  const avgScore: string = averageScore(findUser)?.toFixed(2);
 
   const userReadBooks: Book[] = filterUserReadBooks(bookData, findUser?._id);
   const userUnreadBooks: Book[] = filterUserUnreadBooks(bookData, findUser?._id);
