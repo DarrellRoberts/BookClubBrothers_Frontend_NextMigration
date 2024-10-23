@@ -8,6 +8,7 @@ import "@/style/bookHomepageRes.css";
 import { type Book } from "@/types/BookInterface";
 import { useEffect, useState } from "react";
 import styles from "./bookstats.module.css";
+import ScatterGraph from "@/components/graphs/brothers/ScatterGraph";
 
 const BookStats = () => {
   const [bookData, setBookData] = useState<Book[]>([]);
@@ -48,11 +49,14 @@ const BookStats = () => {
   const genreAvgScoreArray = genreArray.map((genre) =>
     genreAverageScore(bookData, genre)
   );
+  const totalScoreArray = bookData.map((book) => book.totalScore.toFixed(2));
+  const pageNumberArray = bookData.map((book) => book.pages);
+  const yearPublishedArray = bookData.map((book) => book.yearPublished);
+  const labelArray = bookData.map((book) => book.title);
 
   useEffect(() => {
     getBookData();
   }, []);
-
   return (
     <>
       <h1 className="booksTitle">Book Stats</h1>
@@ -68,6 +72,32 @@ const BookStats = () => {
               username="Genre"
             />
           </>
+        )}
+        <h2>Scores by Number of Pages</h2>
+        {loading ? (
+          <LoaderNoText />
+        ) : (
+          <ScatterGraph
+            labelArray={labelArray}
+            pagesArray={pageNumberArray}
+            scoreArray={totalScoreArray}
+            xAxes={"Number of Pages"}
+            xMax={500}
+            xMin={100}
+          />
+        )}
+        <h2>Scores by Year Published (post 1850 AD)</h2>
+        {loading ? (
+          <LoaderNoText />
+        ) : (
+          <ScatterGraph
+            labelArray={labelArray}
+            pagesArray={yearPublishedArray}
+            scoreArray={totalScoreArray}
+            xAxes={"Year the Book was Published"}
+            xMax={2030}
+            xMin={1850}
+          />
         )}
       </div>
     </>

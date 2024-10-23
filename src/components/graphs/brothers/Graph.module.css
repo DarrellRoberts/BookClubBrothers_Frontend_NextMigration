@@ -31,7 +31,7 @@
 
 @media screen and (max-width: 450px) {
 .graph {
-    width: 300px;
+    width: 325px;
 } 
 .pieCon {
     flex-direction: column;
