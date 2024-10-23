@@ -1,7 +1,7 @@
 .booksStatsCon {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+
 }
 
 .booksStatsCon h2 {
@@ -9,6 +9,12 @@
     font-size: 2.5rem;
     text-decoration: underline;
     margin: 2rem 0 2rem 3rem;
+}
+
+@media screen and (max-width: 600px) {
+.booksStatsCon {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+}
 }
 
 @media screen and (max-width: 450px) {

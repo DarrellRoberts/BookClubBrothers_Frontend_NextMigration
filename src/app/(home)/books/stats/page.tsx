@@ -61,44 +61,50 @@ const BookStats = () => {
     <>
       <h1 className="booksTitle">Book Stats</h1>
       <div className={styles.booksStatsCon}>
-        <h2>Genre Scores</h2>
-        {loading ? (
-          <LoaderNoText />
-        ) : (
-          <>
-            <Graph
-              bookTitles={genreArray}
-              bookScores={genreAvgScoreArray}
-              username="Genre"
+        <div className="flex flex-col justify-self-center">
+          <h2>By Genre</h2>
+          {loading ? (
+            <LoaderNoText />
+          ) : (
+            <>
+              <Graph
+                bookTitles={genreArray}
+                bookScores={genreAvgScoreArray}
+                username="Genre"
+              />
+            </>
+          )}
+        </div>
+        <div className="flex flex-col justify-self-center">
+          <h2>By Number of Pages</h2>
+          {loading ? (
+            <LoaderNoText />
+          ) : (
+            <ScatterGraph
+              labelArray={labelArray}
+              pagesArray={pageNumberArray}
+              scoreArray={totalScoreArray}
+              xAxes={"Number of Pages"}
+              xMax={500}
+              xMin={100}
             />
-          </>
-        )}
-        <h2>Scores by Number of Pages</h2>
-        {loading ? (
-          <LoaderNoText />
-        ) : (
-          <ScatterGraph
-            labelArray={labelArray}
-            pagesArray={pageNumberArray}
-            scoreArray={totalScoreArray}
-            xAxes={"Number of Pages"}
-            xMax={500}
-            xMin={100}
-          />
-        )}
-        <h2>Scores by Year Published (post 1850 AD)</h2>
-        {loading ? (
-          <LoaderNoText />
-        ) : (
-          <ScatterGraph
-            labelArray={labelArray}
-            pagesArray={yearPublishedArray}
-            scoreArray={totalScoreArray}
-            xAxes={"Year the Book was Published"}
-            xMax={2030}
-            xMin={1850}
-          />
-        )}
+          )}
+        </div>
+        <div className="flex flex-col justify-self-center">
+          <h2>By Year Published</h2>
+          {loading ? (
+            <LoaderNoText />
+          ) : (
+            <ScatterGraph
+              labelArray={labelArray}
+              pagesArray={yearPublishedArray}
+              scoreArray={totalScoreArray}
+              xAxes={"Year the Book was Published"}
+              xMax={2030}
+              xMin={1850}
+            />
+          )}
+        </div>
       </div>
     </>
   );
