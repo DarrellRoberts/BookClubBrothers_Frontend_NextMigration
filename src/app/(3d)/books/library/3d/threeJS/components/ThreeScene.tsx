@@ -14,6 +14,7 @@ interface Props {
   setClicked: Dispatch<SetStateAction<boolean>>;
   setClickId: Dispatch<SetStateAction<string>>;
   readIds: string[];
+  token: string;
 }
 
 export default function ThreeScene({
@@ -21,6 +22,7 @@ export default function ThreeScene({
   setClicked,
   setClickId,
   readIds,
+  token
 }: Props) {
   return (
     <Canvas camera={{ position: [0, 0, -2.15] }}>
@@ -37,7 +39,7 @@ export default function ThreeScene({
         </Suspense>
         <Scroll
           html>
-          <HeaderCon />
+          <HeaderCon propsToken={token}/>
           <h1 className={style.title}>Books 3D Library</h1>
         </Scroll>
       </ScrollControls>
