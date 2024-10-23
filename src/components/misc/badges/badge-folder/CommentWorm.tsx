@@ -3,6 +3,7 @@
 /* eslint-disable react/react-in-jsx-scope */
 import CommentWormImage from "@/assets/badges/Badge-comment.badge-image.jpg";
 import BadgeTemplate from "../BadgeTemplate";
+import Link from "next/link";
 
 type Props = {
   commentWorm: boolean;
@@ -13,7 +14,7 @@ const BookWorm: React.FC<Props> = ({ commentWorm }) => {
   const content = (
     <>
       <p>Have commented on five or more books</p>
-      <a className="underline" href="/club/badges">what's this?</a>
+      <Link className="underline" href="/club/badges">what's this?</Link>
     </>
   );
 

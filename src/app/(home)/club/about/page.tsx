@@ -8,6 +8,7 @@ import BerlinMeet2 from "@/assets/clubimages/berlinMeet2.jpg";
 import Image from "next/image";
 import "@/style/club.css";
 import "@/style/clubRes.css";
+import Link from "next/link";
 
 const Club: React.FC = () => {
   return (
@@ -34,13 +35,13 @@ const Club: React.FC = () => {
             <br />
             Nevertheless, we still scored each book and Josh took care of the
             book graphics which you can view in the{" "}
-            <a
+            <Link
               target="_blank"
               href="/books/library"
               className="underline font-bold"
             >
               book library
-            </a>
+            </Link>
             . It was then a matter of discussion what the next book would be. By
             2024 we had read and scored 12 books, and had no plans in stopping.
             However, this created a problem. We had all this data of scores and
@@ -57,14 +58,14 @@ const Club: React.FC = () => {
             average rating, whether we read all the books and what were our best
             and most hated. I did just that, and you can view our stats, for
             example,{" "}
-            <a
+            <Link
               target="_blank"
               className="underline font-bold"
               href="/brothers/stats"
             >
               {" "}
               here
-            </a>
+            </Link>
             . Furthermore, I could add CRUD operations and user login, meaning
             we could rate the book and add another directly on the website.
             <br />
@@ -81,13 +82,13 @@ const Club: React.FC = () => {
             <br />
             <br />
             To view the source code, here is the GitHub{" "}
-            <a
+            <Link
               target="_blank"
               className="underline font-bold"
               href="https://github.com/DarrellRoberts/BookClubBrothers_Frontend_NextMigration"
             >
               repo
-            </a>
+            </Link>
             .
           </p>
         </div>

@@ -3,6 +3,7 @@
 /* eslint-disable react/react-in-jsx-scope */
 import GodWormImage from "@/assets/badges/Badge-allbooks-badge.jpg";
 import BadgeTemplate from "../BadgeTemplate";
+import Link from "next/link";
 
 type Props = {
   godWorm: boolean;
@@ -14,7 +15,7 @@ const GodWorm: React.FC<Props> = ({ godWorm }) => {
   const content = (
     <>
       <p>At one time have read all of the books</p>
-      <a className="underline" href="/club/badges">what's this?</a>
+      <Link className="underline" href="/club/badges">what's this?</Link>
     </>
   );
   return (

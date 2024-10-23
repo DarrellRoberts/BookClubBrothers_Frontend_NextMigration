@@ -3,6 +3,7 @@
 /* eslint-disable react/react-in-jsx-scope */
 import LoneWolfImage from "@/assets/badges/Badge-lonewolf-badge-image.jpg";
 import BadgeTemplate from "../BadgeTemplate";
+import Link from "next/link";
 
 type Props = {
   loneWolf: boolean;
@@ -14,7 +15,7 @@ const BookWorm: React.FC<Props> = ({ loneWolf }) => {
   const content = (
     <>
       <p>Have been the only person to score a book</p>
-      <a className="underline" href="/club/badges">what's this?</a>
+      <Link className="underline" href="/club/badges">what's this?</Link>
     </>
   );
   return (

@@ -45,7 +45,7 @@ const CommentCon: React.FC<Props> = ({ username, comments, userId }) => {
             <br/ >
             {username}, if you're reading
             this,{" "}
-            <a href="/books/library"> click here to access the book library </a>{" "}
+            <Link href="/books/library"> click here to access the book library </Link>{" "}
             and get writing!
           </h3>
         </div>
