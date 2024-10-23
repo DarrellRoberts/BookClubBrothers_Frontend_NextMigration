@@ -31,8 +31,6 @@ export default function Base({ readBooks, readIds }: Props) {
     }
   }, []);
 
-  console.log(token);
-
   return (
     <>
       {!clicked ? <TextInfo readBooks={readBooks} clickId={clickId} /> : null}

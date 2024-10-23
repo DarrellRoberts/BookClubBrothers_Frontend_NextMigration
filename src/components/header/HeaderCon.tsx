@@ -32,6 +32,8 @@ const HeaderCon: React.FC<Props> = ({propsToken}) => {
 
   //neccessary for the (3d) layout
   headerCon.current ? headerCon.current.parentElement.style.position = "static" : "";
+  headerCon.current ? headerCon.current.style.height = "88px" : "";
+
   return (
     <header ref={headerCon} className={token ? style.headerConToken : style.headerConNoToken}>
       {token || propsToken ? (
@@ -39,7 +41,7 @@ const HeaderCon: React.FC<Props> = ({propsToken}) => {
           {decodedToken?.username === "Josh" ?
             <Celebration />
             : null}
-          <Logout />
+          <Logout propsToken={propsToken}/>
           {handleDesktop ? (
             <div className={style.headerLinks}>
               <HeaderLinks />

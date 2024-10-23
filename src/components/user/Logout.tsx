@@ -1,25 +1,29 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable react/react-in-jsx-scope */
 "use client";
 
 import { Button } from "antd";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../context/authContext";
-import {handleLogout} from "@/functions/handleLogout";
-
+import { handleLogout } from "@/functions/handleLogout";
 import "../../style/login.css";
 
-const Logout: React.FC = () => {
+type Props = {
+  propsToken: string;
+};
+
+const Logout: React.FC<Props> = ({ propsToken }) => {
   const [loadings, setLoadings] = useState([]);
 
   const { logout, token } = useContext(AuthContext);
 
-
   const handleClick = () => {
     setLoadings([true]);
     setTimeout(() => {
-      handleLogout(token);
+      token ? handleLogout(token) : handleLogout(propsToken);
       localStorage.removeItem("token");
       localStorage.removeItem("username");
+      propsToken = null;
       setLoadings([false]);
       logout();
     }, 3000);
@@ -33,7 +37,8 @@ const Logout: React.FC = () => {
           ghost
           htmlType="submit"
           loading={loadings[0]}
-          onClick={handleClick}>
+          onClick={handleClick}
+        >
           Logout
         </Button>
       </div>
