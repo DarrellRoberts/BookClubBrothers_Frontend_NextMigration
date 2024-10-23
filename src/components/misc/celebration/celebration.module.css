@@ -1,0 +1,20 @@
+.eggCon {
+    background-image: url("../../../assets/celebration/Celebration-eggman-wedding-image.jpg");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    border-radius: 20px;
+}
+
+.eggCon img {
+    border-radius: 20px;
+    margin-bottom: 2rem;
+    opacity: 0.15;
+}
+
+.confetti {
+    position: absolute;
+    top: 5%;
+    opacity: 0.5;
+
+}

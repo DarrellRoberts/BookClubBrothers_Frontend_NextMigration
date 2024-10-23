@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable react/react-in-jsx-scope */
 "use client";
 
@@ -5,7 +6,7 @@ import Login from "../user/Login";
 import HeaderLinks from "./HeaderLinks";
 import HeaderLinksMobile from "./HeaderLinksMobile";
 import { useContext, useRef } from "react";
-import { AuthContext } from "../../context/authContext";
+import { AuthContext} from "../../context/authContext";
 import { useJwt } from "react-jwt";
 import { getTime } from "../../functions/time-functions/timeFunction";
 import Link from "next/link";
@@ -13,11 +14,16 @@ import { useMediaQuery } from "react-responsive";
 import style from "./HeaderCob.module.css";
 import Logo from "../misc/Logo";
 import Logout from "../user/Logout";
+import Celebration from "../misc/celebration/Celebration";
 
-const HeaderCon: React.FC = () => {
-  const { token } = useContext(AuthContext);
+type Props = {
+  propsToken?: string
+}
+
+const HeaderCon: React.FC<Props> = ({propsToken}) => {
+  const { token }  = useContext(AuthContext);
   const { decodedToken }: { decodedToken?: { token: string, username: string } } =
-    useJwt(token);
+    token ? useJwt(token) : useJwt(propsToken);
 
   const handleDesktop = useMediaQuery({ query: "(min-device-width: 801px)" });
   const headerCon = useRef(null);
@@ -28,8 +34,11 @@ const HeaderCon: React.FC = () => {
   headerCon.current ? headerCon.current.parentElement.style.position = "static" : "";
   return (
     <header ref={headerCon} className={token ? style.headerConToken : style.headerConNoToken}>
-      {token ? (
+      {token || propsToken ? (
         <>
+          {decodedToken?.username === "Josh" ?
+            <Celebration />
+            : null}
           <Logout />
           {handleDesktop ? (
             <div className={style.headerLinks}>
