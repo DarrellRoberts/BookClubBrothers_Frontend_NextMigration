@@ -121,7 +121,10 @@ const Dashboard: React.FC = () => {
       ) : (
         <>
           <div className={style.headerCon}>
-            <h1 className="dashboardTitle">{findUser?.username}</h1>
+            <div className="flex flex-col">
+              <h1 className="dashboardTitle">{findUser?.username}</h1>
+              <span className={style.lastLogin}>Last login: {findUser?.lastLoggedIn ?? ""}</span>
+            </div>
             <div className={style.achievementCon}>
               <h2>Achievements</h2>
               <Badges
