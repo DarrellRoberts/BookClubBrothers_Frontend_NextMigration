@@ -21,6 +21,7 @@ import CommentCon from "@/components/comments/CommentCon";
 import Badges from "@/components/misc/badges/Badges";
 import { averageScore, findMinScoreBook, findMaxScoreBook, filterUserReadBooks, filterUserUnreadBooks, unreadBookTitles, userReadBookTitles } from "@/functions/stat-functions/scoreFunctions";
 import { Book } from "@/types/BookInterface";
+import { formatServerDate } from "@/functions/time-functions/formatServerDate";
 
 type StateType = {
   showImage: boolean;
@@ -123,7 +124,7 @@ const Dashboard: React.FC = () => {
           <div className={style.headerCon}>
             <div className="flex flex-col">
               <h1 className="dashboardTitle">{findUser?.username}</h1>
-              <span className={style.lastLogin}>Last login: {findUser?.lastLoggedIn ?? ""}</span>
+              <span className={style.lastLogin}>Last login: {formatServerDate(findUser?.lastLoggedIn) ?? ""}</span>
             </div>
             <div className={style.achievementCon}>
               <h2>Achievements</h2>
