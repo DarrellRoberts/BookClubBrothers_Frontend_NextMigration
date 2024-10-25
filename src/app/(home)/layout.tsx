@@ -4,6 +4,7 @@ import AuthContextProvider from "../../context/authContext";
 import ScrollToTop from "../../functions/ScrollToTop";
 import "../globals.css";
 import dynamic from "next/dynamic";
+import Footer from "@/components/footer/Footer";
 
 const NoSSRHeader = dynamic(() => import("../../components/header/HeaderCon"), {
   ssr: false,
@@ -30,6 +31,7 @@ export default function RootLayout({
         <body>
           <NoSSRHeader />
           {children}
+          <Footer />
         </body>
       </AuthContextProvider>
     </html>

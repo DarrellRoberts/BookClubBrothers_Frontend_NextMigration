@@ -51,7 +51,7 @@ const BrothersStats: React.FC = () => {
     getBookData();
   }, []);
   return (
-    <>
+    <div className={loading ? "h-screen" : ""}>
       <h1 className={styles.statsTitle}>Brothers Stats</h1>
       <div className={styles.leagueCon}>
         <BrotherTable userData={userData} bookData={bookData} />
@@ -61,36 +61,38 @@ const BrothersStats: React.FC = () => {
         {loading ? (
           <LoaderNoText />
         ) : (
-          <>
-            <div className={styles.booksReadCon}>
-              {userData?.map((user, i) => (
-                <div key={i}>
-                  <h3 className={styles.booksReadUsername}>{user.username}</h3>
-                  <PieChart
-                    key={i}
-                    booksRead={[
-                      user.userInfo.books.score.length,
-                      unreadBookTitles(bookData, user._id).length,
-                    ]}
-                    unreadBooks={unreadBookTitles(bookData, user._id)}
-                    userReadBooks={userReadBookTitles(bookData, user._id)}
-                    bookTotal={bookData.length}
-                  />
-                </div>
-              ))}
-            </div>
-            <div>
-              <h2>Average Scores</h2>
-              <Graph
-                bookTitles={userData.map((user) => user.username)}
-                bookScores={userData.map((user) => averageScore(user))}
-                username="User"
-              />
-            </div>
-          </>
+          <div className={styles.booksReadCon}>
+            {userData?.map((user, i) => (
+              <div key={i}>
+                <h3 className={styles.booksReadUsername}>{user.username}</h3>
+                <PieChart
+                  key={i}
+                  booksRead={[
+                    user.userInfo.books.score.length,
+                    unreadBookTitles(bookData, user._id).length,
+                  ]}
+                  unreadBooks={unreadBookTitles(bookData, user._id)}
+                  userReadBooks={userReadBookTitles(bookData, user._id)}
+                  bookTotal={bookData.length}
+                />
+              </div>
+            ))}
+          </div>
         )}
+        <div>
+          <h2>Average Scores</h2>
+          {loading ? (
+            <LoaderNoText />
+          ) : (
+            <Graph
+              bookTitles={userData.map((user) => user.username)}
+              bookScores={userData.map((user) => averageScore(user))}
+              username="User"
+            />
+          )}
+        </div>
       </div>
-    </>
+    </div>
   );
 };
 

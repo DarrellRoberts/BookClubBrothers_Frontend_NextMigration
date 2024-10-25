@@ -93,14 +93,18 @@ const Booklibrary: React.FC = () => {
                 </div>
               ))
             ) : (
-              <p className="text-center w-screen">
-                No books found. Press search again to refresh.
-              </p>
+              <div className="h-screen">
+                <p className="ml-5">
+                  No books found. Press search two times to refresh.
+                </p>
+              </div>
             )
           ) : (
-            <p className="text-center w-screen">
-              No books found. Press search again to refresh.
-            </p>
+            <div className="h-screen">
+              <p className="ml-5">
+                No books found. Press search two times to refresh.
+              </p>
+            </div>
           )}
         </div>
       )}

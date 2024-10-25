@@ -6,7 +6,8 @@ export const ACTIONS = {
   SETBOOKDATA: "setBookData",
   SETUSERDATA: "setUserData",
   SETERROR: "setError",
-  SHOWLOADING: "setLoading",
+  SETLOADING: "setLoading",
+  SHOWLOADING: "showLoading",
   SHOWRANDOM: "showRandom",
   SETRANDOM: "setRandom"
 };

@@ -2,7 +2,7 @@
 "use client";
 import React from "react";
 import Books3D from "./Books3D";
-import { Dispatch, SetStateAction, Suspense} from "react";
+import { Dispatch, SetStateAction, Suspense } from "react";
 import { Canvas } from "@react-three/fiber";
 import { Scroll, ScrollControls } from "@react-three/drei";
 import Loader from "./Loader";
@@ -22,7 +22,7 @@ export default function ThreeScene({
   setClicked,
   setClickId,
   readIds,
-  token
+  token,
 }: Props) {
   return (
     <Canvas camera={{ position: [0, 0, -2.15] }}>
@@ -37,9 +37,8 @@ export default function ThreeScene({
             readIds={readIds}
           />
         </Suspense>
-        <Scroll
-          html>
-          <HeaderCon propsToken={token}/>
+        <Scroll html>
+          <HeaderCon propsToken={token} />
           <h1 className={style.title}>Books 3D Library</h1>
         </Scroll>
       </ScrollControls>
