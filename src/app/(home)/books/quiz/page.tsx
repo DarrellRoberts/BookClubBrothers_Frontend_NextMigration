@@ -124,79 +124,80 @@ const Quiz: React.FC = () => {
 
   return (
     <>
-      {/* <Back /> */}
-      <div className="bookQuizCon flex flex-col items-center mt-20">
-        <h1 className="underline">Quiz</h1>
-        <div className="quizTitle flex mb-5">
-          <h2>
-            {index <= 11
-              ? `Question: ${index + 1}/${quiz.quiz.length - 1}`
-              : null}
-          </h2>
-        </div>
+      <div className="h-screen">
+        <div className="bookQuizCon flex flex-col items-center mt-20">
+          <h1 className="underline">Quiz</h1>
+          <div className="quizTitle flex mb-5">
+            <h2>
+              {index <= 11
+                ? `Question: ${index + 1}/${quiz.quiz.length - 1}`
+                : null}
+            </h2>
+          </div>
 
-        <div className="quizQuestionCon flex flex-col">
-          <h2 className="mb-2 font-bold">{quiz?.quiz[index]?.question}</h2>
-          <ul>
-            {quiz?.quiz[index]?.options?.map((option, i) =>
-              !showCorrect ? (
-                <>
+          <div className="quizQuestionCon flex flex-col">
+            <h2 className="mb-2 font-bold">{quiz?.quiz[index]?.question}</h2>
+            <ul>
+              {quiz?.quiz[index]?.options?.map((option, i) =>
+                !showCorrect ? (
+                  <>
+                    <li
+                      className="cursor-pointer list-disc hover:bg-black hover:text-white"
+                      onClick={(
+                        e: React.MouseEvent<HTMLLIElement, MouseEvent>
+                      ) => {
+                        const target = e.target as HTMLLIElement;
+                        const clickedOption = target.textContent;
+
+                        if (clickedOption === quiz?.quiz[index].correctAnswer) {
+                          setCounter(counter + 1);
+                        }
+
+                        setShowCorrect(true);
+                      }}
+                    >
+                      {option}
+                    </li>
+                    <li></li>
+                  </>
+                ) : (
                   <li
-                    className="cursor-pointer list-disc hover:bg-black hover:text-white"
-                    onClick={(
-                      e: React.MouseEvent<HTMLLIElement, MouseEvent>
-                    ) => {
-                      const target = e.target as HTMLLIElement;
-                      const clickedOption = target.textContent;
-
-                      if (clickedOption === quiz?.quiz[index].correctAnswer) {
-                        setCounter(counter + 1);
-                      }
-
-                      setShowCorrect(true);
-                    }}
+                    key={i}
+                    className={
+                      option === quiz?.quiz[index].correctAnswer
+                        ? "text-green-500 font-bold list-disc"
+                        : "text-red-500"
+                    }
                   >
                     {option}
                   </li>
-                  <li></li>
-                </>
-              ) : (
+                )
+              )}
+              {showCorrect ? (
                 <li
-                  key={i}
-                  className={
-                    option === quiz?.quiz[index].correctAnswer
-                      ? "text-green-500 font-bold list-disc"
-                      : "text-red-500"
-                  }
+                  className="cursor-pointer absolute right-1 top-32 font-bold"
+                  onClick={() => {
+                    setIndex(index + 1);
+                    setShowCorrect(false);
+                  }}
                 >
-                  {option}
+                  Next question
                 </li>
-              )
-            )}
-            {showCorrect ? (
-              <li
-                className="cursor-pointer absolute right-1 bottom-1 font-bold"
-                onClick={() => {
-                  setIndex(index + 1);
-                  setShowCorrect(false);
-                }}
-              >
-                Next question
-              </li>
-            ) : null}
-            {index > 11 ? (
-              <li
-                className="cursor-pointer absolute right-1 bottom-1 font-bold"
-                onClick={() => {
-                  setIndex(0);
-                  setCounter(0);
-                  setShowCorrect(false);
-                }}
-              >
-                Restart quiz
-              </li>
-            ) : null}
-          </ul>
+              ) : null}
+              {index > 11 ? (
+                <li
+                  className="cursor-pointer absolute right-1 top-32 font-bold"
+                  onClick={() => {
+                    setIndex(0);
+                    setCounter(0);
+                    setShowCorrect(false);
+                  }}
+                >
+                  Restart quiz
+                </li>
+              ) : null}
+            </ul>
+          </div>
         </div>
       </div>
     </>

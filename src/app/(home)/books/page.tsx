@@ -1,11 +1,11 @@
 /* eslint-disable react/react-in-jsx-scope */
 import Link from "next/link";
-import "../../../style/bookHomepage.css";
-import "../../../style/bookHomepageRes.css";
+import "@/style/bookHomepage.css";
+import "@/style/bookHomepageRes.css";
 
 const BookHomepage: React.FC = () => {
   return (
-    <>
+    <div className="h-screen">
       <h1 className="booksTitle">The Books</h1>
       <div className="flex justify-center ">
         <div className="bookHomeGrid">
@@ -34,7 +34,7 @@ const BookHomepage: React.FC = () => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

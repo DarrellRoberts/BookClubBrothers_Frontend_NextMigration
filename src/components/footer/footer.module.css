@@ -1,0 +1,11 @@
+.footerCon {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    margin: 1rem 0;
+}
+
+.footerCon span {
+    margin: 2rem;
+    font-family: var(--main);
+}

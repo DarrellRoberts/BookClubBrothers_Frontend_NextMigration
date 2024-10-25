@@ -58,7 +58,7 @@ const BookStats = () => {
     getBookData();
   }, []);
   return (
-    <>
+    <div className={loading ? "h-screen" : ""}>
       <h1 className="booksTitle">Book Stats</h1>
       <div className={styles.booksStatsCon}>
         <div className="flex flex-col justify-self-center">
@@ -106,7 +106,7 @@ const BookStats = () => {
           )}
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

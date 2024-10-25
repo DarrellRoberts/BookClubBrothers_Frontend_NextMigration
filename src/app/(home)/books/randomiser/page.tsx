@@ -26,12 +26,14 @@ const reducer = (state, action) => {
     return { ...state, userData: action.payload };
   case ACTIONS.SETERROR:
     return { ...state, error: action.payload };
-  case ACTIONS.SHOWLOADING:
-    return { ...state, loading: action.payload };
+  case ACTIONS.SETLOADING:
+    return { ...state, showLoading: action.payload };
   case ACTIONS.SHOWRANDOM:
     return { ...state, showRandom: action.payload };
   case ACTIONS.SETRANDOM:
     return { ...state, showRandom: action.payload };
+  case ACTIONS.SHOWLOADING:
+    return { ...state, showLoading: action.payload };
   default:
     return state;
   }
@@ -45,7 +47,7 @@ const RandomiserHomepage: React.FC = () => {
     bookData: [],
     userData: [],
     error: null,
-    loading: true,
+    showLoading: true,
     showRandom: true,
   });
 
@@ -64,7 +66,7 @@ const RandomiserHomepage: React.FC = () => {
       );
       const book = await data.json();
       dispatch({ type: ACTIONS.SETBOOKDATA, payload: book });
-      dispatch({ type: ACTIONS.SHOWLOADING, payload: false });
+      dispatch({ type: ACTIONS.SETLOADING, payload: false });
     } catch (err) {
       dispatch({ type: ACTIONS.SETERROR, payload: err });
       console.log(state.error);
@@ -82,7 +84,7 @@ const RandomiserHomepage: React.FC = () => {
       );
       const user = await data.json();
       dispatch({ type: ACTIONS.SETUSERDATA, payload: user });
-      dispatch({ type: ACTIONS.SHOWLOADING, payload: false });
+      dispatch({ type: ACTIONS.SETLOADING, payload: false });
     } catch (err) {
       dispatch({ type: ACTIONS.SETERROR, payload: err });
       console.log(state.error);
@@ -106,7 +108,7 @@ const RandomiserHomepage: React.FC = () => {
         <div className={style.randomBox}>
           <div className={style.randomBoxLeft}>
             <div className={style.randomBoxLeftList}>
-              {state.bookData.length === 0 ? (
+              {state.showLoading ? (
                 <div className="flex justify-center items-center mt-20">
                   <LoaderNoText />
                 </div>
@@ -152,9 +154,11 @@ const RandomiserHomepage: React.FC = () => {
                 Click randomise on the right to randomise the selection or click
                 on each item in the list to see its details.
               </h2>
-              <h2 className="text-red-500 bg-black mt-5 rounded">
+              {!state.showLoading ? (
+                <h2 className="text-red-500 bg-black mt-5 rounded">
                 Only the admin can select the book.
-              </h2>
+                </h2>
+              ) : null}
             </div>
           </div>
 
@@ -167,7 +171,7 @@ const RandomiserHomepage: React.FC = () => {
               backgroundPosition: "center",
             }}
           >
-            {state.loading ? (
+            {state.showLoading ? (
               <div className="flex justify-center items-center mt-20">
                 <LoaderNoText />
               </div>

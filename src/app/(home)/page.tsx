@@ -8,5 +8,15 @@ import { AuthContext } from "../../context/authContext";
 
 export default function Home() {
   const { token } = useContext(AuthContext);
-  return <>{token ? <Dashboard /> : <Homepage />}</>;
+  return (
+    <>
+      {token ? (
+        <Dashboard />
+      ) : (
+        <div className="h-screen">
+          <Homepage />
+        </div>
+      )}
+    </>
+  );
 }

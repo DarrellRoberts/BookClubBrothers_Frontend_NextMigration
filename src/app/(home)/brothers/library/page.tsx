@@ -279,7 +279,9 @@ const Brothercat: React.FC = () => {
                 </div>
               ))
             ) : (
-              <p>Brother not found. Click on search to refresh.</p>
+              <div className="h-screen">
+                <p>Brother not found. Click search twice to refresh.</p>
+              </div>
             )}
           </div>
         </>

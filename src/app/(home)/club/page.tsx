@@ -5,7 +5,7 @@ import "@/style/bookHomepageRes.css";
 
 const ClubHomepage: React.FC = () => {
   return (
-    <>
+    <div className="h-screen">
       <h1 className="booksTitle">The Club</h1>
       <div className="flex justify-center ">
         <div className="bookHomeGrid">
@@ -22,7 +22,7 @@ const ClubHomepage: React.FC = () => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
