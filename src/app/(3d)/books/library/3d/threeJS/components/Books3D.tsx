@@ -64,7 +64,6 @@ export default function Books3D({
   const handleClick = (e) => {
     setClicked(!clicked);
     setClickId(e.eventObject.name);
-    console.log(e.eventObject.name);
     gsap.to(e.eventObject.rotation, {
       x: clicked ? 5 : 0,
       y: clicked ? 3.5 : 4.75,

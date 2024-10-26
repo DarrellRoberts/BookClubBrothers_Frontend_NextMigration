@@ -11,6 +11,7 @@ import { useJwt } from "react-jwt";
 import "../../../../../style/commentcon.css";
 import "../../../../../style/commentconRes.css";
 import {type Book} from "@/types/BookInterface";
+import { findComment, findCommentByUsername } from "@/functions/findComments";
 
 type Props = {
   bookData: Book,
@@ -42,40 +43,13 @@ const RatingCon: React.FC<Props> = ({ bookData, id }) => {
     }
   };
 
-  const findUser = (id) => {
-    const user = users.find((user) => user._id === id);
-    return user ? user.username : "user not found";
-  };
-
-  const commentArr2 = bookData?.commentInfo?.commentId?.map((id) =>
-    findUser(id)
-  );
-
-  let commentObj: object = {};
-  const findComment = () => {
-    for (let i = 0; i < commentArr2?.length; i++) {
-      commentObj[commentArr2[i]] = bookData?.commentInfo?.comments[i];
-      findUser(commentObj[bookData?.commentInfo?.comments[i]]);
-    }
-    commentObj = Object.entries(commentObj);
-    return commentObj;
-  };
-  findComment();
-
   useEffect(() => {
     getData();
   }, []);
 
-  // function to find initialRating
-  const findCommentByUsername = (commentObj, username) => {
-    const result = commentObj?.find((pair) => pair[0] === username);
-    if (result) {
-      return result[1]; // Return the rating if username is found
-    } else {
-      return false;
-    }
-  };
-  const initialComment = findCommentByUsername(commentObj, username);
+  const commentObj: object | string[] = {};
+  findComment(bookData, users, commentObj);
+  const initialComment = findCommentByUsername(username, bookData, users);
 
   return (
     <>
