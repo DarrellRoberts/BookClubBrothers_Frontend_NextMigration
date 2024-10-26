@@ -1,17 +1,7 @@
-import { getDate } from "./dateFunction";
-
-const dateTimeString = getDate();
-
-const getTime = () => {
-  const [datePart, timePart] = dateTimeString.split(", ");
-  const date = datePart;
-  date;
-  const time = timePart;
-  const [hourPart, minPart] = time.split(": ");
-  const min = minPart;
-  min;
-  const hour = hourPart;
-  const hourNum = parseInt(hour, 10);
+export const getTime = () => {
+  const time = new Date().toString().split(" ")[4];
+  const hours = time.split(":")[0];
+  const hourNum = parseInt(hours, 10);
   if (hourNum > 4 && hourNum < 12) {
     return "Good Morning";
   } else if (hourNum > 12 && hourNum < 17) {
@@ -24,5 +14,3 @@ const getTime = () => {
     return "Howdy";
   }
 };
-
-export { getTime };
