@@ -1,4 +1,4 @@
-import { findUser } from "./findUser";
+import { findUser } from "../findUser";
 
 export const findComment = (bookData, userData, commentObj) => {
   if (bookData && userData) {
@@ -19,7 +19,9 @@ export const findCommentByUsername = (username, bookData, userData) => {
     let commentObj: object | string[] = {};
     findComment(bookData, userData, commentObj);
     commentObj = Object.entries(commentObj);
-    const result = Array.isArray(commentObj) ? commentObj?.find((pair) => pair[0] === username) : null;
+    const result = Array.isArray(commentObj)
+      ? commentObj?.find((pair) => pair[0] === username)
+      : null;
     if (result) {
       return result[1]; // Return the rating if username is found
     } else {

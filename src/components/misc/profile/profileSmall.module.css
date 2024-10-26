@@ -1,0 +1,11 @@
+.profileCon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.profileCon img {
+    border-radius: 20px;
+    width: 100px;
+    height: 150px;
+}
