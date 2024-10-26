@@ -84,7 +84,7 @@ const SingleBook: React.FC = () => {
   const { token } = useContext(AuthContext);
   const { decodedToken }: { decodedToken?: { username: string; _id: string } } =
     useJwt(token);
-  const { id } = useParams<{id: string}>();
+  const { id } = useParams<{ id: string }>();
   const adminId = "65723ac894b239fe25fe6871";
 
   const getBookData = async () => {
