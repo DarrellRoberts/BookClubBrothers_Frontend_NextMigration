@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-key */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable react/react-in-jsx-scope */
@@ -8,15 +9,20 @@ import CommentButton from "./commentform/CommentButton";
 import EditCommentButton from "./commentform/EditCommentButton";
 import { AuthContext } from "../../../../../context/authContext";
 import { useJwt } from "react-jwt";
-import "../../../../../style/commentcon.css";
-import "../../../../../style/commentconRes.css";
-import {type Book} from "@/types/BookInterface";
-import { findComment, findCommentByUsername } from "@/functions/findComments";
+import { type Book } from "@/types/BookInterface";
+import {
+  findComment,
+  findCommentByUsername,
+} from "@/functions/comment-functions/findComments";
+import { findUserByUsername } from "@/functions/findUser";
+import styles from "./commentCon.module.css";
+import Link from "next/link";
+import ProfileSmall from "@/components/misc/profile/ProfileSmall";
 
 type Props = {
-  bookData: Book,
-  id: string
-}
+  bookData: Book;
+  id: string;
+};
 
 const RatingCon: React.FC<Props> = ({ bookData, id }) => {
   const [users, setUserData] = useState([]);
@@ -53,7 +59,7 @@ const RatingCon: React.FC<Props> = ({ bookData, id }) => {
 
   return (
     <>
-      <div className="commentCon">
+      <div className={styles.commentCon}>
         <h2 className="ratingTitle underline">Comments</h2>
         {Array.isArray(commentObj)
           ? commentObj.map(([name, value]) => (
@@ -66,10 +72,22 @@ const RatingCon: React.FC<Props> = ({ bookData, id }) => {
               </div>
             </>
           ))
-          : Object.entries(commentObj).map(([name, value]) => (
-            <li className="list-none mb-1 ml-2" key={name}>
-              {name}: {value}
-            </li>
+          : Object.entries(commentObj).map(([name, value], i) => (
+            <div className={styles.commentWrap} key={i}>
+              <div>
+                <h3>{name}</h3>
+                <Link href={`/brothers/library/${name}`}>
+                  <ProfileSmall
+                    imageURL={
+                      findUserByUsername(name, users)?.userInfo?.profileURL
+                    }
+                  />
+                </Link>
+              </div>
+              <li className="list-none mb-1 ml-2 flex items-center text-center">
+                "{value}"
+              </li>
+            </div>
           ))}
 
         {decodedToken ? (
