@@ -26,8 +26,8 @@
 }
 
 .commentWrap img  {
-    width: 100px;
-    height: 150px;
+    /* width: 100px; */
+    /* height: 150px; */
 }
 
 @media screen and (max-width: 800px) {

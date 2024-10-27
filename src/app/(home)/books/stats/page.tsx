@@ -49,10 +49,10 @@ const BookStats = () => {
   const genreAvgScoreArray = genreArray.map((genre) =>
     genreAverageScore(bookData, genre)
   );
-  const totalScoreArray = bookData.map((book) => book.totalScore.toFixed(2));
-  const pageNumberArray = bookData.map((book) => book.pages);
-  const yearPublishedArray = bookData.map((book) => book.yearPublished);
-  const labelArray = bookData.map((book) => book.title);
+  const totalScoreArray = bookData?.map((book) => book.totalScore?.toFixed(2));
+  const pageNumberArray = bookData?.map((book) => book.pages);
+  const yearPublishedArray = bookData?.map((book) => book.yearPublished);
+  const labelArray = bookData?.map((book) => book.title);
 
   useEffect(() => {
     getBookData();
