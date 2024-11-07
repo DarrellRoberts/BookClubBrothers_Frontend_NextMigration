@@ -8,7 +8,7 @@ export default [
     rules: {
       semi: "error",
       "prefer-const": "error",
-      indent: ["error", 2],
+      // indent: ["error", 2],
       "template-curly-spacing": "error",
       "no-mixed-spaces-and-tabs": "error",
       "no-trailing-spaces": "error",

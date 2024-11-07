@@ -5,7 +5,7 @@ import { useEffect, useState, useContext, useReducer } from "react";
 import Link from "next/link";
 import { DoubleLeftOutlined } from "@ant-design/icons";
 import Loader from "../../../../components/loader/Loader";
-import { AuthContext } from "../../../../context/authContext";
+import { AuthContext } from "../../../../context/AuthContext";
 import { useJwt } from "react-jwt";
 
 //importing form components

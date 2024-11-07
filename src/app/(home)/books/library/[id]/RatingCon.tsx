@@ -5,7 +5,7 @@
 import { useState, useEffect, useContext } from "react";
 import RatingButton from "./ratingform/RatingButton";
 import EditRatingButton from "./ratingform/EditRatingButton";
-import { AuthContext } from "../../../../../context/authContext";
+import { AuthContext } from "../../../../../context/AuthContext";
 import { useJwt } from "react-jwt";
 import "../../../../../style/ratingcon.css";
 import "../../../../../style/ratingconRes.css";

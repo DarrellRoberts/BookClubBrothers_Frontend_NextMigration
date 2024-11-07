@@ -3,7 +3,7 @@
 "use client";
 
 import { useState, useContext } from "react";
-import { AuthContext } from "../../../../../../../context/authContext";
+import { AuthContext } from "../../../../../../../context/AuthContext";
 import { Button, Form, Select, Space } from "antd";
 
 const { Option } = Select;

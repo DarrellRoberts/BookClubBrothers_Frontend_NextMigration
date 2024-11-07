@@ -4,7 +4,7 @@
 
 import { Button, Popconfirm } from "antd";
 import { useState, useContext } from "react";
-import { AuthContext } from "../../../../../context/authContext";
+import { AuthContext } from "../../../../../context/AuthContext";
 import { useJwt } from "react-jwt";
 
 type ActionType = {

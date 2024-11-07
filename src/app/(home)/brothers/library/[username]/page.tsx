@@ -8,7 +8,7 @@ import { useParams } from "next/navigation";
 import "@/style/dashboard.css";
 import "@/style/dashboardRes.css";
 import LoadingScreen from "./LoadingScreen";
-import { AuthContext } from "../../../../../context/authContext";
+import { AuthContext } from "../../../../../context/AuthContext";
 import { useJwt } from "react-jwt";
 import BookImageCover from "@/app/(home)/books/library/BookImageCover";
 import BookCover from "@/app/(home)/books/library/BookCover";

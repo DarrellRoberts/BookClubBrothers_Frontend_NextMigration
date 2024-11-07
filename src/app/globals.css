@@ -28,8 +28,8 @@
   border-color: var(--tertiaryColor)
 }
 
-:where(.css-dev-only-do-not-override-ni1kz0).ant-btn-default, 
-:where(.css-dev-only-do-not-override-ni1kz0).ant-btn-color-dangerous.ant-btn-variant-outlined,
+:where(.css-dev-only-do-not-override-1rqnfsa).ant-btn-default, 
+:where(.css-dev-only-do-not-override-1rqnfsa).ant-btn-color-dangerous.ant-btn-variant-outlined,
 :where(.css-1rqnfsa).ant-btn-color-dangerous.ant-btn-variant-outlined {
   background-color: black;
   color: white;
@@ -44,11 +44,11 @@
   color: white;
 }
 
-:where(.css-dev-only-do-not-override-ni1kz0).ant-btn >span:hover {
+:where(.css-dev-only-do-not-override-1rqnfsa).ant-btn >span:hover {
   color: white;
 }
 
-:where(.css-dev-only-do-not-override-ni1kz0).ant-btn-default:not(:disabled):not(.ant-btn-disabled):hover {
+:where(.css-dev-only-do-not-override-1rqnfsa).ant-btn-default:not(:disabled):not(.ant-btn-disabled):hover {
   color: white;
   border-color: black;
   background-color: var(--tertiaryColor);
@@ -60,20 +60,20 @@
   background-color: var(--tertiaryColor);
 }
 
-:where(.css-dev-only-do-not-override-ni1kz0).ant-btn-color-dangerous.ant-btn-variant-outlined:not(:disabled):not(.ant-btn-disabled):hover,
+:where(.css-dev-only-do-not-override-1rqnfsa).ant-btn-color-dangerous.ant-btn-variant-outlined:not(:disabled):not(.ant-btn-disabled):hover,
 :where(.css-1rqnfsa).ant-btn-color-dangerous.ant-btn-variant-outlined:not(:disabled):not(.ant-btn-disabled):hover {
   color: white;
   background-color: red;
 }
 
-:where(.css-dev-only-do-not-override-ni1kz0).ant-popover .ant-popover-inner,
+:where(.css-dev-only-do-not-override-1rqnfsa).ant-popover .ant-popover-inner,
 :where(.css-1rqnfsa).ant-popover .ant-popover-inner  {
   background-color: var(--tertiaryColor);
 }
 
-:where(.css-dev-only-do-not-override-ni1kz0).ant-popconfirm .ant-popconfirm-message .ant-popconfirm-title,
+:where(.css-dev-only-do-not-override-1rqnfsa).ant-popconfirm .ant-popconfirm-message .ant-popconfirm-title,
 :where(.css-1rqnfsa).ant-popconfirm .ant-popconfirm-message .ant-popconfirm-title,
-:where(.css-dev-only-do-not-override-ni1kz0).ant-popconfirm .ant-popconfirm-message .ant-popconfirm-description,
+:where(.css-dev-only-do-not-override-1rqnfsa).ant-popconfirm .ant-popconfirm-message .ant-popconfirm-description,
 :where(.css-1rqnfsa).ant-popconfirm .ant-popconfirm-message .ant-popconfirm-description 
 {
   color: white;

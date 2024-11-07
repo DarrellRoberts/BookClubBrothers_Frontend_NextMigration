@@ -1,7 +1,7 @@
 import React from "react";
 import style from "./3d.module.css";
 import "../globals.css";
-import AuthContextProvider from "@/context/authContext";
+import AuthContextProvider from "@/context/AuthContext";
 
 export default function Layout({
   children,

@@ -1,4 +1,4 @@
-import { AuthContext } from "@/context/authContext";
+import { AuthContext } from "@/context/AuthContext";
 import { Button, Form } from "antd";
 import React, { useContext, useState } from "react";
 import EditAuthorForm from "./author/EditAuthorForm";

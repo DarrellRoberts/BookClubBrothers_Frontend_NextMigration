@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
 import React, { ReactNode } from "react";
 import { Popover } from "antd";
-import style from "./Badges.module.css";
+import style from "./badges.module.css";
 import "./popover.css";
 
 type Props = {

@@ -9,7 +9,7 @@ import { dateFormatter } from "@/functions/time-functions/dateFormatter";
 import DeleteBook from "../bookform/DeleteBook";
 import RatingCon from "./RatingCon";
 import CommentCon from "./CommentCon";
-import { AuthContext } from "@/context/authContext";
+import { AuthContext } from "@/context/AuthContext";
 import { useJwt } from "react-jwt";
 import "@/style/singlebook.css";
 import "@/style/singlebookRes.css";

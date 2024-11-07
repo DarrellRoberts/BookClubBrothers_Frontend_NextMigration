@@ -5,25 +5,28 @@
 import Login from "../user/Login";
 import HeaderLinks from "./HeaderLinks";
 import HeaderLinksMobile from "./HeaderLinksMobile";
-import { useContext, useRef } from "react";
-import { AuthContext} from "../../context/authContext";
+import { useContext, useEffect, useRef } from "react";
+import { AuthContext } from "../../context/AuthContext";
 import { useJwt } from "react-jwt";
 import { getTime } from "../../functions/time-functions/timeFunction";
 import Link from "next/link";
 import { useMediaQuery } from "react-responsive";
-import style from "./HeaderCob.module.css";
+import style from "./header-con.module.css";
 import Logo from "../misc/Logo";
 import Logout from "../user/Logout";
 import Celebration from "../misc/celebration/Celebration";
 
 type Props = {
-  propsToken?: string
-}
+  propsToken?: string;
+};
 
-const HeaderCon: React.FC<Props> = ({propsToken}) => {
-  const { token }  = useContext(AuthContext);
-  const { decodedToken }: { decodedToken?: { token: string, username: string } } =
-    token ? useJwt(token) : useJwt(propsToken);
+const HeaderCon: React.FC<Props> = ({ propsToken }) => {
+  const { token, logout } = useContext(AuthContext);
+  const {
+    decodedToken,
+  }: { decodedToken?: { token: string; username: string; exp: number } } = token
+    ? useJwt(token)
+    : useJwt(propsToken);
 
   const handleDesktop = useMediaQuery({ query: "(min-device-width: 801px)" });
   const headerCon = useRef(null);
@@ -31,17 +34,36 @@ const HeaderCon: React.FC<Props> = ({propsToken}) => {
   const headerMessage = getTime();
 
   //neccessary for the (3d) layout
-  headerCon.current ? headerCon.current.parentElement.style.position = "static" : "";
-  headerCon.current ? headerCon.current.style.height = "88px" : "";
+  headerCon.current
+    ? (headerCon.current.parentElement.style.position = "static")
+    : "";
+  headerCon.current ? (headerCon.current.style.height = "88px") : "";
+
+  const isTokenExpired = (): boolean => {
+    if (!token) return false;
+    try {
+      const currentTime = Date.now() / 1000;
+      return decodedToken?.exp < currentTime;
+    } catch (error) {
+      return false;
+    }
+  };
+
+  useEffect(() => {
+    isTokenExpired() ? logout() : null;
+  }, []);
 
   return (
-    <header ref={headerCon} className={token ? style.headerConToken : style.headerConNoToken}>
+    <header
+      ref={headerCon}
+      className={token ? style.headerConToken : style.headerConNoToken}
+    >
       {token || propsToken ? (
         <>
-          {decodedToken?.username === "Josh" ?
-            <Celebration />
-            : null}
-          <Logout propsToken={propsToken}/>
+          {decodedToken?.username === "Josh" ? <Celebration /> : null}
+          <Logout
+          // propsToken={propsToken}
+          />
           {handleDesktop ? (
             <div className={style.headerLinks}>
               <HeaderLinks />

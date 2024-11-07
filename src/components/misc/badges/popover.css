@@ -1,23 +1,23 @@
 :where(.css-1rqnfsa).ant-popover .ant-popover-inner,
-:where(.css-dev-only-do-not-override-ni1kz0).ant-popover .ant-popover-inner {
+:where(.css-dev-only-do-not-override-1rqnfsa).ant-popover .ant-popover-inner {
     background: var(--tertiaryColor);
 }
 
 :where(.css-1rqnfsa).ant-popover-placement-top>.ant-popover-arrow,
-:where(.css-dev-only-do-not-override-ni1kz0).ant-popover-placement-top>.ant-popover-arrow {
+:where(.css-dev-only-do-not-override-1rqnfsa).ant-popover-placement-top>.ant-popover-arrow {
     filter: invert(1);
 }
 
 :where(.css-1rqnfsa).ant-popover .ant-popover-title,
-:where(.css-dev-only-do-not-override-ni1kz0).ant-popover .ant-popover-title {
+:where(.css-dev-only-do-not-override-1rqnfsa).ant-popover .ant-popover-title {
     letter-spacing: 1px;
     font-size: 1rem;
 }
 
 :where(.css-1rqnfsa).ant-popover .ant-popover-title,
 :where(.css-1rqnfsa).ant-popover .ant-popover-inner-content,
-:where(.css-dev-only-do-not-override-ni1kz0).ant-popover .ant-popover-title,
-:where(.css-dev-only-do-not-override-ni1kz0).ant-popover .ant-popover-inner-content {
+:where(.css-dev-only-do-not-override-1rqnfsa).ant-popover .ant-popover-title,
+:where(.css-dev-only-do-not-override-1rqnfsa).ant-popover .ant-popover-inner-content {
     color: #FFFFFF;
     font-family: var(--main);
     text-align: center;

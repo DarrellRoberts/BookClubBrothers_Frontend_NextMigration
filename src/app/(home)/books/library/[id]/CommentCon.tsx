@@ -7,7 +7,7 @@
 import { useState, useEffect, useContext } from "react";
 import CommentButton from "./commentform/CommentButton";
 import EditCommentButton from "./commentform/EditCommentButton";
-import { AuthContext } from "../../../../../context/authContext";
+import { AuthContext } from "../../../../../context/AuthContext";
 import { useJwt } from "react-jwt";
 import { type Book } from "@/types/BookInterface";
 import {
