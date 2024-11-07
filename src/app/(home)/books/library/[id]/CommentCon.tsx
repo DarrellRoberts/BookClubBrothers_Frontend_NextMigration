@@ -7,7 +7,7 @@
 import { useState, useEffect, useContext } from "react";
 import CommentButton from "./commentform/CommentButton";
 import EditCommentButton from "./commentform/EditCommentButton";
-import { AuthContext } from "../../../../../context/AuthContext";
+import { AuthContext } from "@/context/AuthContext";
 import { useJwt } from "react-jwt";
 import { type Book } from "@/types/BookInterface";
 import {
@@ -63,32 +63,32 @@ const RatingCon: React.FC<Props> = ({ bookData, id }) => {
         <h2 className="ratingTitle underline">Comments</h2>
         {Array.isArray(commentObj)
           ? commentObj.map(([name, value]) => (
-            <>
-              <li className="list-none m-2 font-bold" key={name}>
-                {name}:
-              </li>
-              <div className="" style={{ width: `${value}rem` }}>
+              <>
+                <li className="list-none m-2 font-bold" key={name}>
+                  {name}:
+                </li>
+                <div className="" style={{ width: `${value}rem` }}>
                   "{value}"
-              </div>
-            </>
-          ))
+                </div>
+              </>
+            ))
           : Object.entries(commentObj).map(([name, value], i) => (
-            <div className={styles.commentWrap} key={i}>
-              <div>
-                <h3>{name}</h3>
-                <Link href={`/brothers/library/${name}`}>
-                  <ProfileSmall
-                    imageURL={
-                      findUserByUsername(name, users)?.userInfo?.profileURL
-                    }
-                  />
-                </Link>
+              <div className={styles.commentWrap} key={i}>
+                <div>
+                  <h3>{name}</h3>
+                  <Link href={`/brothers/library/${name}`}>
+                    <ProfileSmall
+                      imageURL={
+                        findUserByUsername(name, users)?.userInfo?.profileURL
+                      }
+                    />
+                  </Link>
+                </div>
+                <li className="list-none mb-1 ml-2 flex items-center text-center">
+                  "{value}"
+                </li>
               </div>
-              <li className="list-none mb-1 ml-2 flex items-center text-center">
-                "{value}"
-              </li>
-            </div>
-          ))}
+            ))}
 
         {decodedToken ? (
           <div className="flex justify-center items-end mt-auto">

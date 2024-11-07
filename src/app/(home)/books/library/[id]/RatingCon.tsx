@@ -5,16 +5,16 @@
 import { useState, useEffect, useContext } from "react";
 import RatingButton from "./ratingform/RatingButton";
 import EditRatingButton from "./ratingform/EditRatingButton";
-import { AuthContext } from "../../../../../context/AuthContext";
+import { AuthContext } from "@/context/AuthContext";
 import { useJwt } from "react-jwt";
 import "../../../../../style/ratingcon.css";
 import "../../../../../style/ratingconRes.css";
 import { Book } from "@/types/BookInterface";
 
 type Props = {
-  bookData: Book,
-  id: string
-}
+  bookData: Book;
+  id: string;
+};
 
 const RatingCon: React.FC<Props> = ({ bookData, id }) => {
   const [users, setUserData] = useState([]);
@@ -79,20 +79,20 @@ const RatingCon: React.FC<Props> = ({ bookData, id }) => {
         <h2 className="ratingTitle underline">Ratings</h2>
         {Array.isArray(raterObj)
           ? raterObj.map(([name, value]) => (
-            <>
-              <li className="list-none m-2" key={name}>
-                {name}:
-              </li>
-              <div className="ratingGraph" style={{ width: `${value}rem` }}>
-                {value}
-              </div>
-            </>
-          ))
+              <>
+                <li className="list-none m-2" key={name}>
+                  {name}:
+                </li>
+                <div className="ratingGraph" style={{ width: `${value}rem` }}>
+                  {value}
+                </div>
+              </>
+            ))
           : Object.entries(raterObj).map(([name, value]) => (
-            <li className="list-none mb-1 ml-2" key={name}>
-              {name}: {value}
-            </li>
-          ))}
+              <li className="list-none mb-1 ml-2" key={name}>
+                {name}: {value}
+              </li>
+            ))}
 
         <li className="list-none mt-auto font-bold">
           Group Rating: {Math.floor(bookData?.totalScore * 100) / 100}

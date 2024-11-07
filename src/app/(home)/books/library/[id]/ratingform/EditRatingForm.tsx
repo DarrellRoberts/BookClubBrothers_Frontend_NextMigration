@@ -3,7 +3,7 @@
 "use client";
 
 import { useState, useContext } from "react";
-import { AuthContext } from "../../../../../../context/AuthContext";
+import { AuthContext } from "@/context/AuthContext";
 import { Button, Form, Input } from "antd";
 
 interface props {
