@@ -160,7 +160,7 @@ justify-content: space-evenly;
 align-items: center;
 }
 
-:where(.css-dev-only-do-not-override-ni1kz0).ant-btn-default {
+:where(.css-dev-only-do-not-override-1rqnfsa).ant-btn-default {
     background-color: black;
     color: white;
 }
@@ -174,11 +174,11 @@ align-items: center;
     color: white;
 }
 
-:where(.css-dev-only-do-not-override-ni1kz0).ant-btn >span:hover {
+:where(.css-dev-only-do-not-override-1rqnfsa).ant-btn >span:hover {
     color: white;
 }
 
-:where(.css-dev-only-do-not-override-ni1kz0).ant-btn-default:not(:disabled):not(.ant-btn-disabled):hover {
+:where(.css-dev-only-do-not-override-1rqnfsa).ant-btn-default:not(:disabled):not(.ant-btn-disabled):hover {
     color: white;
     border-color: black;
     background-color: var(--tertiaryColor);

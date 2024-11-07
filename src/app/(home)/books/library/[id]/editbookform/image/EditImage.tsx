@@ -4,7 +4,7 @@
 
 import { useState, useContext } from "react";
 import axios from "axios";
-import { AuthContext } from "../../../../../../../context/authContext";
+import { AuthContext } from "../../../../../../../context/AuthContext";
 import { Button, Form, Upload } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 

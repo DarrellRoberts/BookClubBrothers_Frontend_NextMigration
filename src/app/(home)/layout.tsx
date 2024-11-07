@@ -1,6 +1,6 @@
 import React from "react";
 import type { Metadata } from "next";
-import AuthContextProvider from "../../context/authContext";
+import AuthContextProvider from "../../context/AuthContext";
 import ScrollToTop from "../../functions/ScrollToTop";
 import "../globals.css";
 import dynamic from "next/dynamic";

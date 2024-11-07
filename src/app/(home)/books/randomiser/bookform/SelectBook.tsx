@@ -2,7 +2,7 @@
 /* eslint-disable react/prop-types */
 import { Button, Form } from "antd";
 import { useState, useContext, Dispatch } from "react";
-import { AuthContext } from "../../../../../context/authContext";
+import { AuthContext } from "../../../../../context/AuthContext";
 import { useJwt } from "react-jwt";
 import { ACTIONS } from "../actions";
 

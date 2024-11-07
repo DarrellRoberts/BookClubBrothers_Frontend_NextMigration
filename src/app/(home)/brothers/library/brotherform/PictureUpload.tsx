@@ -6,7 +6,7 @@ import { useState, useContext } from "react";
 import axios from "axios";
 import { PlusOutlined } from "@ant-design/icons";
 import { Upload, Form, Button } from "antd";
-import { AuthContext } from "../../../../../context/authContext";
+import { AuthContext } from "../../../../../context/AuthContext";
 
 const normFile = (e) => {
   if (Array.isArray(e)) {

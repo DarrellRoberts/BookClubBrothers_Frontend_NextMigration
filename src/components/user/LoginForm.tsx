@@ -4,7 +4,7 @@
 
 import { Button, Form, Input } from "antd";
 import { useState, useContext } from "react";
-import { AuthContext } from "../../context/authContext";
+import { AuthContext } from "../../context/AuthContext";
 import styles from "./LoginForm.module.css";
 
 interface Login {
