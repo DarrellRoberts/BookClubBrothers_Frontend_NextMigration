@@ -1,21 +1,21 @@
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/react-in-jsx-scope */
-import LoneWolfImage from "@/assets/badges/Badge-lonewolf-badge-image.jpg";
+import PunctualWormImage from "@/assets/badges/Badge-punctual-image.jpg";
 import BadgeTemplate from "../BadgeTemplate";
 import Link from "next/link";
 import { Badge } from "antd";
 
 type Props = {
-  loneWolf: number;
+  punctualWorm: number;
 };
 
-const LoneWolf: React.FC<Props> = ({ loneWolf }) => {
-  const badge = LoneWolfImage.src;
+const PunctualWorm: React.FC<Props> = ({ punctualWorm }) => {
+  const badge = PunctualWormImage.src;
 
   const content = (
     <>
-      <p>Have been the only person to score a book.</p>
+      <p>Scored a book before the book meeting date</p>
       <Link className="underline" href="/club/badges">
         what's this?
       </Link>
@@ -23,10 +23,10 @@ const LoneWolf: React.FC<Props> = ({ loneWolf }) => {
   );
   return (
     <>
-      {loneWolf ? (
-        <Badge color="#005c00" count={loneWolf}>
+      {punctualWorm ? (
+        <Badge color="#005c00" count={punctualWorm}>
           <BadgeTemplate
-            title={`Lone Worm (x${loneWolf})`}
+            title={`Mad Hatter Worm (x${punctualWorm})`}
             content={content}
             badgeImageURL={badge}
           />
@@ -36,4 +36,4 @@ const LoneWolf: React.FC<Props> = ({ loneWolf }) => {
   );
 };
 
-export default LoneWolf;
+export default PunctualWorm;

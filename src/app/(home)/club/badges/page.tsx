@@ -6,11 +6,12 @@ import style from "./BadgesHomepage.module.css";
 
 const BadgesHomepage: React.FC = () => {
   const badgeData = {
-    loneWolf: true,
+    loneWolf: 1,
     allBooks: true,
     mostBooks: true,
     fiveComments: true,
     firstBook: true,
+    punctual: 1,
   };
   const badgeTitles = [
     "Brother Worm",
@@ -18,6 +19,7 @@ const BadgesHomepage: React.FC = () => {
     "Lone Worm",
     "Comment Worm",
     "God of Worms",
+    "Mad Hatter Worm",
   ];
   return (
     <>

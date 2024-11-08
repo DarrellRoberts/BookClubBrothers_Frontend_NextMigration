@@ -5,14 +5,16 @@ import style from "./badges.module.css";
 import CommentWorm from "./badge-folder/CommentWorm";
 import FirstBook from "./badge-folder/FirstBook";
 import GodWorm from "./badge-folder/GodWorm";
+import PunctualWorm from "./badge-folder/PunctualWorm";
 
 type Props = {
   badgeData: {
-    loneWolf: boolean;
+    loneWolf: number;
     allBooks: boolean;
     mostBooks: boolean;
     fiveComments: boolean;
     firstBook: boolean;
+    punctual: number;
   };
 };
 
@@ -24,6 +26,7 @@ const Badges: React.FC<Props> = ({ badgeData }) => {
       <LoneWolf loneWolf={badgeData?.loneWolf} />
       <CommentWorm commentWorm={badgeData?.fiveComments} />
       <GodWorm godWorm={badgeData?.mostBooks} />
+      <PunctualWorm punctualWorm={badgeData?.punctual} />
     </div>
   );
 };
