@@ -14,7 +14,7 @@ import {
   findComment,
   findCommentByUsername,
 } from "@/functions/comment-functions/findComments";
-import { findUserByUsername } from "@/functions/findUser";
+import { findUserByUsername } from "@/functions/find-functions/find";
 import styles from "./commentCon.module.css";
 import Link from "next/link";
 import ProfileSmall from "@/components/misc/profile/ProfileSmall";

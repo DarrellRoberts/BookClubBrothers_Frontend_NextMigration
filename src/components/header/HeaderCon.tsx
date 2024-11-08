@@ -39,18 +39,22 @@ const HeaderCon: React.FC<Props> = ({ propsToken }) => {
     : "";
   headerCon.current ? (headerCon.current.style.height = "88px") : "";
 
-  const isTokenExpired = (): boolean => {
-    if (!token) return false;
-    try {
-      const currentTime = Date.now() / 1000;
-      return decodedToken?.exp < currentTime;
-    } catch (error) {
-      return false;
+  const isTokenExpired = (): void => {
+    if (token) {
+      try {
+        const currentTime = Date.now() / 1000;
+        if (decodedToken?.exp < currentTime) {
+          logout();
+          localStorage.removeItem("username");
+        }
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 
   useEffect(() => {
-    isTokenExpired() ? logout() : null;
+    isTokenExpired();
   }, []);
 
   return (

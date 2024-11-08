@@ -4,21 +4,24 @@
 
 import { useState, useEffect } from "react";
 import styles from "./BookCover.module.css";
+import { type User } from "@/types/UserInterface";
 
 type Props = {
   title: string;
   totalScore: number;
   ratingArr: number[];
   raterArr: string[];
-}
+  hideScores: boolean;
+};
 
 const BookCover: React.FC<Props> = ({
   title,
   totalScore,
   ratingArr,
   raterArr,
+  hideScores,
 }) => {
-  const [users, setUserData] = useState([]);
+  const [users, setUserData] = useState<Array<User>>([]);
   const [error, setError] = useState("");
 
   const getData = async () => {
@@ -58,6 +61,7 @@ const BookCover: React.FC<Props> = ({
   useEffect(() => {
     getData();
   }, []);
+
   return (
     <>
       <div className="flex h-[100%] w-[100%]">
@@ -71,7 +75,7 @@ const BookCover: React.FC<Props> = ({
           {Array.isArray(raterObj) && raterObj.length > 0 ? (
             raterObj.map(([name, value]) => (
               <li className="list-none mb-1 ml-2" key={name}>
-                {name}: {value}
+                {name}: {hideScores ? "?" : value}
               </li>
             ))
           ) : (
@@ -80,7 +84,11 @@ const BookCover: React.FC<Props> = ({
 
           <li className="list-none mt-auto font-bold">
             Group Rating:{" "}
-            {totalScore ? Math.floor(totalScore * 100) / 100 : "Pending..."}
+            {totalScore
+              ? hideScores
+                ? "?"
+                : Math.floor(totalScore * 100) / 100
+              : "Pending..."}
           </li>
         </div>
       </div>

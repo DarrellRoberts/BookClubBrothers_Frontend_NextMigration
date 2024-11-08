@@ -19,9 +19,18 @@ import Profile from "@/components/misc/profile/Profile";
 import PictureUploadButton from "../brotherform/PictureUploadButton";
 import CommentCon from "@/components/comments/CommentCon";
 import Badges from "@/components/misc/badges/Badges";
-import { averageScore, findMinScoreBook, findMaxScoreBook, filterUserReadBooks, filterUserUnreadBooks, unreadBookTitles, userReadBookTitles } from "@/functions/stat-functions/scoreFunctions";
+import {
+  averageScore,
+  findMinScoreBook,
+  findMaxScoreBook,
+  filterUserReadBooks,
+  filterUserUnreadBooks,
+  unreadBookTitles,
+  userReadBookTitles,
+} from "@/functions/stat-functions/scoreFunctions";
 import { Book } from "@/types/BookInterface";
 import { formatServerDate } from "@/functions/time-functions/formatServerDate";
+import { handleHideScores_NoSetter } from "@/functions/time-functions/hideScores";
 
 type StateType = {
   showImage: boolean;
@@ -29,10 +38,10 @@ type StateType = {
 
 const reducer = (state: StateType, action) => {
   switch (action.type) {
-  case "toggleImage":
-    return { showImage: !state.showImage };
-  default:
-    return state;
+    case "toggleImage":
+      return { showImage: !state.showImage };
+    default:
+      return state;
   }
 };
 
@@ -99,7 +108,10 @@ const Dashboard: React.FC = () => {
   const avgScore: string = averageScore(findUser)?.toFixed(2);
 
   const userReadBooks: Book[] = filterUserReadBooks(bookData, findUser?._id);
-  const userUnreadBooks: Book[] = filterUserUnreadBooks(bookData, findUser?._id);
+  const userUnreadBooks: Book[] = filterUserUnreadBooks(
+    bookData,
+    findUser?._id
+  );
 
   const unreadBooksArr: string[] = unreadBookTitles(bookData, findUser?._id);
   const readBooksArr: string[] = userReadBookTitles(bookData, findUser?._id);
@@ -124,13 +136,13 @@ const Dashboard: React.FC = () => {
           <div className={style.headerCon}>
             <div className="flex flex-col">
               <h1 className="dashboardTitle">{findUser?.username}</h1>
-              <span className={style.lastLogin}>Last login: {formatServerDate(findUser?.lastLoggedIn) ?? ""}</span>
+              <span className={style.lastLogin}>
+                Last login: {formatServerDate(findUser?.lastLoggedIn) ?? ""}
+              </span>
             </div>
             <div className={style.achievementCon}>
               <h2>Achievements</h2>
-              <Badges
-                badgeData={findUser?.userInfo?.badges}
-              />
+              <Badges badgeData={findUser?.userInfo?.badges} />
             </div>
             <div className={style.profileCon}>
               <div className="flex-column">
@@ -161,6 +173,9 @@ const Dashboard: React.FC = () => {
                       totalScore={findMinBook?.totalScore}
                       ratingArr={findMinBook?.scoreRatings?.rating}
                       raterArr={findMinBook?.scoreRatings?.raterId}
+                      hideScores={handleHideScores_NoSetter(
+                        findMinBook?.dateOfMeeting
+                      )}
                     />
                   )}
                 </Link>
@@ -179,6 +194,9 @@ const Dashboard: React.FC = () => {
                       totalScore={findMaxBook?.totalScore}
                       ratingArr={findMaxBook?.scoreRatings?.rating}
                       raterArr={findMaxBook?.scoreRatings?.raterId}
+                      hideScores={handleHideScores_NoSetter(
+                        findMaxBook?.dateOfMeeting
+                      )}
                     />
                   )}
                 </Link>

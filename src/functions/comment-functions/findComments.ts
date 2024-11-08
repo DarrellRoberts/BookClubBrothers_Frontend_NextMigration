@@ -1,4 +1,4 @@
-import { findUser } from "../findUser";
+import { findUser } from "../find-functions/find";
 
 export const findComment = (bookData, userData, commentObj) => {
   if (bookData && userData) {
