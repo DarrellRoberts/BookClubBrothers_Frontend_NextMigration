@@ -14,15 +14,16 @@ import { Book } from "@/types/BookInterface";
 type Props = {
   bookData: Book;
   id: string;
+  loading: boolean;
+  hideScores: boolean;
 };
 
-const RatingCon: React.FC<Props> = ({ bookData, id }) => {
+const RatingCon: React.FC<Props> = ({ bookData, id, loading, hideScores }) => {
   const [users, setUserData] = useState([]);
   const [showRating, setShowRating] = useState<boolean>(false);
   const [showEditRating, setShowEditRating] = useState<boolean>(false);
   const [error, setError] = useState("");
 
-  //extracting username of user for initial rating value
   const { token } = useContext(AuthContext);
   const { decodedToken }: { decodedToken?: { username: string } } =
     useJwt(token);
@@ -59,10 +60,6 @@ const RatingCon: React.FC<Props> = ({ bookData, id }) => {
   };
   findBookScore();
 
-  useEffect(() => {
-    getData();
-  }, []);
-
   // function to find initialRating
   const findRatingByUsername = (raterObj, username) => {
     const result = raterObj?.find((pair) => pair[0] === username);
@@ -73,50 +70,61 @@ const RatingCon: React.FC<Props> = ({ bookData, id }) => {
     }
   };
   const initialRating = findRatingByUsername(raterObj, username);
-  return (
-    <>
-      <div className="ratingCon">
-        <h2 className="ratingTitle underline">Ratings</h2>
-        {Array.isArray(raterObj)
-          ? raterObj.map(([name, value]) => (
-              <>
-                <li className="list-none m-2" key={name}>
-                  {name}:
-                </li>
-                <div className="ratingGraph" style={{ width: `${value}rem` }}>
-                  {value}
-                </div>
-              </>
-            ))
-          : Object.entries(raterObj).map(([name, value]) => (
-              <li className="list-none mb-1 ml-2" key={name}>
-                {name}: {value}
-              </li>
-            ))}
 
-        <li className="list-none mt-auto font-bold">
-          Group Rating: {Math.floor(bookData?.totalScore * 100) / 100}
-        </li>
-        {decodedToken ? (
-          <div className="flex justify-center">
-            {initialRating ? (
-              <EditRatingButton
-                showEditRating={showEditRating}
-                setShowEditRating={setShowEditRating}
-                id={id}
-                initialRating={initialRating}
-              />
-            ) : (
-              <RatingButton
-                showRating={showRating}
-                setShowRating={setShowRating}
-                id={id}
-              />
-            )}
-          </div>
-        ) : null}
-      </div>
-    </>
+  useEffect(() => {
+    if (!loading) {
+      getData();
+    }
+  }, [loading]);
+
+  return (
+    <div className="ratingCon">
+      <h2 className="ratingTitle underline">Ratings</h2>
+      {Array.isArray(raterObj)
+        ? raterObj.map(([name, value], index) => (
+            <div key={index}>
+              <li className="list-none m-2">{name}:</li>
+              <div
+                className="ratingGraph"
+                style={{ width: hideScores ? "100%" : `${value}rem` }}
+              >
+                {hideScores ? "?" : value}
+              </div>
+            </div>
+          ))
+        : Object.entries(raterObj).map(([name, value], index) => (
+            <li className="list-none mb-1 ml-2" key={index}>
+              {name}: {hideScores ? "?" : value}
+            </li>
+          ))}
+
+      <li className="list-none mt-auto font-bold">
+        Group Rating:{" "}
+        {bookData?.totalScore
+          ? hideScores
+            ? "?"
+            : Math.floor(bookData?.totalScore * 100) / 100
+          : "Pending..."}
+      </li>
+      {decodedToken ? (
+        <div className="flex justify-center">
+          {initialRating ? (
+            <EditRatingButton
+              showEditRating={showEditRating}
+              setShowEditRating={setShowEditRating}
+              id={id}
+              initialRating={initialRating}
+            />
+          ) : (
+            <RatingButton
+              showRating={showRating}
+              setShowRating={setShowRating}
+              id={id}
+            />
+          )}
+        </div>
+      ) : null}
+    </div>
   );
 };
 

@@ -30,6 +30,7 @@ import EditTitle from "./editbookform/title/EditTitle";
 import EditImageButton from "./editbookform/image/EditImageButton";
 import EditImage from "./editbookform/image/EditImage";
 import { Book } from "@/types/BookInterface";
+import { handleHideScores_NoSetter } from "@/functions/time-functions/hideScores";
 
 type StateType = {
   showDelete: boolean;
@@ -44,31 +45,31 @@ type StateType = {
 
 const reducer = (state: StateType, action) => {
   switch (action.type) {
-  case "toggleShowDelete":
-    return { showDelete: !state.showDelete };
-  case "toggleShowAuthor":
-    return { showAuthor: !state.showAuthor };
-  case "toggleShowPublish":
-    return { showPublish: !state.showPublish };
-  case "toggleShowPage":
-    return { showPage: !state.showPage };
-  case "toggleShowDate":
-    return { showDate: !state.showDate };
-  case "toggleShowGenre":
-    return { showGenre: !state.showGenre };
-  case "toggleShowTitle":
-    return { showTitle: !state.showTitle };
-  case "toggleShowImage":
-    return { showImage: !state.showImage };
-  default:
-    return state;
+    case "toggleShowDelete":
+      return { showDelete: !state.showDelete };
+    case "toggleShowAuthor":
+      return { showAuthor: !state.showAuthor };
+    case "toggleShowPublish":
+      return { showPublish: !state.showPublish };
+    case "toggleShowPage":
+      return { showPage: !state.showPage };
+    case "toggleShowDate":
+      return { showDate: !state.showDate };
+    case "toggleShowGenre":
+      return { showGenre: !state.showGenre };
+    case "toggleShowTitle":
+      return { showTitle: !state.showTitle };
+    case "toggleShowImage":
+      return { showImage: !state.showImage };
+    default:
+      return state;
   }
 };
 
 const SingleBook: React.FC = () => {
   const [bookData, setBook] = useState<Book>();
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string>("");
 
   const [state, dispatch] = useReducer(reducer, {
     showDelete: false,
@@ -104,6 +105,7 @@ const SingleBook: React.FC = () => {
   useEffect(() => {
     getBookData();
   }, []);
+
   return (
     <>
       {state.showDelete ? (
@@ -147,6 +149,9 @@ const SingleBook: React.FC = () => {
                     totalScore={bookData?.totalScore}
                     ratingArr={bookData?.scoreRatings?.rating}
                     raterArr={bookData?.scoreRatings?.raterId}
+                    hideScores={handleHideScores_NoSetter(
+                      bookData?.dateOfMeeting
+                    )}
                   />
                 </div>
               )}
@@ -254,13 +259,22 @@ const SingleBook: React.FC = () => {
               ) : null}
 
               <li className="mt-5 underline">Score</li>
-              <li className="">{bookData?.totalScore}</li>
+              <li className="">
+                {handleHideScores_NoSetter(bookData?.dateOfMeeting)
+                  ? "?"
+                  : bookData?.totalScore}
+              </li>
             </ul>
           </div>
         </div>
       )}
       <div className="ratingAndCommentCon">
-        <RatingCon bookData={bookData} id={id} />
+        <RatingCon
+          bookData={bookData}
+          id={id}
+          loading={loading}
+          hideScores={handleHideScores_NoSetter(bookData?.dateOfMeeting)}
+        />
         <CommentCon bookData={bookData} id={id} />
       </div>
     </>

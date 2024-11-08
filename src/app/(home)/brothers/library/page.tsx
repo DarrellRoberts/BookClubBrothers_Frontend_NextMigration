@@ -8,6 +8,8 @@ import Loader from "../../../../components/loader/Loader";
 import { AuthContext } from "../../../../context/AuthContext";
 import { useJwt } from "react-jwt";
 
+import { findBook, findDateOfMeeting } from "@/functions/find-functions/find";
+
 //importing form components
 import PictureUploadButton from "./brotherform/PictureUploadButton";
 import EditUsernameButton from "./brotherform/EditUsernameButton";
@@ -22,6 +24,7 @@ import "../../../../style/searchRes.css";
 import "../../../../style/button.css";
 import LoaderNoText from "@/components/loader/LoaderNoText";
 import ProfileUnknownUserImage from "@/assets/Profile.unknown-profile-image.jpg";
+import { handleHideScores_NoSetter } from "@/functions/time-functions/hideScores";
 
 type StateType = {
   showImage: boolean;
@@ -32,16 +35,16 @@ type StateType = {
 
 const reducer = (state: StateType, action) => {
   switch (action.type) {
-  case "toggleImage":
-    return { showImage: !state.showImage };
-  case "toggleUsername":
-    return { showUsername: !state.showUsername };
-  case "toggleCountry":
-    return { showCountry: !state.showCountry };
-  case "toggleGenre":
-    return { showGenre: !state.showGenre };
-  default:
-    return state;
+    case "toggleImage":
+      return { showImage: !state.showImage };
+    case "toggleUsername":
+      return { showUsername: !state.showUsername };
+    case "toggleCountry":
+      return { showCountry: !state.showCountry };
+    case "toggleGenre":
+      return { showGenre: !state.showGenre };
+    default:
+      return state;
   }
 };
 
@@ -99,14 +102,9 @@ const Brothercat: React.FC = () => {
     const data = await fetch(
       `https://bookclubbrothers-backend.onrender.com/books`
     );
-    const user = await data.json();
-    setBookData(user);
+    const book = await data.json();
+    setBookData(book);
     setLoading(false);
-  };
-
-  const findBook = (id) => {
-    const book = bookData.find((book) => book._id === id);
-    return book ? book.title : "book not found";
   };
 
   let userBookObj = {};
@@ -117,7 +115,7 @@ const Brothercat: React.FC = () => {
           user?.userInfo?.books?.booksScored.length - 1
         ]
     );
-    bookId = bookId.map((book) => findBook(book));
+    bookId = bookId.map((book) => findBook(book, bookData));
     for (let i = 0; i < bookId.length; i++) {
       userBookObj[i] = bookId[i];
     }
@@ -171,7 +169,11 @@ const Brothercat: React.FC = () => {
                     <Link href={`/brothers/library/${user.username}`}>
                       <img
                         className="opacity-60 grayscale"
-                        src={user?.userInfo?.profileURL ? user?.userInfo?.profileURL : ProfileUnknownUserImage.src}
+                        src={
+                          user?.userInfo?.profileURL
+                            ? user?.userInfo?.profileURL
+                            : ProfileUnknownUserImage.src
+                        }
                         alt="profile_pic"
                       />
                     </Link>
@@ -255,18 +257,25 @@ const Brothercat: React.FC = () => {
                         Book:{" "}
                         {userBookObj[userData?.indexOf(user)][1] !==
                         "book not found" ? (
-                            userBookObj[userData?.indexOf(user)][1]
-                          ) : (
-                            <LoaderNoText />
-                          )}
+                          userBookObj[userData?.indexOf(user)][1]
+                        ) : (
+                          <LoaderNoText />
+                        )}
                       </li>
                       <li>
                         Score:
-                        {` ${
-                          user?.userInfo?.books?.score[
-                            user?.userInfo?.books?.score.length - 1
-                          ]
-                        }`}
+                        {handleHideScores_NoSetter(
+                          findDateOfMeeting(
+                            userBookObj[userData?.indexOf(user)][1],
+                            bookData
+                          )
+                        )
+                          ? " ?"
+                          : ` ${
+                              user?.userInfo?.books?.score[
+                                user?.userInfo?.books?.score.length - 1
+                              ]
+                            }`}
                       </li>
                     </ul>
                     <div className="clickPhotoCon mt-auto mb-5 flex">

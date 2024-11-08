@@ -12,6 +12,7 @@ import "../../../../style/search.css";
 import "../../../../style/searchRes.css";
 import { Button } from "antd";
 import BookImageCover from "./BookImageCover";
+import { handleHideScores_NoSetter } from "@/functions/time-functions/hideScores";
 
 const Booklibrary: React.FC = () => {
   const [bookData, setBookData] = useState([]);
@@ -50,9 +51,10 @@ const Booklibrary: React.FC = () => {
   //filtering data to show only read books
   const filteredResults = Array.isArray(bookData)
     ? bookData?.filter(
-      (book) => book.title.includes(searchBar) && book.read === true
-    )
+        (book) => book.title.includes(searchBar) && book.read === true
+      )
     : ["No results"];
+
   return (
     <>
       <div className="searchBackCon">
@@ -86,6 +88,7 @@ const Booklibrary: React.FC = () => {
                           totalScore={book?.totalScore}
                           ratingArr={book?.scoreRatings?.rating}
                           raterArr={book?.scoreRatings?.raterId}
+                          hideScores={handleHideScores_NoSetter(book?.dateOfMeeting)}
                         />
                       </div>
                     </Link>
