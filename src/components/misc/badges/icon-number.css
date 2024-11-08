@@ -1,0 +1,15 @@
+:where(.css-dev-only-do-not-override-1rqnfsa).ant-badge .ant-badge-count,
+:where(.css-dev-only-do-not-override-1rqnfsa).ant-badge .ant-badge-dot,
+:where(.css-dev-only-do-not-override-1rqnfsa).ant-badge
+  .ant-scroll-number-custom-component,
+:where(.css-1rqnfsa).ant-badge .ant-badge-count,
+:where(.css-1rqnfsa).ant-badge .ant-badge-dot,
+:where(.css-1rqnfsa).ant-badge .ant-scroll-number-custom-component {
+  transform: none;
+}
+
+:where(.css-dev-only-do-not-override-1rqnfsa).ant-badge .ant-badge-count,
+:where(.css-1rqnfsa).ant-badge .ant-badge-count {
+  box-shadow: 0 0 0 1px #000000;
+  font-size: 1rem;
+}

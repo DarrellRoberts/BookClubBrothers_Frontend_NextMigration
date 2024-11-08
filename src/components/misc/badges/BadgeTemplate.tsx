@@ -3,6 +3,7 @@ import React, { ReactNode } from "react";
 import { Popover } from "antd";
 import style from "./badges.module.css";
 import "./popover.css";
+import "./icon-number.css";
 
 type Props = {
   badgeImageURL: string;
