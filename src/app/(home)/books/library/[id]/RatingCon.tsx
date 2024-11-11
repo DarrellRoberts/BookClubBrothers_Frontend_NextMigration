@@ -86,15 +86,18 @@ const RatingCon: React.FC<Props> = ({ bookData, id, loading, hideScores }) => {
               <li className="list-none m-2">{name}:</li>
               <div
                 className="ratingGraph"
-                style={{ width: hideScores ? "100%" : `${value}rem` }}
+                style={{
+                  width:
+                    hideScores && username !== name ? "100%" : `${value * 10}%`,
+                }}
               >
-                {hideScores ? "?" : value}
+                {hideScores && username !== name ? "?" : value}
               </div>
             </div>
           ))
         : Object.entries(raterObj).map(([name, value], index) => (
             <li className="list-none mb-1 ml-2" key={index}>
-              {name}: {hideScores ? "?" : value}
+              {name}: {hideScores && username !== name ? "?" : value}
             </li>
           ))}
 
