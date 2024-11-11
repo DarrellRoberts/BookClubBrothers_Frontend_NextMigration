@@ -62,6 +62,20 @@ const BookStats = () => {
       <h1 className="booksTitle">Book Stats</h1>
       <div className={styles.booksStatsCon}>
         <div className="flex flex-col justify-self-center">
+          <h2>Total Scores</h2>
+          {loading ? (
+            <LoaderNoText />
+          ) : (
+            <>
+              <Graph
+                bookTitles={bookData.map((book) => book.title)}
+                bookScores={totalScoreArray}
+                username="Total Scores"
+              />
+            </>
+          )}
+        </div>
+        <div className="flex flex-col justify-self-center">
           <h2>By Genre</h2>
           {loading ? (
             <LoaderNoText />
