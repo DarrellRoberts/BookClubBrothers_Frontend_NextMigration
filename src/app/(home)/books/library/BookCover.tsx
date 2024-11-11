@@ -2,9 +2,11 @@
 /* eslint-disable react/react-in-jsx-scope */
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import styles from "./BookCover.module.css";
 import { type User } from "@/types/UserInterface";
+import { AuthContext } from "@/context/AuthContext";
+import { useJwt } from "react-jwt";
 
 type Props = {
   title: string;
@@ -23,6 +25,11 @@ const BookCover: React.FC<Props> = ({
 }) => {
   const [users, setUserData] = useState<Array<User>>([]);
   const [error, setError] = useState("");
+
+  const { token } = useContext(AuthContext);
+  const { decodedToken }: { decodedToken?: { username: string; _id: string } } =
+    useJwt(token);
+  const username = decodedToken?.username;
 
   const getData = async () => {
     try {
@@ -75,7 +82,7 @@ const BookCover: React.FC<Props> = ({
           {Array.isArray(raterObj) && raterObj.length > 0 ? (
             raterObj.map(([name, value]) => (
               <li className="list-none mb-1 ml-2" key={name}>
-                {name}: {hideScores ? "?" : value}
+                {name}: {hideScores && username !== name ? "?" : value}
               </li>
             ))
           ) : (
