@@ -13,6 +13,7 @@ import {
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
 import { abbreviateString } from "@/functions/abbreviateString";
+import { useMediaQuery } from "react-responsive";
 import style from "./Graph.module.css";
 
 ChartJS.register(
@@ -28,8 +29,8 @@ ChartJS.register(
 
 type Props = {
   bookTitles: string[];
-  totalBookScores?: number[];
-  bookScores?: number[];
+  totalBookScores?: number[] | string[];
+  bookScores?: number[] | string[];
   username?: string;
 };
 
@@ -39,12 +40,16 @@ const Graph: React.FC<Props> = ({
   bookScores,
   username,
 }: Props) => {
-  const labelsLen = bookTitles.map((title) =>
-    title.length > 22 ? abbreviateString(title) : title
-  );
+  const handleDesktop = useMediaQuery({ query: "(min-device-width: 801px)" });
 
-  const datasets: number[] = bookScores ?? null;
-  const datasets2: number[] = totalBookScores;
+  const labelsLen = handleDesktop
+    ? bookTitles
+    : bookTitles.map((title) =>
+        title.length > 15 ? abbreviateString(title) : title
+      );
+
+  const datasets: number[] | string[] = bookScores ?? null;
+  const datasets2: number[] | string[] = totalBookScores;
 
   const data = {
     labels: labelsLen,
@@ -81,6 +86,15 @@ const Graph: React.FC<Props> = ({
           },
         },
       },
+      // tooltip: {
+      //   callbacks: {
+      //     label: (context) => {
+      //       const bookTitle = bookTitles[context.dataIndex];
+
+      //       return console.log(context);
+      //     },
+      //   },
+      // },
     },
     font: {
       size: 20,
@@ -89,7 +103,7 @@ const Graph: React.FC<Props> = ({
       y: {
         ticks: {
           font: {
-            size: datasets2 ? 16 : 20,
+            size: 16,
             family: "Gentium Book Plus",
           },
         },

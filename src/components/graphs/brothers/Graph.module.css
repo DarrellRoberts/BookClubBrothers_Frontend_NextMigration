@@ -1,39 +1,41 @@
 .graph {
-    height: 800px; 
-    margin-top: 1rem;
+  height: 800px;
+  width: clamp(500px, 100vw, 100%);
+  /* width: 100%; */
+  margin-top: 1rem;
 }
 
 .pieCon {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-    font-family: var(--main);
-    overflow-y: visible;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  font-family: var(--main);
+  overflow-y: visible;
 }
 
 .unreadTitle {
-    font-size: 2rem;
-    text-decoration: underline;
+  font-size: 2rem;
+  text-decoration: underline;
 }
 
 .pieCon .percentage {
-    position: absolute;
-    font-size: clamp( 1.35rem, 2vw,2.5rem);
-  }
+  position: absolute;
+  font-size: clamp(1.35rem, 2vw, 2.5rem);
+}
 
 @media screen and (max-width: 800px) {
-    .graph {
-        width: 400px;
-    }
+  .graph {
+    width: 400px;
+  }
 }
 
 @media screen and (max-width: 450px) {
-.graph {
-    width: 325px;
-} 
-.pieCon {
+  .graph {
+    width: 300px;
+  }
+  .pieCon {
     flex-direction: column;
-}
+  }
 }
