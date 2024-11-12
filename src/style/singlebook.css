@@ -1,92 +1,108 @@
 .bookTitle {
-    font-family: var(--main);
-    font-size: 5rem;
-    margin: 1rem;
+  font-family: var(--main);
+  font-size: 5rem;
+  margin: 1rem;
 }
 
 .bookCover {
-    width: 600px;
-    height: 400px;
+  width: 600px;
+  height: 400px;
 }
 
 .bookTitleCoverCon {
-    width: 600px;
-    height: 400px;
+  width: 600px;
+  height: 400px;
 }
 
 .bookRightCon {
-    font-family: var(--main);
-    border-width: 2px;
-    border-color: black;
-    padding: 1.5rem 2rem;
-    width: 400px;
+  font-family: var(--main);
+  border-width: 2px;
+  border-color: var(--default-border-color);
+  padding: 1.5rem 2rem;
+  width: 400px;
 }
 
 .ratingAndCommentCon {
-    display: flex;
-    margin-bottom: 2rem;
+  display: flex;
+  margin-bottom: 2rem;
 }
 
 /* delete section */
 :where(.css-dev-only-do-not-override-1rqnfsa).ant-popover .ant-popover-inner {
-    background-color: var(--tertiaryColor);
-    color: white;
+  background-color: var(--tertiaryColor);
+  color: white;
 }
 
-:where(.css-dev-only-do-not-override-1rqnfsa).ant-popconfirm .ant-popconfirm-message .ant-popconfirm-title {
-    color: white;
+:where(.css-dev-only-do-not-override-1rqnfsa).ant-popconfirm
+  .ant-popconfirm-message
+  .ant-popconfirm-title {
+  color: white;
 }
 
-:where(.css-dev-only-do-not-override-1rqnfsa).ant-popconfirm .ant-popconfirm-message .ant-popconfirm-description {
-    color: white;
+:where(.css-dev-only-do-not-override-1rqnfsa).ant-popconfirm
+  .ant-popconfirm-message
+  .ant-popconfirm-description {
+  color: white;
 }
 
 :where(.css-1rqnfsa).ant-popover .ant-popover-inner {
-    background-color: var(--tertiaryColor);
-    color: white;
-}
-    
-:where(.css-1rqnfsa).ant-popconfirm .ant-popconfirm-message .ant-popconfirm-title {
-    color: white;
+  background-color: var(--tertiaryColor);
+  color: white;
 }
 
-:where(.css-1rqnfsa).ant-popconfirm .ant-popconfirm-message .ant-popconfirm-description {
-    color: white;
+:where(.css-1rqnfsa).ant-popconfirm
+  .ant-popconfirm-message
+  .ant-popconfirm-title {
+  color: white;
 }
-:where(.css-dev-only-do-not-override-1rqnfsa).ant-btn-default:not(:disabled):not(.ant-btn-disabled):hover {
-    background-color: var(--tertiaryColor);
+
+:where(.css-1rqnfsa).ant-popconfirm
+  .ant-popconfirm-message
+  .ant-popconfirm-description {
+  color: white;
 }
-:where(.css-1rqnfsa).ant-btn-default:not(:disabled):not(.ant-btn-disabled):hover {
-    background-color: var(--tertiaryColor);
+:where(.css-dev-only-do-not-override-1rqnfsa).ant-btn-default:not(
+    :disabled
+  ):not(.ant-btn-disabled):hover {
+  background-color: var(--tertiaryColor);
+}
+:where(.css-1rqnfsa).ant-btn-default:not(:disabled):not(
+    .ant-btn-disabled
+  ):hover {
+  background-color: var(--tertiaryColor);
 }
 
 .authorisationMessage {
-    font-weight: bold;
-    background-color: red;
-    margin-top: 0.5rem;
-    padding: 2rem;
-    color: white;
+  font-weight: bold;
+  background-color: red;
+  margin-top: 0.5rem;
+  padding: 2rem;
+  color: white;
 }
 
 /* button */
 :where(.css-dev-only-do-not-override-1rqnfsa).ant-btn-default {
-    background-color: black;
-    color: white;
+  background-color: black;
+  color: white;
 }
 
-:where(.css-dev-only-do-not-override-1rqnfsa).ant-btn-default:not(:disabled):not(.ant-btn-disabled):hover {
-    background-color: var(--tertiaryColor);
-    border-color: var(--tertiaryColor);
-    color: white;
+:where(.css-dev-only-do-not-override-1rqnfsa).ant-btn-default:not(
+    :disabled
+  ):not(.ant-btn-disabled):hover {
+  background-color: var(--tertiaryColor);
+  border-color: var(--tertiaryColor);
+  color: white;
 }
 
 :where(.css-1rqnfsa).ant-btn-default {
-    background-color: black;
-    color: white;
+  background-color: black;
+  color: white;
 }
 
-:where(.css-1rqnfsa).ant-btn-default:not(:disabled):not(.ant-btn-disabled):hover {
-    background-color: var(--tertiaryColor);
-    border-color: var(--tertiaryColor);
-    color: white;
+:where(.css-1rqnfsa).ant-btn-default:not(:disabled):not(
+    .ant-btn-disabled
+  ):hover {
+  background-color: var(--tertiaryColor);
+  border-color: var(--tertiaryColor);
+  color: white;
 }

@@ -27,15 +27,15 @@
 }
 
 .textInfo h2 {
-    font-size: 2.5rem;
+  font-size: 2.5rem;
 }
 
 .textInfo li {
-    font-size: 1.25rem;
+  font-size: 1.25rem;
 }
 
 .textInfo a {
-    z-index: 11;
+  z-index: 11;
 }
 
 @media screen and (max-width: 800px) {
@@ -52,15 +52,15 @@
     right: 0;
     width: 100%;
     padding: 2rem;
-    background-color: black;
-    color: white;
+    background-color: var(--main-font-color);
+    color: var(--main-bg-color);
     z-index: 3;
   }
   .textInfo h2 {
     font-size: 2rem;
     text-align: center;
-}
-.textInfo li {
+  }
+  .textInfo li {
     font-size: 1rem;
-}
+  }
 }

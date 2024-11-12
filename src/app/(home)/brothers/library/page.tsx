@@ -16,7 +16,7 @@ import EditUsernameButton from "./brotherform/EditUsernameButton";
 import EditCityAndCountryButton from "./brotherform/EditCityAndCountryButton";
 import EditGenreButton from "./brotherform/EditGenreButton";
 
-import Search from "../../../../components/misc/Search";
+import Search from "../../../../components/misc/search/Search";
 import "../../../../style/brothercat.css";
 import "../../../../style/brothercatRes.css";
 import "../../../../style/search.css";
@@ -148,7 +148,7 @@ const Brothercat: React.FC = () => {
               filteredResults.map((user, index) => (
                 <div
                   key={index}
-                  className="brotherBook border-black border-4 border-solid m-5 flex"
+                  className="brotherBook border-4 border-solid m-5 flex"
                 >
                   <div className="brotherBookLeft flex flex-col justify-evenly items-center">
                     {decodedToken?._id === user?._id ? (
@@ -168,7 +168,6 @@ const Brothercat: React.FC = () => {
                     )}
                     <Link href={`/brothers/library/${user.username}`}>
                       <img
-                        className="opacity-60 grayscale"
                         src={
                           user?.userInfo?.profileURL
                             ? user?.userInfo?.profileURL

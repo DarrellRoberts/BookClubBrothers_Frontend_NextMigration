@@ -1,46 +1,47 @@
-
 .brothersTitle {
-    font-family: var(--main);
-    font-size: 5rem;
-    margin-left: 3rem;
+  font-family: var(--main);
+  font-size: 5rem;
+  margin-left: 3rem;
 }
 
 .brotherBook {
-    width: 700px;
-    height: 500px;
-    background-color: rgba(244, 236, 8, 0.087);
-    font-family: var(--main);
+  width: 700px;
+  height: 500px;
+  background-color: var(--user-background-color);
+  font-family: var(--main);
+  border-color: var(--default-border-color);
 }
 
 .brotherBookLeft {
-    border-right-color: rgba(0, 0, 0, 0.193);
-    border-right-width: 2px;
-    border-right-style: solid;
-    width: 50%;
+  border-right-color: rgba(0, 0, 0, 0.193);
+  border-right-width: 2px;
+  border-right-style: solid;
+  width: 50%;
 }
 
 .brotherBookLeft h2 {
-    font-family: var(--main);
-    font-size: 3.5rem;
+  font-family: var(--main);
+  font-size: 3.5rem;
+  color: var(--main-font-color);
 }
 
 .brotherBookLeft img {
-    width: 200px;
-    height: 350px;
-    
-    border-width: 3px;
-    border-color: black;
+  width: 200px;
+  height: 350px;
+  border-width: 3px;
+  border-color: var(--default-border-color);
+  filter: grayscale(1);
 }
 
 .brotherBookRight {
-    width: 50%;
+  width: 50%;
 }
 
 .brotherList {
-font-size: 1.5rem;
+  font-size: 1.5rem;
 }
 
 .clickPhoto {
-    text-align: center;
-    padding-right: 20px;
+  text-align: center;
+  padding-right: 20px;
 }

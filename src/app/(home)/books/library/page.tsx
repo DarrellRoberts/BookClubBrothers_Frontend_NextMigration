@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import Loader from "../../../../components/loader/Loader";
 import BookCover from "./BookCover";
 import Link from "next/link";
-import Search from "../../../../components/misc/Search";
+import Search from "../../../../components/misc/search/Search";
 import "../../../../style/booklibrary.css";
 import "../../../../style/booklibraryRes.css";
 import "../../../../style/search.css";
@@ -88,7 +88,9 @@ const Booklibrary: React.FC = () => {
                           totalScore={book?.totalScore}
                           ratingArr={book?.scoreRatings?.rating}
                           raterArr={book?.scoreRatings?.raterId}
-                          hideScores={handleHideScores_NoSetter(book?.dateOfMeeting)}
+                          hideScores={handleHideScores_NoSetter(
+                            book?.dateOfMeeting
+                          )}
                         />
                       </div>
                     </Link>

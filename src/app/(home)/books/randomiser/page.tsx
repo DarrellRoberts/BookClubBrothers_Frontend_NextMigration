@@ -14,28 +14,28 @@ import EditUnreadBook from "./bookform/edit/EditUnreadBook";
 
 const reducer = (state, action) => {
   switch (action.type) {
-  case ACTIONS.SHOWCREATEBOOK:
-    return { ...state, showCreateBook: action.payload };
-  case ACTIONS.SHOWEDITBOOK:
-    return { ...state, showEditBook: action.payload };
-  case ACTIONS.SETINDEX:
-    return { ...state, index: action.payload };
-  case ACTIONS.SETBOOKDATA:
-    return { ...state, bookData: action.payload };
-  case ACTIONS.SETUSERDATA:
-    return { ...state, userData: action.payload };
-  case ACTIONS.SETERROR:
-    return { ...state, error: action.payload };
-  case ACTIONS.SETLOADING:
-    return { ...state, showLoading: action.payload };
-  case ACTIONS.SHOWRANDOM:
-    return { ...state, showRandom: action.payload };
-  case ACTIONS.SETRANDOM:
-    return { ...state, showRandom: action.payload };
-  case ACTIONS.SHOWLOADING:
-    return { ...state, showLoading: action.payload };
-  default:
-    return state;
+    case ACTIONS.SHOWCREATEBOOK:
+      return { ...state, showCreateBook: action.payload };
+    case ACTIONS.SHOWEDITBOOK:
+      return { ...state, showEditBook: action.payload };
+    case ACTIONS.SETINDEX:
+      return { ...state, index: action.payload };
+    case ACTIONS.SETBOOKDATA:
+      return { ...state, bookData: action.payload };
+    case ACTIONS.SETUSERDATA:
+      return { ...state, userData: action.payload };
+    case ACTIONS.SETERROR:
+      return { ...state, error: action.payload };
+    case ACTIONS.SETLOADING:
+      return { ...state, showLoading: action.payload };
+    case ACTIONS.SHOWRANDOM:
+      return { ...state, showRandom: action.payload };
+    case ACTIONS.SETRANDOM:
+      return { ...state, showRandom: action.payload };
+    case ACTIONS.SHOWLOADING:
+      return { ...state, showLoading: action.payload };
+    default:
+      return state;
   }
 };
 
@@ -52,10 +52,14 @@ const RandomiserHomepage: React.FC = () => {
   });
 
   const { token } = useContext(AuthContext);
-  const { decodedToken }: { decodedToken?: {
-    _id: string; username: string
-} } =
-    useJwt(token);
+  const {
+    decodedToken,
+  }: {
+    decodedToken?: {
+      _id: string;
+      username: string;
+    };
+  } = useJwt(token);
 
   const adminId = "65723ac894b239fe25fe6871";
   const getBookData = async () => {
@@ -121,9 +125,9 @@ const RandomiserHomepage: React.FC = () => {
                     onClick={() =>
                       !state.showEditBook
                         ? dispatch({
-                          type: ACTIONS.SETINDEX,
-                          payload: state.bookData.indexOf(book),
-                        })
+                            type: ACTIONS.SETINDEX,
+                            payload: state.bookData.indexOf(book),
+                          })
                         : null
                     }
                   >
@@ -155,8 +159,8 @@ const RandomiserHomepage: React.FC = () => {
                 on each item in the list to see its details.
               </h2>
               {!state.showLoading ? (
-                <h2 className="text-red-500 bg-black mt-5 rounded">
-                Only the admin can select the book.
+                <h2 className={style.adminText}>
+                  Only the admin can select the book.
                 </h2>
               ) : null}
             </div>
@@ -200,8 +204,8 @@ const RandomiserHomepage: React.FC = () => {
                         "user not found"
                           ? " (loading...)"
                           : findUser(
-                            state.bookData[state.index]?.suggestedBy
-                          )}{" "}
+                              state.bookData[state.index]?.suggestedBy
+                            )}{" "}
                       </li>
                     </ul>
                     <div className={style.buttonCon}>
@@ -213,25 +217,27 @@ const RandomiserHomepage: React.FC = () => {
                         showRandom={state.showRandom}
                         dispatch={dispatch}
                       />
-                      {state.showRandom && state.bookData[state.index]?.suggestedBy ===
-                      decodedToken?._id || decodedToken?._id === adminId ? (
-                          <>
-                            <EditUnreadBook
-                              id={state.bookData[state.index]?._id}
-                              showEditBook={state.showEditBook}
-                              dispatch={dispatch}
-                              inAuthor={state.bookData[state.index]?.author}
-                              inTitle={state.bookData[state.index]?.title}
-                              inPublished={
-                                state.bookData[state.index]?.yearPublished
-                              }
-                              inPages={state.bookData[state.index]?.pages}
-                              inGenre={state.bookData[state.index]?.genre}
-                              inImageURL={state.bookData[state.index]?.imageURL}
-                            />
-                            <DeleteBook id={state.bookData[state.index]?._id} />
-                          </>
-                        ) : null}
+                      {(state.showRandom &&
+                        state.bookData[state.index]?.suggestedBy ===
+                          decodedToken?._id) ||
+                      decodedToken?._id === adminId ? (
+                        <>
+                          <EditUnreadBook
+                            id={state.bookData[state.index]?._id}
+                            showEditBook={state.showEditBook}
+                            dispatch={dispatch}
+                            inAuthor={state.bookData[state.index]?.author}
+                            inTitle={state.bookData[state.index]?.title}
+                            inPublished={
+                              state.bookData[state.index]?.yearPublished
+                            }
+                            inPages={state.bookData[state.index]?.pages}
+                            inGenre={state.bookData[state.index]?.genre}
+                            inImageURL={state.bookData[state.index]?.imageURL}
+                          />
+                          <DeleteBook id={state.bookData[state.index]?._id} />
+                        </>
+                      ) : null}
                     </div>
                   </>
                 )}

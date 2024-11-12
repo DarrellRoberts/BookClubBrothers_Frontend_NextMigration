@@ -65,9 +65,7 @@ const HeaderCon: React.FC<Props> = ({ propsToken }) => {
       {token || propsToken ? (
         <>
           {decodedToken?.username === "Josh" ? <Celebration /> : null}
-          <Logout
-          // propsToken={propsToken}
-          />
+          <Logout />
           {handleDesktop ? (
             <div className={style.headerLinks}>
               <HeaderLinks />
