@@ -57,7 +57,7 @@
   width: 400px;
   height: 250px;
   border-width: 5px;
-  border-color: black;
+  border-color: var(--default-border-color);
 }
 
 .boxItem img {

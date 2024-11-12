@@ -1,0 +1,152 @@
+.homepageTitle {
+  font-family: var(--main);
+  font-size: 5rem;
+  animation: appear 3s linear 0s 1;
+}
+
+.brothersCon {
+  display: flex;
+  width: 100%;
+  justify-content: space-evenly;
+  margin-top: 2rem;
+  font-size: 3rem;
+}
+
+.book {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+}
+
+/* var(--default-border-color) */
+/* var(--main-font-color) */
+/* var(--main-bg-color) */
+
+.bookEgg {
+  border-width: 2px;
+  border-color: var(--default-border-color);
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  height: 425px;
+  width: 300px;
+  font-family: var(--main);
+  animation: appear 1s linear 0s 1;
+}
+
+.clubEgg {
+  border-width: 2px;
+  background-color: var(--main-bg-color);
+  border-color: var(--default-border-color);
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  height: 325px;
+  width: 250px;
+  font-family: var(--main);
+  position: absolute;
+  top: 370px;
+  transform: translateX(-50%);
+  animation: appear 2s linear 0s 1;
+}
+
+.brothersEgg {
+  border-width: 2px;
+  border-color: var(--default-border-color);
+  background-color: var(--main-bg-color);
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  height: 225px;
+  width: 200px;
+  font-family: var(--main);
+  position: absolute;
+  top: 450px;
+  transform: translateX(-50%);
+  animation: appear 3s linear 0s 1;
+}
+
+.bookEgg:hover,
+.clubEgg:hover,
+.brothersEgg:hover {
+  background-color: black;
+  color: white;
+}
+
+@keyframes appear {
+  0% {
+    opacity: 0;
+  }
+  70% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@media screen and (max-width: 815px) {
+  .homepageTitle {
+    font-size: 3rem;
+  }
+
+  .brothersCon {
+    flex-direction: column;
+    align-items: center;
+    font-size: 2rem;
+    padding-bottom: 10rem;
+  }
+
+  .book {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+  }
+
+  .bookEgg {
+    height: 350px;
+    width: 250px;
+  }
+
+  .clubEgg {
+    height: 275px;
+    width: 200px;
+    top: 300px;
+  }
+
+  .brothersEgg {
+    height: 200px;
+    width: 150px;
+    top: 365px;
+  }
+
+  .bookEgg:hover,
+  .clubEgg:hover,
+  .brothersEgg:hover,
+  .bookEgg:active,
+  .clubEgg:active,
+  .brothersEgg:active {
+    background-color: black;
+    color: white;
+  }
+}
+
+@media screen and (max-width: 475px) {
+  .clubEgg {
+    top: 370px;
+  }
+
+  .brothersEgg {
+    top: 435px;
+  }
+}
