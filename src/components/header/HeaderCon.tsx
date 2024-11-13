@@ -21,7 +21,7 @@ type Props = {
 };
 
 const HeaderCon: React.FC<Props> = ({ propsToken }) => {
-  const { token, logout } = useContext(AuthContext);
+  const { token } = useContext(AuthContext);
   const {
     decodedToken,
   }: { decodedToken?: { token: string; username: string; exp: number } } = token
@@ -39,23 +39,21 @@ const HeaderCon: React.FC<Props> = ({ propsToken }) => {
     : "";
   headerCon.current ? (headerCon.current.style.height = "88px") : "";
 
+  const expired = useJwt(token)?.isExpired;
+
   const isTokenExpired = (): void => {
     if (token) {
-      try {
-        const currentTime = Date.now() / 1000;
-        if (decodedToken?.exp < currentTime) {
-          logout();
-          localStorage.removeItem("username");
-        }
-      } catch (error) {
-        console.log(error);
+      if (expired) {
+        localStorage.removeItem("token");
+        localStorage.removeItem("username");
+        document.location.reload();
+        console.log("token is expired");
       }
     }
   };
-
   useEffect(() => {
     isTokenExpired();
-  }, []);
+  }, [expired]);
 
   return (
     <header
