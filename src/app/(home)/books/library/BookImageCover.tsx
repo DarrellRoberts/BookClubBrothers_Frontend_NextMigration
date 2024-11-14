@@ -3,18 +3,18 @@
 import style from "./BookCover.module.css";
 
 type Props = {
-  title?: string,
-  imageURL: string
-}
+  title?: string;
+  imageURL: string;
+};
 
-const BookImageCover: React.FC<Props> = ({title, imageURL })=> {
+const BookImageCover: React.FC<Props> = ({ title, imageURL }) => {
   return (
     <>
       <h2 className={style.smallBookTitle}>{title ?? ""}</h2>
       <img
         src={imageURL}
         alt="book_review_image"
-        className="border-black border-4 border-black border-solid m-5"
+        className={style.bookImageCon}
       />
     </>
   );

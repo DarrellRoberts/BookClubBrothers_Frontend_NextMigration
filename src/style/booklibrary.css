@@ -1,75 +1,87 @@
 .bookLibraryTitle {
-    font-family: var(--main);
-    font-size: 5rem;
-    margin-left: 3rem;
+  font-family: var(--main);
+  font-size: 5rem;
+  margin-left: 3rem;
 }
 
 .bookCon {
-    margin-top: 1rem;
+  margin-top: 1rem;
 }
 
 .bookCon img {
-    width: 400px;
-    height: 250px;
+  width: 400px;
+  height: 250px;
 }
 
 .bookCoverCon {
-    width: 400px;
-    height: 250px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  border-color: var(--default-border-color);
+  border-width: 5px;
+  border-style: solid;
+  margin: 1.25rem;
+  width: 400px;
+  height: 250px;
 }
 
 .smallBookTitle {
-    font-family: var(--main);
-    font-size: 2rem;
-    font-weight: bolder;
-    text-align: center;
-    text-decoration: underline;
-    margin: 0px;
+  font-family: var(--main);
+  font-size: 2rem;
+  font-weight: bolder;
+  text-align: center;
+  text-decoration: underline;
+  margin: 0px;
 }
 
 .addBookCon {
-    border-width: 5px;
-    border-top-color: black;
-    border-top-style:dashed;
-    padding: 2rem 0px;
-    display: flex;
-    justify-content: center;
+  border-width: 5px;
+  border-top-color: black;
+  border-top-style: dashed;
+  padding: 2rem 0px;
+  display: flex;
+  justify-content: center;
 }
 
 :where(.css-dev-only-do-not-override-1rqnfsa).ant-btn-default {
-    background-color: black;
-    color: white;
+  background-color: black;
+  color: white;
 }
 
 :where(.css-1rqnfsa).ant-btn-default {
-    background-color: black;
-    color: white;
+  background-color: black;
+  color: white;
 }
 
 :where(.css-dev-only-do-not-override-1rqnfsa).ant-btn-default:hover {
-    background-color: var(--tertiaryColor);
-    color:white;
+  background-color: var(--tertiaryColor);
+  color: white;
 }
 
 :where(.css-1rqnfsa).ant-btn-default:hover {
-    background-color: var(--tertiaryColor);
-    color: white;
+  background-color: var(--tertiaryColor);
+  color: white;
 }
 
-:where(.css-1rqnfsa).ant-btn >span:hover {
-    color: white;
+:where(.css-1rqnfsa).ant-btn > span:hover {
+  color: white;
 }
 
-:where(.css-dev-only-do-not-override-1rqnfsa).ant-btn >span:hover {
-    color: white;
+:where(.css-dev-only-do-not-override-1rqnfsa).ant-btn > span:hover {
+  color: white;
 }
 
-:where(.css-dev-only-do-not-override-1rqnfsa).ant-btn-default:not(:disabled):not(.ant-btn-disabled):hover {
-    color: white;
-    border-color: black;
+:where(.css-dev-only-do-not-override-1rqnfsa).ant-btn-default:not(
+    :disabled
+  ):not(.ant-btn-disabled):hover {
+  color: white;
+  border-color: black;
 }
 
-:where(.css-1rqnfsa).ant-btn-default:not(:disabled):not(.ant-btn-disabled):hover {
-    color: white;
-    border-color: black;
+:where(.css-1rqnfsa).ant-btn-default:not(:disabled):not(
+    .ant-btn-disabled
+  ):hover {
+  color: white;
+  border-color: black;
 }

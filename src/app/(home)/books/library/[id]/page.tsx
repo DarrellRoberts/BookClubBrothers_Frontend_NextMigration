@@ -140,10 +140,10 @@ const SingleBook: React.FC = () => {
                   alt="book_review_image"
                   width=""
                   height=""
-                  className="bookCover border-black border-4 border-black border-solid m-5"
+                  className="bookCover border-4 border-solid m-5"
                 />
               ) : (
-                <div className="bookTitleCoverCon flex justify-center text-center items-center border-4 m-5 border-black border-solid">
+                <div className="bookTitleCoverCon flex justify-center text-center items-center border-4 m-5 border-solid">
                   <BookCover
                     title={bookData?.title}
                     totalScore={bookData?.totalScore}

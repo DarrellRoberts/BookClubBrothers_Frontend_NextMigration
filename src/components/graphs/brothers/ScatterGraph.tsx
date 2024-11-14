@@ -9,6 +9,7 @@ import {
   ChartOptions,
 } from "chart.js";
 import { Scatter } from "react-chartjs-2";
+import Cookies from "js-cookie";
 import styles from "./Graph.module.css";
 
 ChartJS.register(LinearScale, PointElement, LineElement, Tooltip, Legend);
@@ -22,7 +23,15 @@ type Props = {
   xMin: number;
 };
 
-const ScatterGraph: React.FC<Props> = ({ labelArray, pagesArray, scoreArray, xAxes, xMax, xMin }) => {
+const ScatterGraph: React.FC<Props> = ({
+  labelArray,
+  pagesArray,
+  scoreArray,
+  xAxes,
+  xMax,
+  xMin,
+}) => {
+  const darkCookie = Cookies.get("dark-mode");
 
   const data = {
     labels: scoreArray,
@@ -44,6 +53,7 @@ const ScatterGraph: React.FC<Props> = ({ labelArray, pagesArray, scoreArray, xAx
     plugins: {
       legend: {
         labels: {
+          color: darkCookie ? "white" : "black",
           font: {
             size: 20,
             family: "Gentium Book Plus",
@@ -56,14 +66,16 @@ const ScatterGraph: React.FC<Props> = ({ labelArray, pagesArray, scoreArray, xAx
             const pages = pagesArray[context.dataIndex];
             const scores = scoreArray[context.dataIndex];
             const bookTitle = labelArray[context.dataIndex];
+            console.log(context);
             return `${bookTitle}: ${pages}, ${scores}`;
-          }
-        }
-      }
+          },
+        },
+      },
     },
     scales: {
       y: {
         ticks: {
+          color: darkCookie ? "white" : "black",
           font: {
             size: 20,
             family: "Gentium Book Plus",
@@ -79,10 +91,11 @@ const ScatterGraph: React.FC<Props> = ({ labelArray, pagesArray, scoreArray, xAx
         },
         display: true,
         beginAtZero: true,
-        max: 10
+        max: 10,
       },
       x: {
         ticks: {
+          color: darkCookie ? "white" : "black",
           font: {
             size: 20,
             family: "Gentium Book Plus",
@@ -90,6 +103,7 @@ const ScatterGraph: React.FC<Props> = ({ labelArray, pagesArray, scoreArray, xAx
         },
         title: {
           display: true,
+          color: darkCookie ? "white" : "black",
           text: xAxes,
           font: {
             size: 20,
@@ -98,7 +112,7 @@ const ScatterGraph: React.FC<Props> = ({ labelArray, pagesArray, scoreArray, xAx
         },
         display: true,
         max: xMax,
-        min: xMin
+        min: xMin,
       },
     },
   };

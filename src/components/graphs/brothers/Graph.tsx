@@ -14,6 +14,7 @@ import {
 import { Bar } from "react-chartjs-2";
 import { abbreviateString } from "@/functions/abbreviateString";
 import { useMediaQuery } from "react-responsive";
+import Cookies from "js-cookie";
 import style from "./Graph.module.css";
 
 ChartJS.register(
@@ -41,6 +42,7 @@ const Graph: React.FC<Props> = ({
   username,
 }: Props) => {
   const handleDesktop = useMediaQuery({ query: "(min-device-width: 801px)" });
+  const darkCookie = Cookies.get("dark-mode");
 
   const labelsLen = handleDesktop
     ? bookTitles
@@ -80,21 +82,13 @@ const Graph: React.FC<Props> = ({
       legend: {
         display: datasets2 ? true : false,
         labels: {
+          color: darkCookie ? "white" : "black",
           font: {
             size: 20,
             family: "Gentium Book Plus",
           },
         },
       },
-      // tooltip: {
-      //   callbacks: {
-      //     label: (context) => {
-      //       const bookTitle = bookTitles[context.dataIndex];
-
-      //       return console.log(context);
-      //     },
-      //   },
-      // },
     },
     font: {
       size: 20,
@@ -102,6 +96,7 @@ const Graph: React.FC<Props> = ({
     scales: {
       y: {
         ticks: {
+          color: darkCookie ? "white" : "black",
           font: {
             size: 16,
             family: "Gentium Book Plus",
@@ -114,6 +109,7 @@ const Graph: React.FC<Props> = ({
       },
       x: {
         ticks: {
+          color: darkCookie ? "white" : "black",
           font: {
             size: 20,
             family: "Gentium Book Plus",
@@ -121,6 +117,7 @@ const Graph: React.FC<Props> = ({
         },
         title: {
           display: true,
+          color: darkCookie ? "white" : "black",
           text: "Scores",
           font: {
             size: 20,
