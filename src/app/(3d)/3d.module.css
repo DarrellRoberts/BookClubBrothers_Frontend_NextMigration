@@ -2,6 +2,10 @@
   overflow-y: hidden;
 }
 
+.darkMode {
+  display: flex;
+}
+
 .title {
   font-family: var(--main);
   font-size: 5rem;
@@ -41,6 +45,9 @@
 @media screen and (max-width: 800px) {
   .noScroll {
     overflow-y: auto;
+  }
+  .darkMode {
+    justify-content: center;
   }
   .title {
     font-size: 3.5rem;

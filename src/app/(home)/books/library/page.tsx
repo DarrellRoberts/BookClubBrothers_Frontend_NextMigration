@@ -13,12 +13,13 @@ import "../../../../style/searchRes.css";
 import { Button } from "antd";
 import BookImageCover from "./BookImageCover";
 import { handleHideScores_NoSetter } from "@/functions/time-functions/hideScores";
+import { type Book } from "@/types/BookInterface";
 
 const Booklibrary: React.FC = () => {
-  const [bookData, setBookData] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
-  const [searchBar, setSearchBar] = useState("");
+  const [bookData, setBookData] = useState<Array<Book>>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string>("");
+  const [searchBar, setSearchBar] = useState<string>("");
 
   const getBookData = async () => {
     try {
@@ -68,42 +69,34 @@ const Booklibrary: React.FC = () => {
         <Loader />
       ) : (
         <div className="bookCon flex flex-wrap">
-          {Array.isArray(bookData) ? (
-            filteredResults.length > 0 ? (
-              filteredResults?.map((book) => (
-                <div key={book.id}>
-                  {book.reviewImageURL ? (
-                    <Link href={`/books/library/${book._id}`}>
-                      <BookImageCover
+          {filteredResults.length > 0 ? (
+            filteredResults?.map((book) => (
+              <div key={book.id}>
+                {book.reviewImageURL ? (
+                  <Link href={`/books/library/${book._id}`}>
+                    <BookImageCover
+                      title={book?.title}
+                      imageURL={book?.reviewImageURL}
+                    />
+                  </Link>
+                ) : (
+                  <Link href={`/books/library/${book._id}`}>
+                    <h2 className="smallBookTitle">{book.title}</h2>
+                    <div className="bookCoverCon">
+                      <BookCover
                         title={book?.title}
-                        imageURL={book?.reviewImageURL}
+                        totalScore={book?.totalScore}
+                        ratingArr={book?.scoreRatings?.rating}
+                        raterArr={book?.scoreRatings?.raterId}
+                        hideScores={handleHideScores_NoSetter(
+                          book?.dateOfMeeting
+                        )}
                       />
-                    </Link>
-                  ) : (
-                    <Link href={`/books/library/${book._id}`}>
-                      <h2 className="smallBookTitle">{book.title}</h2>
-                      <div className="bookCoverCon flex justify-center text-center items-center border-4 m-5 border-black border-solid">
-                        <BookCover
-                          title={book?.title}
-                          totalScore={book?.totalScore}
-                          ratingArr={book?.scoreRatings?.rating}
-                          raterArr={book?.scoreRatings?.raterId}
-                          hideScores={handleHideScores_NoSetter(
-                            book?.dateOfMeeting
-                          )}
-                        />
-                      </div>
-                    </Link>
-                  )}
-                </div>
-              ))
-            ) : (
-              <div className="h-screen">
-                <p className="ml-5">
-                  No books found. Press search two times to refresh.
-                </p>
+                    </div>
+                  </Link>
+                )}
               </div>
-            )
+            ))
           ) : (
             <div className="h-screen">
               <p className="ml-5">

@@ -3,7 +3,7 @@ import React, { useEffect, useRef } from "react";
 import Cookies from "js-cookie";
 import style from "./dark-mode.module.css";
 
-export default function Header() {
+const DarkMode: React.FC = () => {
   const checkBox = useRef<HTMLInputElement>(null);
 
   const setCookie = (): void => {
@@ -35,4 +35,6 @@ export default function Header() {
       />
     </div>
   );
-}
+};
+
+export default DarkMode;
