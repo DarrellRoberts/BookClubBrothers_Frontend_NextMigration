@@ -1,7 +1,7 @@
 /* eslint-disable react/react-in-jsx-scope */
 "use client";
 
-import { useEffect, useContext, useReducer } from "react";
+import { useContext, useReducer } from "react";
 import { ACTIONS } from "./actions";
 import LoaderNoText from "../../../../components/loader/LoaderNoText";
 import CreateUnreadBook from "./bookform/CreateUnreadBook";
@@ -11,6 +11,8 @@ import { AuthContext } from "../../../../context/AuthContext";
 import { useJwt } from "react-jwt";
 import style from "./randomiser.module.css";
 import EditUnreadBook from "./bookform/edit/EditUnreadBook";
+import useBookFetch from "@/hooks/fetch-hooks/useBookFetch";
+import useUserFetch from "@/hooks/fetch-hooks/useUserFetch";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -20,20 +22,12 @@ const reducer = (state, action) => {
       return { ...state, showEditBook: action.payload };
     case ACTIONS.SETINDEX:
       return { ...state, index: action.payload };
-    case ACTIONS.SETBOOKDATA:
-      return { ...state, bookData: action.payload };
-    case ACTIONS.SETUSERDATA:
-      return { ...state, userData: action.payload };
     case ACTIONS.SETERROR:
       return { ...state, error: action.payload };
-    case ACTIONS.SETLOADING:
-      return { ...state, showLoading: action.payload };
     case ACTIONS.SHOWRANDOM:
       return { ...state, showRandom: action.payload };
     case ACTIONS.SETRANDOM:
       return { ...state, showRandom: action.payload };
-    case ACTIONS.SHOWLOADING:
-      return { ...state, showLoading: action.payload };
     default:
       return state;
   }
@@ -44,10 +38,7 @@ const RandomiserHomepage: React.FC = () => {
     showCreateBook: false,
     showEditBook: false,
     index: 0,
-    bookData: [],
-    userData: [],
     error: null,
-    showLoading: true,
     showRandom: true,
   });
 
@@ -62,48 +53,21 @@ const RandomiserHomepage: React.FC = () => {
   } = useJwt(token);
 
   const adminId = "65723ac894b239fe25fe6871";
-  const getBookData = async () => {
-    try {
-      dispatch({ type: ACTIONS.SETERROR, payload: null });
-      const data = await fetch(
-        `https://bookclubbrothers-backend.onrender.com/books/unread/all`
-      );
-      const book = await data.json();
-      dispatch({ type: ACTIONS.SETBOOKDATA, payload: book });
-      dispatch({ type: ACTIONS.SETLOADING, payload: false });
-    } catch (err) {
-      dispatch({ type: ACTIONS.SETERROR, payload: err });
-      console.log(state.error);
-    }
-  };
 
-  const getUserData = async () => {
-    try {
-      dispatch({ type: ACTIONS.SETERROR, payload: null });
-      const data = await fetch(
-        `https://bookclubbrothers-backend.onrender.com/users`,
-        {
-          cache: "force-cache",
-        }
-      );
-      const user = await data.json();
-      dispatch({ type: ACTIONS.SETUSERDATA, payload: user });
-      dispatch({ type: ACTIONS.SETLOADING, payload: false });
-    } catch (err) {
-      dispatch({ type: ACTIONS.SETERROR, payload: err });
-      console.log(state.error);
-    }
-  };
+  const { bookData, loading } = useBookFetch(
+    "https://bookclubbrothers-backend.onrender.com/books/unread/all",
+    null,
+    false
+  );
+  const { userData } = useUserFetch(
+    "https://bookclubbrothers-backend.onrender.com/users",
+    null
+  );
 
   const findUser = (id) => {
-    const user = state.userData.find((user) => user._id === id);
+    const user = userData.find((user) => user._id === id);
     return user ? user.username : "user not found";
   };
-
-  useEffect(() => {
-    getBookData();
-    getUserData();
-  }, []);
 
   return (
     <div>
@@ -112,12 +76,12 @@ const RandomiserHomepage: React.FC = () => {
         <div className={style.randomBox}>
           <div className={style.randomBoxLeft}>
             <div className={style.randomBoxLeftList}>
-              {state.showLoading ? (
+              {loading ? (
                 <div className="flex justify-center items-center mt-20">
                   <LoaderNoText />
                 </div>
               ) : (
-                state.bookData?.map((book, i) => (
+                bookData?.map((book, i) => (
                   <div
                     key={i}
                     className={style.bookBox}
@@ -126,7 +90,7 @@ const RandomiserHomepage: React.FC = () => {
                       !state.showEditBook
                         ? dispatch({
                             type: ACTIONS.SETINDEX,
-                            payload: state.bookData.indexOf(book),
+                            payload: bookData.indexOf(book),
                           })
                         : null
                     }
@@ -158,7 +122,7 @@ const RandomiserHomepage: React.FC = () => {
                 Click randomise on the right to randomise the selection or click
                 on each item in the list to see its details.
               </h2>
-              {!state.showLoading ? (
+              {!loading ? (
                 <h2 className={style.adminText}>
                   Only the admin can select the book.
                 </h2>
@@ -169,13 +133,13 @@ const RandomiserHomepage: React.FC = () => {
           <div
             className={style.randomBoxRight}
             style={{
-              backgroundImage: `URL(${state.bookData[state.index]?.imageURL})`,
+              backgroundImage: `URL(${bookData[state.index]?.imageURL})`,
               backgroundRepeat: "no-repeat",
               backgroundSize: "cover",
               backgroundPosition: "center",
             }}
           >
-            {state.showLoading ? (
+            {loading ? (
               <div className="flex justify-center items-center mt-20">
                 <LoaderNoText />
               </div>
@@ -185,57 +149,51 @@ const RandomiserHomepage: React.FC = () => {
                   <h2 className="text-red-500 bg-black">{state.error}</h2>
                 ) : (
                   <>
-                    <h2>{state.bookData[state.index]?.title}</h2>
+                    <h2>{bookData[state.index]?.title}</h2>
                     <ul className="text-center">
-                      <li>Author: {state.bookData[state.index]?.author}</li>
-                      <li>
-                        Published: {state.bookData[state.index]?.yearPublished}
-                      </li>
-                      <li>Pages: {state.bookData[state.index]?.pages}</li>
+                      <li>Author: {bookData[state.index]?.author}</li>
+                      <li>Published: {bookData[state.index]?.yearPublished}</li>
+                      <li>Pages: {bookData[state.index]?.pages}</li>
                       <li>
                         Genre:{" "}
-                        {state.bookData[state.index]?.genre.map((theme, i) => (
+                        {bookData[state.index]?.genre.map((theme, i) => (
                           <li key={i}>{theme}</li>
                         ))}
                       </li>
                       <li>
                         Suggested by:{" "}
-                        {findUser(state.bookData[state.index]?.suggestedBy) ===
+                        {findUser(bookData[state.index]?.suggestedBy) ===
                         "user not found"
                           ? " (loading...)"
-                          : findUser(
-                              state.bookData[state.index]?.suggestedBy
-                            )}{" "}
+                          : findUser(bookData[state.index]?.suggestedBy)}{" "}
                       </li>
                     </ul>
                     <div className={style.buttonCon}>
                       <Randomiser
-                        bookLength={state.bookData?.length}
-                        bookId={state.bookData[state.index]?._id}
+                        bookLength={bookData?.length}
+                        bookId={bookData[state.index]?._id}
                         userId={decodedToken?._id}
                         adminId={adminId}
                         showRandom={state.showRandom}
                         dispatch={dispatch}
                       />
                       {(state.showRandom &&
-                        state.bookData[state.index]?.suggestedBy ===
+                        bookData[state.index]?.suggestedBy ===
                           decodedToken?._id) ||
                       decodedToken?._id === adminId ? (
                         <>
                           <EditUnreadBook
-                            id={state.bookData[state.index]?._id}
+                            id={bookData[state.index]?._id}
                             showEditBook={state.showEditBook}
                             dispatch={dispatch}
-                            inAuthor={state.bookData[state.index]?.author}
-                            inTitle={state.bookData[state.index]?.title}
-                            inPublished={
-                              state.bookData[state.index]?.yearPublished
-                            }
-                            inPages={state.bookData[state.index]?.pages}
-                            inGenre={state.bookData[state.index]?.genre}
-                            inImageURL={state.bookData[state.index]?.imageURL}
+                            inAuthor={bookData[state.index]?.author}
+                            inTitle={bookData[state.index]?.title}
+                            inPublished={bookData[state.index]?.yearPublished}
+                            inPages={bookData[state.index]?.pages}
+                            inGenre={bookData[state.index]?.genre}
+                            inImageURL={bookData[state.index]?.imageURL}
                           />
-                          <DeleteBook id={state.bookData[state.index]?._id} />
+                          <DeleteBook id={bookData[state.index]?._id} />
                         </>
                       ) : null}
                     </div>

@@ -2,7 +2,7 @@
 /* eslint-disable react/react-in-jsx-scope */
 "use client";
 
-import { useContext, useEffect, useReducer, useState } from "react";
+import { useContext, useReducer } from "react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import "@/style/dashboard.css";
@@ -31,6 +31,8 @@ import {
 import { Book } from "@/types/BookInterface";
 import { formatServerDate } from "@/functions/time-functions/formatServerDate";
 import { handleHideScores_NoSetter } from "@/functions/time-functions/hideScores";
+import useUserFetch from "@/hooks/fetch-hooks/useUserFetch";
+import useBookFetch from "@/hooks/fetch-hooks/useBookFetch";
 
 type StateType = {
   showImage: boolean;
@@ -46,10 +48,16 @@ const reducer = (state: StateType, action) => {
 };
 
 const Dashboard: React.FC = () => {
-  const [userData, setUserData] = useState([]);
-  const [bookData, setBookData] = useState([]);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState("");
+  const { userData, loading } = useUserFetch(
+    "https://bookclubbrothers-backend.onrender.com/users",
+    null
+  );
+
+  const { bookData } = useBookFetch(
+    "https://bookclubbrothers-backend.onrender.com/books",
+    null,
+    true
+  );
 
   const [state, dispatch] = useReducer(reducer, {
     showImage: false,
@@ -66,39 +74,11 @@ const Dashboard: React.FC = () => {
     };
   } = useJwt(token);
 
-  const getData = async () => {
-    try {
-      const data = await fetch(
-        `https://bookclubbrothers-backend.onrender.com/users`
-      );
-      const user = await data.json();
-      setUserData(user);
-    } catch (err) {
-      setError(err);
-      console.log(error);
-    }
-  };
-
   const { username } = useParams();
   const id: string = decodedToken?._id;
   const findUser =
     userData.find((user) => user.username === username) ??
     userData.find((user) => user._id === id);
-
-  const getBookData = async () => {
-    try {
-      const data = await fetch(
-        `https://bookclubbrothers-backend.onrender.com/books`
-      );
-      const book = await data.json();
-      const readBooks = book.filter((item) => item.read === true);
-      setBookData(readBooks);
-      setLoading(false);
-    } catch (err) {
-      setError(err);
-      console.log(error);
-    }
-  };
 
   const scoreArray = findUser?.userInfo?.books?.score;
 
@@ -122,11 +102,6 @@ const Dashboard: React.FC = () => {
   const filterComments = bookData.filter((book) =>
     book.commentInfo.commentId.includes(findUser?._id)
   );
-
-  useEffect(() => {
-    getData();
-    getBookData();
-  }, []);
   return (
     <>
       {loading ? (

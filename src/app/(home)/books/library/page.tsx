@@ -1,7 +1,7 @@
 /* eslint-disable react/react-in-jsx-scope */
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Loader from "../../../../components/loader/Loader";
 import BookCover from "./BookCover";
 import Link from "next/link";
@@ -13,47 +13,20 @@ import "../../../../style/searchRes.css";
 import { Button } from "antd";
 import BookImageCover from "./BookImageCover";
 import { handleHideScores_NoSetter } from "@/functions/time-functions/hideScores";
-import { type Book } from "@/types/BookInterface";
+import useFetch from "@/hooks/fetch-hooks/useBookFetch";
 
 const Booklibrary: React.FC = () => {
-  const [bookData, setBookData] = useState<Array<Book>>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string>("");
   const [searchBar, setSearchBar] = useState<string>("");
 
-  const getBookData = async () => {
-    try {
-      if (searchBar) {
-        setError(null);
-        const data = await fetch(
-          `https://bookclubbrothers-backend.onrender.com/books/title/${searchBar}`
-        );
-        const book = await data.json();
-        setBookData(book);
-        setLoading(false);
-      } else {
-        const data = await fetch(
-          `https://bookclubbrothers-backend.onrender.com/books`
-        );
-        const book = await data.json();
-        setBookData(book);
-        setLoading(false);
-      }
-    } catch (err) {
-      setError(err);
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    getBookData();
-  }, []);
+  const { bookData, loading } = useFetch(
+    "https://bookclubbrothers-backend.onrender.com/books",
+    searchBar,
+    true
+  );
 
   //filtering data to show only read books
   const filteredResults = Array.isArray(bookData)
-    ? bookData?.filter(
-        (book) => book.title.includes(searchBar) && book.read === true
-      )
+    ? bookData?.filter((book) => book.title.includes(searchBar))
     : ["No results"];
 
   return (
@@ -65,7 +38,7 @@ const Booklibrary: React.FC = () => {
         </Link>
       </div>
       <h1 className="bookLibraryTitle">Book Library</h1>
-      {loading && bookData.length <= 0 ? (
+      {loading && bookData?.length <= 0 ? (
         <Loader />
       ) : (
         <div className="bookCon flex flex-wrap">

@@ -1,7 +1,7 @@
 /* eslint-disable react/react-in-jsx-scope */
 "use client";
 
-import { useEffect, useState, useContext, useReducer } from "react";
+import { useState, useContext, useReducer } from "react";
 import Link from "next/link";
 import { DoubleLeftOutlined } from "@ant-design/icons";
 import Loader from "../../../../components/loader/Loader";
@@ -25,6 +25,8 @@ import "../../../../style/button.css";
 import LoaderNoText from "@/components/loader/LoaderNoText";
 import ProfileUnknownUserImage from "@/assets/Profile.unknown-profile-image.jpg";
 import { handleHideScores_NoSetter } from "@/functions/time-functions/hideScores";
+import useBookFetch from "@/hooks/fetch-hooks/useBookFetch";
+import useUserFetch from "@/hooks/fetch-hooks/useUserFetch";
 
 type StateType = {
   showImage: boolean;
@@ -59,11 +61,18 @@ const Brothercat: React.FC = () => {
     };
   } = useJwt(token);
 
-  const [userData, setUserData] = useState([]);
-  const [bookData, setBookData] = useState([]);
-  const [loading, setLoading] = useState<boolean>(true);
   const [searchBar, setSearchBar] = useState("");
-  const [error, setError] = useState("");
+
+  const { userData } = useUserFetch(
+    "https://bookclubbrothers-backend.onrender.com/users",
+    searchBar
+  );
+
+  const { bookData, loading } = useBookFetch(
+    "https://bookclubbrothers-backend.onrender.com/books",
+    null,
+    true
+  );
 
   const [state, dispatch] = useReducer(reducer, {
     showImage: false,
@@ -71,41 +80,6 @@ const Brothercat: React.FC = () => {
     showCountry: false,
     showGenre: false,
   });
-
-  const getData = async () => {
-    try {
-      if (searchBar) {
-        const data = await fetch(
-          `https://bookclubbrothers-backend.onrender.com/users/${searchBar}`
-        );
-        const user = await data.json();
-        setUserData(user);
-        setLoading(false);
-      } else {
-        const data = await fetch(
-          `https://bookclubbrothers-backend.onrender.com/users`,
-          {
-            cache: "force-cache",
-          }
-        );
-        const user = await data.json();
-        setUserData(user);
-        setLoading(false);
-      }
-    } catch (err) {
-      setError(err);
-      console.log(error);
-    }
-  };
-
-  const getBook = async () => {
-    const data = await fetch(
-      `https://bookclubbrothers-backend.onrender.com/books`
-    );
-    const book = await data.json();
-    setBookData(book);
-    setLoading(false);
-  };
 
   let userBookObj = {};
   const mapUserToBook = () => {
@@ -124,13 +98,8 @@ const Brothercat: React.FC = () => {
   };
   mapUserToBook();
 
-  useEffect(() => {
-    getData();
-    getBook();
-  }, []);
-
   const filteredResults = Array.isArray(userData)
-    ? userData?.filter((user) => user.username.includes(searchBar))
+    ? userData?.filter((user) => user?.username?.includes(searchBar))
     : ["No results"];
 
   return (

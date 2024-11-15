@@ -5,30 +5,16 @@ import LoaderNoText from "@/components/loader/LoaderNoText";
 import { genreAverageScore } from "@/functions/stat-functions/scoreFunctions";
 import "@/style/bookHomepage.css";
 import "@/style/bookHomepageRes.css";
-import { type Book } from "@/types/BookInterface";
-import { useEffect, useState } from "react";
 import styles from "./bookstats.module.css";
 import ScatterGraph from "@/components/graphs/brothers/ScatterGraph";
+import useBookFetch from "@/hooks/fetch-hooks/useBookFetch";
 
 const BookStats = () => {
-  const [bookData, setBookData] = useState<Book[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string>("");
-
-  const getBookData = async () => {
-    try {
-      const data = await fetch(
-        `https://bookclubbrothers-backend.onrender.com/books`
-      );
-      const book = await data.json();
-      const readBooks = book.filter((item) => item.read === true);
-      setBookData(readBooks);
-      setLoading(false);
-    } catch (err) {
-      setError(err);
-      console.log(error);
-    }
-  };
+  const { bookData, loading } = useBookFetch(
+    "https://bookclubbrothers-backend.onrender.com/books",
+    null,
+    true
+  );
 
   const genreArray: string[] = [
     "Horror",
@@ -54,9 +40,6 @@ const BookStats = () => {
   const yearPublishedArray = bookData?.map((book) => book.yearPublished);
   const labelArray = bookData?.map((book) => book.title);
 
-  useEffect(() => {
-    getBookData();
-  }, []);
   return (
     <div className={loading ? "h-screen" : ""}>
       <h1 className="booksTitle">Book Stats</h1>

@@ -1,7 +1,7 @@
 /* eslint-disable react/react-in-jsx-scope */
 "use client";
 
-import { useState, useEffect, useContext, useReducer } from "react";
+import { useContext, useReducer } from "react";
 import { useParams } from "next/navigation";
 import Loader from "@/components/loader/Loader";
 import BookCover from "../BookCover";
@@ -29,8 +29,8 @@ import EditTitleButton from "./editbookform/title/EditTitleButton";
 import EditTitle from "./editbookform/title/EditTitle";
 import EditImageButton from "./editbookform/image/EditImageButton";
 import EditImage from "./editbookform/image/EditImage";
-import { Book } from "@/types/BookInterface";
 import { handleHideScores_NoSetter } from "@/functions/time-functions/hideScores";
+import useSingleBookFetch from "@/hooks/fetch-hooks/useSingeBookFetch";
 
 type StateType = {
   showDelete: boolean;
@@ -67,10 +67,6 @@ const reducer = (state: StateType, action) => {
 };
 
 const SingleBook: React.FC = () => {
-  const [bookData, setBook] = useState<Book>();
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string>("");
-
   const [state, dispatch] = useReducer(reducer, {
     showDelete: false,
     showAuthor: false,
@@ -88,23 +84,9 @@ const SingleBook: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const adminId = "65723ac894b239fe25fe6871";
 
-  const getBookData = async () => {
-    try {
-      const data = await fetch(
-        `https://bookclubbrothers-backend.onrender.com/books/${id}`
-      );
-      const book = await data.json();
-      setBook(book);
-      setLoading(false);
-    } catch (err) {
-      setError(err);
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    getBookData();
-  }, []);
+  const { bookData, loading } = useSingleBookFetch(
+    `https://bookclubbrothers-backend.onrender.com/books/${id}`
+  );
 
   return (
     <>
