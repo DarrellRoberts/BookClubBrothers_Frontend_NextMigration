@@ -12,6 +12,8 @@
 .bookTitleCoverCon {
   width: 600px;
   height: 400px;
+  border-width: 2px;
+  border-color: var(--default-border-color);
 }
 
 .bookRightCon {

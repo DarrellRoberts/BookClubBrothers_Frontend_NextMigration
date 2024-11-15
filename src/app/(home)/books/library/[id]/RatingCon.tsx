@@ -89,6 +89,14 @@ const RatingCon: React.FC<Props> = ({ bookData, id, loading, hideScores }) => {
                 style={{
                   width:
                     hideScores && username !== name ? "100%" : `${value * 10}%`,
+                  backgroundColor:
+                    hideScores && username !== name
+                      ? "transparent"
+                      : "var(--tertiaryColor)",
+                  color:
+                    hideScores && username !== name
+                      ? "var(--main-font-color)"
+                      : "var(--main-bg-color)",
                 }}
               >
                 {hideScores && username !== name ? "?" : value}

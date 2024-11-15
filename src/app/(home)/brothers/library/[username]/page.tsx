@@ -87,7 +87,10 @@ const Dashboard: React.FC = () => {
   const findMaxBook: Book = findMaxScoreBook(bookData, scoreArray, findUser);
   const avgScore: string = averageScore(findUser)?.toFixed(2);
 
-  const userReadBooks: Book[] = filterUserReadBooks(bookData, findUser?._id);
+  const userReadBooks: Book[] = filterUserReadBooks(
+    bookData,
+    findUser?._id
+  ).filter((book) => !handleHideScores_NoSetter(book.dateOfMeeting));
   const userUnreadBooks: Book[] = filterUserUnreadBooks(
     bookData,
     findUser?._id

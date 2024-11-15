@@ -3,6 +3,7 @@
 import Graph from "@/components/graphs/brothers/Graph";
 import LoaderNoText from "@/components/loader/LoaderNoText";
 import { genreAverageScore } from "@/functions/stat-functions/scoreFunctions";
+import { handleHideScores_NoSetter } from "@/functions/time-functions/hideScores";
 import "@/style/bookHomepage.css";
 import "@/style/bookHomepageRes.css";
 import styles from "./bookstats.module.css";
@@ -14,6 +15,10 @@ const BookStats = () => {
     "https://bookclubbrothers-backend.onrender.com/books",
     null,
     true
+  );
+
+  const reviewedBooks = bookData.filter(
+    (book) => !handleHideScores_NoSetter(book.dateOfMeeting)
   );
 
   const genreArray: string[] = [
@@ -33,12 +38,14 @@ const BookStats = () => {
     "Non-fiction",
   ];
   const genreAvgScoreArray = genreArray.map((genre) =>
-    genreAverageScore(bookData, genre)
+    genreAverageScore(reviewedBooks, genre)
   );
-  const totalScoreArray = bookData?.map((book) => book.totalScore?.toFixed(2));
-  const pageNumberArray = bookData?.map((book) => book.pages);
-  const yearPublishedArray = bookData?.map((book) => book.yearPublished);
-  const labelArray = bookData?.map((book) => book.title);
+  const totalScoreArray = reviewedBooks?.map((book) =>
+    book.totalScore?.toFixed(2)
+  );
+  const pageNumberArray = reviewedBooks?.map((book) => book.pages);
+  const yearPublishedArray = reviewedBooks?.map((book) => book.yearPublished);
+  const labelArray = reviewedBooks?.map((book) => book.title);
 
   return (
     <div className={loading ? "h-screen" : ""}>
@@ -51,7 +58,7 @@ const BookStats = () => {
           ) : (
             <>
               <Graph
-                bookTitles={bookData.map((book) => book.title)}
+                bookTitles={reviewedBooks.map((book) => book.title)}
                 bookScores={totalScoreArray}
                 username="Total Scores"
               />
