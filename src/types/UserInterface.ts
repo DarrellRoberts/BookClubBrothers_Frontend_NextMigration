@@ -14,14 +14,16 @@ interface User {
         },
         badges: {
             allBooks: boolean,
-            loneWolf: boolean,
+            loneWolf: number,
             mostBooks: boolean,
             fiveComments: boolean,
-            firstBook: boolean
+            firstBook: boolean,
+            punctual: number
         }
         },
         username: string,
-        _id: string
+        _id: string,
+        lastLoggedIn: string
 }
 
 export type { User };

@@ -8,48 +8,23 @@ import {
   unreadBookTitles,
   userReadBookTitles,
 } from "@/functions/stat-functions/scoreFunctions";
-import { useEffect, useState } from "react";
 import LoaderNoText from "@/components/loader/LoaderNoText";
 import Graph from "@/components/graphs/brothers/Graph";
+import useBookFetch from "@/hooks/fetch-hooks/useBookFetch";
+import useUserFetch from "@/hooks/fetch-hooks/useUserFetch";
 
 const BrothersStats: React.FC = () => {
-  const [userData, setUserData] = useState([]);
-  const [bookData, setBookData] = useState([]);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState("");
+  const { userData, loading } = useUserFetch(
+    "https://bookclubbrothers-backend.onrender.com/users",
+    null
+  );
 
-  const getUserData = async () => {
-    try {
-      const data = await fetch(
-        `https://bookclubbrothers-backend.onrender.com/users`
-      );
-      const user = await data.json();
-      setUserData(user);
-    } catch (err) {
-      setError(err);
-      console.log(error);
-    }
-  };
+  const { bookData } = useBookFetch(
+    "https://bookclubbrothers-backend.onrender.com/books",
+    null,
+    true
+  );
 
-  const getBookData = async () => {
-    try {
-      const data = await fetch(
-        `https://bookclubbrothers-backend.onrender.com/books`
-      );
-      const book = await data.json();
-      const readBooks = book.filter((item) => item.read === true);
-      setBookData(readBooks);
-      setLoading(false);
-    } catch (err) {
-      setError(err);
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    getUserData();
-    getBookData();
-  }, []);
   return (
     <div className={loading ? "h-screen" : ""}>
       <h1 className={styles.statsTitle}>Brothers Stats</h1>
