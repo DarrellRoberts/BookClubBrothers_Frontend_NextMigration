@@ -4,6 +4,7 @@
 import BookWormImage from "@/assets/badges/Badge-monkworm-image.jpg";
 import BadgeTemplate from "../BadgeTemplate";
 import Link from "next/link";
+import style from "../badges.module.css";
 
 type Props = {
   firstBookWorm: boolean;
@@ -13,10 +14,13 @@ const FirstBook: React.FC<Props> = ({ firstBookWorm }) => {
   const badge = BookWormImage.src;
 
   const content = (
-    <>
+    <div className={style.contentCon}>
+      <img src={badge} alt="Brother Worm" width="250px" />
       <p>Have rated their first book</p>
-      <Link className="underline" href="/club/badges">what's this?</Link>
-    </>
+      <Link className="underline" href="/club/badges">
+        what's this?
+      </Link>
+    </div>
   );
   return (
     <>
