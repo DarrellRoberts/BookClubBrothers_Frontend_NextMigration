@@ -257,7 +257,11 @@ const SingleBook: React.FC = () => {
           loading={loading}
           hideScores={handleHideScores_NoSetter(bookData?.dateOfMeeting)}
         />
-        <CommentCon bookData={bookData} id={id} />
+        <CommentCon
+          bookData={bookData}
+          id={id}
+          hideScores={handleHideScores_NoSetter(bookData?.dateOfMeeting)}
+        />
       </div>
     </>
   );

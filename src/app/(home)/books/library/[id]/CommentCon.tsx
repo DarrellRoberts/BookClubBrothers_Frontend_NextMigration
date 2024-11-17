@@ -1,10 +1,10 @@
-/* eslint-disable react/jsx-key */
 /* eslint-disable react/prop-types */
+/* eslint-disable react/jsx-key */
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable react/react-in-jsx-scope */
 "use client";
 
-import { useState, useEffect, useContext } from "react";
+import { useState, useContext } from "react";
 import CommentButton from "./commentform/CommentButton";
 import EditCommentButton from "./commentform/EditCommentButton";
 import { AuthContext } from "@/context/AuthContext";
@@ -18,77 +18,56 @@ import { findUserByUsername } from "@/functions/find-functions/find";
 import styles from "./commentCon.module.css";
 import Link from "next/link";
 import ProfileSmall from "@/components/misc/profile/ProfileSmall";
+import useUserFetch from "@/hooks/fetch-hooks/useUserFetch";
 
 type Props = {
   bookData: Book;
   id: string;
+  hideScores: boolean;
 };
 
-const RatingCon: React.FC<Props> = ({ bookData, id }) => {
-  const [users, setUserData] = useState([]);
+const RatingCon: React.FC<Props> = ({ bookData, id, hideScores }) => {
   const [addComment, setAddComment] = useState<boolean>(false);
   const [showEditComment, setShowEditComment] = useState<boolean>(false);
-  const [error, setError] = useState("");
 
-  //extracting username of user for initial rating value
   const { token } = useContext(AuthContext);
   const { decodedToken }: { decodedToken?: { username: string } } =
     useJwt(token);
   const username = decodedToken?.username;
-
-  const getData = async () => {
-    try {
-      const data = await fetch(
-        `https://bookclubbrothers-backend.onrender.com/users`
-      );
-      const user = await data.json();
-      setUserData(user);
-    } catch (err) {
-      setError(err);
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    getData();
-  }, []);
+  const { userData } = useUserFetch(
+    "https://bookclubbrothers-backend.onrender.com/users",
+    null
+  );
 
   const commentObj: object | string[] = {};
-  findComment(bookData, users, commentObj);
-  const initialComment = findCommentByUsername(username, bookData, users);
+  findComment(bookData, userData, commentObj);
+  const initialComment = findCommentByUsername(username, bookData, userData);
 
   return (
     <>
       <div className={styles.commentCon}>
         <h2 className="ratingTitle underline">Comments</h2>
-        {Array.isArray(commentObj)
-          ? commentObj.map(([name, value]) => (
-              <>
-                <li className="list-none m-2 font-bold" key={name}>
-                  {name}:
-                </li>
-                <div className="" style={{ width: `${value}rem` }}>
-                  "{value}"
-                </div>
-              </>
-            ))
-          : Object.entries(commentObj).map(([name, value], i) => (
-              <div className={styles.commentWrap} key={i}>
-                <div>
-                  <h3>{name}</h3>
-                  <Link href={`/brothers/library/${name}`}>
-                    <ProfileSmall
-                      imageURL={
-                        findUserByUsername(name, users)?.userInfo?.profileURL
-                      }
-                    />
-                  </Link>
-                </div>
-                <li className="list-none mb-1 ml-2 flex items-center text-center">
-                  "{value}"
-                </li>
-              </div>
-            ))}
+        {Object.entries(commentObj).map(([name, value], i) => (
+          <div className={styles.commentWrap} key={i}>
+            <div>
+              <h3>{name}</h3>
+              <Link href={`/brothers/library/${name}`}>
+                <ProfileSmall
+                  imageURL={
+                    findUserByUsername(name, userData)?.userInfo?.profileURL
+                  }
+                />
+              </Link>
+            </div>
+            <li
+              className={`${
+                hideScores && username !== name ? "text-3xl" : null
+              } list-none mb-1 ml-2 flex items-center text-center`}
+            >
+              {hideScores && username !== name ? "?" : `"${value}"`}
+            </li>
+          </div>
+        ))}
 
         {decodedToken ? (
           <div className="flex justify-center items-end mt-auto">

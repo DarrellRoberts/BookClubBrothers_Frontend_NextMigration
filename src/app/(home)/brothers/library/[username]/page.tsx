@@ -102,7 +102,7 @@ const Dashboard: React.FC = () => {
   const noUserReadBooks: number = findUser?.userInfo?.books?.score?.length;
 
   // comments
-  const filterComments = bookData.filter((book) =>
+  const filterComments = userReadBooks.filter((book) =>
     book.commentInfo.commentId.includes(findUser?._id)
   );
   return (
