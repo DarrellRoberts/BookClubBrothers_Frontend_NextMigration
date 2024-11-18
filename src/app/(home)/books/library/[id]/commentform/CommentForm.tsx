@@ -15,7 +15,7 @@ interface props {
 const CommentForm: React.FC<props> = ({ id }) => {
   const [comments, setComment] = useState<string>();
   const [error, setError] = useState("");
-  const [loadings, setLoadings] = useState([]);
+  const [loadings, setLoadings] = useState(false);
 
   const { token } = useContext(AuthContext);
 
@@ -43,6 +43,9 @@ const CommentForm: React.FC<props> = ({ id }) => {
 
       if (response.ok) {
         console.log("SUCCESS!!!");
+        console.log(response);
+        console.log(data);
+        console.log(comments);
       }
     } catch (error) {
       setError(error);
@@ -50,20 +53,11 @@ const CommentForm: React.FC<props> = ({ id }) => {
     }
   };
 
-  const enterLoading = (index) => {
-    setLoadings((prevLoadings) => {
-      const newLoadings = [...prevLoadings];
-      newLoadings[index] = true;
-      return newLoadings;
-    });
+  const enterLoading = () => {
+    setLoadings(true);
     setTimeout(() => {
-      setLoadings((prevLoadings) => {
-        const newLoadings = [...prevLoadings];
-        newLoadings[index] = false;
-        document.location.reload();
-        return newLoadings;
-      });
-    }, 4000);
+      setLoadings(false);
+    }, 2000);
   };
   return (
     <>
@@ -104,8 +98,8 @@ const CommentForm: React.FC<props> = ({ id }) => {
             type="primary"
             ghost
             className="loginButtons"
-            loading={loadings[0]}
-            onClick={() => enterLoading(0)}
+            loading={loadings}
+            onClick={() => enterLoading()}
             htmlType="submit"
           >
             Submit
