@@ -2,9 +2,9 @@
 /* eslint-disable react/react-in-jsx-scope */
 "use client";
 
-import { useState, useContext } from "react";
-import { AuthContext } from "@/context/AuthContext";
+import { useState } from "react";
 import { Button, Form, Input } from "antd";
+import useForm from "@/hooks/post-hooks/useForm";
 
 const { TextArea } = Input;
 
@@ -13,51 +13,20 @@ interface props {
 }
 
 const CommentForm: React.FC<props> = ({ id }) => {
-  const [comments, setComment] = useState<string>();
-  const [error, setError] = useState("");
   const [loadings, setLoadings] = useState(false);
 
-  const { token } = useContext(AuthContext);
-
-  const handleSubmit = async () => {
-    try {
-      setError(null);
-      const response = await fetch(
-        `https://bookclubbrothers-backend.onrender.com/books/comment/${id}`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({
-            comments,
-          }),
-        }
-      );
-      const data = await response.json();
-      if (!response.ok) {
-        setError(data.error);
-        console.log("something has happened");
-      }
-
-      if (response.ok) {
-        console.log("SUCCESS!!!");
-        console.log(response);
-        console.log(data);
-        console.log(comments);
-      }
-    } catch (error) {
-      setError(error);
-      console.log(error);
-    }
-  };
+  const { handleSubmit, error, formData, setFormData } = useForm(
+    `https://bookclubbrothers-backend.onrender.com/books/comment/${id}`,
+    { comments: "" },
+    "POST"
+  );
 
   const enterLoading = () => {
     setLoadings(true);
     setTimeout(() => {
       setLoadings(false);
-    }, 2000);
+      document.location.reload();
+    }, 4000);
   };
   return (
     <>
@@ -82,8 +51,8 @@ const CommentForm: React.FC<props> = ({ id }) => {
           <TextArea
             rows={8}
             placeholder="Say a few words about the book"
-            onChange={(e) => setComment(e.target.value)}
-            value={comments}
+            onChange={(e) => setFormData({ comments: e.target.value })}
+            value={formData["comments"]}
           />
         </Form.Item>
 

@@ -2,9 +2,9 @@
 /* eslint-disable react/react-in-jsx-scope */
 "use client";
 
-import { useState, useContext } from "react";
-import { AuthContext } from "@/context/AuthContext";
+import { useState } from "react";
 import { Button, Form, Input } from "antd";
+import useForm from "@/hooks/post-hooks/useForm";
 
 const { TextArea } = Input;
 
@@ -14,55 +14,19 @@ interface props {
 }
 
 const EditRatingForm: React.FC<props> = ({ id, inComment }) => {
-  const [comments, setComment] = useState(inComment);
-  const [error, setError] = useState("");
-  const [loadings, setLoadings] = useState([]);
+  const [loadings, setLoadings] = useState(false);
 
-  const { token } = useContext(AuthContext);
-  const handleSubmit = async () => {
-    try {
-      setError(null);
-      const response = await fetch(
-        `https://bookclubbrothers-backend.onrender.com/books/comment/edit/${id}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({
-            comments,
-          }),
-        }
-      );
-      const data = await response.json();
-      if (!response.ok) {
-        setError(data.error);
-        console.log("something has happened");
-      }
+  const { handleSubmit, error, formData, setFormData } = useForm(
+    `https://bookclubbrothers-backend.onrender.com/books/comment/edit/${id}`,
+    { comments: inComment },
+    "PUT"
+  );
 
-      if (response.ok) {
-        console.log("SUCCESS!!!");
-      }
-    } catch (error) {
-      setError(error);
-      console.log(error);
-    }
-  };
-
-  const enterLoading = (index) => {
-    setLoadings((prevLoadings) => {
-      const newLoadings = [...prevLoadings];
-      newLoadings[index] = true;
-      return newLoadings;
-    });
+  const enterLoading = () => {
+    setLoadings(true);
     setTimeout(() => {
-      setLoadings((prevLoadings) => {
-        const newLoadings = [...prevLoadings];
-        newLoadings[index] = false;
-        document.location.reload();
-        return newLoadings;
-      });
+      setLoadings(false);
+      document.location.reload();
     }, 4000);
   };
   return (
@@ -88,9 +52,9 @@ const EditRatingForm: React.FC<props> = ({ id, inComment }) => {
           <TextArea
             rows={8}
             placeholder="Say a few words about the book"
-            onChange={(e) => setComment(e.target.value)}
-            defaultValue={comments}
-            value={comments}
+            onChange={(e) => setFormData({ comments: e.target.value })}
+            defaultValue={formData["comments"]}
+            value={formData["comments"]}
           />
         </Form.Item>
 
@@ -105,8 +69,8 @@ const EditRatingForm: React.FC<props> = ({ id, inComment }) => {
             type="primary"
             ghost
             className="loginButtons"
-            loading={loadings[0]}
-            onClick={() => enterLoading(0)}
+            loading={loadings}
+            onClick={() => enterLoading()}
             htmlType="submit"
           >
             Submit
