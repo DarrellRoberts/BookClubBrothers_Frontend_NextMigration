@@ -99,9 +99,7 @@ const SingleBook: React.FC = () => {
       ) : (
         <div className="mainSingleCon flex items-center">
           <div className="bookTitleCon flex flex-col">
-            {decodedToken?._id === adminId ? (
-              <DeleteBook id={id} dispatch={dispatch} />
-            ) : null}
+            {decodedToken?._id === adminId ? <DeleteBook id={id} /> : null}
             {state.showTitle ? (
               <div className="flex mt-5">
                 <EditTitle id={id} inTitle={bookData?.title} />
