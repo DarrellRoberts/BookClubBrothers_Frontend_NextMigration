@@ -7,20 +7,26 @@ import SelectBook from "./bookform/SelectBook";
 import style from "./randomiser.module.css";
 
 type Props = {
-  dispatch: Dispatch<unknown>,
-  showRandom: boolean,
-  bookLength: number,
-  bookId: string,
-  adminId: string,
-  userId: string
-}
+  dispatch: Dispatch<unknown>;
+  showRandom: boolean;
+  bookLength: number;
+  bookId: string;
+  adminId: string;
+  userId: string;
+};
 
-const Randomiser: React.FC<Props> = ({ dispatch, showRandom, bookLength, bookId, adminId, userId }) => {
-
+const Randomiser: React.FC<Props> = ({
+  dispatch,
+  showRandom,
+  bookLength,
+  bookId,
+  adminId,
+  userId,
+}) => {
   const handleRandomise = () => {
     dispatch({
       type: ACTIONS.SETRANDOM,
-      payload: false
+      payload: false,
     });
     const Int = setInterval(() => {
       dispatch({
@@ -32,7 +38,7 @@ const Randomiser: React.FC<Props> = ({ dispatch, showRandom, bookLength, bookId,
       clearInterval(Int);
       dispatch({
         type: ACTIONS.SETRANDOM,
-        payload: true
+        payload: true,
       });
     }, 3000);
   };
@@ -43,9 +49,7 @@ const Randomiser: React.FC<Props> = ({ dispatch, showRandom, bookLength, bookId,
         {showRandom ? (
           <>
             <Button onClick={handleRandomise}>Randomise</Button>
-            {adminId === userId ? (
-              <SelectBook bookId={bookId} dispatch={dispatch} />
-            ) : null}
+            {adminId === userId ? <SelectBook bookId={bookId} /> : null}
           </>
         ) : null}
       </div>

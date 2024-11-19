@@ -1,74 +1,25 @@
 /* eslint-disable react/react-in-jsx-scope */
-import { useState, useContext } from "react";
-import { AuthContext } from "../../../../../context/AuthContext";
 import { Button, Form, Input, Space, Select } from "antd";
 import "../../../../../style/createbook.css";
+import useForm from "@/hooks/post-hooks/useForm";
 
 const { Option } = Select;
 
 const CreateBook: React.FC = () => {
-  const [title, setTitle] = useState<string>("");
-  const [author, setAuthor] = useState<string>("");
-  const [pages, setPages] = useState<number>(0);
-  const [yearPublished, setYearPublished] = useState<number>(0);
-  const [genre, setGenre] = useState([]);
-  const [imageURL, setImageURL] = useState("");
-  const [error, setError] = useState("");
-  const [loadings, setLoadings] = useState([]);
+  const { handleSubmit, error, formData, setFormData, enterLoading, loadings } =
+    useForm(
+      "https://bookclubbrothers-backend.onrender.com/books/unread/create",
+      {
+        title: "",
+        author: "",
+        pages: 0,
+        yearPublished: 0,
+        genre: [],
+        imageURL: "",
+      },
+      "POST"
+    );
 
-  const { token } = useContext(AuthContext);
-
-  const handleSubmit = async () => {
-    try {
-      setError(null);
-      const response = await fetch(
-        "https://bookclubbrothers-backend.onrender.com/books/unread/create",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({
-            title,
-            author,
-            pages,
-            yearPublished,
-            genre,
-            imageURL,
-          }),
-        }
-      );
-      const data = await response.json();
-      if (!response.ok) {
-        setError(data.error);
-        console.log("something has happened");
-      }
-
-      if (response.ok) {
-        console.log("SUCCESS!!!");
-      }
-    } catch (error) {
-      setError(error);
-      console.log(error);
-    }
-  };
-
-  const enterLoading = (index) => {
-    setLoadings((prevLoadings) => {
-      const newLoadings = [...prevLoadings];
-      newLoadings[index] = true;
-      return newLoadings;
-    });
-    setTimeout(() => {
-      setLoadings((prevLoadings) => {
-        const newLoadings = [...prevLoadings];
-        newLoadings[index] = false;
-        document.location.reload();
-        return newLoadings;
-      });
-    }, 4000);
-  };
   return (
     <>
       <Form
@@ -101,8 +52,10 @@ const CreateBook: React.FC = () => {
         >
           <Input
             type="text"
-            onChange={(e) => setTitle(e.target.value)}
-            value={title}
+            onChange={(e) =>
+              setFormData({ ...formData, title: e.target.value })
+            }
+            value={formData["title"]}
           />
         </Form.Item>
 
@@ -119,8 +72,10 @@ const CreateBook: React.FC = () => {
         >
           <Input
             type="text"
-            onChange={(e) => setAuthor(e.target.value)}
-            value={author}
+            onChange={(e) =>
+              setFormData({ ...formData, author: e.target.value })
+            }
+            value={formData["author"]}
           />
         </Form.Item>
 
@@ -136,8 +91,10 @@ const CreateBook: React.FC = () => {
         >
           <Input
             type="number"
-            onChange={(e) => setPages(Number(e.target.value))}
-            value={pages}
+            onChange={(e) =>
+              setFormData({ ...formData, pages: e.target.value })
+            }
+            value={formData["pages"]}
           />
         </Form.Item>
 
@@ -153,8 +110,10 @@ const CreateBook: React.FC = () => {
         >
           <Input
             type="number"
-            onChange={(e) => setYearPublished(Number(e.target.value))}
-            value={yearPublished}
+            onChange={(e) =>
+              setFormData({ ...formData, yearPublished: e.target.value })
+            }
+            value={formData["yearPublished"]}
           />
         </Form.Item>
 
@@ -172,8 +131,8 @@ const CreateBook: React.FC = () => {
             }}
             placeholder="Select the genres"
             optionLabelProp="label"
-            value={genre}
-            onChange={setGenre}
+            onChange={(e) => setFormData({ ...formData, genre: e })}
+            value={formData["genre"]}
           >
             <Option value="Horror" label="Horror">
               <Space>
@@ -294,8 +253,10 @@ const CreateBook: React.FC = () => {
         <Form.Item label="Image URL" name="image">
           <Input
             type="text"
-            onChange={(e) => setImageURL(e.target.value)}
-            value={imageURL}
+            onChange={(e) =>
+              setFormData({ ...formData, imageURL: e.target.value })
+            }
+            value={formData["imageURL"]}
           />
         </Form.Item>
 
@@ -310,8 +271,8 @@ const CreateBook: React.FC = () => {
             type="primary"
             ghost
             className="loginButtons"
-            loading={loadings[0]}
-            onClick={() => enterLoading(0)}
+            loading={loadings}
+            onClick={() => enterLoading()}
             htmlType="submit"
           >
             Submit

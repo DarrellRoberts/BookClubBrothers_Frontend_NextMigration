@@ -2,70 +2,23 @@
 /* eslint-disable react/react-in-jsx-scope */
 "use client";
 
-import { useState, useContext } from "react";
-import { AuthContext } from "@/context/AuthContext";
 import { Button, Form, Select, Space } from "antd";
+import useForm from "@/hooks/post-hooks/useForm";
 
 const { Option } = Select;
 
-interface props {
+type Props = {
   id: string | string[];
   inGenre: Array<string>;
-}
+};
 
-const EditGenre: React.FC<props> = ({ id, inGenre }) => {
-  const [genre, setGenre] = useState(inGenre.map((type) => `${type}`));
-  const [error, setError] = useState("");
-  const [loadings, setLoadings] = useState([]);
-  const { token } = useContext(AuthContext);
-
-  console.log(genre);
-  const handleSubmit = async () => {
-    try {
-      setError(null);
-      const response = await fetch(
-        `https://bookclubbrothers-backend.onrender.com/books/${id}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({
-            genre,
-          }),
-        }
-      );
-      const data = await response.json();
-      if (!response.ok) {
-        setError(data.error);
-        console.log("something has happened");
-      }
-
-      if (response.ok) {
-        console.log("SUCCESS!!!");
-      }
-    } catch (error) {
-      setError(error);
-      console.log(error);
-    }
-  };
-
-  const enterLoading = (index) => {
-    setLoadings((prevLoadings) => {
-      const newLoadings = [...prevLoadings];
-      newLoadings[index] = true;
-      return newLoadings;
-    });
-    setTimeout(() => {
-      setLoadings((prevLoadings) => {
-        const newLoadings = [...prevLoadings];
-        newLoadings[index] = false;
-        document.location.reload();
-        return newLoadings;
-      });
-    }, 4000);
-  };
+const EditGenre: React.FC<Props> = ({ id, inGenre }) => {
+  const { handleSubmit, error, formData, setFormData, enterLoading, loadings } =
+    useForm(
+      `https://bookclubbrothers-backend.onrender.com/books/${id}`,
+      { genre: inGenre },
+      "PUT"
+    );
   return (
     <>
       <Form
@@ -93,9 +46,9 @@ const EditGenre: React.FC<props> = ({ id, inGenre }) => {
             }}
             placeholder="Select the genres"
             optionLabelProp="label"
-            value={genre}
-            defaultValue={genre}
-            onChange={setGenre}
+            onChange={(e) => setFormData({ genre: e })}
+            defaultValue={formData["genre"]}
+            value={formData["genre"]}
           >
             <Option value="Horror" label="Horror">
               <Space>
@@ -221,8 +174,8 @@ const EditGenre: React.FC<props> = ({ id, inGenre }) => {
         >
           <Button
             className="loginButtons"
-            loading={loadings[0]}
-            onClick={() => enterLoading(0)}
+            loading={loadings}
+            onClick={() => enterLoading()}
             htmlType="submit"
           >
             Submit

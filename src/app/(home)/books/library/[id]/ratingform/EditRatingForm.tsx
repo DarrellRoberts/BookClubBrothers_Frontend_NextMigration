@@ -2,9 +2,8 @@
 /* eslint-disable react/prop-types */
 "use client";
 
-import { useState, useContext } from "react";
-import { AuthContext } from "@/context/AuthContext";
 import { Button, Form, Input } from "antd";
+import useForm from "@/hooks/post-hooks/useForm";
 
 interface props {
   id: string | string[];
@@ -12,57 +11,13 @@ interface props {
 }
 
 const EditRatingForm: React.FC<props> = ({ id, initialRating }) => {
-  const [rating, setRating] = useState(initialRating);
-  const [error, setError] = useState("");
-  const [loadings, setLoadings] = useState([]);
+  const { handleSubmit, error, formData, setFormData, enterLoading, loadings } =
+    useForm(
+      `https://bookclubbrothers-backend.onrender.com/books/rating/edit/${id}`,
+      { rating: initialRating },
+      "PUT"
+    );
 
-  const { token } = useContext(AuthContext);
-  const handleSubmit = async () => {
-    try {
-      setError(null);
-      const response = await fetch(
-        `https://bookclubbrothers-backend.onrender.com/books/rating/edit/${id}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({
-            rating,
-          }),
-        }
-      );
-      const data = await response.json();
-      if (!response.ok) {
-        setError(data.error);
-        console.log("something has happened");
-      }
-
-      if (response.ok) {
-        console.log("SUCCESS!!!");
-      }
-    } catch (error) {
-      setError(error);
-      console.log(error);
-    }
-  };
-
-  const enterLoading = (index) => {
-    setLoadings((prevLoadings) => {
-      const newLoadings = [...prevLoadings];
-      newLoadings[index] = true;
-      return newLoadings;
-    });
-    setTimeout(() => {
-      setLoadings((prevLoadings) => {
-        const newLoadings = [...prevLoadings];
-        newLoadings[index] = false;
-        document.location.reload();
-        return newLoadings;
-      });
-    }, 4000);
-  };
   return (
     <>
       <Form
@@ -93,8 +48,9 @@ const EditRatingForm: React.FC<props> = ({ id, initialRating }) => {
           ]}
         >
           <Input
-            defaultValue={rating ? rating : 0}
-            onChange={(e) => setRating(Number(e.target.value))}
+            defaultValue={initialRating ?? 0}
+            onChange={(e) => setFormData({ rating: e.target.value })}
+            value={formData["rating"]}
           />
         </Form.Item>
 
@@ -109,8 +65,8 @@ const EditRatingForm: React.FC<props> = ({ id, initialRating }) => {
             type="primary"
             ghost
             className="loginButtons"
-            loading={loadings[0]}
-            onClick={() => enterLoading(0)}
+            loading={loadings}
+            onClick={() => enterLoading()}
             htmlType="submit"
           >
             Submit

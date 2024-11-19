@@ -2,67 +2,21 @@
 /* eslint-disable react/react-in-jsx-scope */
 "use client";
 
-import { useState, useContext } from "react";
-import { AuthContext } from "@/context/AuthContext";
 import { Button, Form, Input } from "antd";
+import useForm from "@/hooks/post-hooks/useForm";
 
 interface props {
   id: string | string[];
 }
 
 const RatingForm: React.FC<props> = ({ id }) => {
-  const [rating, setRating] = useState<number>();
-  const [error, setError] = useState("");
-  const [loadings, setLoadings] = useState([]);
+  const { handleSubmit, error, formData, setFormData, enterLoading, loadings } =
+    useForm(
+      `https://bookclubbrothers-backend.onrender.com/books/rating/${id}`,
+      { rating: 0 },
+      "POST"
+    );
 
-  const { token } = useContext(AuthContext);
-
-  const handleSubmit = async () => {
-    try {
-      setError(null);
-      const response = await fetch(
-        `https://bookclubbrothers-backend.onrender.com/books/rating/${id}`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({
-            rating,
-          }),
-        }
-      );
-      const data = await response.json();
-      if (!response.ok) {
-        setError(data.error);
-        console.log("something has happened");
-      }
-
-      if (response.ok) {
-        console.log("SUCCESS!!!");
-      }
-    } catch (error) {
-      setError(error);
-      console.log(error);
-    }
-  };
-
-  const enterLoading = (index) => {
-    setLoadings((prevLoadings) => {
-      const newLoadings = [...prevLoadings];
-      newLoadings[index] = true;
-      return newLoadings;
-    });
-    setTimeout(() => {
-      setLoadings((prevLoadings) => {
-        const newLoadings = [...prevLoadings];
-        newLoadings[index] = false;
-        document.location.reload();
-        return newLoadings;
-      });
-    }, 4000);
-  };
   return (
     <>
       <Form
@@ -93,8 +47,8 @@ const RatingForm: React.FC<props> = ({ id }) => {
           ]}
         >
           <Input
-            onChange={(e) => setRating(Number(e.target.value))}
-            value={rating}
+            onChange={(e) => setFormData({ rating: e.target.value })}
+            value={formData["rating"]}
           />
         </Form.Item>
 
@@ -109,8 +63,8 @@ const RatingForm: React.FC<props> = ({ id }) => {
             type="primary"
             ghost
             className="loginButtons"
-            loading={loadings[0]}
-            onClick={() => enterLoading(0)}
+            loading={loadings}
+            onClick={() => enterLoading()}
             htmlType="submit"
           >
             Submit
