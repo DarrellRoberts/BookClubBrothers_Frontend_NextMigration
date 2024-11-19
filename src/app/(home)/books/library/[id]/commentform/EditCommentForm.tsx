@@ -7,12 +7,12 @@ import useForm from "@/hooks/post-hooks/useForm";
 
 const { TextArea } = Input;
 
-interface props {
+type Props = {
   id: string | string[];
   inComment: string;
-}
+};
 
-const EditRatingForm: React.FC<props> = ({ id, inComment }) => {
+const EditRatingForm: React.FC<Props> = ({ id, inComment }) => {
   const { handleSubmit, error, formData, setFormData, enterLoading, loadings } =
     useForm(
       `https://bookclubbrothers-backend.onrender.com/books/comment/edit/${id}`,

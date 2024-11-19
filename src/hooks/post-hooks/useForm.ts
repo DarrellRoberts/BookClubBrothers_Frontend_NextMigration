@@ -42,7 +42,7 @@ const useForm = (url: string, form: object, reqType: string) => {
     setLoadings(true);
     setTimeout(() => {
       setLoadings(false);
-      document.location.reload();
+      // document.location.reload();
     }, 4000);
   };
 
