@@ -4,6 +4,7 @@ import { useContext, useState } from "react";
 import { AuthContext } from "@/context/AuthContext";
 
 const useForm = (url: string, form: object, reqType: string) => {
+  const [loadings, setLoadings] = useState(false);
   const [formData, setFormData] = useState(form);
   const [error, setError] = useState("");
 
@@ -36,7 +37,16 @@ const useForm = (url: string, form: object, reqType: string) => {
       console.log(error);
     }
   };
-  return { handleSubmit, error, formData, setFormData };
+
+  const enterLoading = () => {
+    setLoadings(true);
+    setTimeout(() => {
+      setLoadings(false);
+      document.location.reload();
+    }, 4000);
+  };
+
+  return { handleSubmit, error, formData, setFormData, enterLoading, loadings };
 };
 
 export default useForm;

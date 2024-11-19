@@ -1,5 +1,4 @@
 /* eslint-disable react/react-in-jsx-scope */
-import { useState } from "react";
 import { Button, Form, Input, Space, Select } from "antd";
 import "../../../../../style/createbook.css";
 import useForm from "@/hooks/post-hooks/useForm";
@@ -7,28 +6,20 @@ import useForm from "@/hooks/post-hooks/useForm";
 const { Option } = Select;
 
 const CreateBook: React.FC = () => {
-  const [loadings, setLoadings] = useState<boolean>(false);
+  const { handleSubmit, error, formData, setFormData, enterLoading, loadings } =
+    useForm(
+      "https://bookclubbrothers-backend.onrender.com/books/unread/create",
+      {
+        title: "",
+        author: "",
+        pages: 0,
+        yearPublished: 0,
+        genre: [],
+        imageURL: "",
+      },
+      "POST"
+    );
 
-  const { handleSubmit, error, formData, setFormData } = useForm(
-    "https://bookclubbrothers-backend.onrender.com/books/unread/create",
-    {
-      title: "",
-      author: "",
-      pages: 0,
-      yearPublished: 0,
-      genre: [],
-      imageURL: "",
-    },
-    "POST"
-  );
-
-  const enterLoading = () => {
-    setLoadings(true);
-    setTimeout(() => {
-      setLoadings(false);
-      document.location.reload();
-    }, 4000);
-  };
   return (
     <>
       <Form
@@ -140,8 +131,6 @@ const CreateBook: React.FC = () => {
             }}
             placeholder="Select the genres"
             optionLabelProp="label"
-            // value={genre}
-            // onChange={setGenre}
             onChange={(e) => setFormData({ ...formData, genre: e })}
             value={formData["genre"]}
           >

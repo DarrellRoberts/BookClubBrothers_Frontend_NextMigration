@@ -2,7 +2,6 @@
 /* eslint-disable react/react-in-jsx-scope */
 "use client";
 
-import { useState } from "react";
 import { Button, Form, Input } from "antd";
 import useForm from "@/hooks/post-hooks/useForm";
 
@@ -14,21 +13,13 @@ interface props {
 }
 
 const EditRatingForm: React.FC<props> = ({ id, inComment }) => {
-  const [loadings, setLoadings] = useState(false);
+  const { handleSubmit, error, formData, setFormData, enterLoading, loadings } =
+    useForm(
+      `https://bookclubbrothers-backend.onrender.com/books/comment/edit/${id}`,
+      { comments: inComment },
+      "PUT"
+    );
 
-  const { handleSubmit, error, formData, setFormData } = useForm(
-    `https://bookclubbrothers-backend.onrender.com/books/comment/edit/${id}`,
-    { comments: inComment },
-    "PUT"
-  );
-
-  const enterLoading = () => {
-    setLoadings(true);
-    setTimeout(() => {
-      setLoadings(false);
-      document.location.reload();
-    }, 4000);
-  };
   return (
     <>
       <Form
