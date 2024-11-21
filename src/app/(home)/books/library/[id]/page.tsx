@@ -203,10 +203,10 @@ const SingleBook: React.FC = () => {
               {state.showGenre ? (
                 <EditGenre
                   id={id}
-                  inGenre={bookData?.genre.map((type) => type)}
+                  inGenre={bookData?.genre?.map((type) => type)}
                 />
               ) : (
-                bookData?.genre.map((type, i) => (
+                bookData?.genre?.map((type, i) => (
                   <li key={i}>
                     {type[bookData?.genre?.length - 1]
                       ? ` ${type}`

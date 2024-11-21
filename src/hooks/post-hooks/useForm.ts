@@ -10,8 +10,6 @@ const useForm = (url: string, form: object, reqType: string) => {
 
   const { token } = useContext(AuthContext);
 
-  console.log(formData);
-
   const handleSubmit = async () => {
     try {
       setError(null);
@@ -21,7 +19,7 @@ const useForm = (url: string, form: object, reqType: string) => {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify(formData),
+        body: reqType === "DELETE" ? null : JSON.stringify(formData),
       });
       const data = await response.json();
       if (!response.ok) {
