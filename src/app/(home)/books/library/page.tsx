@@ -13,20 +13,30 @@ import "../../../../style/searchRes.css";
 import { Button } from "antd";
 import BookImageCover from "./BookImageCover";
 import { handleHideScores_NoSetter } from "@/functions/time-functions/hideScores";
-import useFetch from "@/hooks/fetch-hooks/useBookFetch";
+// import useFetch from "@/hooks/fetch-hooks/useBookFetch";
+import { useQuery } from "@tanstack/react-query";
 
 const Booklibrary: React.FC = () => {
   const [searchBar, setSearchBar] = useState<string>("");
 
-  const { bookData, loading } = useFetch(
-    "https://bookclubbrothers-backend.onrender.com/books",
-    searchBar,
-    true
-  );
+  const { isPending, data } = useQuery({
+    queryKey: [""],
+    queryFn: () =>
+      fetch(
+        `https://bookclubbrothers-backend.onrender.com/books/${searchBar}`
+      ).then((res) => res.json()),
+  });
+  // const { bookData, loading } = useFetch(
+  //   "https://bookclubbrothers-backend.onrender.com/books",
+  //   searchBar,
+  //   true
+  // );
 
   //filtering data to show only read books
-  const filteredResults = Array.isArray(bookData)
-    ? bookData?.filter((book) => book.title.includes(searchBar))
+  const readBooks = data?.filter((book) => book.read === true);
+
+  const filteredResults = Array.isArray(readBooks)
+    ? readBooks?.filter((book) => book.title.includes(searchBar))
     : ["No results"];
 
   return (
@@ -38,7 +48,7 @@ const Booklibrary: React.FC = () => {
         </Link>
       </div>
       <h1 className="bookLibraryTitle">Book Library</h1>
-      {loading && bookData?.length <= 0 ? (
+      {isPending ? (
         <Loader />
       ) : (
         <div className="bookCon flex flex-wrap">
