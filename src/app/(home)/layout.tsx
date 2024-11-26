@@ -1,6 +1,7 @@
 import React from "react";
 import type { Metadata } from "next";
 import AuthContextProvider from "../../context/AuthContext";
+import QueryProvider from "@/query/QueryProvider";
 import ScrollToTop from "../../functions/ScrollToTop";
 import "../globals.css";
 import dynamic from "next/dynamic";
@@ -23,17 +24,19 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <AuthContextProvider>
-        <ScrollToTop />
-        <head>
-          <link rel="icon" href="./icon.svg" type="image/svg+xml" />
-        </head>
-        <body>
-          <NoSSRHeader />
-          {children}
-          <Footer />
-        </body>
-      </AuthContextProvider>
+      <QueryProvider>
+        <AuthContextProvider>
+          <ScrollToTop />
+          <head>
+            <link rel="icon" href="./icon.svg" type="image/svg+xml" />
+          </head>
+          <body>
+            <NoSSRHeader />
+            {children}
+            <Footer />
+          </body>
+        </AuthContextProvider>
+      </QueryProvider>
     </html>
   );
 }
