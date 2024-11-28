@@ -2,11 +2,11 @@
 /* eslint-disable react/react-in-jsx-scope */
 "use client";
 
-import { useState, useEffect, useContext } from "react";
+import { useContext } from "react";
 import styles from "./BookCover.module.css";
-import { type User } from "@/types/UserInterface";
 import { AuthContext } from "@/context/AuthContext";
 import { useJwt } from "react-jwt";
+import useUserFetch from "@/hooks/fetch-hooks/useUserFetch";
 
 type Props = {
   title: string;
@@ -23,30 +23,18 @@ const BookCover: React.FC<Props> = ({
   raterArr,
   hideScores,
 }) => {
-  const [users, setUserData] = useState<Array<User>>([]);
-  const [error, setError] = useState("");
-
   const { token } = useContext(AuthContext);
   const { decodedToken }: { decodedToken?: { username: string; _id: string } } =
     useJwt(token);
   const username = decodedToken?.username;
 
-  const getData = async () => {
-    try {
-      const data = await fetch(
-        `https://bookclubbrothers-backend.onrender.com/users`,
-        { cache: "force-cache" }
-      );
-      const user = await data.json();
-      setUserData(user);
-    } catch (err) {
-      setError(err);
-      console.log(error);
-    }
-  };
+  const { userData, loadingUsers, error } = useUserFetch(
+    `https://bookclubbrothers-backend.onrender.com/users`,
+    null
+  );
 
   const findUser = (id) => {
-    const user = users.find((user) => user._id === id);
+    const user = userData?.find((user) => user._id === id);
     return user ? user.username : "user not found";
   };
 
@@ -65,10 +53,6 @@ const BookCover: React.FC<Props> = ({
   };
   findBookScore();
 
-  useEffect(() => {
-    getData();
-  }, []);
-
   return (
     <>
       <div className="flex h-[100%] w-[100%]">
@@ -79,12 +63,14 @@ const BookCover: React.FC<Props> = ({
         <div className={`${styles.rightcover} flex flex-col items-start ml-2`}>
           <h2 className="underline mb-5">Book Club Brothers</h2>
 
-          {Array.isArray(raterObj) && raterObj.length > 0 ? (
+          {Array.isArray(raterObj) && !loadingUsers ? (
             raterObj.map(([name, value]) => (
               <li className="list-none mb-1 ml-2" key={name}>
                 {name}: {hideScores && username !== name ? "?" : value}
               </li>
             ))
+          ) : error ? (
+            <li>{error?.message}</li>
           ) : (
             <li className="list-none mb-1 ml-2">Score Pending...</li>
           )}

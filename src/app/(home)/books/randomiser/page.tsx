@@ -11,7 +11,7 @@ import { AuthContext } from "../../../../context/AuthContext";
 import { useJwt } from "react-jwt";
 import style from "./randomiser.module.css";
 import EditUnreadBook from "./bookform/edit/EditUnreadBook";
-import useBookFetch from "@/hooks/fetch-hooks/useBookFetch";
+import useBookFetch from "@/hooks/fetch-hooks/useUnreadBookFetch";
 import useUserFetch from "@/hooks/fetch-hooks/useUserFetch";
 
 const reducer = (state, action) => {
@@ -54,18 +54,17 @@ const RandomiserHomepage: React.FC = () => {
 
   const adminId = "65723ac894b239fe25fe6871";
 
-  const { bookData, loading } = useBookFetch(
+  const { bookData, loadingBooks, error } = useBookFetch(
     "https://bookclubbrothers-backend.onrender.com/books/unread/all",
-    null,
-    false
+    null
   );
-  const { userData } = useUserFetch(
+  const { userData, loadingUsers } = useUserFetch(
     "https://bookclubbrothers-backend.onrender.com/users",
     null
   );
 
   const findUser = (id) => {
-    const user = userData.find((user) => user._id === id);
+    const user = userData?.find((user) => user._id === id);
     return user ? user.username : "user not found";
   };
 
@@ -76,7 +75,7 @@ const RandomiserHomepage: React.FC = () => {
         <div className={style.randomBox}>
           <div className={style.randomBoxLeft}>
             <div className={style.randomBoxLeftList}>
-              {loading ? (
+              {loadingBooks && loadingUsers ? (
                 <div className="flex justify-center items-center mt-20">
                   <LoaderNoText />
                 </div>
@@ -122,7 +121,7 @@ const RandomiserHomepage: React.FC = () => {
                 Click randomise on the right to randomise the selection or click
                 on each item in the list to see its details.
               </h2>
-              {!loading ? (
+              {!loadingBooks && !loadingUsers ? (
                 <h2 className={style.adminText}>
                   Only the admin can select the book.
                 </h2>
@@ -133,20 +132,22 @@ const RandomiserHomepage: React.FC = () => {
           <div
             className={style.randomBoxRight}
             style={{
-              backgroundImage: `URL(${bookData[state.index]?.imageURL})`,
+              backgroundImage: bookData
+                ? `URL(${bookData[state.index]?.imageURL})`
+                : "black",
               backgroundRepeat: "no-repeat",
               backgroundSize: "cover",
               backgroundPosition: "center",
             }}
           >
-            {loading ? (
+            {loadingBooks ? (
               <div className="flex justify-center items-center mt-20">
                 <LoaderNoText />
               </div>
             ) : (
               <div className={style.randomDetailsCon + " bg-white"}>
-                {state.error ? (
-                  <h2 className="text-red-500 bg-black">{state.error}</h2>
+                {error ? (
+                  <h2 className="text-red-500 bg-black">{error.message}</h2>
                 ) : (
                   <>
                     <h2>{bookData[state.index]?.title}</h2>

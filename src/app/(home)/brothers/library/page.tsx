@@ -1,7 +1,7 @@
 /* eslint-disable react/react-in-jsx-scope */
 "use client";
 
-import { useState, useContext, useReducer } from "react";
+import { useState, useContext, useReducer, useMemo } from "react";
 import Link from "next/link";
 import { DoubleLeftOutlined } from "@ant-design/icons";
 import Loader from "../../../../components/loader/Loader";
@@ -25,7 +25,7 @@ import "../../../../style/button.css";
 import LoaderNoText from "@/components/loader/LoaderNoText";
 import ProfileUnknownUserImage from "@/assets/Profile.unknown-profile-image.jpg";
 import { handleHideScores_NoSetter } from "@/functions/time-functions/hideScores";
-import useBookFetch from "@/hooks/fetch-hooks/useBookFetch";
+import useBookFetch from "@/hooks/fetch-hooks/useReadBookFetch";
 import useUserFetch from "@/hooks/fetch-hooks/useUserFetch";
 
 type StateType = {
@@ -63,16 +63,17 @@ const Brothercat: React.FC = () => {
 
   const [searchBar, setSearchBar] = useState("");
 
-  const { userData } = useUserFetch(
-    "https://bookclubbrothers-backend.onrender.com/users",
+  const { userData, loadingUsers } = useUserFetch(
+    `https://bookclubbrothers-backend.onrender.com/users/${searchBar}`,
     searchBar
   );
 
-  const { bookData, loading } = useBookFetch(
+  const { bookData, loadingBooks } = useBookFetch(
     "https://bookclubbrothers-backend.onrender.com/books",
-    null,
-    true
+    null
   );
+
+  const readBooks = bookData?.filter((book) => book.read === true);
 
   const [state, dispatch] = useReducer(reducer, {
     showImage: false,
@@ -82,21 +83,20 @@ const Brothercat: React.FC = () => {
   });
 
   let userBookObj = {};
-  const mapUserToBook = () => {
-    let bookId = userData.map(
+  useMemo(() => {
+    let bookId = userData?.map(
       (user) =>
         user?.userInfo?.books?.booksScored[
           user?.userInfo?.books?.booksScored.length - 1
         ]
     );
-    bookId = bookId.map((book) => findBook(book, bookData));
-    for (let i = 0; i < bookId.length; i++) {
+    bookId = bookId?.map((book) => findBook(book, readBooks));
+    for (let i = 0; i < bookId?.length; i++) {
       userBookObj[i] = bookId[i];
     }
     userBookObj = Object.entries(userBookObj);
     return userBookObj;
-  };
-  mapUserToBook();
+  }, [readBooks]);
 
   const filteredResults = Array.isArray(userData)
     ? userData?.filter((user) => user?.username?.includes(searchBar))
@@ -107,7 +107,7 @@ const Brothercat: React.FC = () => {
       <div className="searchBackCon">
         <Search setSearchBar={setSearchBar} />
       </div>
-      {loading ? (
+      {loadingUsers && loadingBooks ? (
         <Loader />
       ) : (
         <>
@@ -223,8 +223,7 @@ const Brothercat: React.FC = () => {
                       </li>
                       <li>
                         Book:{" "}
-                        {userBookObj[userData?.indexOf(user)][1] !==
-                        "book not found" ? (
+                        {Object.keys(userBookObj).length !== 0 ? (
                           userBookObj[userData?.indexOf(user)][1]
                         ) : (
                           <LoaderNoText />
@@ -232,10 +231,11 @@ const Brothercat: React.FC = () => {
                       </li>
                       <li>
                         Score:
-                        {handleHideScores_NoSetter(
+                        {Object.keys(userBookObj).length !== 0 &&
+                        handleHideScores_NoSetter(
                           findDateOfMeeting(
                             userBookObj[userData?.indexOf(user)][1],
-                            bookData
+                            readBooks
                           )
                         )
                           ? " ?"

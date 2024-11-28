@@ -32,7 +32,7 @@ import { Book } from "@/types/BookInterface";
 import { formatServerDate } from "@/functions/time-functions/formatServerDate";
 import { handleHideScores_NoSetter } from "@/functions/time-functions/hideScores";
 import useUserFetch from "@/hooks/fetch-hooks/useUserFetch";
-import useBookFetch from "@/hooks/fetch-hooks/useBookFetch";
+import useBookFetch from "@/hooks/fetch-hooks/useReadBookFetch";
 
 type StateType = {
   showImage: boolean;
@@ -48,16 +48,17 @@ const reducer = (state: StateType, action) => {
 };
 
 const Dashboard: React.FC = () => {
-  const { userData, loading } = useUserFetch(
-    "https://bookclubbrothers-backend.onrender.com/users",
+  const { userData, loadingUsers } = useUserFetch(
+    `https://bookclubbrothers-backend.onrender.com/users`,
     null
   );
 
   const { bookData } = useBookFetch(
     "https://bookclubbrothers-backend.onrender.com/books",
-    null,
-    true
+    null
   );
+
+  const readBooks = bookData?.filter((book) => book.read === true);
 
   const [state, dispatch] = useReducer(reducer, {
     showImage: false,
@@ -77,37 +78,37 @@ const Dashboard: React.FC = () => {
   const { username } = useParams();
   const id: string = decodedToken?._id;
   const findUser =
-    userData.find((user) => user.username === username) ??
-    userData.find((user) => user._id === id);
+    userData?.find((user) => user.username === username) ??
+    userData?.find((user) => user._id === id);
 
   const scoreArray = findUser?.userInfo?.books?.score;
 
   //statistics vars
-  const findMinBook: Book = findMinScoreBook(bookData, scoreArray, findUser);
-  const findMaxBook: Book = findMaxScoreBook(bookData, scoreArray, findUser);
+  const findMinBook: Book = findMinScoreBook(readBooks, scoreArray, findUser);
+  const findMaxBook: Book = findMaxScoreBook(readBooks, scoreArray, findUser);
   const avgScore: string = averageScore(findUser)?.toFixed(2);
 
   const userReadBooks: Book[] = filterUserReadBooks(
-    bookData,
+    readBooks,
     findUser?._id
-  ).filter((book) => !handleHideScores_NoSetter(book.dateOfMeeting));
+  )?.filter((book) => !handleHideScores_NoSetter(book.dateOfMeeting));
   const userUnreadBooks: Book[] = filterUserUnreadBooks(
-    bookData,
+    readBooks,
     findUser?._id
   );
 
-  const unreadBooksArr: string[] = unreadBookTitles(bookData, findUser?._id);
-  const readBooksArr: string[] = userReadBookTitles(bookData, findUser?._id);
+  const unreadBooksArr: string[] = unreadBookTitles(readBooks, findUser?._id);
+  const readBooksArr: string[] = userReadBookTitles(readBooks, findUser?._id);
 
   const noUserReadBooks: number = findUser?.userInfo?.books?.score?.length;
 
   // comments
-  const filterComments = userReadBooks.filter((book) =>
+  const filterComments = userReadBooks?.filter((book) =>
     book.commentInfo.commentId.includes(findUser?._id)
   );
   return (
     <>
-      {loading ? (
+      {loadingUsers ? (
         <LoadingScreen />
       ) : (
         <>
@@ -188,7 +189,7 @@ const Dashboard: React.FC = () => {
                   userReadBooks={readBooksArr}
                   unreadBooks={unreadBooksArr}
                   booksRead={[noUserReadBooks, userUnreadBooks.length]}
-                  bookTotal={bookData.length}
+                  bookTotal={readBooks?.length}
                 />
               </div>
             </div>

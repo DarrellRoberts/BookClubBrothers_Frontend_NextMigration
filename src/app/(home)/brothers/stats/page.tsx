@@ -10,30 +10,31 @@ import {
 } from "@/functions/stat-functions/scoreFunctions";
 import LoaderNoText from "@/components/loader/LoaderNoText";
 import Graph from "@/components/graphs/brothers/Graph";
-import useBookFetch from "@/hooks/fetch-hooks/useBookFetch";
+import useBookFetch from "@/hooks/fetch-hooks/useReadBookFetch";
 import useUserFetch from "@/hooks/fetch-hooks/useUserFetch";
 
 const BrothersStats: React.FC = () => {
-  const { userData, loading } = useUserFetch(
+  const { userData, loadingUsers } = useUserFetch(
     "https://bookclubbrothers-backend.onrender.com/users",
     null
   );
 
-  const { bookData } = useBookFetch(
+  const { bookData, loadingBooks } = useBookFetch(
     "https://bookclubbrothers-backend.onrender.com/books",
-    null,
-    true
+    null
   );
 
+  const readBooks = bookData?.filter((book) => book.read === true);
+
   return (
-    <div className={loading ? "h-screen" : ""}>
+    <div className={loadingUsers && loadingBooks ? "h-screen" : ""}>
       <h1 className={styles.statsTitle}>Brothers Stats</h1>
       <div className={styles.leagueCon}>
-        <BrotherTable userData={userData} bookData={bookData} />
+        <BrotherTable userData={userData} bookData={readBooks} />
       </div>
       <div className={styles.booksStatsCon}>
         <h2>Books Read</h2>
-        {loading ? (
+        {!readBooks ? (
           <LoaderNoText />
         ) : (
           <div className={styles.booksReadCon}>
@@ -44,11 +45,11 @@ const BrothersStats: React.FC = () => {
                   key={i}
                   booksRead={[
                     user.userInfo.books.score.length,
-                    unreadBookTitles(bookData, user._id).length,
+                    unreadBookTitles(readBooks, user._id)?.length,
                   ]}
-                  unreadBooks={unreadBookTitles(bookData, user._id)}
-                  userReadBooks={userReadBookTitles(bookData, user._id)}
-                  bookTotal={bookData.length}
+                  unreadBooks={unreadBookTitles(readBooks, user._id)}
+                  userReadBooks={userReadBookTitles(readBooks, user._id)}
+                  bookTotal={readBooks?.length}
                 />
               </div>
             ))}
@@ -56,12 +57,12 @@ const BrothersStats: React.FC = () => {
         )}
         <div>
           <h2>Average Scores</h2>
-          {loading ? (
+          {!readBooks ? (
             <LoaderNoText />
           ) : (
             <Graph
-              bookTitles={userData.map((user) => user.username)}
-              bookScores={userData.map((user) => averageScore(user))}
+              bookTitles={userData?.map((user) => user.username)}
+              bookScores={userData?.map((user) => averageScore(user))}
               username="User"
             />
           )}
