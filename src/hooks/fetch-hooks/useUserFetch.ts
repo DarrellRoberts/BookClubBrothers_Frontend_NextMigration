@@ -1,32 +1,19 @@
 "use client";
-import { useState, useEffect } from "react";
-import { type User } from "@/types/UserInterface";
+
+import { useQuery } from "@tanstack/react-query";
 
 const useUserFetch = (url: string, searchBar: string | null) => {
-  const [userData, setUserData] = useState<User[]>([]);
-  const [error, setError] = useState<string | null | unknown>(null);
-  const [loading, setLoading] = useState<boolean>(true);
+  const { data, isPending, error } = useQuery({
+    queryKey: ["userData", searchBar],
+    queryFn: async () => fetch(url).then((res) => res.json()),
+    staleTime: 1000 * 60 * 5,
+  });
 
-  const fetchData = async (): Promise<void> => {
-    try {
-      const response = searchBar
-        ? await fetch(`${url}/username/${searchBar}`)
-        : await fetch(url, {cache: "force-cache"});
-      const data = await response.json();
-      setUserData(data);
-      setLoading(false);
-    } catch (err: unknown) {
-      setLoading(false);
-      setError(err);
-      console.error(err);
-    }
-  };
+  const userData = data;
 
-  useEffect(() => {
-    fetchData();
-  }, [url]);
+  const loadingUsers = isPending;
 
-  return { userData, error, loading };
+  return { userData, loadingUsers, error };
 };
 
 export default useUserFetch;

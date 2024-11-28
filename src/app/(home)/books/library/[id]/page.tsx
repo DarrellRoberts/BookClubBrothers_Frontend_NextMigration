@@ -30,7 +30,7 @@ import EditTitle from "./editbookform/title/EditTitle";
 import EditImageButton from "./editbookform/image/EditImageButton";
 import EditImage from "./editbookform/image/EditImage";
 import { handleHideScores_NoSetter } from "@/functions/time-functions/hideScores";
-import useSingleBookFetch from "@/hooks/fetch-hooks/useSingeBookFetch";
+import useBookFetch from "@/hooks/fetch-hooks/useReadBookFetch";
 
 type StateType = {
   showDelete: boolean;
@@ -84,8 +84,9 @@ const SingleBook: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const adminId = "65723ac894b239fe25fe6871";
 
-  const { bookData, loading } = useSingleBookFetch(
-    `https://bookclubbrothers-backend.onrender.com/books/${id}`
+  const { bookData, loadingBooks, error } = useBookFetch(
+    `https://bookclubbrothers-backend.onrender.com/books/${id}`,
+    id
   );
 
   return (
@@ -94,7 +95,9 @@ const SingleBook: React.FC = () => {
         <h1 className="bookTitle flex justify-center items-center h-screen text-center">
           Book is deleted
         </h1>
-      ) : loading && !bookData ? (
+      ) : error ? (
+        <h1>{error.message}</h1>
+      ) : loadingBooks && !bookData ? (
         <Loader />
       ) : (
         <div className="mainSingleCon flex items-center">
@@ -105,7 +108,7 @@ const SingleBook: React.FC = () => {
                 <EditTitle id={id} inTitle={bookData?.title} />
               </div>
             ) : (
-              <h1 className="bookTitle">{bookData.title}</h1>
+              <h1 className="bookTitle">{bookData?.title}</h1>
             )}
             {decodedToken?._id === adminId ? (
               <EditTitleButton
@@ -252,7 +255,7 @@ const SingleBook: React.FC = () => {
         <RatingCon
           bookData={bookData}
           id={id}
-          loading={loading}
+          loading={loadingBooks}
           hideScores={handleHideScores_NoSetter(bookData?.dateOfMeeting)}
         />
         <CommentCon

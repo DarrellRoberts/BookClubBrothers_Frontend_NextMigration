@@ -8,16 +8,17 @@ import "@/style/bookHomepage.css";
 import "@/style/bookHomepageRes.css";
 import styles from "./bookstats.module.css";
 import ScatterGraph from "@/components/graphs/brothers/ScatterGraph";
-import useBookFetch from "@/hooks/fetch-hooks/useBookFetch";
+import useBookFetch from "@/hooks/fetch-hooks/useReadBookFetch";
 
 const BookStats = () => {
-  const { bookData, loading } = useBookFetch(
+  const { bookData, loadingBooks } = useBookFetch(
     "https://bookclubbrothers-backend.onrender.com/books",
-    null,
-    true
+    null
   );
 
-  const reviewedBooks = bookData.filter(
+  const readBooks = bookData?.filter((book) => book.read === true);
+
+  const reviewedBooks = readBooks?.filter(
     (book) => !handleHideScores_NoSetter(book.dateOfMeeting)
   );
 
@@ -48,12 +49,12 @@ const BookStats = () => {
   const labelArray = reviewedBooks?.map((book) => book.title);
 
   return (
-    <div className={loading ? "h-screen" : ""}>
+    <div className={loadingBooks ? "h-screen" : ""}>
       <h1 className="booksTitle">Book Stats</h1>
       <div className={styles.booksStatsCon}>
         <div className="flex flex-col justify-self-center">
           <h2>Total Scores</h2>
-          {loading ? (
+          {loadingBooks ? (
             <LoaderNoText />
           ) : (
             <>
@@ -67,7 +68,7 @@ const BookStats = () => {
         </div>
         <div className="flex flex-col justify-self-center">
           <h2>By Genre</h2>
-          {loading ? (
+          {loadingBooks ? (
             <LoaderNoText />
           ) : (
             <>
@@ -81,7 +82,7 @@ const BookStats = () => {
         </div>
         <div className="flex flex-col justify-self-center">
           <h2>By Number of Pages</h2>
-          {loading ? (
+          {loadingBooks ? (
             <LoaderNoText />
           ) : (
             <ScatterGraph
@@ -96,7 +97,7 @@ const BookStats = () => {
         </div>
         <div className="flex flex-col justify-self-center">
           <h2>By Year Published</h2>
-          {loading ? (
+          {loadingBooks ? (
             <LoaderNoText />
           ) : (
             <ScatterGraph
