@@ -19,7 +19,7 @@ type Props = {
 const CommentCon: React.FC<Props> = ({ username, comments, userId }) => {
   return (
     <div className={style.commentCon}>
-      {comments.length > 0 ? (
+      {comments?.length > 0 ? (
         comments.map((book, i) => (
           <Link key={i} href={`/books/library/${book._id}`}>
             <div className={style.commentItem} key={i}>
@@ -42,10 +42,12 @@ const CommentCon: React.FC<Props> = ({ username, comments, userId }) => {
         <div className={style.commentItem}>
           <h3 className={style.noComment}>
             {username} has written no comments.
-            <br/ >
-            {username}, if you're reading
-            this,{" "}
-            <Link href="/books/library"> click here to access the book library </Link>{" "}
+            <br />
+            {username}, if you're reading this,{" "}
+            <Link href="/books/library">
+              {" "}
+              click here to access the book library{" "}
+            </Link>{" "}
             and get writing!
           </h3>
         </div>

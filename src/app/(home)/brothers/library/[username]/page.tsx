@@ -2,7 +2,7 @@
 /* eslint-disable react/react-in-jsx-scope */
 "use client";
 
-import { useContext, useReducer } from "react";
+import { useContext, useEffect, useReducer, useState } from "react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import "@/style/dashboard.css";
@@ -33,6 +33,8 @@ import { formatServerDate } from "@/functions/time-functions/formatServerDate";
 import { handleHideScores_NoSetter } from "@/functions/time-functions/hideScores";
 import useUserFetch from "@/hooks/fetch-hooks/useUserFetch";
 import useBookFetch from "@/hooks/fetch-hooks/useReadBookFetch";
+import Filters from "@/components/graphs/brothers/Filters";
+import LoaderNoText from "@/components/loader/LoaderNoText";
 
 type StateType = {
   showImage: boolean;
@@ -53,12 +55,14 @@ const Dashboard: React.FC = () => {
     null
   );
 
-  const { bookData } = useBookFetch(
+  const { bookData, loadingBooks } = useBookFetch(
     "https://bookclubbrothers-backend.onrender.com/books",
     null
   );
 
   const readBooks = bookData?.filter((book) => book.read === true);
+
+  const [fetchedData, setFetchedData] = useState<Book[]>();
 
   const [state, dispatch] = useReducer(reducer, {
     showImage: false,
@@ -92,6 +96,7 @@ const Dashboard: React.FC = () => {
     readBooks,
     findUser?._id
   )?.filter((book) => !handleHideScores_NoSetter(book.dateOfMeeting));
+
   const userUnreadBooks: Book[] = filterUserUnreadBooks(
     readBooks,
     findUser?._id
@@ -100,15 +105,64 @@ const Dashboard: React.FC = () => {
   const unreadBooksArr: string[] = unreadBookTitles(readBooks, findUser?._id);
   const readBooksArr: string[] = userReadBookTitles(readBooks, findUser?._id);
 
+  const sortBooksLowest = () => {
+    setFetchedData(
+      userReadBooks?.sort(
+        (a, b) =>
+          a.scoreRatings.rating[a.scoreRatings.raterId.indexOf(findUser?._id)] -
+          b.scoreRatings.rating[b.scoreRatings.raterId.indexOf(findUser?._id)]
+      )
+    );
+  };
+
+  const sortBooksHighest = () => {
+    setFetchedData(
+      userReadBooks
+        ?.sort(
+          (a, b) =>
+            a.scoreRatings.rating[
+              a.scoreRatings.raterId.indexOf(findUser?._id)
+            ] -
+            b.scoreRatings.rating[b.scoreRatings.raterId.indexOf(findUser?._id)]
+        )
+        .reverse()
+    );
+  };
+
+  const sortBooksDefault = () => {
+    setFetchedData(
+      userReadBooks?.sort(
+        (a, b) =>
+          new Date(b.dateOfMeeting).getTime() -
+          new Date(a.dateOfMeeting).getTime()
+      )
+    );
+  };
+
+  const sortBooksOther = () => {
+    setFetchedData(
+      userReadBooks?.sort(
+        (a, b) =>
+          new Date(a.dateOfMeeting).getTime() -
+          new Date(b.dateOfMeeting).getTime()
+      )
+    );
+  };
+
   const noUserReadBooks: number = findUser?.userInfo?.books?.score?.length;
 
   // comments
   const filterComments = userReadBooks?.filter((book) =>
     book.commentInfo.commentId.includes(findUser?._id)
   );
+
+  useEffect(() => {
+    sortBooksDefault();
+  }, [loadingBooks, loadingUsers]);
+
   return (
     <>
-      {loadingUsers ? (
+      {loadingBooks ? (
         <LoadingScreen />
       ) : (
         <>
@@ -188,7 +242,7 @@ const Dashboard: React.FC = () => {
                 <PieChart
                   userReadBooks={readBooksArr}
                   unreadBooks={unreadBooksArr}
-                  booksRead={[noUserReadBooks, userUnreadBooks.length]}
+                  booksRead={[noUserReadBooks, userUnreadBooks?.length]}
                   bookTotal={readBooks?.length}
                 />
               </div>
@@ -220,17 +274,29 @@ const Dashboard: React.FC = () => {
 
           <div className={style.graphCon}>
             <h2 className="underline">Books scored</h2>
-            <Graph
-              bookTitles={userReadBooks?.map((book) => book.title)}
-              totalBookScores={userReadBooks?.map((book) => book.totalScore)}
-              bookScores={userReadBooks?.map(
-                (book) =>
-                  book?.scoreRatings?.rating[
-                    book?.scoreRatings?.raterId.indexOf(findUser?._id)
-                  ]
-              )}
-              username={findUser?.username}
-            />
+            {fetchedData?.length <= 0 ? (
+              <LoaderNoText />
+            ) : (
+              <>
+                <Filters
+                  sortBooksDefault={sortBooksDefault}
+                  sortBooksHighest={sortBooksHighest}
+                  sortBooksLowest={sortBooksLowest}
+                  sortBooksOther={sortBooksOther}
+                />
+                <Graph
+                  bookTitles={fetchedData?.map((book) => book.title)}
+                  totalBookScores={fetchedData?.map((book) => book.totalScore)}
+                  bookScores={fetchedData?.map(
+                    (book) =>
+                      book?.scoreRatings?.rating[
+                        book?.scoreRatings?.raterId.indexOf(findUser?._id)
+                      ]
+                  )}
+                  username={findUser?.username}
+                />
+              </>
+            )}
           </div>
 
           <div className={style.commentSection}>

@@ -24,8 +24,8 @@ const PieChart: React.FC<Props> = ({
   ).toFixed(2);
   const dataset1: number[] = booksRead ?? [];
   const labels1 = [
-    ["Read Books", ...userReadBooks],
-    ["Unread Books", ...unreadBooks],
+    ["Read Books", ...(userReadBooks ?? [])],
+    ["Unread Books", ...(unreadBooks ?? [])],
   ];
 
   const data = {

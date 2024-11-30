@@ -54,13 +54,13 @@
 
 .boxItem,
 .boxItemLoading {
-  width: 400px;
   height: 250px;
   border-width: 5px;
   border-color: var(--default-border-color);
 }
 
 .boxItem img {
+  width: 390px;
   padding: 0px;
   margin: 0px;
   height: 100%;
@@ -71,6 +71,7 @@
   justify-content: center;
   align-items: center;
   height: 100%;
+  width: 390px;
   font-size: clamp(4rem, 2vw, 8rem);
   font-family: var(--main);
 }
@@ -150,7 +151,8 @@
   }
 
   .boxItem,
-  .boxItemLoading {
+  .boxItemLoading,
+  .userScore {
     width: 300px;
     height: 250px;
   }

@@ -1,0 +1,25 @@
+.inputCon {
+  display: flex;
+  justify-content: space-evenly;
+  font-family: var(--main);
+}
+
+.labelCon {
+  display: flex;
+  flex-direction: column;
+}
+
+.labelCon input[type="radio"]:checked {
+  filter: hue-rotate(240deg);
+}
+
+@media screen and (max-width: 800px) {
+  .inputCon {
+    display: grid;
+    grid-template-rows: repeat(2, 1fr);
+    grid-template-columns: repeat(2, 1fr);
+    justify-items: center;
+    gap: 1rem;
+    width: 100%;
+  }
+}
