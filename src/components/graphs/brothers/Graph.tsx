@@ -46,7 +46,7 @@ const Graph: React.FC<Props> = ({
 
   const labelsLen = handleDesktop
     ? bookTitles
-    : bookTitles.map((title) =>
+    : bookTitles?.map((title) =>
         title.length > 15 ? abbreviateString(title) : title
       );
 
