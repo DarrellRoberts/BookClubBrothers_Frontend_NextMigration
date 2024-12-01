@@ -64,8 +64,8 @@ const Brothercat: React.FC = () => {
   const [searchBar, setSearchBar] = useState("");
 
   const { userData, loadingUsers } = useUserFetch(
-    `https://bookclubbrothers-backend.onrender.com/users/${searchBar}`,
-    searchBar
+    `https://bookclubbrothers-backend.onrender.com/users`,
+    null
   );
 
   const { bookData, loadingBooks } = useBookFetch(

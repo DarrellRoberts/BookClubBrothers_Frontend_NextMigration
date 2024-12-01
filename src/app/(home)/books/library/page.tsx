@@ -19,12 +19,17 @@ const Booklibrary: React.FC = () => {
   const [searchBar, setSearchBar] = useState<string>("");
 
   const { bookData, loadingBooks, error } = useBookFetch(
-    `https://bookclubbrothers-backend.onrender.com/books/${searchBar}`,
-    searchBar
+    `https://bookclubbrothers-backend.onrender.com/books`,
+    null
   );
 
   const readBooks = bookData?.filter((book) => book.read === true);
 
+  const filteredResults = Array.isArray(readBooks)
+    ? readBooks?.filter((book) => book.title.includes(searchBar))
+    : ["No results"];
+
+  console.log(bookData);
   return (
     <>
       <div className="searchBackCon">
@@ -40,8 +45,8 @@ const Booklibrary: React.FC = () => {
         <h2> {error?.message}</h2>
       ) : (
         <div className="bookCon flex flex-wrap">
-          {readBooks?.length > 0 ? (
-            readBooks?.map((book) => (
+          {filteredResults?.length > 0 ? (
+            filteredResults?.map((book) => (
               <div key={book.id}>
                 {book.reviewImageURL ? (
                   <Link href={`/books/library/${book._id}`}>

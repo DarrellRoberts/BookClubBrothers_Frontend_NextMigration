@@ -5,7 +5,7 @@ type Props = {
   sortBooksDefault: () => void;
   sortBooksHighest: () => void;
   sortBooksLowest: () => void;
-  sortBooksOther: () => void;
+  sortBooksOther?: () => void;
 };
 
 const Filters: React.FC<Props> = ({
