@@ -12,6 +12,9 @@ import LoaderNoText from "@/components/loader/LoaderNoText";
 import Graph from "@/components/graphs/brothers/Graph";
 import useBookFetch from "@/hooks/fetch-hooks/useReadBookFetch";
 import useUserFetch from "@/hooks/fetch-hooks/useUserFetch";
+import Filters from "@/components/graphs/brothers/Filters";
+import { useEffect, useState } from "react";
+import { User } from "@/types/UserInterface";
 
 const BrothersStats: React.FC = () => {
   const { userData, loadingUsers } = useUserFetch(
@@ -26,6 +29,30 @@ const BrothersStats: React.FC = () => {
 
   const readBooks = bookData?.filter((book) => book.read === true);
 
+  const userGraphData = userData ? [...userData] : [];
+
+  const [fetchedData, setFetchedData] = useState<User[]>();
+
+  const sortBooksLowest = () => {
+    setFetchedData(
+      userGraphData?.sort((a, b) => averageScore(a) - averageScore(b))
+    );
+  };
+
+  const sortBooksHighest = () => {
+    setFetchedData(
+      userGraphData?.sort((a, b) => averageScore(a) - averageScore(b)).reverse()
+    );
+  };
+
+  const sortBooksDefault = () => {
+    setFetchedData(userGraphData?.sort());
+  };
+
+  useEffect(() => {
+    sortBooksDefault();
+  }, [loadingUsers, loadingBooks]);
+  console.log(userGraphData);
   return (
     <div className={loadingUsers && loadingBooks ? "h-screen" : ""}>
       <h1 className={styles.statsTitle}>Brothers Stats</h1>
@@ -57,14 +84,22 @@ const BrothersStats: React.FC = () => {
         )}
         <div>
           <h2>Average Scores</h2>
-          {!readBooks ? (
+          {fetchedData?.length <= 0 ? (
             <LoaderNoText />
           ) : (
-            <Graph
-              bookTitles={userData?.map((user) => user.username)}
-              bookScores={userData?.map((user) => averageScore(user))}
-              username="User"
-            />
+            <>
+              <Filters
+                sortBooksDefault={sortBooksDefault}
+                sortBooksHighest={sortBooksHighest}
+                sortBooksLowest={sortBooksLowest}
+                type="normal"
+              />
+              <Graph
+                bookTitles={fetchedData?.map((user) => user.username)}
+                bookScores={fetchedData?.map((user) => averageScore(user))}
+                username="User"
+              />
+            </>
           )}
         </div>
       </div>
