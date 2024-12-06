@@ -6,6 +6,7 @@ type Props = {
   sortBooksHighest: () => void;
   sortBooksLowest: () => void;
   sortBooksOther?: () => void;
+  type: string;
 };
 
 const Filters: React.FC<Props> = ({
@@ -13,6 +14,7 @@ const Filters: React.FC<Props> = ({
   sortBooksHighest,
   sortBooksLowest,
   sortBooksOther,
+  type,
 }) => {
   return (
     <div className={style.inputCon}>
@@ -37,7 +39,7 @@ const Filters: React.FC<Props> = ({
         />
       </label>
       <label className={style.labelCon}>
-        Most Recent
+        Default
         <input
           type="radio"
           onClick={() => {
@@ -47,16 +49,18 @@ const Filters: React.FC<Props> = ({
           defaultChecked
         />
       </label>
-      <label className={style.labelCon}>
-        Read order
-        <input
-          type="radio"
-          onClick={() => {
-            sortBooksOther();
-          }}
-          name="sorting"
-        />
-      </label>
+      {type === "normal" ? null : (
+        <label className={style.labelCon}>
+          Read order
+          <input
+            type="radio"
+            onClick={() => {
+              sortBooksOther();
+            }}
+            name="sorting"
+          />
+        </label>
+      )}
     </div>
   );
 };

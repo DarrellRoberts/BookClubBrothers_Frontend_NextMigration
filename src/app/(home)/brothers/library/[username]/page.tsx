@@ -283,6 +283,7 @@ const Dashboard: React.FC = () => {
                   sortBooksHighest={sortBooksHighest}
                   sortBooksLowest={sortBooksLowest}
                   sortBooksOther={sortBooksOther}
+                  type="all"
                 />
                 <Graph
                   bookTitles={fetchedData?.map((book) => book.title)}
