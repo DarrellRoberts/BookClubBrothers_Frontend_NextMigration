@@ -15,5 +15,5 @@ export const findBook = (id, bookData) => {
 
 export const findDateOfMeeting = (title, bookData) => {
   const book = bookData?.find((book) => book.title === title);
-  return book ? book.dateOfMeeting : "book not found";
+  return book ? book.actualDateOfMeeting : "book not found";
 };

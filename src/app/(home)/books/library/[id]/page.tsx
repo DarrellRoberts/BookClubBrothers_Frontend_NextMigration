@@ -31,6 +31,8 @@ import EditImageButton from "./editbookform/image/EditImageButton";
 import EditImage from "./editbookform/image/EditImage";
 import { handleHideScores_NoSetter } from "@/functions/time-functions/hideScores";
 import useBookFetch from "@/hooks/fetch-hooks/useReadBookFetch";
+import EditActualDate from "./editbookform/datemeeting/EditActualDate";
+import EditActualDateButton from "./editbookform/datemeeting/EditActualDateButton";
 
 type StateType = {
   showDelete: boolean;
@@ -133,7 +135,7 @@ const SingleBook: React.FC = () => {
                     ratingArr={bookData?.scoreRatings?.rating}
                     raterArr={bookData?.scoreRatings?.raterId}
                     hideScores={handleHideScores_NoSetter(
-                      bookData?.dateOfMeeting
+                      bookData?.actualDateOfMeeting
                     )}
                   />
                 </div>
@@ -224,10 +226,7 @@ const SingleBook: React.FC = () => {
                 />
               ) : null}
 
-              <li className="mt-5 underline">Read</li>
-              <li className="">{bookData?.read ? "Yes" : "No"}</li>
-
-              <li className="mt-5 underline">Date of meeting</li>
+              <li className="mt-5 underline">Planned Meeting Date</li>
               <li className="">
                 {state.showDate ? (
                   <EditDate id={id} />
@@ -239,6 +238,23 @@ const SingleBook: React.FC = () => {
               </li>
               {decodedToken?._id === adminId ? (
                 <EditDateButton showDate={state.showDate} dispatch={dispatch} />
+              ) : null}
+
+              <li className="mt-5 underline">Actual Meeting Date</li>
+              <li className="">
+                {state.showDate ? (
+                  <EditActualDate id={id} />
+                ) : bookData?.actualDateOfMeeting ? (
+                  dateFormatter(bookData?.actualDateOfMeeting)
+                ) : (
+                  "???"
+                )}
+              </li>
+              {decodedToken?._id === adminId ? (
+                <EditActualDateButton
+                  showDate={state.showDate}
+                  dispatch={dispatch}
+                />
               ) : null}
 
               <li className="mt-5 underline">Score</li>
