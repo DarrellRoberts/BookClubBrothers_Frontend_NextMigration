@@ -12,6 +12,8 @@ import useBookFetch from "@/hooks/fetch-hooks/useReadBookFetch";
 import Filters from "@/components/graphs/brothers/Filters";
 import { useEffect, useState } from "react";
 import { Book } from "@/types/BookInterface";
+import LineGraph from "@/components/graphs/brothers/LineGraph";
+import { dateFormatter } from "@/functions/time-functions/dateFormatter";
 
 const BookStats = () => {
   const { bookData, loadingBooks } = useBookFetch(
@@ -48,7 +50,18 @@ const BookStats = () => {
   const totalScoreArray = readBooks?.map((book) => book.totalScore?.toFixed(2));
   const pageNumberArray = readBooks?.map((book) => book.pages);
   const yearPublishedArray = readBooks?.map((book) => book.yearPublished);
+  const dateArray = readBooks?.map((book) =>
+    dateFormatter(book.actualDateOfMeeting)
+  );
   const labelArray = readBooks?.map((book) => book.title);
+
+  const yearArray: string[] = dateArray
+    ?.map((date) => date.split(" ")[3])
+    .reverse();
+  const yearMatchArray: string[] = [...new Set(yearArray)];
+  const findYearCount = (year: string, yearArray: string[]): number => {
+    return yearArray.filter((yr) => yr === year).length;
+  };
 
   const sortBooksLowest = () => {
     setFetchedData(readBooks?.sort((a, b) => a.totalScore - b.totalScore));
@@ -154,6 +167,28 @@ const BookStats = () => {
             />
           )}
         </div>
+      </div>
+      <div className={styles.meetingDateCon}>
+        <h2>By Meeting Date</h2>
+        <div>
+          <ul>
+            {yearMatchArray.map((year, i) => (
+              <li key={i}>
+                {year}: {findYearCount(year, yearArray)} book(s)
+              </li>
+            ))}
+          </ul>
+        </div>
+        {loadingBooks ? (
+          <LoaderNoText />
+        ) : (
+          <LineGraph
+            labelArray={labelArray.slice().reverse()}
+            dateArray={dateArray.slice().reverse()}
+            scoreArray={totalScoreArray.slice().reverse()}
+            xAxes={"Meeting Date"}
+          />
+        )}
       </div>
     </div>
   );
