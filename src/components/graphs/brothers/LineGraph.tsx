@@ -1,55 +1,40 @@
 import React from "react";
-import {
-  Chart as ChartJS,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Tooltip,
-  Legend,
-  ChartOptions,
-} from "chart.js";
-import { Scatter } from "react-chartjs-2";
 import Cookies from "js-cookie";
 import styles from "./Graph.module.css";
-
-ChartJS.register(LinearScale, PointElement, LineElement, Tooltip, Legend);
+import { Line } from "react-chartjs-2";
 
 type Props = {
   labelArray: string[];
-  pagesArray: number[];
+  dateArray: number[];
   scoreArray: string[];
   xAxes: string;
-  xMax: number;
-  xMin: number;
 };
 
-const ScatterGraph: React.FC<Props> = ({
+const LineGraph: React.FC<Props> = ({
   labelArray,
-  pagesArray,
+  dateArray,
   scoreArray,
   xAxes,
-  xMax,
-  xMin,
 }) => {
   const darkCookie = Cookies.get("dark-mode");
 
   const data = {
-    labels: scoreArray,
+    labels: dateArray,
     datasets: [
       {
         label: "Total Scores",
-        axis: "x",
-        data: pagesArray,
+        data: scoreArray,
         backgroundColor: ["#095d09"],
+        borderColor: darkCookie ? ["#FFFFFF"] : ["#000000"],
         pointRadius: 8,
+        tension: 0.35,
       },
     ],
   };
 
-  const options: ChartOptions<"scatter"> = {
+  const options = {
     responsive: true,
     maintainAspectRatio: false,
-    indexAxis: "y",
     plugins: {
       legend: {
         labels: {
@@ -63,10 +48,10 @@ const ScatterGraph: React.FC<Props> = ({
       tooltip: {
         callbacks: {
           label: (context) => {
-            const pages = pagesArray[context.dataIndex];
+            const date = dateArray[context.dataIndex];
             const scores = scoreArray[context.dataIndex];
             const bookTitle = labelArray[context.dataIndex];
-            return `${bookTitle}: ${pages}, ${scores}`;
+            return `${bookTitle}: ${date}, ${scores}`;
           },
         },
       },
@@ -110,16 +95,14 @@ const ScatterGraph: React.FC<Props> = ({
           },
         },
         display: true,
-        max: xMax,
-        min: xMin,
       },
     },
   };
   return (
-    <div className={styles.graph}>
-      <Scatter data={data} options={options} />
+    <div className={styles.lineGraph}>
+      <Line data={data} options={options} />
     </div>
   );
 };
 
-export default ScatterGraph;
+export default LineGraph;
