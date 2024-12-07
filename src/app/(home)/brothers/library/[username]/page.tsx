@@ -95,7 +95,7 @@ const Dashboard: React.FC = () => {
   const userReadBooks: Book[] = filterUserReadBooks(
     readBooks,
     findUser?._id
-  )?.filter((book) => !handleHideScores_NoSetter(book.dateOfMeeting));
+  )?.filter((book) => !handleHideScores_NoSetter(book.actualDateOfMeeting));
 
   const userUnreadBooks: Book[] = filterUserUnreadBooks(
     readBooks,
@@ -207,7 +207,7 @@ const Dashboard: React.FC = () => {
                       ratingArr={findMinBook?.scoreRatings?.rating}
                       raterArr={findMinBook?.scoreRatings?.raterId}
                       hideScores={handleHideScores_NoSetter(
-                        findMinBook?.dateOfMeeting
+                        findMinBook?.actualDateOfMeeting
                       )}
                     />
                   )}
@@ -228,7 +228,7 @@ const Dashboard: React.FC = () => {
                       ratingArr={findMaxBook?.scoreRatings?.rating}
                       raterArr={findMaxBook?.scoreRatings?.raterId}
                       hideScores={handleHideScores_NoSetter(
-                        findMaxBook?.dateOfMeeting
+                        findMaxBook?.actualDateOfMeeting
                       )}
                     />
                   )}

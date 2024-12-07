@@ -65,7 +65,7 @@ const Booklibrary: React.FC = () => {
                         ratingArr={book?.scoreRatings?.rating}
                         raterArr={book?.scoreRatings?.raterId}
                         hideScores={handleHideScores_NoSetter(
-                          book?.dateOfMeeting
+                          book?.actualDateOfMeeting
                         )}
                       />
                     </div>
