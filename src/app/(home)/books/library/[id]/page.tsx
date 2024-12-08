@@ -259,7 +259,7 @@ const SingleBook: React.FC = () => {
 
               <li className="mt-5 underline">Score</li>
               <li className="">
-                {handleHideScores_NoSetter(bookData?.dateOfMeeting)
+                {handleHideScores_NoSetter(bookData?.actualDateOfMeeting)
                   ? "?"
                   : bookData?.totalScore}
               </li>
@@ -272,12 +272,12 @@ const SingleBook: React.FC = () => {
           bookData={bookData}
           id={id}
           loading={loadingBooks}
-          hideScores={handleHideScores_NoSetter(bookData?.dateOfMeeting)}
+          hideScores={handleHideScores_NoSetter(bookData?.actualDateOfMeeting)}
         />
         <CommentCon
           bookData={bookData}
           id={id}
-          hideScores={handleHideScores_NoSetter(bookData?.dateOfMeeting)}
+          hideScores={handleHideScores_NoSetter(bookData?.actualDateOfMeeting)}
         />
       </div>
     </>
