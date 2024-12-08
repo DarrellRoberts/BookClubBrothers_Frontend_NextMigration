@@ -23,7 +23,7 @@ const BookStats = () => {
 
   const readBooks = bookData?.filter(
     (book) =>
-      book.read === true && !handleHideScores_NoSetter(book.dateOfMeeting)
+      book.read === true && !handleHideScores_NoSetter(book.actualDateOfMeeting)
   );
 
   const [fetchedData, setFetchedData] = useState<Book[]>();

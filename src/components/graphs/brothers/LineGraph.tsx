@@ -18,14 +18,28 @@ const LineGraph: React.FC<Props> = ({
 }) => {
   const darkCookie = Cookies.get("dark-mode");
 
+  const jsonArr = [];
+
+  const createJsonArr = () => {
+    for (let i = 0; i < dateArray.length; i++) {
+      const obj = { x: dateArray[i], y: scoreArray[i] };
+      jsonArr.push(obj);
+    }
+    return jsonArr;
+  };
+
+  createJsonArr();
+
+  const dateLabels = [...new Set(dateArray)];
+
   const data = {
-    labels: dateArray,
+    labels: dateLabels,
     datasets: [
       {
         label: "Total Scores",
-        data: scoreArray,
-        backgroundColor: ["#095d09"],
-        borderColor: darkCookie ? ["#FFFFFF"] : ["#000000"],
+        data: jsonArr,
+        backgroundColor: darkCookie ? ["#FFFFFF"] : ["#000000"],
+        borderColor: ["#095d09"],
         pointRadius: 8,
         tension: 0.35,
       },
@@ -78,6 +92,10 @@ const LineGraph: React.FC<Props> = ({
         max: 10,
       },
       x: {
+        // type: "time",
+        // time: {
+        //   unit: "month",
+        // },
         ticks: {
           color: darkCookie ? "white" : "black",
           font: {
