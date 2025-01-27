@@ -1,12 +1,12 @@
-import { AuthContext } from "@/context/AuthContext";
 import { Button, Form } from "antd";
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import EditAuthorForm from "./author/EditAuthorForm";
 import EditTitleForm from "./title/EditTitleForm";
 import EditPublishedForm from "./published/EditPublishedForm";
 import EditPagesForm from "./pages/EditPagesForm";
 import EditGenreForm from "./genre/EditGenreForm";
 import EditImageURLForm from "./imageURL/EditImageURLForm";
+import { useAppSelector } from "@/lib/hooks";
 
 type Props = {
   inAuthor: string;
@@ -18,7 +18,15 @@ type Props = {
   id: string;
 };
 
-const EditForm: React.FC<Props> = ({ inAuthor, inTitle, inPublished, inPages, inGenre, inImageURL, id }) => {
+const EditForm: React.FC<Props> = ({
+  inAuthor,
+  inTitle,
+  inPublished,
+  inPages,
+  inGenre,
+  inImageURL,
+  id,
+}) => {
   const [author, setAuthor] = useState<string>(inAuthor);
   const [title, setTitle] = useState<string>(inTitle);
   const [yearPublished, setYearPublished] = useState<number>(inPublished);
@@ -27,7 +35,7 @@ const EditForm: React.FC<Props> = ({ inAuthor, inTitle, inPublished, inPages, in
   const [imageURL, setImageURL] = useState<string>(inImageURL);
   const [error, setError] = useState<string>();
   const [loadings, setLoadings] = useState<boolean>(false);
-  const { token } = useContext(AuthContext);
+  const token = useAppSelector((state) => state.token.tokenState);
 
   const handleSubmit = async () => {
     try {
@@ -46,7 +54,7 @@ const EditForm: React.FC<Props> = ({ inAuthor, inTitle, inPublished, inPages, in
             yearPublished,
             pages,
             genre,
-            imageURL
+            imageURL,
           }),
         }
       );
@@ -90,10 +98,13 @@ const EditForm: React.FC<Props> = ({ inAuthor, inTitle, inPublished, inPages, in
     >
       <EditTitleForm title={title} setTitle={setTitle} />
       <EditAuthorForm author={author} setAuthor={setAuthor} />
-      <EditPublishedForm yearPublished={yearPublished} setYearPublished={setYearPublished} />
+      <EditPublishedForm
+        yearPublished={yearPublished}
+        setYearPublished={setYearPublished}
+      />
       <EditPagesForm pages={pages} setPages={setPages} />
       <EditGenreForm genre={genre} setGenre={setGenre} />
-      <EditImageURLForm imageURL={imageURL} setImageURL={setImageURL}/>
+      <EditImageURLForm imageURL={imageURL} setImageURL={setImageURL} />
       <Form.Item
         wrapperCol={{
           offset: 8,

@@ -2,14 +2,14 @@
 /* eslint-disable react/react-in-jsx-scope */
 "use client";
 
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import RatingButton from "./ratingform/RatingButton";
 import EditRatingButton from "./ratingform/EditRatingButton";
-import { AuthContext } from "@/context/AuthContext";
 import { useJwt } from "react-jwt";
 import "../../../../../style/ratingcon.css";
 import "../../../../../style/ratingconRes.css";
 import { Book } from "@/types/BookInterface";
+import { useAppSelector } from "@/lib/hooks";
 
 type Props = {
   bookData: Book;
@@ -24,7 +24,7 @@ const RatingCon: React.FC<Props> = ({ bookData, id, loading, hideScores }) => {
   const [showEditRating, setShowEditRating] = useState<boolean>(false);
   const [error, setError] = useState("");
 
-  const { token } = useContext(AuthContext);
+  const token = useAppSelector((state) => state.token.tokenState);
   const { decodedToken }: { decodedToken?: { username: string } } =
     useJwt(token);
   const username = decodedToken?.username;

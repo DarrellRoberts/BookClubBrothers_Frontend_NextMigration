@@ -5,9 +5,7 @@
 import Login from "../user/Login";
 import HeaderLinks from "./HeaderLinks";
 import HeaderLinksMobile from "./HeaderLinksMobile";
-import { useContext, useEffect, useRef } from "react";
-import { AuthContext } from "../../context/AuthContext";
-import { useJwt } from "react-jwt";
+import { useEffect, useRef } from "react";
 import { getTime } from "../../functions/time-functions/timeFunction";
 import Link from "next/link";
 import { useMediaQuery } from "react-responsive";
@@ -15,13 +13,16 @@ import style from "./header-con.module.css";
 import Logo from "../misc/Logo";
 import Logout from "../user/Logout";
 import Celebration from "../misc/celebration/Celebration";
+import { useAppSelector } from "@/lib/hooks";
+import { useJwt } from "react-jwt";
 
 type Props = {
   propsToken?: string;
 };
 
 const HeaderCon: React.FC<Props> = ({ propsToken }) => {
-  const { token } = useContext(AuthContext);
+  const token = useAppSelector((state) => state.token.tokenState);
+
   const {
     decodedToken,
   }: { decodedToken?: { token: string; username: string; exp: number } } = token
@@ -53,8 +54,7 @@ const HeaderCon: React.FC<Props> = ({ propsToken }) => {
   };
   useEffect(() => {
     isTokenExpired();
-  }, [expired]);
-
+  }, []);
   return (
     <header
       ref={headerCon}

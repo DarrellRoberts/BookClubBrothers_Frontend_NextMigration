@@ -3,9 +3,10 @@
 "use client";
 
 import { Button, Form, Input } from "antd";
-import { useState, useContext } from "react";
-import { AuthContext } from "../../context/AuthContext";
+import { useState } from "react";
 import styles from "./LoginForm.module.css";
+import { useAppDispatch } from "@/lib/hooks";
+import { setTokenState } from "@/lib/features/auth/tokenSlice";
 
 interface Login {
   setLoginOpen: React.Dispatch<React.SetStateAction<React.ReactNode>>;
@@ -16,7 +17,8 @@ const LoginForm: React.FC<Login> = ({ setLoginOpen }) => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
   const [loadings, setLoadings] = useState([false]);
-  const { login } = useContext(AuthContext);
+
+  const dispatch = useAppDispatch();
 
   const handleSubmit = async () => {
     try {
@@ -42,7 +44,7 @@ const LoginForm: React.FC<Login> = ({ setLoginOpen }) => {
         setTimeout(() => {
           localStorage.setItem("token", data.token);
           localStorage.setItem("username", username);
-          login(data.token);
+          dispatch(setTokenState(data.token));
           setLoadings([false]);
           setLoginOpen(false);
         }, 5000);

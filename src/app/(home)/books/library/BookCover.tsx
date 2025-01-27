@@ -2,11 +2,10 @@
 /* eslint-disable react/react-in-jsx-scope */
 "use client";
 
-import { useContext } from "react";
 import styles from "./BookCover.module.css";
-import { AuthContext } from "@/context/AuthContext";
 import { useJwt } from "react-jwt";
 import useUserFetch from "@/hooks/fetch-hooks/useUserFetch";
+import { useAppSelector } from "@/lib/hooks";
 
 type Props = {
   title: string;
@@ -23,7 +22,7 @@ const BookCover: React.FC<Props> = ({
   raterArr,
   hideScores,
 }) => {
-  const { token } = useContext(AuthContext);
+  const token = useAppSelector((state) => state.token.tokenState);
   const { decodedToken }: { decodedToken?: { username: string; _id: string } } =
     useJwt(token);
   const username = decodedToken?.username;

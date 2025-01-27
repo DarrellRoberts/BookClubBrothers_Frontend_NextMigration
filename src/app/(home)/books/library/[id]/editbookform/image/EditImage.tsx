@@ -2,11 +2,11 @@
 /* eslint-disable react/react-in-jsx-scope */
 "use client";
 
-import { useState, useContext } from "react";
+import { useState } from "react";
 import axios from "axios";
-import { AuthContext } from "@/context/AuthContext";
 import { Button, Form, Upload } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
+import { useAppSelector } from "@/lib/hooks";
 
 const normFile = (e) => {
   if (Array.isArray(e)) {
@@ -36,7 +36,7 @@ const EditImage: React.FC<props> = ({ id }) => {
   const [image, setImage] = useState<imageInt>();
   const [error, setError] = useState("");
   const [loadings, setLoadings] = useState([]);
-  const { token } = useContext(AuthContext);
+  const token = useAppSelector((state) => state.token.tokenState);
 
   const [form] = Form.useForm(); // Create a form instance
 
