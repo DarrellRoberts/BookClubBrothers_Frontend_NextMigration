@@ -2,9 +2,9 @@
 /* eslint-disable react/prop-types */
 "use client";
 
-import { useState, useContext } from "react";
-import { AuthContext } from "../../../../../context/AuthContext";
+import { useState } from "react";
 import { Button, Form, Select, Space } from "antd";
+import { useAppSelector } from "@/store/lib/hooks";
 
 const { Option } = Select;
 
@@ -17,7 +17,8 @@ const EditGenre: React.FC<props> = ({ id, inGenre }) => {
   const [favGenre, setFavGenre] = useState(inGenre?.map((genre) => `${genre}`));
   const [error, setError] = useState("");
   const [loadings, setLoadings] = useState([]);
-  const { token } = useContext(AuthContext);
+
+  const token = useAppSelector((state) => state.token.tokenState);
 
   console.log(favGenre);
   const handleSubmit = async () => {

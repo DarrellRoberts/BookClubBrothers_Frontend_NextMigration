@@ -5,19 +5,16 @@
 import { Button, Form, Input } from "antd";
 import { useState } from "react";
 import styles from "./LoginForm.module.css";
-import { useAuth } from "@/hooks/auth-hooks/useAuth";
 
 interface Login {
   setLoginOpen: React.Dispatch<React.SetStateAction<React.ReactNode>>;
 }
 
-const LoginForm: React.FC<Login> = ({ setLoginOpen }) => {
+const LoginForm3D: React.FC<Login> = ({ setLoginOpen }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
   const [loadings, setLoadings] = useState([false]);
-
-  const { login } = useAuth();
 
   const handleSubmit = async () => {
     try {
@@ -42,7 +39,7 @@ const LoginForm: React.FC<Login> = ({ setLoginOpen }) => {
         setLoadings([true]);
         setTimeout(() => {
           localStorage.setItem("username", username);
-          login(data.token);
+          localStorage.setItem("token", data.token);
           setLoadings([false]);
           setLoginOpen(false);
         }, 5000);
@@ -132,4 +129,4 @@ const LoginForm: React.FC<Login> = ({ setLoginOpen }) => {
   );
 };
 
-export default LoginForm;
+export default LoginForm3D;

@@ -1,18 +1,18 @@
 /* eslint-disable react/react-in-jsx-scope */
 "use client";
 
-import { useContext, useReducer } from "react";
+import { useReducer } from "react";
 import { ACTIONS } from "./actions";
 import LoaderNoText from "../../../../components/loader/LoaderNoText";
 import CreateUnreadBook from "./bookform/CreateUnreadBook";
 import DeleteBook from "./bookform/DeleteBook";
 import Randomiser from "./Randomiser";
-import { AuthContext } from "../../../../context/AuthContext";
 import { useJwt } from "react-jwt";
 import style from "./randomiser.module.css";
 import EditUnreadBook from "./bookform/edit/EditUnreadBook";
 import useBookFetch from "@/hooks/fetch-hooks/useUnreadBookFetch";
 import useUserFetch from "@/hooks/fetch-hooks/useUserFetch";
+import { useAppSelector } from "@/store/lib/hooks";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -42,7 +42,7 @@ const RandomiserHomepage: React.FC = () => {
     showRandom: true,
   });
 
-  const { token } = useContext(AuthContext);
+  const token = useAppSelector((state) => state.token.tokenState);
   const {
     decodedToken,
   }: {

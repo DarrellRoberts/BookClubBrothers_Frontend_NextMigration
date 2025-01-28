@@ -5,19 +5,16 @@
 import { Button } from "antd";
 import { useState } from "react";
 import "../../style/login.css";
-import { useAuth } from "@/hooks/auth-hooks/useAuth";
 
-const Logout: React.FC = () => {
+const Logout3D: React.FC = () => {
   const [loadings, setLoadings] = useState([]);
-
-  const { logout } = useAuth();
 
   const handleClick = () => {
     setLoadings([true]);
     setTimeout(() => {
       localStorage.removeItem("username");
+      localStorage.removeItem("token");
       setLoadings([false]);
-      logout();
     }, 3000);
   };
   return (
@@ -38,4 +35,4 @@ const Logout: React.FC = () => {
   );
 };
 
-export default Logout;
+export default Logout3D;

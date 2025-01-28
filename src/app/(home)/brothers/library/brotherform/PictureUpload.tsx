@@ -2,11 +2,11 @@
 /* eslint-disable react/prop-types */
 "use client";
 
-import { useState, useContext } from "react";
+import { useState } from "react";
 import axios from "axios";
 import { PlusOutlined } from "@ant-design/icons";
 import { Upload, Form, Button } from "antd";
-import { AuthContext } from "../../../../../context/AuthContext";
+import { useAppSelector } from "@/store/lib/hooks";
 
 const normFile = (e) => {
   if (Array.isArray(e)) {
@@ -34,7 +34,7 @@ interface imageInt {
 }
 
 const PictureUpload: React.FC<props> = ({ id, inImage }) => {
-  const { token } = useContext(AuthContext);
+  const token = useAppSelector((state) => state.token.tokenState);
 
   const [form] = Form.useForm(); // Create a form instance
   const [image, setImage] = useState<imageInt>();

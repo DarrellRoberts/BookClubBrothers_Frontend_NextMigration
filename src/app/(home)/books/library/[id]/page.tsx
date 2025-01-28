@@ -1,7 +1,7 @@
 /* eslint-disable react/react-in-jsx-scope */
 "use client";
 
-import { useContext, useReducer } from "react";
+import { useReducer } from "react";
 import { useParams } from "next/navigation";
 import Loader from "@/components/loader/Loader";
 import BookCover from "../BookCover";
@@ -9,7 +9,6 @@ import { dateFormatter } from "@/functions/time-functions/dateFormatter";
 import DeleteBook from "../bookform/DeleteBook";
 import RatingCon from "./RatingCon";
 import CommentCon from "./CommentCon";
-import { AuthContext } from "@/context/AuthContext";
 import { useJwt } from "react-jwt";
 import "@/style/singlebook.css";
 import "@/style/singlebookRes.css";
@@ -33,6 +32,7 @@ import { handleHideScores_NoSetter } from "@/functions/time-functions/hideScores
 import useBookFetch from "@/hooks/fetch-hooks/useReadBookFetch";
 import EditActualDate from "./editbookform/datemeeting/EditActualDate";
 import EditActualDateButton from "./editbookform/datemeeting/EditActualDateButton";
+import { useAppSelector } from "@/store/lib/hooks";
 
 type StateType = {
   showDelete: boolean;
@@ -80,7 +80,7 @@ const SingleBook: React.FC = () => {
     showImage: false,
   });
 
-  const { token } = useContext(AuthContext);
+  const token = useAppSelector((state) => state.token.tokenState);
   const { decodedToken }: { decodedToken?: { username: string; _id: string } } =
     useJwt(token);
   const { id } = useParams<{ id: string }>();

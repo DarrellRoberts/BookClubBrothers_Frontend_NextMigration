@@ -2,13 +2,12 @@
 /* eslint-disable react/react-in-jsx-scope */
 "use client";
 
-import { useContext, useEffect, useReducer, useState } from "react";
+import { useEffect, useReducer, useState } from "react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import "@/style/dashboard.css";
 import "@/style/dashboardRes.css";
 import LoadingScreen from "./LoadingScreen";
-import { AuthContext } from "../../../../../context/AuthContext";
 import { useJwt } from "react-jwt";
 import BookImageCover from "@/app/(home)/books/library/BookImageCover";
 import BookCover from "@/app/(home)/books/library/BookCover";
@@ -35,6 +34,7 @@ import useUserFetch from "@/hooks/fetch-hooks/useUserFetch";
 import useBookFetch from "@/hooks/fetch-hooks/useReadBookFetch";
 import Filters from "@/components/graphs/brothers/Filters";
 import LoaderNoText from "@/components/loader/LoaderNoText";
+import { useAppSelector } from "@/store/lib/hooks";
 
 type StateType = {
   showImage: boolean;
@@ -68,7 +68,7 @@ const Dashboard: React.FC = () => {
     showImage: false,
   });
 
-  const { token } = useContext(AuthContext);
+  const token = useAppSelector((state) => state.token.tokenState);
 
   const {
     decodedToken,

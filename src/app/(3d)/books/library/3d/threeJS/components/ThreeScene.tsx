@@ -7,7 +7,7 @@ import { Canvas } from "@react-three/fiber";
 import { Scroll, ScrollControls } from "@react-three/drei";
 import Loader from "./Loader";
 import style from "../../../../../3d.module.css";
-import HeaderCon from "@/components/header/HeaderCon";
+import HeaderCon3D from "@/components/header/HeaderCon3D";
 import DarkMode from "@/components/misc/dark-mode/DarkMode";
 
 interface Props {
@@ -39,7 +39,7 @@ export default function ThreeScene({
           />
         </Suspense>
         <Scroll html>
-          <HeaderCon propsToken={token} />
+          <HeaderCon3D propsToken={token} />
           <h1 className={style.title}>Books 3D Library</h1>
           <div className={style.darkMode}>
             <DarkMode />

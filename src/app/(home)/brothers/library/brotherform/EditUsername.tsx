@@ -2,9 +2,9 @@
 /* eslint-disable react/prop-types */
 "use client";
 
-import { useState, useContext } from "react";
-import { AuthContext } from "../../../../../context/AuthContext";
+import { useState } from "react";
 import { Button, Form, Input } from "antd";
+import { useAppSelector } from "@/store/lib/hooks";
 
 interface props {
   id: string;
@@ -15,7 +15,8 @@ const EditUsername: React.FC<props> = ({ id, inUsername }) => {
   const [username, setUsername] = useState(inUsername);
   const [error, setError] = useState("");
   const [loadings, setLoadings] = useState([]);
-  const { token } = useContext(AuthContext);
+
+  const token = useAppSelector((state) => state.token.tokenState);
 
   const handleSubmit = async () => {
     try {

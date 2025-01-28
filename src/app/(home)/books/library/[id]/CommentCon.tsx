@@ -4,10 +4,9 @@
 /* eslint-disable react/react-in-jsx-scope */
 "use client";
 
-import { useState, useContext } from "react";
+import { useState } from "react";
 import CommentButton from "./commentform/CommentButton";
 import EditCommentButton from "./commentform/EditCommentButton";
-import { AuthContext } from "@/context/AuthContext";
 import { useJwt } from "react-jwt";
 import { type Book } from "@/types/BookInterface";
 import {
@@ -20,6 +19,7 @@ import Link from "next/link";
 import ProfileSmall from "@/components/misc/profile/ProfileSmall";
 import useUserFetch from "@/hooks/fetch-hooks/useUserFetch";
 import LoaderNoText from "@/components/loader/LoaderNoText";
+import { useAppSelector } from "@/store/lib/hooks";
 
 type Props = {
   bookData: Book;
@@ -31,7 +31,7 @@ const RatingCon: React.FC<Props> = ({ bookData, id, hideScores }) => {
   const [addComment, setAddComment] = useState<boolean>(false);
   const [showEditComment, setShowEditComment] = useState<boolean>(false);
 
-  const { token } = useContext(AuthContext);
+  const token = useAppSelector((state) => state.token.tokenState);
   const { decodedToken }: { decodedToken?: { username: string } } =
     useJwt(token);
   const username = decodedToken?.username;

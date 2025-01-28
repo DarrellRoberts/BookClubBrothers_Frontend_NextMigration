@@ -1,14 +1,14 @@
 "use client";
 
-import { useContext, useState } from "react";
-import { AuthContext } from "@/context/AuthContext";
+import { useAppSelector } from "@/store/lib/hooks";
+import { useState } from "react";
 
 const useForm = (url: string, form: object, reqType: string) => {
   const [loadings, setLoadings] = useState(false);
   const [formData, setFormData] = useState(form);
   const [error, setError] = useState("");
 
-  const { token } = useContext(AuthContext);
+  const token = useAppSelector((state) => state.token.tokenState);
 
   const handleSubmit = async () => {
     try {

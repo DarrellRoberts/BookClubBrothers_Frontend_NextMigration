@@ -1,7 +1,7 @@
 import React from "react";
 import style from "./3d.module.css";
 import "../globals.css";
-import AuthContextProvider from "@/context/AuthContext";
+import StoreProvider from "@/store/StoreProvider";
 
 export default function Layout({
   children,
@@ -10,11 +10,11 @@ export default function Layout({
 }>) {
   return (
     <html>
-      <AuthContextProvider>
+      <StoreProvider>
         <body className={style.noScroll} lang="en">
           {children}
         </body>
-      </AuthContextProvider>
+      </StoreProvider>
     </html>
   );
 }

@@ -1,11 +1,10 @@
 /* eslint-disable react/react-in-jsx-scope */
 "use client";
 
-import { useState, useContext, useReducer, useMemo } from "react";
+import { useState, useReducer, useMemo } from "react";
 import Link from "next/link";
 import { DoubleLeftOutlined } from "@ant-design/icons";
 import Loader from "../../../../components/loader/Loader";
-import { AuthContext } from "../../../../context/AuthContext";
 import { useJwt } from "react-jwt";
 
 import { findBook, findDateOfMeeting } from "@/functions/find-functions/find";
@@ -27,6 +26,7 @@ import ProfileUnknownUserImage from "@/assets/Profile.unknown-profile-image.jpg"
 import { handleHideScores_NoSetter } from "@/functions/time-functions/hideScores";
 import useBookFetch from "@/hooks/fetch-hooks/useReadBookFetch";
 import useUserFetch from "@/hooks/fetch-hooks/useUserFetch";
+import { useAppSelector } from "@/store/lib/hooks";
 
 type StateType = {
   showImage: boolean;
@@ -51,7 +51,7 @@ const reducer = (state: StateType, action) => {
 };
 
 const Brothercat: React.FC = () => {
-  const { token } = useContext(AuthContext);
+  const token = useAppSelector((state) => state.token.tokenState);
   const {
     decodedToken,
   }: {
