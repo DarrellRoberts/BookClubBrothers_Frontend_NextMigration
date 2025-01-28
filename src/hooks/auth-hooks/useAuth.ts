@@ -26,7 +26,7 @@ export const useAuth = () => {
 
   const handleExpired = (): void => {
     if (!token) return;
-    const exp: number | undefined = decodedToken?.exp;
+    const exp: number | undefined = (decodedToken as { exp?: number })?.exp;
     if (exp) {
       const currentTime: number = Date.now() / 1000;
       if (currentTime > exp) {
