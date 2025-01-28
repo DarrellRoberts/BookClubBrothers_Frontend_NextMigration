@@ -5,7 +5,7 @@
 import styles from "./BookCover.module.css";
 import { useJwt } from "react-jwt";
 import useUserFetch from "@/hooks/fetch-hooks/useUserFetch";
-import { useAppSelector } from "@/lib/hooks";
+import { useAppSelector } from "@/store/lib/hooks";
 
 type Props = {
   title: string;

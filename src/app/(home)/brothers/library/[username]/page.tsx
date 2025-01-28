@@ -34,7 +34,7 @@ import useUserFetch from "@/hooks/fetch-hooks/useUserFetch";
 import useBookFetch from "@/hooks/fetch-hooks/useReadBookFetch";
 import Filters from "@/components/graphs/brothers/Filters";
 import LoaderNoText from "@/components/loader/LoaderNoText";
-import { useAppSelector } from "@/lib/hooks";
+import { useAppSelector } from "@/store/lib/hooks";
 
 type StateType = {
   showImage: boolean;

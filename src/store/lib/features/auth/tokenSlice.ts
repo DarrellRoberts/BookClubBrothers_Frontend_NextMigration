@@ -5,10 +5,8 @@ export interface TokenState {
   tokenState: string | null;
 }
 
-const fetchedToken = localStorage.getItem("token");
-
 const initialState: TokenState = {
-  tokenState: fetchedToken ?? null,
+  tokenState: "",
 };
 
 export const tokenSlice = createSlice({

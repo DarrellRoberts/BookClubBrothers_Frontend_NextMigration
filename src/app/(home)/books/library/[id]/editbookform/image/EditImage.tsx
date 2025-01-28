@@ -6,7 +6,7 @@ import { useState } from "react";
 import axios from "axios";
 import { Button, Form, Upload } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
-import { useAppSelector } from "@/lib/hooks";
+import { useAppSelector } from "@/store/lib/hooks";
 
 const normFile = (e) => {
   if (Array.isArray(e)) {

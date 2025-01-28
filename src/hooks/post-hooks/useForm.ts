@@ -1,6 +1,6 @@
 "use client";
 
-import { useAppSelector } from "@/lib/hooks";
+import { useAppSelector } from "@/store/lib/hooks";
 import { useState } from "react";
 
 const useForm = (url: string, form: object, reqType: string) => {

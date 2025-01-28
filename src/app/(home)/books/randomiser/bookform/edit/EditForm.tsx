@@ -6,7 +6,7 @@ import EditPublishedForm from "./published/EditPublishedForm";
 import EditPagesForm from "./pages/EditPagesForm";
 import EditGenreForm from "./genre/EditGenreForm";
 import EditImageURLForm from "./imageURL/EditImageURLForm";
-import { useAppSelector } from "@/lib/hooks";
+import { useAppSelector } from "@/store/lib/hooks";
 
 type Props = {
   inAuthor: string;

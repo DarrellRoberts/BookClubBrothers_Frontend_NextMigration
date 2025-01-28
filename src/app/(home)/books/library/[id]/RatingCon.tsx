@@ -9,7 +9,7 @@ import { useJwt } from "react-jwt";
 import "../../../../../style/ratingcon.css";
 import "../../../../../style/ratingconRes.css";
 import { Book } from "@/types/BookInterface";
-import { useAppSelector } from "@/lib/hooks";
+import { useAppSelector } from "@/store/lib/hooks";
 
 type Props = {
   bookData: Book;

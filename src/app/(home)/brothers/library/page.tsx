@@ -26,7 +26,7 @@ import ProfileUnknownUserImage from "@/assets/Profile.unknown-profile-image.jpg"
 import { handleHideScores_NoSetter } from "@/functions/time-functions/hideScores";
 import useBookFetch from "@/hooks/fetch-hooks/useReadBookFetch";
 import useUserFetch from "@/hooks/fetch-hooks/useUserFetch";
-import { useAppSelector } from "@/lib/hooks";
+import { useAppSelector } from "@/store/lib/hooks";
 
 type StateType = {
   showImage: boolean;

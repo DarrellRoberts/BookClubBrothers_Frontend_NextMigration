@@ -1,26 +1,13 @@
-/* eslint-disable react/react-in-jsx-scope */
-import Base from "./threeJS/Base";
+"use client";
+
+import React from "react";
+import Homepage from "./Homepage";
 import Layout from "../../../layout";
 
-async function getBookData() {
-  const response = await fetch(
-    "https://bookclubbrothers-backend.onrender.com/books",
-    { next: { revalidate: 5 } }
-  );
-  return response.json();
-}
-
-const Homepage: React.FC = async () => {
-  const bookPromise = getBookData();
-  const books = await bookPromise;
-  const readBooks = books.filter((book) => book.read === true);
-  let readIds = readBooks.map((book) => book._id);
-  readIds = readIds.reverse();
+export default function Home3D() {
   return (
     <Layout>
-      <Base readBooks={readBooks} readIds={readIds} />
+      <Homepage />
     </Layout>
   );
-};
-
-export default Homepage;
+}

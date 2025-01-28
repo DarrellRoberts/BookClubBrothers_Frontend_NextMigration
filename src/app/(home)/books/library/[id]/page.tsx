@@ -32,7 +32,7 @@ import { handleHideScores_NoSetter } from "@/functions/time-functions/hideScores
 import useBookFetch from "@/hooks/fetch-hooks/useReadBookFetch";
 import EditActualDate from "./editbookform/datemeeting/EditActualDate";
 import EditActualDateButton from "./editbookform/datemeeting/EditActualDateButton";
-import { useAppSelector } from "@/lib/hooks";
+import { useAppSelector } from "@/store/lib/hooks";
 
 type StateType = {
   showDelete: boolean;

@@ -19,7 +19,7 @@ import Link from "next/link";
 import ProfileSmall from "@/components/misc/profile/ProfileSmall";
 import useUserFetch from "@/hooks/fetch-hooks/useUserFetch";
 import LoaderNoText from "@/components/loader/LoaderNoText";
-import { useAppSelector } from "@/lib/hooks";
+import { useAppSelector } from "@/store/lib/hooks";
 
 type Props = {
   bookData: Book;

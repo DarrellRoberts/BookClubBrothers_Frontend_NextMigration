@@ -3,7 +3,7 @@
 import React from "react";
 import Homepage from "../../components/homepage/Homepage";
 import Dashboard from "./brothers/library/[username]/page";
-import { useAppSelector } from "@/lib/hooks";
+import { useAppSelector } from "@/store/lib/hooks";
 
 export default function Home() {
   const token = useAppSelector((state) => state.token.tokenState);
