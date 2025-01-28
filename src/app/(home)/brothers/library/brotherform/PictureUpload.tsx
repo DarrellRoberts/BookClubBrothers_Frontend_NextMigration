@@ -37,7 +37,7 @@ const PictureUpload: React.FC<props> = ({ id, inImage }) => {
   const token = useAppSelector((state) => state.token.tokenState);
 
   const [form] = Form.useForm(); // Create a form instance
-  const [image, setImage] = useState<imageInt & Pick<Blob, "bytes">>();
+  const [image, setImage] = useState<imageInt>();
   const [error, setError] = useState(null);
   const [loadings, setLoadings] = useState([]);
 

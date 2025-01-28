@@ -33,7 +33,7 @@ interface imageInt {
 }
 
 const EditImage: React.FC<props> = ({ id }) => {
-  const [image, setImage] = useState<imageInt & Pick<Blob, "bytes">>();
+  const [image, setImage] = useState<imageInt>();
   const [error, setError] = useState("");
   const [loadings, setLoadings] = useState([]);
   const token = useAppSelector((state) => state.token.tokenState);
