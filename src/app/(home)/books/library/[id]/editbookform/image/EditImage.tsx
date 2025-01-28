@@ -33,7 +33,7 @@ interface imageInt {
 }
 
 const EditImage: React.FC<props> = ({ id }) => {
-  const [image, setImage] = useState<imageInt>();
+  const [image, setImage] = useState<imageInt & Pick<Blob, "bytes">>();
   const [error, setError] = useState("");
   const [loadings, setLoadings] = useState([]);
   const token = useAppSelector((state) => state.token.tokenState);
@@ -44,7 +44,6 @@ const EditImage: React.FC<props> = ({ id }) => {
     try {
       const formData = new FormData();
       formData.append("picture", image, image?.name);
-      console.log("FORM DATA", image);
       await axios.post(
         `https://bookclubbrothers-backend.onrender.com/books/${id}`,
         formData,
