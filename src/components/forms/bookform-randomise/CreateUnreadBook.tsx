@@ -3,7 +3,7 @@
 import { Dispatch, useState } from "react";
 import { Modal, Button } from "antd";
 import CreateBookForm from "./CreateUnreadBookForm";
-import { ACTIONS } from "../actions";
+import { ACTIONS } from "../../books/randomiser/actions";
 
 interface props {
   dispatch: Dispatch<unknown>;

@@ -3,11 +3,11 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import RatingButton from "./ratingform/RatingButton";
-import EditRatingButton from "./ratingform/EditRatingButton";
+import RatingButton from "../../../forms/ratingform/RatingButton";
+import EditRatingButton from "../../../forms/ratingform/EditRatingButton";
 import { useJwt } from "react-jwt";
-import "../../../../../style/ratingcon.css";
-import "../../../../../style/ratingconRes.css";
+import "@/style/ratingcon.css";
+import "@/style/ratingconRes.css";
 import { Book } from "@/types/BookInterface";
 import { useAppSelector } from "@/store/lib/hooks";
 

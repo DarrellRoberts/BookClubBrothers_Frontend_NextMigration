@@ -4,34 +4,34 @@
 import { useReducer } from "react";
 import { useParams } from "next/navigation";
 import Loader from "@/components/loader/Loader";
-import BookCover from "../BookCover";
+import BookCover from "../../../../../components/books/library/BookCover";
 import { dateFormatter } from "@/functions/time-functions/dateFormatter";
-import DeleteBook from "../bookform/DeleteBook";
-import RatingCon from "./RatingCon";
-import CommentCon from "./CommentCon";
+import DeleteBook from "../../../../../components/forms/bookform-delete/DeleteBook";
+import RatingCon from "../../../../../components/books/library/single-book/RatingCon";
+import CommentCon from "../../../../../components/books/library/single-book/CommentCon";
 import { useJwt } from "react-jwt";
 import "@/style/singlebook.css";
 import "@/style/singlebookRes.css";
 
 // importing edit buttons
-import EditAuthorButton from "./editbookform/author/EditAuthorButton";
-import EditAuthor from "./editbookform/author/EditAuthor";
-import EditPublishButton from "./editbookform/published/EditPublishButton";
-import EditPublished from "./editbookform/published/EditPublished";
-import EditPagesButton from "./editbookform/pages/EditPagesButton";
-import EditPages from "./editbookform/pages/EditPages";
-import EditDateButton from "./editbookform/datemeeting/EditDateButton";
-import EditDate from "./editbookform/datemeeting/EditDate";
-import EditGenreButton from "./editbookform/genre/EditGenreButton";
-import EditGenre from "./editbookform/genre/EditGenre";
-import EditTitleButton from "./editbookform/title/EditTitleButton";
-import EditTitle from "./editbookform/title/EditTitle";
-import EditImageButton from "./editbookform/image/EditImageButton";
-import EditImage from "./editbookform/image/EditImage";
+import EditAuthorButton from "../../../../../components/forms/editbookform-single-book/author/EditAuthorButton";
+import EditAuthor from "../../../../../components/forms/editbookform-single-book/author/EditAuthor";
+import EditPublishButton from "../../../../../components/forms/editbookform-single-book/published/EditPublishButton";
+import EditPublished from "../../../../../components/forms/editbookform-single-book/published/EditPublished";
+import EditPagesButton from "../../../../../components/forms/editbookform-single-book/pages/EditPagesButton";
+import EditPages from "../../../../../components/forms/editbookform-single-book/pages/EditPages";
+import EditDateButton from "../../../../../components/forms/editbookform-single-book/datemeeting/EditDateButton";
+import EditDate from "../../../../../components/forms/editbookform-single-book/datemeeting/EditDate";
+import EditGenreButton from "../../../../../components/forms/editbookform-single-book/genre/EditGenreButton";
+import EditGenre from "../../../../../components/forms/editbookform-single-book/genre/EditGenre";
+import EditTitleButton from "../../../../../components/forms/editbookform-single-book/title/EditTitleButton";
+import EditTitle from "../../../../../components/forms/editbookform-single-book/title/EditTitle";
+import EditImageButton from "../../../../../components/forms/editbookform-single-book/image/EditImageButton";
+import EditImage from "../../../../../components/forms/editbookform-single-book/image/EditImage";
 import { handleHideScores_NoSetter } from "@/functions/time-functions/hideScores";
 import useBookFetch from "@/hooks/fetch-hooks/useReadBookFetch";
-import EditActualDate from "./editbookform/datemeeting/EditActualDate";
-import EditActualDateButton from "./editbookform/datemeeting/EditActualDateButton";
+import EditActualDate from "../../../../../components/forms/editbookform-single-book/datemeeting/EditActualDate";
+import EditActualDateButton from "../../../../../components/forms/editbookform-single-book/datemeeting/EditActualDateButton";
 import { useAppSelector } from "@/store/lib/hooks";
 
 type StateType = {

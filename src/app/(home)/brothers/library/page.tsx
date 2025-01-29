@@ -4,16 +4,16 @@
 import { useState, useReducer, useMemo } from "react";
 import Link from "next/link";
 import { DoubleLeftOutlined } from "@ant-design/icons";
-import Loader from "../../../../components/loader/Loader";
+import Loader from "@/components/loader/Loader";
 import { useJwt } from "react-jwt";
 
 import { findBook, findDateOfMeeting } from "@/functions/find-functions/find";
 
 //importing form components
-import PictureUploadButton from "./brotherform/PictureUploadButton";
-import EditUsernameButton from "./brotherform/EditUsernameButton";
-import EditCityAndCountryButton from "./brotherform/EditCityAndCountryButton";
-import EditGenreButton from "./brotherform/EditGenreButton";
+import PictureUploadButton from "../../../../components/forms/brotherform/PictureUploadButton";
+import EditUsernameButton from "../../../../components/forms/brotherform/EditUsernameButton";
+import EditCityAndCountryButton from "../../../../components/forms/brotherform/EditCityAndCountryButton";
+import EditGenreButton from "../../../../components/forms/brotherform/EditGenreButton";
 
 import Search from "../../../../components/misc/search/Search";
 import "../../../../style/brothercat.css";

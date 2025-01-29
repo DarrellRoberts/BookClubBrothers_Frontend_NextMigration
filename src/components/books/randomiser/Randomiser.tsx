@@ -3,7 +3,7 @@
 import { type Dispatch } from "react";
 import { ACTIONS } from "./actions";
 import { Button } from "antd";
-import SelectBook from "./bookform/SelectBook";
+import SelectBook from "../../forms/bookform-randomise/SelectBook";
 import style from "./randomiser.module.css";
 
 type Props = {

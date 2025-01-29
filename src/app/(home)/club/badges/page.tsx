@@ -2,7 +2,7 @@ import React from "react";
 import "@/style/bookHomepage.css";
 import "@/style/bookHomepageRes.css";
 import Badges from "@/components/misc/badges/Badges";
-import style from "./BadgesHomepage.module.css";
+import style from "@/components/club/badges/BadgesHomepage.module.css";
 
 const BadgesHomepage: React.FC = () => {
   const badgeData = {

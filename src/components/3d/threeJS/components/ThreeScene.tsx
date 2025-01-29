@@ -6,7 +6,7 @@ import { Dispatch, SetStateAction, Suspense } from "react";
 import { Canvas } from "@react-three/fiber";
 import { Scroll, ScrollControls } from "@react-three/drei";
 import Loader from "./Loader";
-import style from "../../../../../3d.module.css";
+import style from "./3d.module.css";
 import HeaderCon3D from "@/components/header/HeaderCon3D";
 import DarkMode from "@/components/misc/dark-mode/DarkMode";
 
