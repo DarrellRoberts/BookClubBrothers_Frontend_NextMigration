@@ -1,7 +1,7 @@
 /* eslint-disable react/react-in-jsx-scope */
 "use client";
 import PieChart from "@/components/graphs/brothers/PieChart";
-import styles from "./stats.module.css";
+import styles from "@/components/brothers/stats/stats.module.css";
 import BrotherTable from "@/components/stats/brother-table/BrotherTable";
 import {
   averageScore,

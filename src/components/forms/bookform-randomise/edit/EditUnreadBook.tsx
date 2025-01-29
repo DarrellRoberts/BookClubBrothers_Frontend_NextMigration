@@ -2,19 +2,19 @@
 /* eslint-disable react/react-in-jsx-scope */
 import { type Dispatch } from "react";
 import { Modal, Button } from "antd";
-import { ACTIONS } from "../../actions";
+import { ACTIONS } from "../../../books/randomiser/actions";
 import EditForm from "./EditForm";
 
 type Props = {
-  id: string,
-  showEditBook: boolean,
-  dispatch: Dispatch<unknown>,
-  inAuthor: string,
-  inTitle: string,
-  inPublished: number,
-  inPages: number,
-  inGenre: string[],
-  inImageURL: string
+  id: string;
+  showEditBook: boolean;
+  dispatch: Dispatch<unknown>;
+  inAuthor: string;
+  inTitle: string;
+  inPublished: number;
+  inPages: number;
+  inGenre: string[];
+  inImageURL: string;
 };
 
 const EditUnreadBook: React.FC<Props> = ({

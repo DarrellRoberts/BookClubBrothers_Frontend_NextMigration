@@ -6,7 +6,7 @@ import { genreAverageScore } from "@/functions/stat-functions/scoreFunctions";
 import { handleHideScores_NoSetter } from "@/functions/time-functions/hideScores";
 import "@/style/bookHomepage.css";
 import "@/style/bookHomepageRes.css";
-import styles from "./bookstats.module.css";
+import styles from "@/components/books/stats/bookstats.module.css";
 import ScatterGraph from "@/components/graphs/brothers/ScatterGraph";
 import useBookFetch from "@/hooks/fetch-hooks/useReadBookFetch";
 import Filters from "@/components/graphs/brothers/Filters";

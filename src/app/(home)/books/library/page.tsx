@@ -3,7 +3,7 @@
 
 import { useState } from "react";
 import Loader from "../../../../components/loader/Loader";
-import BookCover from "./BookCover";
+import BookCover from "../../../../components/books/library/BookCover";
 import Link from "next/link";
 import Search from "../../../../components/misc/search/Search";
 import "../../../../style/booklibrary.css";
@@ -11,7 +11,7 @@ import "../../../../style/booklibraryRes.css";
 import "../../../../style/search.css";
 import "../../../../style/searchRes.css";
 import { Button } from "antd";
-import BookImageCover from "./BookImageCover";
+import BookImageCover from "../../../../components/books/library/BookImageCover";
 import { handleHideScores_NoSetter } from "@/functions/time-functions/hideScores";
 import useBookFetch from "@/hooks/fetch-hooks/useReadBookFetch";
 

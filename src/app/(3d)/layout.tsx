@@ -1,5 +1,5 @@
 import React from "react";
-import style from "./3d.module.css";
+import style from "@/components/3d/threeJS/components/3d.module.css";
 import "../globals.css";
 import StoreProvider from "@/store/StoreProvider";
 

@@ -2,14 +2,14 @@
 "use client";
 
 import { useReducer } from "react";
-import { ACTIONS } from "./actions";
+import { ACTIONS } from "@/components/books/randomiser/actions";
 import LoaderNoText from "../../../../components/loader/LoaderNoText";
-import CreateUnreadBook from "./bookform/CreateUnreadBook";
-import DeleteBook from "./bookform/DeleteBook";
-import Randomiser from "./Randomiser";
+import CreateUnreadBook from "../../../../components/forms/bookform-randomise/CreateUnreadBook";
+import DeleteBook from "../../../../components/forms/bookform-randomise/DeleteBook";
+import Randomiser from "../../../../components/books/randomiser/Randomiser";
 import { useJwt } from "react-jwt";
-import style from "./randomiser.module.css";
-import EditUnreadBook from "./bookform/edit/EditUnreadBook";
+import style from "@/components/books/randomiser/randomiser.module.css";
+import EditUnreadBook from "../../../../components/forms/bookform-randomise/edit/EditUnreadBook";
 import useBookFetch from "@/hooks/fetch-hooks/useUnreadBookFetch";
 import useUserFetch from "@/hooks/fetch-hooks/useUserFetch";
 import { useAppSelector } from "@/store/lib/hooks";

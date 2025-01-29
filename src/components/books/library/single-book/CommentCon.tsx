@@ -5,8 +5,8 @@
 "use client";
 
 import { useState } from "react";
-import CommentButton from "./commentform/CommentButton";
-import EditCommentButton from "./commentform/EditCommentButton";
+import CommentButton from "../../../forms/commentform/CommentButton";
+import EditCommentButton from "../../../forms/commentform/EditCommentButton";
 import { useJwt } from "react-jwt";
 import { type Book } from "@/types/BookInterface";
 import {

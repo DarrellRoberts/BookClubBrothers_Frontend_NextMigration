@@ -1,5 +1,5 @@
 import React from "react";
-import style from "../../../../../3d.module.css";
+import style from "./3d.module.css";
 import Link from "next/link";
 import { Button } from "antd";
 

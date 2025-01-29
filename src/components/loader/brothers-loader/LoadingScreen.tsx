@@ -1,7 +1,7 @@
-import React from 'react';
-import LoaderNoText from '@/components/loader/LoaderNoText';
-import Link from 'next/link';
-import style from "./Dashboard.module.css";
+import React from "react";
+import LoaderNoText from "@/components/loader/LoaderNoText";
+import Link from "next/link";
+import style from "../../brothers/dashboard/Dashboard.module.css";
 
 const LoadingScreen = () => (
   <>
@@ -23,14 +23,12 @@ const LoadingScreen = () => (
         </div>
       </div>
 
-
       <div className={style.box}>
         <h2>Share of books read:</h2>
         <div className={style.boxItemLoading}>
           <LoaderNoText />
         </div>
       </div>
-
 
       <div className={style.box}>
         <h2>Average Score</h2>
@@ -41,13 +39,23 @@ const LoadingScreen = () => (
     </div>
 
     <div className="flex">
-      <div className={style.libraryButtons + " m-10 border-4 border-black p-3 rounded-lg bg-black text-white"}>
+      <div
+        className={
+          style.libraryButtons +
+          " m-10 border-4 border-black p-3 rounded-lg bg-black text-white"
+        }
+      >
         <Link href="/books">
           <h2>The Books</h2>
         </Link>
       </div>
 
-      <div className={style.libraryButtons + " m-10 border-4 border-black p-3 rounded-lg bg-black text-white"}>
+      <div
+        className={
+          style.libraryButtons +
+          " m-10 border-4 border-black p-3 rounded-lg bg-black text-white"
+        }
+      >
         <Link href="/brothers">
           <h2>The Brothers</h2>
         </Link>
