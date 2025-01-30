@@ -5,22 +5,16 @@
 import { Modal, Button } from "antd";
 import { useState } from "react";
 import EditCityAndCountry from "./EditCityAndCountry";
+import { useAppDispatch, useAppSelector } from "@/store/lib/hooks";
+import { setShowCountry } from "@/store/lib/features/auth/editButtonsSlice";
 
-type ActionType = {
-  type: string;
-};
-
-interface props {
-  dispatch: React.Dispatch<ActionType>;
-  showCountry: boolean;
+type Props = {
   id: string;
   inCountry: string;
   inCity: string;
-}
+};
 
-const EditCityAndCountryButton: React.FC<props> = ({
-  dispatch,
-  showCountry,
+const EditCityAndCountryButton: React.FC<Props> = ({
   id,
   inCountry,
   inCity,
@@ -29,21 +23,23 @@ const EditCityAndCountryButton: React.FC<props> = ({
     <EditCityAndCountry id={id} inCountry={inCountry} inCity={inCity} />
   );
   const [confirmLoading, setConfirmLoading] = useState<boolean>(false);
+  const showCountry = useAppSelector((state) => state.editButtons.showCountry);
+  const dispatch = useAppDispatch();
 
   const showModal = () => {
-    dispatch({ type: "toggleCountry" });
+    dispatch(setShowCountry());
   };
   const handleOk = () => {
     setConfirmLoading(true);
     setTimeout(() => {
-      dispatch({ type: "toggleCountry" });
+      dispatch(setShowCountry());
     }, 4000);
     setModalText(
       <EditCityAndCountry id={id} inCountry={inCountry} inCity={inCity} />
     );
   };
   const handleCancel = () => {
-    dispatch({ type: "toggleCountry" });
+    dispatch(setShowCountry());
   };
   return (
     <>
