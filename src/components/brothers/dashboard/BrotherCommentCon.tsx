@@ -1,26 +1,23 @@
 /* eslint-disable react/no-unescaped-entities */
 import React from "react";
 import Link from "next/link";
-import style from "./CommentCon.module.css";
+import style from "./BrotherCommentCon.module.css";
+import { Book } from "@/types/BookInterface";
 
 type Props = {
   username: string;
-  comments: {
-    _id: string;
-    title: string;
-    commentInfo: {
-      commentId: string[];
-      comments: string[];
-    };
-  }[];
+  userReadBooks: Book[];
   userId: string;
 };
 
-const CommentCon: React.FC<Props> = ({ username, comments, userId }) => {
+const CommentCon: React.FC<Props> = ({ username, userId, userReadBooks }) => {
+  const filterComments = userReadBooks?.filter((book) =>
+    book.commentInfo.commentId.includes(userId)
+  );
   return (
     <div className={style.commentCon}>
-      {comments?.length > 0 ? (
-        comments.map((book, i) => (
+      {filterComments?.length > 0 ? (
+        filterComments.map((book, i) => (
           <Link key={i} href={`/books/library/${book._id}`}>
             <div className={style.commentItem} key={i}>
               <h3>{book.title}</h3>
