@@ -2,7 +2,6 @@
 /* eslint-disable react/react-in-jsx-scope */
 "use client";
 
-import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import "@/style/dashboard.css";
 import "@/style/dashboardRes.css";
@@ -10,12 +9,8 @@ import LoadingScreen from "@/components/loader/brothers-loader/LoadingScreen";
 import { useJwt } from "react-jwt";
 import style from "@/components/brothers/dashboard/Dashboard.module.css";
 import CommentCon from "@/components/brothers/dashboard/BrotherCommentCon";
-import { filterUserReadBooks } from "@/functions/stat-functions/scoreFunctions";
-import { Book } from "@/types/BookInterface";
-import { handleHideScores_NoSetter } from "@/functions/time-functions/hideScores";
 import useUserFetch from "@/hooks/fetch-hooks/useUserFetch";
 import useBookFetch from "@/hooks/fetch-hooks/useReadBookFetch";
-import LoaderNoText from "@/components/loader/LoaderNoText";
 import { useAppSelector } from "@/store/lib/hooks";
 import BrotherBanner from "@/components/brothers/dashboard/BrotherBanner";
 import BrotherBooksScored from "@/components/brothers/dashboard/BrotherBooksScored";
@@ -32,8 +27,6 @@ const Dashboard: React.FC = () => {
   );
 
   const readBooks = bookData?.filter((book) => book.read === true);
-
-  const [fetchedData, setFetchedData] = useState<Book[]>();
 
   const token = useAppSelector((state) => state.token.tokenState);
 
@@ -52,52 +45,22 @@ const Dashboard: React.FC = () => {
     userData?.find((user) => user.username === username) ??
     userData?.find((user) => user._id === id);
 
-  const scoreArray = findUser?.userInfo?.books?.score;
-
-  const userReadBooks: Book[] = filterUserReadBooks(
-    readBooks,
-    findUser?._id
-  )?.filter((book) => !handleHideScores_NoSetter(book.actualDateOfMeeting));
-
-  const sortBooksDefault = () => {
-    setFetchedData(
-      userReadBooks?.sort(
-        (a, b) =>
-          new Date(b.dateOfMeeting).getTime() -
-          new Date(a.dateOfMeeting).getTime()
-      )
-    );
-  };
-
-  useEffect(() => {
-    sortBooksDefault();
-  }, [loadingBooks, loadingUsers]);
-
   return (
     <>
       {loadingBooks ? (
         <LoadingScreen />
       ) : (
         <>
-          <BrotherBanner
-            user={findUser}
-            scoreArray={scoreArray}
-            readBooks={readBooks}
-          />
+          <BrotherBanner user={findUser} readBooks={readBooks} />
 
           <div className={style.graphCon}>
             <h2 className="underline">Books scored</h2>
-            {fetchedData?.length <= 0 ? (
-              <LoaderNoText />
-            ) : (
-              <BrotherBooksScored
-                user={findUser}
-                fetchedData={fetchedData}
-                userReadBooks={userReadBooks}
-                setFetchedData={setFetchedData}
-                sortBooksDefault={sortBooksDefault}
-              />
-            )}
+            <BrotherBooksScored
+              user={findUser}
+              loadingBooks={loadingBooks}
+              loadingUsers={loadingUsers}
+              readBooks={readBooks}
+            />
           </div>
 
           <div className={style.commentSection}>
@@ -105,7 +68,7 @@ const Dashboard: React.FC = () => {
             <CommentCon
               username={findUser?.username}
               userId={findUser?._id}
-              userReadBooks={userReadBooks}
+              readBooks={readBooks}
             />
           </div>
         </>

@@ -3,14 +3,20 @@ import React from "react";
 import Link from "next/link";
 import style from "./BrotherCommentCon.module.css";
 import { Book } from "@/types/BookInterface";
+import { filterUserReadBooks } from "@/functions/stat-functions/scoreFunctions";
+import { handleHideScores_NoSetter } from "@/functions/time-functions/hideScores";
 
 type Props = {
   username: string;
-  userReadBooks: Book[];
   userId: string;
+  readBooks: Book[];
 };
 
-const CommentCon: React.FC<Props> = ({ username, userId, userReadBooks }) => {
+const CommentCon: React.FC<Props> = ({ username, userId, readBooks }) => {
+  const userReadBooks: Book[] = filterUserReadBooks(readBooks, userId)?.filter(
+    (book) => !handleHideScores_NoSetter(book.actualDateOfMeeting)
+  );
+
   const filterComments = userReadBooks?.filter((book) =>
     book.commentInfo.commentId.includes(userId)
   );

@@ -25,10 +25,9 @@ import {
 type Props = {
   user: User;
   readBooks: Book[];
-  scoreArray: number[];
 };
 
-const BrotherBanner: React.FC<Props> = ({ user, readBooks, scoreArray }) => {
+const BrotherBanner: React.FC<Props> = ({ user, readBooks }) => {
   const token = useAppSelector((state) => state.token.tokenState);
   const {
     decodedToken,
@@ -41,6 +40,7 @@ const BrotherBanner: React.FC<Props> = ({ user, readBooks, scoreArray }) => {
     };
   } = useJwt(token);
 
+  const scoreArray = user?.userInfo?.books?.score;
   const findMinBook: Book = findMinScoreBook(readBooks, scoreArray, user);
   const findMaxBook: Book = findMaxScoreBook(readBooks, scoreArray, user);
   const avgScore: string = averageScore(user)?.toFixed(2);

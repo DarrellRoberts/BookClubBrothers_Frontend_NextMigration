@@ -1,24 +1,42 @@
 import Filters from "@/components/graphs/brothers/Filters";
 import Graph from "@/components/graphs/brothers/Graph";
+import LoaderNoText from "@/components/loader/LoaderNoText";
+import { filterUserReadBooks } from "@/functions/stat-functions/scoreFunctions";
+import { handleHideScores_NoSetter } from "@/functions/time-functions/hideScores";
 import { Book } from "@/types/BookInterface";
 import { User } from "@/types/UserInterface";
-import React, { Dispatch, SetStateAction } from "react";
+import React, { useEffect, useState } from "react";
 
 type Props = {
   user: User;
-  fetchedData: Book[];
-  userReadBooks: Book[];
-  setFetchedData: Dispatch<SetStateAction<Book[]>>;
-  sortBooksDefault: () => void;
+  loadingBooks: boolean;
+  loadingUsers: boolean;
+  readBooks: Book[];
 };
 
 const BrotherBooksScored: React.FC<Props> = ({
   user,
-  fetchedData,
-  userReadBooks,
-  setFetchedData,
-  sortBooksDefault,
+  loadingBooks,
+  loadingUsers,
+  readBooks,
 }) => {
+  const [fetchedData, setFetchedData] = useState<Book[]>();
+
+  const userReadBooks: Book[] = filterUserReadBooks(
+    readBooks,
+    user?._id
+  )?.filter((book) => !handleHideScores_NoSetter(book.actualDateOfMeeting));
+
+  const sortBooksDefault = () => {
+    setFetchedData(
+      userReadBooks?.sort(
+        (a, b) =>
+          new Date(b.dateOfMeeting).getTime() -
+          new Date(a.dateOfMeeting).getTime()
+      )
+    );
+  };
+
   const sortBooksLowest = () => {
     setFetchedData(
       userReadBooks?.sort(
@@ -50,26 +68,36 @@ const BrotherBooksScored: React.FC<Props> = ({
       )
     );
   };
+
+  useEffect(() => {
+    sortBooksDefault();
+  }, [loadingBooks, loadingUsers]);
   return (
     <>
-      <Filters
-        sortBooksDefault={sortBooksDefault}
-        sortBooksHighest={sortBooksHighest}
-        sortBooksLowest={sortBooksLowest}
-        sortBooksOther={sortBooksOther}
-        type="all"
-      />
-      <Graph
-        bookTitles={fetchedData?.map((book) => book.title)}
-        totalBookScores={fetchedData?.map((book) => book.totalScore)}
-        bookScores={fetchedData?.map(
-          (book) =>
-            book?.scoreRatings?.rating[
-              book?.scoreRatings?.raterId.indexOf(user?._id)
-            ]
-        )}
-        username={user?.username}
-      />
+      {fetchedData?.length === 0 ? (
+        <LoaderNoText />
+      ) : (
+        <>
+          <Filters
+            sortBooksDefault={sortBooksDefault}
+            sortBooksHighest={sortBooksHighest}
+            sortBooksLowest={sortBooksLowest}
+            sortBooksOther={sortBooksOther}
+            type="all"
+          />
+          <Graph
+            bookTitles={fetchedData?.map((book) => book.title)}
+            totalBookScores={fetchedData?.map((book) => book.totalScore)}
+            bookScores={fetchedData?.map(
+              (book) =>
+                book?.scoreRatings?.rating[
+                  book?.scoreRatings?.raterId.indexOf(user?._id)
+                ]
+            )}
+            username={user?.username}
+          />
+        </>
+      )}
     </>
   );
 };
