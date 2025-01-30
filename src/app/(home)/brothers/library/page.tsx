@@ -42,8 +42,8 @@ const Brothercat: React.FC = () => {
         <>
           <h1 className="brothersTitle">Brothers Library</h1>
           <div className="flex flex-col items-center">
-            {filteredResults.length > 0 ? (
-              filteredResults.map((user, index) => (
+            {filteredResults?.length > 0 ? (
+              filteredResults?.map((user, index) => (
                 <BrothersProfile
                   key={index}
                   user={user}

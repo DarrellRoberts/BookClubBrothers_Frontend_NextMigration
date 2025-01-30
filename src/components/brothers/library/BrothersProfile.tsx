@@ -52,7 +52,7 @@ const BrothersProfile: React.FC<Props> = ({ user, readBooks, userData }) => {
     userBookObj = Object.entries(userBookObj);
     return userBookObj;
   };
-  userData.length > 0 ? updateBookObj() : null;
+  userData?.length > 0 ? updateBookObj() : null;
 
   return (
     <div className="brotherBook border-4 border-solid m-5 flex">
@@ -65,7 +65,7 @@ const BrothersProfile: React.FC<Props> = ({ user, readBooks, userData }) => {
         ) : (
           <h2 className="text-black underline">{user?.username}</h2>
         )}
-        <Link href={`/brothers/library/${user.username}`}>
+        <Link href={`/brothers/library/${user?.username}`}>
           <img
             src={
               user?.userInfo?.profileURL
@@ -115,7 +115,7 @@ const BrothersProfile: React.FC<Props> = ({ user, readBooks, userData }) => {
 
           <div className="flex">
             <li className="brotherList underline pt-5">Favourite Genres</li>
-            {decodedToken?._id === user._id ? (
+            {decodedToken?._id === user?._id ? (
               <EditGenreButton
                 inGenre={user?.userInfo?.favGenre?.map((genre) => genre)}
                 id={decodedToken?._id}

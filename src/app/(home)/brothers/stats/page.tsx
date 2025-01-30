@@ -52,7 +52,7 @@ const BrothersStats: React.FC = () => {
   useEffect(() => {
     sortBooksDefault();
   }, [loadingUsers, loadingBooks]);
-  console.log(userGraphData);
+
   return (
     <div className={loadingUsers && loadingBooks ? "h-screen" : ""}>
       <h1 className={styles.statsTitle}>Brothers Stats</h1>
