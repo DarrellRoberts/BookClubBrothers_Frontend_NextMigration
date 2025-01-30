@@ -10,7 +10,7 @@ const { Option } = Select;
 
 interface props {
   id: string;
-  inGenre: [string] | null;
+  inGenre: string[] | null;
 }
 
 const EditGenre: React.FC<props> = ({ id, inGenre }) => {
@@ -20,7 +20,6 @@ const EditGenre: React.FC<props> = ({ id, inGenre }) => {
 
   const token = useAppSelector((state) => state.token.tokenState);
 
-  console.log(favGenre);
   const handleSubmit = async () => {
     try {
       setError(null);

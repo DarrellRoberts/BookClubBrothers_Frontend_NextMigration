@@ -5,41 +5,37 @@
 import { Button, Modal } from "antd";
 import { useState } from "react";
 import EditUsername from "./EditUsername";
+import { useAppDispatch, useAppSelector } from "@/store/lib/hooks";
+import { setShowUsername } from "@/store/lib/features/auth/editButtonsSlice";
 
-type ActionType = {
-  type: string;
-};
-
-interface props {
-  dispatch: React.Dispatch<ActionType>;
-  showUsername: boolean;
+type Props = {
   id: string;
   inUsername: string;
-}
+};
 
-const EditUsernameButton: React.FC<props> = ({
-  dispatch,
-  showUsername,
-  id,
-  inUsername,
-}) => {
+const EditUsernameButton: React.FC<Props> = ({ id, inUsername }) => {
   const [modalText, setModalText] = useState(
     <EditUsername id={id} inUsername={inUsername} />
   );
   const [confirmLoading, setConfirmLoading] = useState<boolean>(false);
+  const showUsername = useAppSelector(
+    (state) => state.editButtons.showUsername
+  );
+  const dispatch = useAppDispatch();
 
   const showModal = () => {
-    dispatch({ type: "toggleUsername" });
+    dispatch(setShowUsername());
   };
   const handleOk = () => {
     setConfirmLoading(true);
     setTimeout(() => {
-      dispatch({ type: "toggleUsername" });
+      dispatch(setShowUsername());
     }, 4000);
     setModalText(<EditUsername id={id} inUsername={inUsername} />);
   };
   const handleCancel = () => {
-    dispatch({ type: "toggleUsername" });
+    console.log(showUsername);
+    dispatch(setShowUsername());
   };
   return (
     <>

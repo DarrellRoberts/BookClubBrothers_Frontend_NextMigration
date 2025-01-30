@@ -5,41 +5,35 @@
 import { Button, Modal } from "antd";
 import { useState } from "react";
 import PictureUpload from "./PictureUpload";
+import { useAppDispatch, useAppSelector } from "@/store/lib/hooks";
+import { setShowImage } from "@/store/lib/features/auth/editButtonsSlice";
 
-type ActionType = {
-  type: string;
-};
-
-interface props {
-  dispatch: React.Dispatch<ActionType>;
-  showImage: boolean;
+type Props = {
   id: string;
   inImage: string;
-}
+};
 
-const PictureUploadButton: React.FC<props> = ({
-  dispatch,
-  showImage,
-  id,
-  inImage,
-}) => {
+const PictureUploadButton: React.FC<Props> = ({ id, inImage }) => {
   const [modalText, setModalText] = useState(
     <PictureUpload id={id} inImage={inImage} />
   );
   const [confirmLoading, setConfirmLoading] = useState<boolean>(false);
+  const showImage = useAppSelector((state) => state.editButtons.showImage);
+
+  const dispatch = useAppDispatch();
 
   const showModal = () => {
-    dispatch({ type: "toggleImage" });
+    dispatch(setShowImage());
   };
   const handleOk = () => {
     setConfirmLoading(true);
     setTimeout(() => {
-      dispatch({ type: "toggleImage" });
+      dispatch(setShowImage());
     }, 4000);
     setModalText(<PictureUpload id={id} inImage={inImage} />);
   };
   const handleCancel = () => {
-    dispatch({ type: "toggleImage" });
+    dispatch(setShowImage());
   };
   return (
     <>
