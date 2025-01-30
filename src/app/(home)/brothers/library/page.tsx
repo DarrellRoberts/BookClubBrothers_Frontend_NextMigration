@@ -1,9 +1,8 @@
 /* eslint-disable react/react-in-jsx-scope */
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState } from "react";
 import Loader from "@/components/loader/Loader";
-import { findBook } from "@/functions/find-functions/find";
 import Search from "@/components/misc/search/Search";
 import "@/style/brothercat.css";
 import "@/style/brothercatRes.css";
@@ -29,26 +28,9 @@ const Brothercat: React.FC = () => {
 
   const readBooks = bookData?.filter((book) => book.read === true);
 
-  let userBookObj = {};
-  useMemo(() => {
-    let bookId = userData?.map(
-      (user) =>
-        user?.userInfo?.books?.booksScored[
-          user?.userInfo?.books?.booksScored.length - 1
-        ]
-    );
-    bookId = bookId?.map((book) => findBook(book, readBooks));
-    for (let i = 0; i < bookId?.length; i++) {
-      userBookObj[i] = bookId[i];
-    }
-    userBookObj = Object.entries(userBookObj);
-    return userBookObj;
-  }, [readBooks]);
-
   const filteredResults = Array.isArray(userData)
     ? userData?.filter((user) => user?.username?.includes(searchBar))
     : ["No results"];
-  console.log(userBookObj);
   return (
     <>
       <div className="searchBackCon">
@@ -64,11 +46,9 @@ const Brothercat: React.FC = () => {
               filteredResults.map((user, index) => (
                 <BrothersProfile
                   key={index}
-                  index={index}
                   user={user}
                   userData={userData}
                   readBooks={readBooks}
-                  userBookObj={userBookObj}
                 />
               ))
             ) : (

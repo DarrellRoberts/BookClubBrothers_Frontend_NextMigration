@@ -9,7 +9,7 @@ import EditGenreButton from "@/components/forms/brotherform/EditGenreButton";
 import { useJwt } from "react-jwt";
 import { useAppSelector } from "@/store/lib/hooks";
 import { handleHideScores_NoSetter } from "@/functions/time-functions/hideScores";
-import { findDateOfMeeting } from "@/functions/find-functions/find";
+import { findBook, findDateOfMeeting } from "@/functions/find-functions/find";
 import { User } from "@/types/UserInterface";
 import ProfileUnknownUserImage from "@/assets/Profile.unknown-profile-image.jpg";
 import { Book } from "@/types/BookInterface";
@@ -20,15 +20,9 @@ type Props = {
   user: User;
   userData: User[];
   readBooks: Book[];
-  userBookObj: Array<string[]>;
 };
 
-const BrothersProfile: React.FC<Props> = ({
-  user,
-  readBooks,
-  userBookObj,
-  userData,
-}) => {
+const BrothersProfile: React.FC<Props> = ({ user, readBooks, userData }) => {
   const token = useAppSelector((state) => state.token.tokenState);
   const {
     decodedToken,
@@ -40,6 +34,25 @@ const BrothersProfile: React.FC<Props> = ({
       _id: string;
     };
   } = useJwt(token);
+
+  let userBookObj = {};
+
+  const updateBookObj = () => {
+    if (userData.length === 0) return [];
+    let bookId = userData?.map(
+      (user) =>
+        user?.userInfo?.books?.booksScored[
+          user?.userInfo?.books?.booksScored.length - 1
+        ]
+    );
+    bookId = bookId?.map((book) => findBook(book, readBooks));
+    for (let i = 0; i < bookId?.length; i++) {
+      userBookObj[i] = bookId[i];
+    }
+    userBookObj = Object.entries(userBookObj);
+    return userBookObj;
+  };
+  userData.length > 0 ? updateBookObj() : null;
 
   return (
     <div className="brotherBook border-4 border-solid m-5 flex">
@@ -92,7 +105,6 @@ const BrothersProfile: React.FC<Props> = ({
             )}
           </div>
 
-          {/* Country */}
           <div className="flex">
             {user?.userInfo?.residence?.country ? (
               <li>Country: {user?.userInfo?.residence?.country}</li>
@@ -122,7 +134,7 @@ const BrothersProfile: React.FC<Props> = ({
           <li className="brotherList underline pt-5">Last rating given</li>
           <li>
             Book:{" "}
-            {Object.keys(userBookObj).length !== 0 ? (
+            {Object.keys(userBookObj).length > 0 ? (
               userBookObj[userData?.indexOf(user)][1]
             ) : (
               <LoaderNoText />
