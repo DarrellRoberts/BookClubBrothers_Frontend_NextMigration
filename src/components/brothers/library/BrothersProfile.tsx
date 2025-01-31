@@ -6,8 +6,6 @@ import PictureUploadButton from "@/components/forms/brotherform/PictureUploadBut
 import EditUsernameButton from "@/components/forms/brotherform/EditUsernameButton";
 import EditCityAndCountryButton from "@/components/forms/brotherform/EditCityAndCountryButton";
 import EditGenreButton from "@/components/forms/brotherform/EditGenreButton";
-import { useJwt } from "react-jwt";
-import { useAppSelector } from "@/store/lib/hooks";
 import { handleHideScores_NoSetter } from "@/functions/time-functions/hideScores";
 import { findBook, findDateOfMeeting } from "@/functions/find-functions/find";
 import { User } from "@/types/UserInterface";
@@ -15,6 +13,7 @@ import ProfileUnknownUserImage from "@/assets/Profile.unknown-profile-image.jpg"
 import { Book } from "@/types/BookInterface";
 import "@/style/brothercat.css";
 import "@/style/brothercatRes.css";
+import { useAuth } from "@/hooks/auth-hooks/useAuth";
 
 type Props = {
   user: User;
@@ -23,17 +22,7 @@ type Props = {
 };
 
 const BrothersProfile: React.FC<Props> = ({ user, readBooks, userData }) => {
-  const token = useAppSelector((state) => state.token.tokenState);
-  const {
-    decodedToken,
-  }: {
-    decodedToken?: {
-      token: string;
-      username: string;
-      exp: number;
-      _id: string;
-    };
-  } = useJwt(token);
+  const { decodedToken } = useAuth();
 
   let userBookObj = {};
 

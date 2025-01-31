@@ -4,17 +4,13 @@ import PieChart from "@/components/graphs/brothers/PieChart";
 import styles from "@/components/brothers/stats/stats.module.css";
 import BrotherTable from "@/components/stats/brother-table/BrotherTable";
 import {
-  averageScore,
   unreadBookTitles,
   userReadBookTitles,
 } from "@/functions/stat-functions/scoreFunctions";
 import LoaderNoText from "@/components/loader/LoaderNoText";
-import Graph from "@/components/graphs/brothers/Graph";
 import useBookFetch from "@/hooks/fetch-hooks/useReadBookFetch";
 import useUserFetch from "@/hooks/fetch-hooks/useUserFetch";
-import Filters from "@/components/graphs/brothers/Filters";
-import { useEffect, useState } from "react";
-import { User } from "@/types/UserInterface";
+import BrothersScores from "@/components/brothers/stats/BrothersScores";
 
 const BrothersStats: React.FC = () => {
   const { userData, loadingUsers } = useUserFetch(
@@ -28,30 +24,6 @@ const BrothersStats: React.FC = () => {
   );
 
   const readBooks = bookData?.filter((book) => book.read === true);
-
-  const userGraphData = userData ? [...userData] : [];
-
-  const [fetchedData, setFetchedData] = useState<User[]>();
-
-  const sortBooksLowest = () => {
-    setFetchedData(
-      userGraphData?.sort((a, b) => averageScore(a) - averageScore(b))
-    );
-  };
-
-  const sortBooksHighest = () => {
-    setFetchedData(
-      userGraphData?.sort((a, b) => averageScore(a) - averageScore(b)).reverse()
-    );
-  };
-
-  const sortBooksDefault = () => {
-    setFetchedData(userGraphData?.sort());
-  };
-
-  useEffect(() => {
-    sortBooksDefault();
-  }, [loadingUsers, loadingBooks]);
 
   return (
     <div className={loadingUsers && loadingBooks ? "h-screen" : ""}>
@@ -84,23 +56,11 @@ const BrothersStats: React.FC = () => {
         )}
         <div>
           <h2>Average Scores</h2>
-          {fetchedData?.length <= 0 ? (
-            <LoaderNoText />
-          ) : (
-            <>
-              <Filters
-                sortBooksDefault={sortBooksDefault}
-                sortBooksHighest={sortBooksHighest}
-                sortBooksLowest={sortBooksLowest}
-                type="normal"
-              />
-              <Graph
-                bookTitles={fetchedData?.map((user) => user.username)}
-                bookScores={fetchedData?.map((user) => averageScore(user))}
-                username="User"
-              />
-            </>
-          )}
+          <BrothersScores
+            loadingBooks={loadingBooks}
+            loadingUsers={loadingUsers}
+            userData={userData}
+          />
         </div>
       </div>
     </div>

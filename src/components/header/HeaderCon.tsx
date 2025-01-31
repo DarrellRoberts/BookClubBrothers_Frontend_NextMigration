@@ -5,7 +5,7 @@
 import Login from "../user/Login";
 import HeaderLinks from "./HeaderLinks";
 import HeaderLinksMobile from "./HeaderLinksMobile";
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import { getTime } from "../../functions/time-functions/timeFunction";
 import Link from "next/link";
 import { useMediaQuery } from "react-responsive";
@@ -13,7 +13,6 @@ import style from "./header-con.module.css";
 import Logo from "../misc/Logo";
 import Logout from "../user/Logout";
 import { useAppSelector } from "@/store/lib/hooks";
-import { useJwt } from "react-jwt";
 import { useAuth } from "@/hooks/auth-hooks/useAuth";
 
 type Props = {
@@ -25,12 +24,7 @@ const HeaderCon: React.FC<Props> = ({ propsToken }) => {
     ? propsToken
     : useAppSelector((state) => state.token.tokenState);
 
-  const { handleExpired } = useAuth();
-
-  const {
-    decodedToken,
-  }: { decodedToken?: { token: string; username: string; exp: number } } =
-    useJwt(token);
+  const { decodedToken } = useAuth();
 
   const handleDesktop = useMediaQuery({ query: "(min-device-width: 801px)" });
   const headerCon = useRef(null);
@@ -43,9 +37,6 @@ const HeaderCon: React.FC<Props> = ({ propsToken }) => {
     : "";
   headerCon.current ? (headerCon.current.style.height = "88px") : "";
 
-  useEffect(() => {
-    handleExpired();
-  }, []);
   return (
     <header
       ref={headerCon}
