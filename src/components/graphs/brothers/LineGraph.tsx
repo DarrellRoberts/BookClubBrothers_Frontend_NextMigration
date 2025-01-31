@@ -5,7 +5,7 @@ import { Line } from "react-chartjs-2";
 
 type Props = {
   labelArray: string[];
-  dateArray: number[];
+  dateArray: string[];
   scoreArray: string[];
   xAxes: string;
 };
@@ -92,10 +92,6 @@ const LineGraph: React.FC<Props> = ({
         max: 10,
       },
       x: {
-        // type: "time",
-        // time: {
-        //   unit: "month",
-        // },
         ticks: {
           color: darkCookie ? "white" : "black",
           font: {
