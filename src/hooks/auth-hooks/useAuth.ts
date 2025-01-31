@@ -26,22 +26,17 @@ export const useAuth = () => {
 
   const handleExpired = (): void => {
     if (!token) return;
-    const exp: number | undefined = (decodedToken as { exp?: number })?.exp;
-    if (exp) {
-      const currentTime: number = Date.now() / 1000;
-      if (currentTime > exp) {
-        logout();
-      }
-    }
+    if (decodedToken.decodedToken === null) return;
+    if (!decodedToken.isExpired) return;
+    logout();
   };
 
   useEffect(() => {
     const storedToken = localStorage.getItem("token");
-    if (storedToken) {
-      dispatch(setTokenState(storedToken));
-      handleExpired();
-    }
+    if (!storedToken) return;
+    dispatch(setTokenState(storedToken));
+    handleExpired();
   });
 
-  return { login, logout, handleExpired, decodedToken };
+  return { login, logout, handleExpired, ...decodedToken };
 };

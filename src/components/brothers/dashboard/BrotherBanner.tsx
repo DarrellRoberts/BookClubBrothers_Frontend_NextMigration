@@ -6,10 +6,8 @@ import Badges from "@/components/misc/badges/Badges";
 import Profile from "@/components/misc/profile/Profile";
 import { formatServerDate } from "@/functions/time-functions/formatServerDate";
 import { handleHideScores_NoSetter } from "@/functions/time-functions/hideScores";
-import { useAppSelector } from "@/store/lib/hooks";
 import Link from "next/link";
 import React from "react";
-import { useJwt } from "react-jwt";
 import style from "./Dashboard.module.css";
 import { User } from "@/types/UserInterface";
 import { Book } from "@/types/BookInterface";
@@ -21,6 +19,7 @@ import {
   unreadBookTitles,
   userReadBookTitles,
 } from "@/functions/stat-functions/scoreFunctions";
+import { useAuth } from "@/hooks/auth-hooks/useAuth";
 
 type Props = {
   user: User;
@@ -28,17 +27,7 @@ type Props = {
 };
 
 const BrotherBanner: React.FC<Props> = ({ user, readBooks }) => {
-  const token = useAppSelector((state) => state.token.tokenState);
-  const {
-    decodedToken,
-  }: {
-    decodedToken?: {
-      token: string;
-      username: string;
-      exp: number;
-      _id: string;
-    };
-  } = useJwt(token);
+  const { decodedToken } = useAuth();
 
   const scoreArray = user?.userInfo?.books?.score;
   const findMinBook: Book = findMinScoreBook(readBooks, scoreArray, user);
