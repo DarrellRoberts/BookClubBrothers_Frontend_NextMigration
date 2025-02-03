@@ -1,14 +1,12 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/react-in-jsx-scope */
-import { type Dispatch } from "react";
 import { Modal, Button } from "antd";
-import { ACTIONS } from "../../../books/randomiser/actions";
 import EditForm from "./EditForm";
+import { useAppDispatch, useAppSelector } from "@/store/lib/hooks";
+import { setShowEdit } from "@/store/lib/features/auth/editButtonsSlice";
 
 type Props = {
   id: string;
-  showEditBook: boolean;
-  dispatch: Dispatch<unknown>;
   inAuthor: string;
   inTitle: string;
   inPublished: number;
@@ -19,8 +17,6 @@ type Props = {
 
 const EditUnreadBook: React.FC<Props> = ({
   id,
-  showEditBook,
-  dispatch,
   inAuthor,
   inTitle,
   inPublished,
@@ -28,13 +24,14 @@ const EditUnreadBook: React.FC<Props> = ({
   inGenre,
   inImageURL,
 }) => {
-  // const [modalText, setModalText] = useState();
+  const showEditBook = useAppSelector((state) => state.editButtons.showEdit);
+  const dispatch = useAppDispatch();
 
   const showModal = () => {
-    dispatch({ type: ACTIONS.SHOWEDITBOOK, payload: true });
+    dispatch(setShowEdit());
   };
   const handleCancel = () => {
-    dispatch({ type: ACTIONS.SHOWEDITBOOK, payload: false });
+    dispatch(setShowEdit());
   };
   return (
     <>
