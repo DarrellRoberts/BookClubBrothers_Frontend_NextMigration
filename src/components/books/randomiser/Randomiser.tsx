@@ -1,45 +1,34 @@
 /* eslint-disable react/react-in-jsx-scope */
 /* eslint-disable react/prop-types */
-import { type Dispatch } from "react";
-import { ACTIONS } from "./actions";
 import { Button } from "antd";
 import SelectBook from "../../forms/bookform-randomise/SelectBook";
 import style from "./randomiser.module.css";
+import { useAppDispatch, useAppSelector } from "@/store/lib/hooks";
+import {
+  setIndex,
+  setShowRandom,
+} from "@/store/lib/features/randomise/randomiseSlice";
+import { useAuth } from "@/hooks/auth-hooks/useAuth";
 
 type Props = {
-  dispatch: Dispatch<unknown>;
-  showRandom: boolean;
   bookLength: number;
   bookId: string;
-  adminId: string;
-  userId: string;
 };
 
-const Randomiser: React.FC<Props> = ({
-  dispatch,
-  showRandom,
-  bookLength,
-  bookId,
-  adminId,
-  userId,
-}) => {
+const Randomiser: React.FC<Props> = ({ bookLength, bookId }) => {
+  const dispatch = useAppDispatch();
+  const showRandom = useAppSelector((state) => state.randomise.showRandom);
+  const adminId = process.env.NEXT_PUBLIC_ADMIN_ID;
+  const { decodedToken } = useAuth();
+
   const handleRandomise = () => {
-    dispatch({
-      type: ACTIONS.SETRANDOM,
-      payload: false,
-    });
+    dispatch(setShowRandom());
     const Int = setInterval(() => {
-      dispatch({
-        type: ACTIONS.SETINDEX,
-        payload: Math.floor(Math.random() * bookLength),
-      });
+      dispatch(setIndex(Math.floor(Math.random() * bookLength)));
     }, 50);
     setTimeout(() => {
       clearInterval(Int);
-      dispatch({
-        type: ACTIONS.SETRANDOM,
-        payload: true,
-      });
+      dispatch(setShowRandom());
     }, 3000);
   };
 
@@ -49,7 +38,9 @@ const Randomiser: React.FC<Props> = ({
         {showRandom ? (
           <>
             <Button onClick={handleRandomise}>Randomise</Button>
-            {adminId === userId ? <SelectBook bookId={bookId} /> : null}
+            {adminId === decodedToken?._id ? (
+              <SelectBook bookId={bookId} />
+            ) : null}
           </>
         ) : null}
       </div>

@@ -1,10 +1,15 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { tokenReducer } from "./features/auth/tokenSlice";
 import { editButtonReducer } from "./features/auth/editButtonsSlice";
+import { randomiseReducer } from "./features/randomise/randomiseSlice";
 
 export const makeStore = () => {
   return configureStore({
-    reducer: { token: tokenReducer, editButtons: editButtonReducer },
+    reducer: {
+      token: tokenReducer,
+      editButtons: editButtonReducer,
+      randomise: randomiseReducer,
+    },
   });
 };
 

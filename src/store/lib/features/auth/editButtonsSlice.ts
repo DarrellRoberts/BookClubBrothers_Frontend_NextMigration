@@ -5,6 +5,8 @@ export interface EditButtonState {
   showUsername: boolean;
   showCountry: boolean;
   showGenre: boolean;
+  showEdit: boolean;
+  showCreate: boolean;
 }
 
 const initialState: EditButtonState = {
@@ -12,6 +14,8 @@ const initialState: EditButtonState = {
   showUsername: false,
   showCountry: false,
   showGenre: false,
+  showEdit: false,
+  showCreate: false,
 };
 
 export const editButtonSlice = createSlice({
@@ -30,9 +34,21 @@ export const editButtonSlice = createSlice({
     setShowGenre: (state): void => {
       state.showGenre = !state.showGenre;
     },
+    setShowEdit: (state): void => {
+      state.showEdit = !state.showEdit;
+    },
+    setShowCreate: (state): void => {
+      state.showCreate = !state.showCreate;
+    },
   },
 });
 
-export const { setShowImage, setShowUsername, setShowCountry, setShowGenre } =
-  editButtonSlice.actions;
+export const {
+  setShowImage,
+  setShowUsername,
+  setShowCountry,
+  setShowGenre,
+  setShowEdit,
+  setShowCreate,
+} = editButtonSlice.actions;
 export const editButtonReducer = editButtonSlice.reducer;
