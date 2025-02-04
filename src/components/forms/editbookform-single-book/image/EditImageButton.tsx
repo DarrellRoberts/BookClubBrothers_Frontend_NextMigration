@@ -1,31 +1,26 @@
 /* eslint-disable react/react-in-jsx-scope */
 /* eslint-disable react/prop-types */
+import { setShowBookImage } from "@/store/lib/features/books/editBookButtonsSlice";
+import { useAppDispatch, useAppSelector } from "@/store/lib/hooks";
 import { Button } from "antd";
 
-type ActionType = {
-  type: string;
-};
+const EditImageButton = () => {
+  const showBookImage = useAppSelector(
+    (state) => state.editBookButtons.showBookImage
+  );
+  const dispatch = useAppDispatch();
 
-interface props {
-  dispatch: React.Dispatch<ActionType>;
-  showImage: boolean;
-}
-
-const EditImageButton: React.FC<props> = ({ dispatch, showImage }) => {
   return (
     <>
       <div className="flex items-center">
-        {showImage ? (
-          <Button
-            className="m-5"
-            onClick={() => dispatch({ type: "toggleShowImage" })}
-          >
+        {showBookImage ? (
+          <Button className="m-5" onClick={() => dispatch(setShowBookImage())}>
             X
           </Button>
         ) : (
           <Button
             className="ml-5 mb-5"
-            onClick={() => dispatch({ type: "toggleShowImage" })}
+            onClick={() => dispatch(setShowBookImage())}
           >
             Change image
           </Button>

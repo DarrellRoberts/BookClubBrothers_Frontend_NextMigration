@@ -1,32 +1,21 @@
 /* eslint-disable react/react-in-jsx-scope */
 /* eslint-disable react/prop-types */
+import { setShowPage } from "@/store/lib/features/books/editBookButtonsSlice";
+import { useAppDispatch, useAppSelector } from "@/store/lib/hooks";
 import { Button } from "antd";
 
-type ActionType = {
-  type: string;
-};
-
-interface props {
-  dispatch: React.Dispatch<ActionType>;
-  showPage: boolean;
-}
-
-const EditPagesButton: React.FC<props> = ({ dispatch, showPage }) => {
+const EditPagesButton = () => {
+  const showPage = useAppSelector((state) => state.editBookButtons.showPage);
+  const dispatch = useAppDispatch();
   return (
     <>
       <div className="flex items-center">
         {showPage ? (
-          <Button
-            className="mb-5"
-            onClick={() => dispatch({ type: "toggleShowPage" })}
-          >
+          <Button className="mb-5" onClick={() => dispatch(setShowPage())}>
             X
           </Button>
         ) : (
-          <Button
-            className="mb-5"
-            onClick={() => dispatch({ type: "toggleShowPage" })}
-          >
+          <Button className="mb-5" onClick={() => dispatch(setShowPage())}>
             Edit Pages
           </Button>
         )}

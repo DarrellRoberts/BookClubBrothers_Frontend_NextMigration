@@ -2,6 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import { tokenReducer } from "./features/auth/tokenSlice";
 import { editButtonReducer } from "./features/auth/editButtonsSlice";
 import { randomiseReducer } from "./features/randomise/randomiseSlice";
+import { editBookReducer } from "./features/books/editBookButtonsSlice";
 
 export const makeStore = () => {
   return configureStore({
@@ -9,6 +10,7 @@ export const makeStore = () => {
       token: tokenReducer,
       editButtons: editButtonReducer,
       randomise: randomiseReducer,
+      editBookButtons: editBookReducer,
     },
   });
 };

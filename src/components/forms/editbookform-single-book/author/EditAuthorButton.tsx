@@ -1,32 +1,23 @@
 /* eslint-disable react/react-in-jsx-scope */
 /* eslint-disable react/prop-types */
+import { setShowAuthor } from "@/store/lib/features/books/editBookButtonsSlice";
+import { useAppDispatch, useAppSelector } from "@/store/lib/hooks";
 import { Button } from "antd";
 
-type ActionType = {
-  type: string;
-};
-
-interface props {
-  dispatch: React.Dispatch<ActionType>;
-  showAuthor: boolean;
-}
-
-const EditAuthorButton: React.FC<props> = ({ dispatch, showAuthor }) => {
+const EditAuthorButton = () => {
+  const showAuthor = useAppSelector(
+    (state) => state.editBookButtons.showAuthor
+  );
+  const dispatch = useAppDispatch();
   return (
     <>
       <div className="flex items-center">
         {showAuthor ? (
-          <Button
-            className="mb-5"
-            onClick={() => dispatch({ type: "toggleShowAuthor" })}
-          >
+          <Button className="mb-5" onClick={() => dispatch(setShowAuthor())}>
             X
           </Button>
         ) : (
-          <Button
-            className="mb-5"
-            onClick={() => dispatch({ type: "toggleShowAuthor" })}
-          >
+          <Button className="mb-5" onClick={() => dispatch(setShowAuthor())}>
             Edit Author
           </Button>
         )}
