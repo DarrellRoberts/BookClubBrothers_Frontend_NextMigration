@@ -1,32 +1,23 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/react-in-jsx-scope */
+import { setShowPublish } from "@/store/lib/features/books/editBookButtonsSlice";
+import { useAppDispatch, useAppSelector } from "@/store/lib/hooks";
 import { Button } from "antd";
 
-type ActionType = {
-  type: string;
-};
-
-interface props {
-  dispatch: React.Dispatch<ActionType>;
-  showPublish: boolean;
-}
-
-const EditPublishButton: React.FC<props> = ({ dispatch, showPublish }) => {
+const EditPublishButton = () => {
+  const showPublish = useAppSelector(
+    (state) => state.editBookButtons.showPublish
+  );
+  const dispatch = useAppDispatch();
   return (
     <>
       <div className="flex items-center">
         {showPublish ? (
-          <Button
-            className="mb-5"
-            onClick={() => dispatch({ type: "toggleShowPublish" })}
-          >
+          <Button className="mb-5" onClick={() => dispatch(setShowPublish())}>
             X
           </Button>
         ) : (
-          <Button
-            className="mb-5"
-            onClick={() => dispatch({ type: "toggleShowPublish" })}
-          >
+          <Button className="mb-5" onClick={() => dispatch(setShowPublish())}>
             Edit Year
           </Button>
         )}

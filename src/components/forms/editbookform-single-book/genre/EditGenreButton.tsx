@@ -1,32 +1,21 @@
 /* eslint-disable react/react-in-jsx-scope */
 /* eslint-disable react/prop-types */
+import { setShowGenre } from "@/store/lib/features/books/editBookButtonsSlice";
+import { useAppDispatch, useAppSelector } from "@/store/lib/hooks";
 import { Button } from "antd";
 
-type ActionType = {
-  type: string;
-};
-
-interface props {
-  dispatch: React.Dispatch<ActionType>;
-  showGenre: boolean;
-}
-
-const EditGenreButton: React.FC<props> = ({ dispatch, showGenre }) => {
+const EditGenreButton = () => {
+  const showGenre = useAppSelector((state) => state.editBookButtons.showGenre);
+  const dispatch = useAppDispatch();
   return (
     <>
       <div className="flex items-center">
         {showGenre ? (
-          <Button
-            className="mb-5"
-            onClick={() => dispatch({ type: "toggleShowGenre" })}
-          >
+          <Button className="mb-5" onClick={() => dispatch(setShowGenre())}>
             X
           </Button>
         ) : (
-          <Button
-            className="mb-5"
-            onClick={() => dispatch({ type: "toggleShowGenre" })}
-          >
+          <Button className="mb-5" onClick={() => dispatch(setShowGenre())}>
             Edit Genre
           </Button>
         )}
