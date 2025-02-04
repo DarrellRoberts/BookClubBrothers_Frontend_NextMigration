@@ -2,16 +2,16 @@
 "use client";
 
 import { useState } from "react";
-import Loader from "../../../../components/loader/Loader";
-import BookCover from "../../../../components/books/library/BookCover";
+import Loader from "@/components/loader/Loader";
+import BookCover from "@/components/books/library/BookCover";
 import Link from "next/link";
-import Search from "../../../../components/misc/search/Search";
-import "../../../../style/booklibrary.css";
-import "../../../../style/booklibraryRes.css";
-import "../../../../style/search.css";
-import "../../../../style/searchRes.css";
+import Search from "@/components/misc/search/Search";
+import "@/style/booklibrary.css";
+import "@/style/booklibraryRes.css";
+import "@/style/search.css";
+import "@/style/searchRes.css";
 import { Button } from "antd";
-import BookImageCover from "../../../../components/books/library/BookImageCover";
+import BookImageCover from "@/components/books/library/BookImageCover";
 import { handleHideScores_NoSetter } from "@/functions/time-functions/hideScores";
 import useBookFetch from "@/hooks/fetch-hooks/useReadBookFetch";
 
@@ -38,7 +38,7 @@ const Booklibrary: React.FC = () => {
         </Link>
       </div>
       <h1 className="bookLibraryTitle">Book Library</h1>
-      {!loadingBooks ? (
+      {loadingBooks ? (
         <Loader />
       ) : error ? (
         <h2> {error?.message}</h2>
@@ -46,7 +46,7 @@ const Booklibrary: React.FC = () => {
         <div className="bookCon flex flex-wrap">
           {filteredResults?.length > 0 ? (
             filteredResults?.map((book) => (
-              <div key={book.id}>
+              <div key={book._id}>
                 {book.reviewImageURL ? (
                   <Link href={`/books/library/${book._id}`}>
                     <BookImageCover
