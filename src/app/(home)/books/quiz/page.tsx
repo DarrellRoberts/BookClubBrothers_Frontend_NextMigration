@@ -2,8 +2,8 @@
 "use client";
 
 import { useState } from "react";
-import "../../../../style/quiz.css";
-import "../../../../style/quizRes.css";
+import "@/style/quiz.css";
+import "@/style/quizRes.css";
 
 const Quiz: React.FC = () => {
   const [showCorrect, setShowCorrect] = useState(false);

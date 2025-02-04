@@ -39,3 +39,8 @@
     width: 10px;
   }
 }
+
+iframe {
+  overflow-y: unset;
+  filter: grayscale(1);
+}

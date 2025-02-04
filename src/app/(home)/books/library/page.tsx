@@ -38,7 +38,7 @@ const Booklibrary: React.FC = () => {
         </Link>
       </div>
       <h1 className="bookLibraryTitle">Book Library</h1>
-      {loadingBooks ? (
+      {!loadingBooks ? (
         <Loader />
       ) : error ? (
         <h2> {error?.message}</h2>
