@@ -27,9 +27,9 @@ const useForm = (url: string, form: object, reqType: string) => {
         console.log("something has happened");
       }
 
-      if (response.ok) {
-        console.log(data);
-      }
+      // if (response.ok) {
+      //   console.log(data);
+      // }
     } catch (error) {
       setError(error);
       console.log(error);

@@ -5,28 +5,33 @@
 import { Form, Input } from "antd";
 
 type Props = {
-  pages: number;
-  setPages: React.Dispatch<React.SetStateAction<number>>;
+  formData: object;
+  setPages: React.Dispatch<React.SetStateAction<object>>;
 };
 
-const EditPagesForm: React.FC<Props> = ({ pages, setPages }) => {
-
+const EditPagesForm: React.FC<Props> = ({ formData, setPages }) => {
   return (
     <Form.Item
       label="Pages"
       name="pages"
-      rules={[
-        {
-          required: true,
-          message: "Please write the number of pages!",
-        },
-      ]}
+      rules={
+        formData["pages"]
+          ? null
+          : [
+              {
+                required: true,
+                message: "Please write the number of pages!",
+              },
+            ]
+      }
     >
       <Input
         type="number"
-        onChange={(e) => setPages(Number(e.target.value))}
-        defaultValue={pages}
-        value={pages}
+        onChange={(e) =>
+          setPages({ ...formData, pages: Number(e.target.value) })
+        }
+        defaultValue={formData["pages"]}
+        value={formData["pages"]}
       />
     </Form.Item>
   );

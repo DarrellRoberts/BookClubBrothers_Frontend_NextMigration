@@ -5,28 +5,31 @@
 import { Form, Input } from "antd";
 
 type Props = {
-  author: string;
-  setAuthor: React.Dispatch<React.SetStateAction<string>>
+  formData: object;
+  setAuthor: React.Dispatch<React.SetStateAction<object>>;
 };
 
-const EditAuthorForm: React.FC<Props> = ({ author, setAuthor }) => {
-
+const EditAuthorForm: React.FC<Props> = ({ formData, setAuthor }) => {
   return (
     <Form.Item
       label="Author"
       name="author"
-      rules={[
-        {
-          required: true,
-          message: "Please write the name of the author!",
-        },
-      ]}
+      rules={
+        formData["author"]
+          ? null
+          : [
+              {
+                required: true,
+                message: "Please write the name of the author!",
+              },
+            ]
+      }
     >
       <Input
         type="text"
-        onChange={(e) => setAuthor(e.target.value)}
-        defaultValue={author}
-        value={author}
+        onChange={(e) => setAuthor({ ...formData, author: e.target.value })}
+        defaultValue={formData["author"]}
+        value={formData["author"]}
       />
     </Form.Item>
   );

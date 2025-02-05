@@ -5,28 +5,31 @@
 import { Form, Input } from "antd";
 
 type Props = {
-  title: string;
-  setTitle: React.Dispatch<React.SetStateAction<string>>
+  setTitle: React.Dispatch<React.SetStateAction<object>>;
+  formData: object;
 };
 
-const EditTitleForm: React.FC<Props> = ({ title, setTitle }) => {
-
+const EditTitleForm: React.FC<Props> = ({ setTitle, formData }) => {
   return (
     <Form.Item
       label="Title"
       name="title"
-      rules={[
-        {
-          required: true,
-          message: "Please write the name of the book title!",
-        },
-      ]}
+      rules={
+        formData["title"]
+          ? null
+          : [
+              {
+                required: true,
+                message: "Please write the name of the book title!",
+              },
+            ]
+      }
     >
       <Input
         type="text"
-        onChange={(e) => setTitle(e.target.value)}
-        defaultValue={title}
-        value={title}
+        onChange={(e) => setTitle({ ...formData, title: e.target.value })}
+        defaultValue={formData["title"]}
+        value={formData["title"]}
       />
     </Form.Item>
   );
