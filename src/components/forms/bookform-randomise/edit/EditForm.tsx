@@ -1,12 +1,12 @@
 import { Button, Form } from "antd";
-import React from "react";
+import React, { useEffect } from "react";
 import EditAuthorForm from "./author/EditAuthorForm";
 import EditTitleForm from "./title/EditTitleForm";
 import EditPublishedForm from "./published/EditPublishedForm";
 import EditPagesForm from "./pages/EditPagesForm";
 import EditGenreForm from "./genre/EditGenreForm";
 import EditImageURLForm from "./imageURL/EditImageURLForm";
-import useForm from "@/hooks/post-hooks/useForm";
+import useForm from "@/hooks/crud-hooks/useForm";
 
 type Props = {
   inAuthor: string;
@@ -41,6 +41,16 @@ const EditForm: React.FC<Props> = ({
       "PUT"
     );
 
+  useEffect(() => {
+    setFormData({
+      author: inAuthor,
+      title: inTitle,
+      yearPublished: inPublished,
+      pages: inPages,
+      imageURL: inImageURL,
+      genre: inGenre,
+    });
+  }, [inTitle]);
   return (
     <Form
       onFinish={handleSubmit}

@@ -12,7 +12,7 @@ type Props = {
 const EditPublishedForm: React.FC<Props> = ({ formData, setYearPublished }) => {
   return (
     <Form.Item
-      label="yearPublished"
+      label="Published"
       name="yearPublished"
       rules={
         formData["yearPublished"]

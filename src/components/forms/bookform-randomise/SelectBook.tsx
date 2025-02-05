@@ -1,7 +1,7 @@
 /* eslint-disable react/react-in-jsx-scope */
 /* eslint-disable react/prop-types */
 import { Button, Form } from "antd";
-import useForm from "@/hooks/post-hooks/useForm";
+import useForm from "@/hooks/crud-hooks/useForm";
 
 type Props = {
   bookId: string;
