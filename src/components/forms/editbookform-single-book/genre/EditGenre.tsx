@@ -3,7 +3,7 @@
 "use client";
 
 import { Button, Form, Select, Space } from "antd";
-import useForm from "@/hooks/post-hooks/useForm";
+import useForm from "@/hooks/crud-hooks/useForm";
 
 const { Option } = Select;
 

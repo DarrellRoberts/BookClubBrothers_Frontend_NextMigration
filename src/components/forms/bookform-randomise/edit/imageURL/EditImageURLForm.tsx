@@ -5,22 +5,18 @@
 import { Form, Input } from "antd";
 
 type Props = {
-  imageURL: string;
-  setImageURL: React.Dispatch<React.SetStateAction<string>>
+  formData: object;
+  setImageURL: React.Dispatch<React.SetStateAction<object>>;
 };
 
-const EditImageURLForm: React.FC<Props> = ({ imageURL, setImageURL }) => {
-
+const EditImageURLForm: React.FC<Props> = ({ formData, setImageURL }) => {
   return (
-    <Form.Item
-      label="Image URL"
-      name="image URL"
-    >
+    <Form.Item label="Image URL" name="image URL">
       <Input
         type="text"
-        onChange={(e) => setImageURL(e.target.value)}
-        defaultValue={imageURL}
-        value={imageURL}
+        onChange={(e) => setImageURL({ ...formData, imageURL: e.target.value })}
+        defaultValue={formData["imageURL"]}
+        value={formData["imageURL"]}
       />
     </Form.Item>
   );

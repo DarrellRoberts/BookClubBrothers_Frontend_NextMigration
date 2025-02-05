@@ -2,7 +2,7 @@
 /* eslint-disable react/prop-types */
 "use client";
 
-import useForm from "@/hooks/post-hooks/useForm";
+import useForm from "@/hooks/crud-hooks/useForm";
 import { Button, Form, Input } from "antd";
 
 type Props = {

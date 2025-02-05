@@ -23,14 +23,16 @@ const useForm = (url: string, form: object, reqType: string) => {
       });
       const data = await response.json();
       if (!response.ok) {
+        console.log(data);
         setError(data.error);
         console.log("something has happened");
       }
 
-      if (response.ok) {
-        console.log(data);
-      }
+      // if (response.ok) {
+      //   console.log(data);
+      // }
     } catch (error) {
+      console.log(formData);
       setError(error);
       console.log(error);
     }
@@ -40,7 +42,7 @@ const useForm = (url: string, form: object, reqType: string) => {
     setLoadings(true);
     setTimeout(() => {
       setLoadings(false);
-      document.location.reload();
+      // document.location.reload();
     }, 4000);
   };
 

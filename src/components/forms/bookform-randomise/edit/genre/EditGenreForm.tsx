@@ -7,11 +7,11 @@ import { Form, Select, Space } from "antd";
 const { Option } = Select;
 
 interface Props {
-  genre: string[];
-  setGenre: React.Dispatch<React.SetStateAction<string[]>>;
+  formData: object;
+  setGenre: React.Dispatch<React.SetStateAction<object>>;
 }
 
-const EditGenreForm: React.FC<Props> = ({ genre, setGenre }) => {
+const EditGenreForm: React.FC<Props> = ({ formData, setGenre }) => {
   return (
     <Form.Item label="Genre" name="genre">
       <Select
@@ -21,9 +21,9 @@ const EditGenreForm: React.FC<Props> = ({ genre, setGenre }) => {
         }}
         placeholder="Select the genres"
         optionLabelProp="label"
-        value={genre}
-        defaultValue={genre}
-        onChange={setGenre}
+        value={formData["genre"]}
+        defaultValue={formData["genre"]}
+        onChange={(e) => setGenre({ ...formData, genre: e })}
       >
         <Option value="Horror" label="Horror">
           <Space>

@@ -37,12 +37,14 @@ const RandomSectionLeft: React.FC<Props> = ({
             <LoaderNoText />
           </div>
         ) : (
-          bookData?.map((book, i) => (
+          bookData?.map((book) => (
             <div
-              key={i}
+              key={book._id}
               className={style.bookBox}
-              // add conditional as otherwise creates bug for onClick Modal
-              onClick={() => dispatch(setIndex(bookData.indexOf(book)))}
+              onClick={() => {
+                dispatch(setIndex(bookData.indexOf(book)));
+                console.log(book);
+              }}
             >
               <h2>{book?.title}</h2>
               <p>

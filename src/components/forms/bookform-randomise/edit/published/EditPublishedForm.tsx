@@ -5,28 +5,36 @@
 import { Form, Input } from "antd";
 
 type Props = {
-  yearPublished: number;
-  setYearPublished: React.Dispatch<React.SetStateAction<number>>;
+  formData: object;
+  setYearPublished: React.Dispatch<React.SetStateAction<object>>;
 };
 
-const EditPublishedForm: React.FC<Props> = ({ yearPublished, setYearPublished }) => {
-
+const EditPublishedForm: React.FC<Props> = ({ formData, setYearPublished }) => {
   return (
     <Form.Item
-      label="yearPublished"
+      label="Published"
       name="yearPublished"
-      rules={[
-        {
-          required: true,
-          message: "Please write the name of the author!",
-        },
-      ]}
+      rules={
+        formData["yearPublished"]
+          ? null
+          : [
+              {
+                required: true,
+                message: "Please write the name of the author!",
+              },
+            ]
+      }
     >
       <Input
         type="number"
-        onChange={(e) => setYearPublished(Number(e.target.value))}
-        defaultValue={yearPublished}
-        value={yearPublished}
+        onChange={(e) =>
+          setYearPublished({
+            ...formData,
+            yearPublished: Number(e.target.value),
+          })
+        }
+        defaultValue={formData["yearPublished"]}
+        value={formData["yearPublished"]}
       />
     </Form.Item>
   );

@@ -60,10 +60,7 @@ const RandomSectionRight: React.FC<Props> = ({
                 <li>Published: {bookData[index]?.yearPublished}</li>
                 <li>Pages: {bookData[index]?.pages}</li>
                 <li>
-                  Genre:{" "}
-                  {bookData[index]?.genre.map((theme, i) => (
-                    <li key={i}>{theme}</li>
-                  ))}
+                  Genre: {bookData[index]?.genre.map((theme) => ` ${theme} `)}
                 </li>
                 <li>
                   Suggested by:{" "}

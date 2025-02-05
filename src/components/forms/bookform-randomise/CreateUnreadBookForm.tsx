@@ -1,7 +1,7 @@
 /* eslint-disable react/react-in-jsx-scope */
 import { Button, Form, Input, Space, Select } from "antd";
 import "@/style/createbook.css";
-import useForm from "@/hooks/post-hooks/useForm";
+import useForm from "@/hooks/crud-hooks/useForm";
 
 const { Option } = Select;
 

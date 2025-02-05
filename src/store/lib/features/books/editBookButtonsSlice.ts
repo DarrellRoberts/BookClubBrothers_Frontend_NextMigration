@@ -54,13 +54,13 @@ export const editBookButtonSlice = createSlice({
 });
 
 export const {
-    setShowDelete,
-    setShowAuthor,
-    setShowPublish,
-    setShowPage,
-    setShowDate,
-    setShowGenre,
-    setShowTitle,
-    setShowBookImage,
+  setShowDelete,
+  setShowAuthor,
+  setShowPublish,
+  setShowPage,
+  setShowDate,
+  setShowGenre,
+  setShowTitle,
+  setShowBookImage,
 } = editBookButtonSlice.actions;
-export const editBookReducer = editBookButtonSlice.reducer;
+export const editBookButtonReducer = editBookButtonSlice.reducer;
