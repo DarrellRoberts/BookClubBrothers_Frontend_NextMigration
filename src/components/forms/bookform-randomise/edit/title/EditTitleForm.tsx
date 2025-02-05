@@ -7,11 +7,9 @@ import { Form, Input } from "antd";
 type Props = {
   setTitle: React.Dispatch<React.SetStateAction<object>>;
   formData: object;
-  inTitle: string;
 };
 
-const EditTitleForm: React.FC<Props> = ({ setTitle, formData, inTitle }) => {
-  console.log(inTitle);
+const EditTitleForm: React.FC<Props> = ({ setTitle, formData }) => {
   return (
     <Form.Item
       label="Title"
@@ -30,9 +28,7 @@ const EditTitleForm: React.FC<Props> = ({ setTitle, formData, inTitle }) => {
       <Input
         type="text"
         onChange={(e) => setTitle({ ...formData, title: e.target.value })}
-        defaultValue={
-          formData["title"] === inTitle ? "matches" : "does not match"
-        }
+        defaultValue={formData["title"]}
         value={formData["title"]}
       />
     </Form.Item>
