@@ -32,7 +32,7 @@ const Booklibrary: React.FC = () => {
   return (
     <>
       <div className="searchBackCon">
-        <Search setSearchBar={setSearchBar} />
+        <Search setSearchBar={setSearchBar} filteredBooks={filteredResults} />
         <Link href="/books/library/3d">
           <Button>3D View</Button>
         </Link>
