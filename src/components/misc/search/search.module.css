@@ -1,14 +1,28 @@
-.autocompleteGrid {
+.autocompleteBookGrid,
+.autocompleteUserGrid {
   display: grid;
-  grid-template-rows: 1fr 1fr;
+  align-items: center;
 }
+
+.autocompleteBookGrid {
+  grid-template-rows: 1fr;
+}
+
+.autocompleteUserGrid {
+  grid-template-rows: 75px;
+}
+
 .autocompleteDetails {
   display: inline-flex;
   align-items: center;
-  gap: 1rem;
+}
+
+.autocompleteDetails img {
+  transform: scale(0.5);
 }
 
 .autocompleteDetails h2 {
-  font-size: 1.25rem;
+  font-size: 1rem;
   font-family: var(--main);
+  text-decoration: underline;
 }

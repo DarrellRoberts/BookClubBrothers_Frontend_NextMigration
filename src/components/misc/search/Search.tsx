@@ -4,10 +4,11 @@
 
 import { Book } from "@/types/BookInterface";
 import { User } from "@/types/UserInterface";
-import { AutoComplete, Avatar, Input, Space } from "antd";
+import { AutoComplete, Input, Space } from "antd";
 import { useState } from "react";
 import { formatServerDate } from "@/functions/time-functions/formatServerDate";
 import style from "./search.module.css";
+import ProfileSmall from "../profile/ProfileSmall";
 
 interface Props {
   setSearchBar: React.Dispatch<React.SetStateAction<string>>;
@@ -46,20 +47,38 @@ const SearchBar: React.FC<Props> = ({
     item.title
       ? {
           value: item.title,
+          label: (
+            <div className={style.autocompleteBookGrid}>
+              <div className={style.autocompleteDetails}>
+                <h2>{item?.title}</h2>
+              </div>
+              <div className="flex gap-1">
+                <span>Total Score: </span>
+                <span>{item?.totalScore ?? "?"}</span>
+              </div>
+            </div>
+          ),
         }
       : {
           value: item.username,
           label: (
-            <div className={style.autocompleteGrid}>
+            <div className={style.autocompleteUserGrid}>
               <div className={style.autocompleteDetails}>
-                <Avatar size="large" src={item?.userInfo?.profileURL}></Avatar>
-                <h2 className={style.autocompleteUsername}>{item?.username}</h2>
+                <ProfileSmall imageURL={item?.userInfo?.profileURL} />
+                <div className="flex flex-col">
+                  <h2 className={style.autocompleteUsername}>
+                    {item?.username}
+                  </h2>
+                  <div className="flex flex-col">
+                    <span>Last login: </span>
+                    <span>{formatServerDate(item?.lastLoggedIn)}</span>
+                  </div>
+                </div>
               </div>
-              <span>Last login: {formatServerDate(item?.lastLoggedIn)}</span>
             </div>
           ),
         }
-  ) ?? [{ value: "No results loaded" }];
+  ) ?? [{ value: "", label: <span>No results loaded</span> }];
 
   return (
     <>
