@@ -2,16 +2,28 @@
 /* eslint-disable react/react-in-jsx-scope */
 "use client";
 
-import { Input, Space } from "antd";
+import { Book } from "@/types/BookInterface";
+import { User } from "@/types/UserInterface";
+import { AutoComplete, Input, Space } from "antd";
 import { useState } from "react";
+import { formatServerDate } from "@/functions/time-functions/formatServerDate";
+import style from "./search.module.css";
+import ProfileSmall from "../profile/ProfileSmall";
 
 interface Props {
   setSearchBar: React.Dispatch<React.SetStateAction<string>>;
+  filteredBooks?: Book[];
+  filteredUsers?: User[];
 }
 
-const SearchBar: React.FC<Props> = ({ setSearchBar }) => {
+const SearchBar: React.FC<Props> = ({
+  setSearchBar,
+  filteredBooks,
+  filteredUsers,
+}) => {
   const [inputValue, setValue] = useState("");
   const { Search } = Input;
+  const autoCompleteData = filteredBooks ? filteredBooks : filteredUsers;
 
   const capitaliseFirst = (e) =>
     e.charAt(0).toUpperCase() + inputValue.slice(1);
@@ -26,17 +38,62 @@ const SearchBar: React.FC<Props> = ({ setSearchBar }) => {
     setSearchBar(capitaliseFirst(e.target.value));
   };
 
+  const onSelect = (value: string) => {
+    setSearchBar(value);
+    setValue("");
+  };
+
+  const options = autoCompleteData?.map((item) =>
+    item.title
+      ? {
+          value: item.title,
+          label: (
+            <div className={style.autocompleteBookGrid}>
+              <div className={style.autocompleteDetails}>
+                <h2>{item?.title}</h2>
+              </div>
+              <div className="flex gap-1">
+                <span>Total Score: </span>
+                <span>{item?.totalScore ?? "?"}</span>
+              </div>
+            </div>
+          ),
+        }
+      : {
+          value: item.username,
+          label: (
+            <div className={style.autocompleteUserGrid}>
+              <div className={style.autocompleteDetails}>
+                <ProfileSmall imageURL={item?.userInfo?.profileURL} />
+                <div className="flex flex-col">
+                  <h2 className={style.autocompleteUsername}>
+                    {item?.username}
+                  </h2>
+                  <div className="flex flex-col">
+                    <span>Last login: </span>
+                    <span>{formatServerDate(item?.lastLoggedIn)}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ),
+        }
+  ) ?? [{ value: "", label: <span>No results loaded</span> }];
+
   return (
     <>
       <Space direction="vertical">
-        <Search
-          onSearch={onSearch}
-          placeholder="Search by book title"
-          value={inputValue}
-          enterButton="Search"
-          size="large"
-          onChange={handleInputChange}
-        />
+        <AutoComplete onSelect={onSelect} options={options}>
+          <Search
+            placeholder="Search by book title"
+            value={inputValue}
+            enterButton="Search"
+            size="large"
+            onChange={handleInputChange}
+            onSearch={onSearch}
+            allowClear
+          />
+        </AutoComplete>
       </Space>
     </>
   );

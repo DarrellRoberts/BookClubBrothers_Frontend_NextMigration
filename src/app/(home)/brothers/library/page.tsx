@@ -34,7 +34,7 @@ const Brothercat: React.FC = () => {
   return (
     <>
       <div className="searchBackCon">
-        <Search setSearchBar={setSearchBar} />
+        <Search setSearchBar={setSearchBar} filteredUsers={filteredResults} />
       </div>
       {loadingUsers && loadingBooks ? (
         <Loader />
