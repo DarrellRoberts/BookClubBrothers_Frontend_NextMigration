@@ -9,6 +9,7 @@ import { useState } from "react";
 import { formatServerDate } from "@/functions/time-functions/formatServerDate";
 import style from "./search.module.css";
 import ProfileSmall from "../profile/ProfileSmall";
+import Link from "next/link";
 
 interface Props {
   setSearchBar: React.Dispatch<React.SetStateAction<string>>;
@@ -49,13 +50,15 @@ const SearchBar: React.FC<Props> = ({
           value: item.title,
           label: (
             <div className={style.autocompleteBookGrid}>
-              <div className={style.autocompleteDetails}>
-                <h2>{item?.title}</h2>
-              </div>
-              <div className="flex gap-1">
-                <span>Total Score: </span>
-                <span>{item?.totalScore ?? "?"}</span>
-              </div>
+              <Link href={`/books/library/${item._id}`}>
+                <div className={style.autocompleteDetails}>
+                  <h2>{item?.title}</h2>
+                </div>
+                <div className="flex gap-1">
+                  <span>Total Score: </span>
+                  <span>{item?.totalScore ?? "?"}</span>
+                </div>
+              </Link>
             </div>
           ),
         }
@@ -63,7 +66,10 @@ const SearchBar: React.FC<Props> = ({
           value: item.username,
           label: (
             <div className={style.autocompleteUserGrid}>
-              <div className={style.autocompleteDetails}>
+              <Link
+                href={`/brothers/library/${item.username}`}
+                className={style.autocompleteDetails}
+              >
                 <ProfileSmall imageURL={item?.userInfo?.profileURL} />
                 <div className="flex flex-col">
                   <h2 className={style.autocompleteUsername}>
@@ -74,7 +80,7 @@ const SearchBar: React.FC<Props> = ({
                     <span>{formatServerDate(item?.lastLoggedIn)}</span>
                   </div>
                 </div>
-              </div>
+              </Link>
             </div>
           ),
         }
