@@ -40,13 +40,13 @@ const Booklibrary: React.FC = () => {
   const lastItemRef = useScrollRef(loadingBooks, limit, handleLimit);
 
   const filteredResults = Array.isArray(readBooks)
-    ? readBooks?.filter((book) => book.title.includes(searchBar))
+    ? readBooks?.filter((book) =>
+        book.title.toLowerCase().includes(searchBar.toLowerCase())
+      )
     : ["No results"];
 
   useEffect(() => {
-    if (books.length > 0) {
-      setBooks(filteredResults);
-    }
+    if (!loadingBooks) setBooks(filteredResults);
   }, [searchBar]);
 
   useEffect(() => {
@@ -103,7 +103,7 @@ const Booklibrary: React.FC = () => {
           ) : (
             <div className="h-screen">
               <p className="ml-5">
-                No books found. Press search two times to refresh.
+                No books found. Clear the search to refresh.
               </p>
             </div>
           )}

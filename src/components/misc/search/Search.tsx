@@ -26,17 +26,14 @@ const SearchBar: React.FC<Props> = ({
   const { Search } = Input;
   const autoCompleteData = filteredBooks ? filteredBooks : filteredUsers;
 
-  const capitaliseFirst = (e) =>
-    e.charAt(0).toUpperCase() + inputValue.slice(1);
-
   const onSearch = () => {
-    setSearchBar(capitaliseFirst(inputValue));
+    setSearchBar(inputValue);
     setValue("");
   };
 
   const handleInputChange = (e) => {
     setValue(e.target.value);
-    setSearchBar(capitaliseFirst(e.target.value));
+    setSearchBar(e.target.value);
   };
 
   const onSelect = (value: string) => {
