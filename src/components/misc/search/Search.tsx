@@ -26,17 +26,14 @@ const SearchBar: React.FC<Props> = ({
   const { Search } = Input;
   const autoCompleteData = filteredBooks ? filteredBooks : filteredUsers;
 
-  const capitaliseFirst = (e) =>
-    e.charAt(0).toUpperCase() + inputValue.slice(1);
-
   const onSearch = () => {
-    setSearchBar(capitaliseFirst(inputValue));
+    setSearchBar(inputValue);
     setValue("");
   };
 
   const handleInputChange = (e) => {
     setValue(e.target.value);
-    setSearchBar(capitaliseFirst(e.target.value));
+    setSearchBar(e.target.value);
   };
 
   const onSelect = (value: string) => {
@@ -84,7 +81,17 @@ const SearchBar: React.FC<Props> = ({
             </div>
           ),
         }
-  ) ?? [{ value: "", label: <span>No results loaded</span> }];
+  ) ?? [{ value: "", label: <h2>No results loaded</h2> }];
+
+  options.push({
+    value: "",
+    label: (
+      <div className={style.endOfAutocomplete}>
+        <h2>Scroll down the webpage</h2>
+        <h2>to load more results</h2>
+      </div>
+    ),
+  });
 
   return (
     <>
