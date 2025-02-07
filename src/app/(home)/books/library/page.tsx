@@ -44,12 +44,19 @@ const Booklibrary: React.FC = () => {
     : ["No results"];
 
   useEffect(() => {
-    if (!loadingBooks && books.length === 0) setBooks(filteredResults);
+    if (books.length > 0) {
+      setBooks(filteredResults);
+    }
+  }, [searchBar]);
+
+  useEffect(() => {
+    if (books.length === 0 && !loadingBooks) setBooks(filteredResults);
     setBooks((prevItems) => [
       ...prevItems,
       ...filteredResults.slice(prevItems.length + 1, limit),
     ]);
   }, [limit, loadingBooks]);
+
   return (
     <>
       <div className="searchBackCon">
@@ -59,7 +66,7 @@ const Booklibrary: React.FC = () => {
         </Link>
       </div>
       <h1 className="bookLibraryTitle">Book Library</h1>
-      {books.length === 0 ? (
+      {loadingBooks && books.length === 0 ? (
         <Loader />
       ) : error ? (
         <h2> {error?.message}</h2>
