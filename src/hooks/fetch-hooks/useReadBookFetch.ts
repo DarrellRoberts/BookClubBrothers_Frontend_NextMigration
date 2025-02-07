@@ -2,7 +2,7 @@
 
 import { useQuery } from "@tanstack/react-query";
 
-const useBookFetch = (url: string, param: string | null) => {
+const useBookFetch = <T>(url: string, param: T) => {
   const { data, isPending, error } = useQuery({
     queryKey: ["bookData", param],
     queryFn: async () => fetch(url).then((res) => res.json()),

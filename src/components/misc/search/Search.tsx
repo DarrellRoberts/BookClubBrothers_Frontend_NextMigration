@@ -84,7 +84,17 @@ const SearchBar: React.FC<Props> = ({
             </div>
           ),
         }
-  ) ?? [{ value: "", label: <span>No results loaded</span> }];
+  ) ?? [{ value: "", label: <h2>No results loaded</h2> }];
+
+  options.push({
+    value: "",
+    label: (
+      <div className={style.endOfAutocomplete}>
+        <h2>Scroll down the webpage</h2>
+        <h2>to load more results</h2>
+      </div>
+    ),
+  });
 
   return (
     <>
