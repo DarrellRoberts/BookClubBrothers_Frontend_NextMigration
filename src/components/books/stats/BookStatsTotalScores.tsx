@@ -1,7 +1,7 @@
 import Filters from "@/components/graphs/brothers/Filters";
 import Graph from "@/components/graphs/brothers/Graph";
 import LoaderNoText from "@/components/loader/LoaderNoText";
-import { handleHideScores_NoSetter } from "@/functions/time-functions/hideScores";
+import { handleHideScores_NoSetter } from "@/utils/time-functions/hideScores";
 import { Book } from "@/types/BookInterface";
 import React, { useEffect, useState } from "react";
 

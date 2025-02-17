@@ -12,8 +12,8 @@ import { type Book } from "@/types/BookInterface";
 import {
   findComment,
   findCommentByUsername,
-} from "@/functions/comment-functions/findComments";
-import { findUserByUsername } from "@/functions/find-functions/find";
+} from "@/utils/comment-functions/findComments";
+import { findUserByUsername } from "@/utils/find-functions/find";
 import styles from "./commentCon.module.css";
 import Link from "next/link";
 import ProfileSmall from "@/components/misc/profile/ProfileSmall";

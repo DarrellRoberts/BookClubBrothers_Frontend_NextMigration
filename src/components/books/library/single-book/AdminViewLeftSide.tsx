@@ -3,7 +3,7 @@ import EditTitleButton from "@/components/forms/editbookform-single-book/title/E
 import { Book } from "@/types/BookInterface";
 import React from "react";
 import BookCover from "../BookCover";
-import { handleHideScores_NoSetter } from "@/functions/time-functions/hideScores";
+import { handleHideScores_NoSetter } from "@/utils/time-functions/hideScores";
 import EditImageButton from "@/components/forms/editbookform-single-book/image/EditImageButton";
 import EditTitle from "@/components/forms/editbookform-single-book/title/EditTitle";
 import EditImage from "@/components/forms/editbookform-single-book/image/EditImage";

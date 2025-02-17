@@ -27,7 +27,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "src/functions/ScrollToTop.ts",
+    "src/utils/ScrollToTop.ts",
     "src/components/books/stats/BookStatsYrPublishedtsx"
   ],
   "exclude": ["node_modules"]

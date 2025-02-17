@@ -1,7 +1,7 @@
 import React from "react";
 import type { Metadata } from "next";
 import QueryProvider from "@/query/QueryProvider";
-import ScrollToTop from "../../functions/ScrollToTop";
+import ScrollToTop from "../../utils/ScrollToTop";
 import "../globals.css";
 import dynamic from "next/dynamic";
 import Footer from "@/components/footer/Footer";

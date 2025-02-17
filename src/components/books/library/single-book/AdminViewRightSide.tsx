@@ -2,7 +2,7 @@ import { Book } from "@/types/BookInterface";
 import React from "react";
 import "@/style/singlebook.css";
 import "@/style/singlebookRes.css";
-import { handleHideScores_NoSetter } from "@/functions/time-functions/hideScores";
+import { handleHideScores_NoSetter } from "@/utils/time-functions/hideScores";
 import EditActualDateButton from "@/components/forms/editbookform-single-book/datemeeting/EditActualDateButton";
 import EditActualDate from "@/components/forms/editbookform-single-book/datemeeting/EditActualDate";
 import EditDateButton from "@/components/forms/editbookform-single-book/datemeeting/EditDateButton";
@@ -13,7 +13,7 @@ import EditPublishButton from "@/components/forms/editbookform-single-book/publi
 import EditPublished from "@/components/forms/editbookform-single-book/published/EditPublished";
 import EditAuthorButton from "@/components/forms/editbookform-single-book/author/EditAuthorButton";
 import EditAuthor from "@/components/forms/editbookform-single-book/author/EditAuthor";
-import { dateFormatter } from "@/functions/time-functions/dateFormatter";
+import { dateFormatter } from "@/utils/time-functions/dateFormatter";
 import { useAppSelector } from "@/store/lib/hooks";
 import EditGenreButton from "@/components/forms/editbookform-single-book/genre/EditGenreButton";
 import EditGenre from "@/components/forms/editbookform-single-book/genre/EditGenre";

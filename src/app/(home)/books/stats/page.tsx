@@ -1,6 +1,6 @@
 /* eslint-disable react/react-in-jsx-scope */
 "use client";
-import { handleHideScores_NoSetter } from "@/functions/time-functions/hideScores";
+import { handleHideScores_NoSetter } from "@/utils/time-functions/hideScores";
 import "@/style/bookHomepage.css";
 import "@/style/bookHomepageRes.css";
 import styles from "@/components/books/stats/bookstats.module.css";

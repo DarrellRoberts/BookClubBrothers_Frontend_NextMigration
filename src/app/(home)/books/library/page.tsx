@@ -12,16 +12,17 @@ import "@/style/search.css";
 import "@/style/searchRes.css";
 import { Button } from "antd";
 import BookImageCover from "@/components/books/library/BookImageCover";
-import { handleHideScores_NoSetter } from "@/functions/time-functions/hideScores";
+import { handleHideScores_NoSetter } from "@/utils/time-functions/hideScores";
 import useBookFetch from "@/hooks/fetch-hooks/useReadBookFetch";
 import { Book } from "@/types/BookInterface";
-import useScrollRef from "@/hooks/other-hooks/useScrollRef";
+import useScrollRef from "@/hooks/scroll-hooks/useScrollRef";
+import useLimit from "@/hooks/scroll-hooks/useLimit";
 
 const Booklibrary: React.FC = () => {
   const [searchBar, setSearchBar] = useState<string>("");
-  const [limit, setLimit] = useState<number>(8);
-  const [isLimit, setIsLimit] = useState<boolean>(false);
   const [books, setBooks] = useState<Book[]>([]);
+
+  const { limit, handleLimit, setIsLimit, isLimit } = useLimit();
 
   const { bookData, loadingBooks, error } = useBookFetch(
     `https://bookclubbrothers-backend.onrender.com/books/limit/${limit}`,
@@ -29,13 +30,6 @@ const Booklibrary: React.FC = () => {
   );
 
   const readBooks = bookData?.filter((book) => book.read === true);
-
-  const handleLimit = () => {
-    if (limit >= 17) return;
-    setIsLimit(true);
-    setLimit((n) => n + 4);
-    setIsLimit(false);
-  };
 
   const lastItemRef = useScrollRef(loadingBooks, limit, handleLimit);
 
@@ -55,6 +49,8 @@ const Booklibrary: React.FC = () => {
       ...prevItems,
       ...filteredResults.slice(prevItems.length + 1, limit),
     ]);
+    const timer = setTimeout(() => setIsLimit(false), 500);
+    return () => clearTimeout(timer);
   }, [limit, loadingBooks]);
 
   return (
@@ -67,7 +63,7 @@ const Booklibrary: React.FC = () => {
       </div>
       <h1 className="bookLibraryTitle">Book Library</h1>
       {loadingBooks && books.length === 0 ? (
-        <Loader />
+        <Loader screensize="h-screen" />
       ) : error ? (
         <h2> {error?.message}</h2>
       ) : (
@@ -110,7 +106,7 @@ const Booklibrary: React.FC = () => {
         </div>
       )}
       {isLimit ? (
-        <Loader />
+        <Loader screensize="h-100" />
       ) : (
         <div ref={filteredResults.length === limit ? lastItemRef : null}></div>
       )}

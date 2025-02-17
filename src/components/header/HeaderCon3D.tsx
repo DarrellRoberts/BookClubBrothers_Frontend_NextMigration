@@ -6,7 +6,7 @@ import Login3D from "../user/Login3D";
 import HeaderLinks from "./HeaderLinks";
 import HeaderLinksMobile from "./HeaderLinksMobile";
 import { useRef } from "react";
-import { getTime } from "../../functions/time-functions/timeFunction";
+import { getTime } from "../../utils/time-functions/timeFunction";
 import Link from "next/link";
 import { useMediaQuery } from "react-responsive";
 import style from "./header-con.module.css";

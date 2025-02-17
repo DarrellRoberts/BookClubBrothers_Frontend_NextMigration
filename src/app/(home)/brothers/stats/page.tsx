@@ -6,7 +6,7 @@ import BrotherTable from "@/components/stats/brother-table/BrotherTable";
 import {
   unreadBookTitles,
   userReadBookTitles,
-} from "@/functions/stat-functions/scoreFunctions";
+} from "@/utils/stat-functions/scoreFunctions";
 import LoaderNoText from "@/components/loader/LoaderNoText";
 import useBookFetch from "@/hooks/fetch-hooks/useReadBookFetch";
 import useUserFetch from "@/hooks/fetch-hooks/useUserFetch";

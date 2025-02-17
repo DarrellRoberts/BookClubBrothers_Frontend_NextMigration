@@ -6,8 +6,8 @@ import PictureUploadButton from "@/components/forms/brotherform/PictureUploadBut
 import EditUsernameButton from "@/components/forms/brotherform/EditUsernameButton";
 import EditCityAndCountryButton from "@/components/forms/brotherform/EditCityAndCountryButton";
 import EditGenreButton from "@/components/forms/brotherform/EditGenreButton";
-import { handleHideScores_NoSetter } from "@/functions/time-functions/hideScores";
-import { findBook, findDateOfMeeting } from "@/functions/find-functions/find";
+import { handleHideScores_NoSetter } from "@/utils/time-functions/hideScores";
+import { findBook, findDateOfMeeting } from "@/utils/find-functions/find";
 import { User } from "@/types/UserInterface";
 import ProfileUnknownUserImage from "@/assets/Profile.unknown-profile-image.jpg";
 import { Book } from "@/types/BookInterface";

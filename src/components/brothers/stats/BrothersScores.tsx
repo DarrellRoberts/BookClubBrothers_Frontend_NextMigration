@@ -1,7 +1,7 @@
 import Filters from "@/components/graphs/brothers/Filters";
 import Graph from "@/components/graphs/brothers/Graph";
 import LoaderNoText from "@/components/loader/LoaderNoText";
-import { averageScore } from "@/functions/stat-functions/scoreFunctions";
+import { averageScore } from "@/utils/stat-functions/scoreFunctions";
 import { User } from "@/types/UserInterface";
 import React, { useState, useEffect } from "react";
 

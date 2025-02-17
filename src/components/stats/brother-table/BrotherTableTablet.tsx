@@ -9,7 +9,7 @@ import BestBookColumn from "./columns/BestBookColumn";
 import {
   findBestBook,
   findWorstBook,
-} from "@/functions/stat-functions/scoreFunctions";
+} from "@/utils/stat-functions/scoreFunctions";
 import WorstBookColumn from "./columns/WorstBookColumn";
 import { type User } from "@/types/UserInterface";
 import { type Book } from "@/types/BookInterface";
@@ -17,9 +17,9 @@ import { type Book } from "@/types/BookInterface";
 type Props = {
   userData: User[];
   bookData: Book[];
-}
+};
 
-const BrotherTableTablet:React.FC<Props> = ({userData, bookData}) => {
+const BrotherTableTablet: React.FC<Props> = ({ userData, bookData }) => {
   return (
     <>
       <div className={styles.leagueTableTwo}>

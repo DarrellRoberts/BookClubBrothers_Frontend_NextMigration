@@ -7,7 +7,7 @@ import RatingCon from "../../../../../components/books/library/single-book/Ratin
 import CommentCon from "../../../../../components/books/library/single-book/CommentCon";
 import "@/style/singlebook.css";
 import "@/style/singlebookRes.css";
-import { handleHideScores_NoSetter } from "@/functions/time-functions/hideScores";
+import { handleHideScores_NoSetter } from "@/utils/time-functions/hideScores";
 import useBookFetch from "@/hooks/fetch-hooks/useReadBookFetch";
 import { useAppSelector } from "@/store/lib/hooks";
 import { useAuth } from "@/hooks/auth-hooks/useAuth";

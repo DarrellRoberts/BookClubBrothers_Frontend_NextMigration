@@ -4,8 +4,8 @@ import PictureUploadButton from "@/components/forms/brotherform/PictureUploadBut
 import PieChart from "@/components/graphs/brothers/PieChart";
 import Badges from "@/components/misc/badges/Badges";
 import Profile from "@/components/misc/profile/Profile";
-import { formatServerDate } from "@/functions/time-functions/formatServerDate";
-import { handleHideScores_NoSetter } from "@/functions/time-functions/hideScores";
+import { formatServerDate } from "@/utils/time-functions/formatServerDate";
+import { handleHideScores_NoSetter } from "@/utils/time-functions/hideScores";
 import Link from "next/link";
 import React from "react";
 import style from "./Dashboard.module.css";
@@ -18,7 +18,7 @@ import {
   findMinScoreBook,
   unreadBookTitles,
   userReadBookTitles,
-} from "@/functions/stat-functions/scoreFunctions";
+} from "@/utils/stat-functions/scoreFunctions";
 import { useAuth } from "@/hooks/auth-hooks/useAuth";
 
 type Props = {
