@@ -1,6 +1,6 @@
 import LineGraph from "@/components/graphs/brothers/LineGraph";
 import LoaderNoText from "@/components/loader/LoaderNoText";
-import { dateFormatter } from "@/functions/time-functions/dateFormatter";
+import { dateFormatter } from "@/utils/time-functions/dateFormatter";
 import { Book } from "@/types/BookInterface";
 import React from "react";
 
