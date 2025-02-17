@@ -12,8 +12,8 @@ const useLimit = () => {
     typeof window !== "undefined"
       ? window?.innerWidth > 440
         ? Math.floor(window.innerWidth / limitDenominator) * 2
-        : 3
-      : 3;
+        : 6
+      : 6;
 
   const [limit, setLimit] = useState<number>(limitDefault);
   const [isLimit, setIsLimit] = useState<boolean>(false);
@@ -23,8 +23,8 @@ const useLimit = () => {
     setIsLimit(true);
     const extraBooks =
       limitDefault === limit
-        ? Math.floor(window.innerWidth / limitDenominator) + 1
-        : Math.floor(window.innerWidth / limitDenominator);
+        ? Math.floor((window.innerWidth * 2) / limitDenominator) + 1
+        : 6;
     setLimit((n) => n + extraBooks);
   };
 
