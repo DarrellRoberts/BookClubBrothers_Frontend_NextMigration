@@ -5,7 +5,7 @@ import "@/style/loader.css";
 import { useState, useEffect } from "react";
 
 interface Props {
-  screensize: string;
+  screensize?: string;
 }
 
 const Loader: React.FC<Props> = ({ screensize }: Props) => {
@@ -32,7 +32,11 @@ const Loader: React.FC<Props> = ({ screensize }: Props) => {
     return () => clearTimeout(timer);
   }, []);
   return (
-    <div className={`${screensize} flex justify-center items-center flex-col`}>
+    <div
+      className={`${
+        screensize ?? "h-screen"
+      } flex justify-center items-center flex-col`}
+    >
       {showQuiz ? (
         <>
           <h2 className="m-5 text-center text-xl">{loadingMessage}</h2>
