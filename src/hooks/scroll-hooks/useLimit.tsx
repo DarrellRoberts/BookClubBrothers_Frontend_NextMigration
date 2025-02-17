@@ -1,11 +1,18 @@
 import { useState } from "react";
 
 const useLimit = () => {
-  const limitDenominator = window.innerWidth > 440 ? 440 : window.innerWidth;
+  const limitDenominator =
+    typeof window !== "undefined"
+      ? window.innerWidth > 440
+        ? 440
+        : window.innerWidth
+      : 1;
 
   const limitDefault =
-    window?.innerWidth > 440
-      ? Math.floor(window.innerWidth / limitDenominator) * 2
+    typeof window !== "undefined"
+      ? window?.innerWidth > 440
+        ? Math.floor(window.innerWidth / limitDenominator) * 2
+        : 3
       : 3;
 
   const [limit, setLimit] = useState<number>(limitDefault);
