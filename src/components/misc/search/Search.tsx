@@ -6,7 +6,7 @@ import { Book } from "@/types/BookInterface";
 import { User } from "@/types/UserInterface";
 import { AutoComplete, Input, Space } from "antd";
 import { useState } from "react";
-import { formatServerDate } from "@/functions/time-functions/formatServerDate";
+import { formatServerDate } from "@/utils/time-functions/formatServerDate";
 import style from "./search.module.css";
 import ProfileSmall from "../profile/ProfileSmall";
 import Link from "next/link";

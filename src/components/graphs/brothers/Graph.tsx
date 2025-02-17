@@ -12,7 +12,7 @@ import {
   ChartOptions,
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
-import { abbreviateString } from "@/functions/abbreviateString";
+import { abbreviateString } from "@/utils/abbreviateString";
 import { useMediaQuery } from "react-responsive";
 import Cookies from "js-cookie";
 import style from "./Graph.module.css";

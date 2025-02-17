@@ -2,8 +2,8 @@ import { Book } from "@/types/BookInterface";
 import React from "react";
 import "@/style/singlebook.css";
 import "@/style/singlebookRes.css";
-import { handleHideScores_NoSetter } from "@/functions/time-functions/hideScores";
-import { dateFormatter } from "@/functions/time-functions/dateFormatter";
+import { handleHideScores_NoSetter } from "@/utils/time-functions/hideScores";
+import { dateFormatter } from "@/utils/time-functions/dateFormatter";
 
 type Props = {
   bookData: Book;

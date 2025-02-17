@@ -3,8 +3,8 @@ import React from "react";
 import Link from "next/link";
 import style from "./BrotherCommentCon.module.css";
 import { Book } from "@/types/BookInterface";
-import { filterUserReadBooks } from "@/functions/stat-functions/scoreFunctions";
-import { handleHideScores_NoSetter } from "@/functions/time-functions/hideScores";
+import { filterUserReadBooks } from "@/utils/stat-functions/scoreFunctions";
+import { handleHideScores_NoSetter } from "@/utils/time-functions/hideScores";
 
 type Props = {
   username: string;

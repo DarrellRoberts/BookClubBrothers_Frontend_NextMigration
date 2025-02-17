@@ -1,7 +1,7 @@
 import { Book } from "@/types/BookInterface";
 import React from "react";
 import BookCover from "../BookCover";
-import { handleHideScores_NoSetter } from "@/functions/time-functions/hideScores";
+import { handleHideScores_NoSetter } from "@/utils/time-functions/hideScores";
 import "@/style/singlebook.css";
 import "@/style/singlebookRes.css";
 
