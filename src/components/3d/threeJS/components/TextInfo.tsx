@@ -2,23 +2,20 @@ import React from "react";
 import style from "./3d.module.css";
 import Link from "next/link";
 import { Button } from "antd";
+import { Book } from "@/types/BookInterface";
 
 type Props = {
-  readBooks: [
-    {
-      _id: string;
-      title: string;
-      pages: number;
-      author: string;
-      yearPublished: number;
-      totalScore: number;
-    }
-  ];
+  readBooksJson: Book[];
+  // readBooks: string[];
   clickId: string;
 };
 
-export default function TextInfo({ readBooks, clickId }: Props) {
-  const bookInfo = readBooks.find((book) => book._id === clickId);
+export default function TextInfo({
+  // readBooks,
+  clickId,
+  readBooksJson,
+}: Props) {
+  const bookInfo = readBooksJson.find((book) => book._id === clickId);
   return (
     <div className={style.textInfo}>
       <h2 className="underline">{bookInfo?.title}</h2>

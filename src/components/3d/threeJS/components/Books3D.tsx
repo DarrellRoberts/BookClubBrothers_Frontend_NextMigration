@@ -18,7 +18,10 @@ type Props = {
   clicked: boolean;
   setClicked: Dispatch<SetStateAction<boolean>>;
   setClickId: Dispatch<SetStateAction<string>>;
+  setRenderIds: Dispatch<SetStateAction<string[]>>;
   readIds: string[];
+  renderIds: string[];
+  readBooks: string[];
 };
 
 type Book = {
@@ -29,13 +32,16 @@ export default function Books3D({
   clicked,
   setClicked,
   setClickId,
+  setRenderIds,
+  renderIds,
   readIds,
+  readBooks,
 }: Props) {
   const [showTablet, setShowTablet] = useState<boolean>(false);
   const [showMobile, setShowMobile] = useState<boolean>(false);
 
-  const FLOOR_HEIGHT: number = readIds.length / 2.5;
-  const NB_FLOORS: number = readIds.length / 2.5;
+  // let FLOOR_HEIGHT: number = renderIds.length / 3;
+  // let NB_FLOORS: number = renderIds.length / 3;
 
   const GLTFLoader =
     // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -55,7 +61,8 @@ export default function Books3D({
       group.current.position,
       {
         duration: 2,
-        y: FLOOR_HEIGHT * (NB_FLOORS - 1),
+        // y: FLOOR_HEIGHT * (NB_FLOORS - 1),
+        y: renderIds.length + 1,
       },
       0
     );
@@ -76,7 +83,7 @@ export default function Books3D({
     });
   };
 
-  const filearray2: Book[] = readIds.map((id) =>
+  const filearray2: Book[] = renderIds.map((id) =>
     useLoader(GLTFLoader, `/book-model/${id}/scene.gltf`)
   );
 
@@ -84,7 +91,7 @@ export default function Books3D({
   const createHeightArr = () => {
     let j = -1.15;
     let k = -1.9;
-    for (let i = -0.5; readIds.length > heightArr.length; i--) {
+    for (let i = -0.5; renderIds.length > heightArr.length; i--) {
       if (i === -0.5) {
         heightArr.push(i);
       } else {
@@ -99,7 +106,7 @@ export default function Books3D({
   createHeightArr();
 
   useLayoutEffect(() => {
-    gsapFunc();
+    if (renderIds.length === 5) gsapFunc();
     const handleResize = () => {
       if (window.innerWidth > 800) {
         setShowTablet(false);
@@ -118,12 +125,13 @@ export default function Books3D({
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+
   return (
     <group ref={group}>
       {filearray2.map((book, i: number) => (
         <mesh
           key={i}
-          name={readIds[i]}
+          name={renderIds[i]}
           position={[0, heightArr[i], -0.5]}
           rotation={[0, 4.75, 0.45]}
           ref={mesh}
@@ -148,6 +156,19 @@ export default function Books3D({
           </PresentationControls>
         </mesh>
       ))}
+      <mesh
+        visible
+        userData={{ hello: "world" }}
+        position={[0, heightArr[heightArr.length - 1] - 1, -0.5]}
+        rotation={[Math.PI / 2, 0, 0]}
+        scale={0.25}
+        onClick={() => {
+          setRenderIds([...readIds, ...readBooks.slice(5, 11)]);
+        }}
+      >
+        <sphereGeometry args={[1, 16, 16]} />
+        <meshStandardMaterial color="hotpink" transparent />
+      </mesh>
     </group>
   );
 }
