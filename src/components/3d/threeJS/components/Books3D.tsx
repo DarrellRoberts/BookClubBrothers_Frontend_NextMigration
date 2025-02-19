@@ -34,11 +34,13 @@ export default function Books3D({
   setClickId,
   setRenderIds,
   renderIds,
-  readIds,
+  // readIds,
   readBooks,
 }: Props) {
   const [showTablet, setShowTablet] = useState<boolean>(false);
   const [showMobile, setShowMobile] = useState<boolean>(false);
+  const [startIndex, setStartIndex] = useState<number>(5);
+  const [endIndex, setEndIndex] = useState<number>(11);
 
   // let FLOOR_HEIGHT: number = renderIds.length / 3;
   // let NB_FLOORS: number = renderIds.length / 3;
@@ -56,16 +58,22 @@ export default function Books3D({
   });
 
   const gsapFunc = () => {
-    tl.current = gsap.timeline();
-    tl.current.to(
-      group.current.position,
-      {
-        duration: 2,
-        // y: FLOOR_HEIGHT * (NB_FLOORS - 1),
-        y: renderIds.length + 1,
-      },
-      0
-    );
+    if (!tl.current) {
+      console.log("Length: " + renderIds.length);
+      tl.current = gsap.timeline();
+      tl.current.to(
+        group.current.position,
+        {
+          duration: 2,
+          // y: FLOOR_HEIGHT * (NB_FLOORS - 1),
+          y: 22,
+        },
+        0
+      );
+      console.log("Old Timeline: " + tl.current);
+    } else {
+      tl.current.kill();
+    }
   };
 
   const handleClick = (e) => {
@@ -106,7 +114,7 @@ export default function Books3D({
   createHeightArr();
 
   useLayoutEffect(() => {
-    if (renderIds.length === 5) gsapFunc();
+    gsapFunc();
     const handleResize = () => {
       if (window.innerWidth > 800) {
         setShowTablet(false);
@@ -124,7 +132,7 @@ export default function Books3D({
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, []);
+  }, [renderIds]);
 
   return (
     <group ref={group}>
@@ -163,7 +171,13 @@ export default function Books3D({
         rotation={[Math.PI / 2, 0, 0]}
         scale={0.25}
         onClick={() => {
-          setRenderIds([...readIds, ...readBooks.slice(5, 11)]);
+          setRenderIds([
+            ...renderIds,
+            ...readBooks.slice(startIndex, endIndex),
+          ]);
+          setStartIndex((prev) => prev + 6);
+          setEndIndex((prev) => prev + 5);
+          console.log(startIndex, endIndex);
         }}
       >
         <sphereGeometry args={[1, 16, 16]} />
