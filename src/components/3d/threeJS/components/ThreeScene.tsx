@@ -54,8 +54,8 @@ export default function ThreeScene({
         </Suspense>
         <Scroll html>
           <HeaderCon3D propsToken={token} />
-          <h1 className={style.title}>Books 3D Library</h1>
           <div className={style.darkMode}>
+            <h1 className={style.title}>Books 3D Library</h1>
             <DarkMode />
           </div>
         </Scroll>

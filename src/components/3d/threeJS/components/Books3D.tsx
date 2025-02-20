@@ -34,16 +34,12 @@ export default function Books3D({
   setClickId,
   setRenderIds,
   renderIds,
-  // readIds,
   readBooks,
 }: Props) {
   const [showTablet, setShowTablet] = useState<boolean>(false);
   const [showMobile, setShowMobile] = useState<boolean>(false);
   const [startIndex, setStartIndex] = useState<number>(5);
   const [endIndex, setEndIndex] = useState<number>(11);
-
-  // let FLOOR_HEIGHT: number = renderIds.length / 3;
-  // let NB_FLOORS: number = renderIds.length / 3;
 
   const GLTFLoader =
     // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -58,22 +54,19 @@ export default function Books3D({
   });
 
   const gsapFunc = () => {
-    if (!tl.current) {
-      console.log("Length: " + renderIds.length);
-      tl.current = gsap.timeline();
-      tl.current.to(
-        group.current.position,
-        {
-          duration: 2,
-          // y: FLOOR_HEIGHT * (NB_FLOORS - 1),
-          y: 22,
-        },
-        0
-      );
-      console.log("Old Timeline: " + tl.current);
-    } else {
-      tl.current.kill();
-    }
+    tl.current = gsap.timeline();
+    tl.current.fromTo(
+      group.current.position,
+      {
+        duration: 2,
+        y: 0,
+      },
+      {
+        duration: 2,
+        y: renderIds.length * 2,
+      },
+      0
+    );
   };
 
   const handleClick = (e) => {
@@ -131,14 +124,15 @@ export default function Books3D({
     window.addEventListener("resize", handleResize);
     return () => {
       window.removeEventListener("resize", handleResize);
+      tl.current.kill();
     };
-  }, [renderIds]);
+  }, []);
 
   return (
     <group ref={group}>
       {filearray2.map((book, i: number) => (
         <mesh
-          key={i}
+          key={renderIds[i]}
           name={renderIds[i]}
           position={[0, heightArr[i], -0.5]}
           rotation={[0, 4.75, 0.45]}
@@ -177,7 +171,6 @@ export default function Books3D({
           ]);
           setStartIndex((prev) => prev + 6);
           setEndIndex((prev) => prev + 5);
-          console.log(startIndex, endIndex);
         }}
       >
         <sphereGeometry args={[1, 16, 16]} />

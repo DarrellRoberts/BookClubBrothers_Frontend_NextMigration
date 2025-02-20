@@ -29,26 +29,24 @@ export default function Base({ readBooks, readIds, readBooksJson }: Props) {
   return (
     <>
       {!clicked ? (
-        <TextInfo
-          // readBooks={readBooks}
-          clickId={clickId}
-          readBooksJson={readBooksJson}
-        />
+        <TextInfo clickId={clickId} readBooksJson={readBooksJson} />
       ) : null}
       <div className="flex justify-center align-center h-screen">
         {readBooks.length < 0 ? (
           <Loader />
         ) : (
-          <ThreeScene
-            clicked={clicked}
-            setClicked={setClicked}
-            setClickId={setClickId}
-            setRenderIds={setRenderIds}
-            readIds={readIds}
-            readBooks={readBooks}
-            renderIds={renderIds}
-            token={token}
-          />
+          <div className="flex flex-col w-screen">
+            <ThreeScene
+              clicked={clicked}
+              setClicked={setClicked}
+              setClickId={setClickId}
+              setRenderIds={setRenderIds}
+              readIds={readIds}
+              readBooks={readBooks}
+              renderIds={renderIds}
+              token={token}
+            />
+          </div>
         )}
       </div>
     </>
