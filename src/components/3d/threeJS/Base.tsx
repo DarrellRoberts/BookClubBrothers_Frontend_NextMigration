@@ -5,6 +5,7 @@ import TextInfo from "./components/TextInfo";
 import ThreeScene from "./components/ThreeScene";
 import Loader from "@/components/loader/Loader";
 import { Book } from "@/types/BookInterface";
+import { Button } from "antd";
 
 type Props = {
   readBooks: string[];
@@ -17,6 +18,8 @@ export default function Base({ readBooks, readIds, readBooksJson }: Props) {
   const [clickId, setClickId] = useState<string>(null);
   const [token, setToken] = useState<string | null>(null);
   const [renderIds, setRenderIds] = useState<string[]>([]);
+  const [startIndex, setStartIndex] = useState<number>(5);
+  const [endIndex, setEndIndex] = useState<number>(11);
 
   useEffect(() => {
     setRenderIds([...readIds]);
@@ -46,6 +49,21 @@ export default function Base({ readBooks, readIds, readBooksJson }: Props) {
               renderIds={renderIds}
               token={token}
             />
+            {readBooks.length - 1 !== renderIds.length ? (
+              <Button
+                className="absolute bottom-0 right-[50%] translate-x-[50%] "
+                onClick={() => {
+                  setRenderIds([
+                    ...renderIds,
+                    ...readBooks.slice(startIndex, endIndex),
+                  ]);
+                  setStartIndex((prev) => prev + 6);
+                  setEndIndex((prev) => prev + 5);
+                }}
+              >
+                Load more
+              </Button>
+            ) : null}
           </div>
         )}
       </div>

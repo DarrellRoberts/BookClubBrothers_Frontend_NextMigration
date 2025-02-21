@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import Books3D from "./Books3D";
 import { Dispatch, SetStateAction, Suspense } from "react";
 import { Canvas } from "@react-three/fiber";
-import { Scroll, ScrollControls, useScroll } from "@react-three/drei";
+import { Scroll, ScrollControls } from "@react-three/drei";
 import Loader from "./Loader";
 import style from "./3d.module.css";
 import HeaderCon3D from "@/components/header/HeaderCon3D";
@@ -32,15 +32,15 @@ export default function ThreeScene({
   token,
 }: Props) {
   const [pages, setPages] = useState<number>(renderIds.length);
-  const scroll = useScroll();
-  console.log(scroll);
 
-  useEffect(() => setPages(renderIds.length), [renderIds]);
+  useEffect(() => {
+    setPages(renderIds.length);
+  }, [renderIds]);
   return (
     <Canvas camera={{ position: [0, 0, -2.15] }}>
       <ambientLight intensity={1} />
       <pointLight position={[0, 0, -5]} intensity={45} />
-      <ScrollControls pages={pages} damping={0.5} prepend={true}>
+      <ScrollControls pages={pages} damping={0.5}>
         <Suspense fallback={<Loader />}>
           <Books3D
             clicked={clicked}

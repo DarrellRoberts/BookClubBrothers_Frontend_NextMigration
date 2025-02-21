@@ -32,14 +32,10 @@ export default function Books3D({
   clicked,
   setClicked,
   setClickId,
-  setRenderIds,
   renderIds,
-  readBooks,
 }: Props) {
   const [showTablet, setShowTablet] = useState<boolean>(false);
   const [showMobile, setShowMobile] = useState<boolean>(false);
-  const [startIndex, setStartIndex] = useState<number>(5);
-  const [endIndex, setEndIndex] = useState<number>(11);
 
   const GLTFLoader =
     // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -158,24 +154,6 @@ export default function Books3D({
           </PresentationControls>
         </mesh>
       ))}
-      <mesh
-        visible
-        userData={{ hello: "world" }}
-        position={[0, heightArr[heightArr.length - 1] - 1, -0.5]}
-        rotation={[Math.PI / 2, 0, 0]}
-        scale={0.25}
-        onClick={() => {
-          setRenderIds([
-            ...renderIds,
-            ...readBooks.slice(startIndex, endIndex),
-          ]);
-          setStartIndex((prev) => prev + 6);
-          setEndIndex((prev) => prev + 5);
-        }}
-      >
-        <sphereGeometry args={[1, 16, 16]} />
-        <meshStandardMaterial color="hotpink" transparent />
-      </mesh>
     </group>
   );
 }
