@@ -18,7 +18,10 @@ type Props = {
   clicked: boolean;
   setClicked: Dispatch<SetStateAction<boolean>>;
   setClickId: Dispatch<SetStateAction<string>>;
+  setRenderIds: Dispatch<SetStateAction<string[]>>;
   readIds: string[];
+  renderIds: string[];
+  readBooks: string[];
 };
 
 type Book = {
@@ -29,13 +32,10 @@ export default function Books3D({
   clicked,
   setClicked,
   setClickId,
-  readIds,
+  renderIds,
 }: Props) {
   const [showTablet, setShowTablet] = useState<boolean>(false);
   const [showMobile, setShowMobile] = useState<boolean>(false);
-
-  const FLOOR_HEIGHT: number = readIds.length / 2.5;
-  const NB_FLOORS: number = readIds.length / 2.5;
 
   const GLTFLoader =
     // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -51,11 +51,15 @@ export default function Books3D({
 
   const gsapFunc = () => {
     tl.current = gsap.timeline();
-    tl.current.to(
+    tl.current.fromTo(
       group.current.position,
       {
         duration: 2,
-        y: FLOOR_HEIGHT * (NB_FLOORS - 1),
+        y: 0,
+      },
+      {
+        duration: 2,
+        y: renderIds.length * 2,
       },
       0
     );
@@ -76,7 +80,7 @@ export default function Books3D({
     });
   };
 
-  const filearray2: Book[] = readIds.map((id) =>
+  const filearray2: Book[] = renderIds.map((id) =>
     useLoader(GLTFLoader, `/book-model/${id}/scene.gltf`)
   );
 
@@ -84,7 +88,7 @@ export default function Books3D({
   const createHeightArr = () => {
     let j = -1.15;
     let k = -1.9;
-    for (let i = -0.5; readIds.length > heightArr.length; i--) {
+    for (let i = -0.5; renderIds.length > heightArr.length; i--) {
       if (i === -0.5) {
         heightArr.push(i);
       } else {
@@ -116,14 +120,16 @@ export default function Books3D({
     window.addEventListener("resize", handleResize);
     return () => {
       window.removeEventListener("resize", handleResize);
+      tl.current.kill();
     };
   }, []);
+
   return (
     <group ref={group}>
       {filearray2.map((book, i: number) => (
         <mesh
-          key={i}
-          name={readIds[i]}
+          key={renderIds[i]}
+          name={renderIds[i]}
           position={[0, heightArr[i], -0.5]}
           rotation={[0, 4.75, 0.45]}
           ref={mesh}

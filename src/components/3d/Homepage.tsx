@@ -12,10 +12,23 @@ async function getBookData() {
 const Homepage: React.FC = async () => {
   const bookPromise = getBookData();
   const books = await bookPromise;
-  const readBooks = books.filter((book) => book.read === true);
-  let readIds = readBooks.map((book) => book._id);
-  readIds = readIds.reverse();
-  return <Base readBooks={readBooks} readIds={readIds} />;
+  const readBooksJson = books
+    ?.filter((book) => book.read === true)
+    .reverse();
+  const readBooks = books
+    ?.filter((book) => book.read === true)
+    .map((book) => book._id)
+    .reverse();
+  // eslint-disable-next-line prefer-const
+  let readIds = [...readBooks];
+  readIds.length = 5;
+  return (
+    <Base
+      readBooks={readBooks}
+      readIds={readIds}
+      readBooksJson={readBooksJson}
+    />
+  );
 };
 
 export default Homepage;
