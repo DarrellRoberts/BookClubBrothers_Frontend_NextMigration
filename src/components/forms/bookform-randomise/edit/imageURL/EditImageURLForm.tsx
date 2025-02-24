@@ -6,7 +6,7 @@ import { setFormData } from "@/store/lib/features/randomise/randomiseEditSlice";
 import { useAppDispatch, useAppSelector } from "@/store/lib/hooks";
 import { Form, Input } from "antd";
 
-const EditImageURLForm = () => {
+const EditImageURLForm = ({ inImageURL }) => {
   const formData = useAppSelector((state) => state.randomiseEdit.formData);
   const imageURL = useAppSelector(
     (state) => state.randomiseEdit.formData.imageURL
@@ -19,7 +19,7 @@ const EditImageURLForm = () => {
         onChange={(e) =>
           dispatch(setFormData({ ...formData, imageURL: e.target.value }))
         }
-        defaultValue={imageURL}
+        defaultValue={inImageURL}
         value={imageURL}
       />
     </Form.Item>

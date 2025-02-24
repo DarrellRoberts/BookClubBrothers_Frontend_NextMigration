@@ -6,7 +6,7 @@ import { setFormData } from "@/store/lib/features/randomise/randomiseEditSlice";
 import { useAppDispatch, useAppSelector } from "@/store/lib/hooks";
 import { Form, Input } from "antd";
 
-const EditPagesForm = () => {
+const EditPagesForm = ({ inPages }) => {
   const formData = useAppSelector((state) => state.randomiseEdit.formData);
   const pages = useAppSelector((state) => state.randomiseEdit.formData.pages);
   const dispatch = useAppDispatch();
@@ -30,7 +30,7 @@ const EditPagesForm = () => {
         onChange={(e) =>
           dispatch(setFormData({ ...formData, pages: Number(e.target.value) }))
         }
-        defaultValue={pages}
+        defaultValue={inPages}
         value={pages}
       />
     </Form.Item>

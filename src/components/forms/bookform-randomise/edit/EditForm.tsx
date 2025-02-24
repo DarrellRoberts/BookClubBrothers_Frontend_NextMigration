@@ -67,12 +67,12 @@ const EditForm: React.FC<Props> = ({
         remember: true,
       }}
     >
-      <EditTitleForm />
-      <EditAuthorForm />
-      <EditPublishedForm />
-      <EditPagesForm />
-      <EditGenreForm />
-      <EditImageURLForm />
+      <EditTitleForm inTitle={inTitle} />
+      <EditAuthorForm inAuthor={inAuthor} />
+      <EditPublishedForm inPublished={inPublished} />
+      <EditPagesForm inPages={inPages} />
+      <EditGenreForm inGenre={inGenre} />
+      <EditImageURLForm inImageURL={inImageURL} />
       <Form.Item
         wrapperCol={{
           offset: 8,
