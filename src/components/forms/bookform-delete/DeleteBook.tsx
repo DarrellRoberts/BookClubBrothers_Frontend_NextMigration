@@ -12,7 +12,6 @@ type Props = {
 const DeleteBook: React.FC<Props> = ({ id }) => {
   const { handleSubmit, error } = useForm(
     `https://bookclubbrothers-backend.onrender.com/books/${id}`,
-    null,
     "DELETE"
   );
 

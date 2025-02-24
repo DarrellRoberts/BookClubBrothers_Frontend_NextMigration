@@ -43,7 +43,6 @@ const RandomSectionLeft: React.FC<Props> = ({
               className={style.bookBox}
               onClick={() => {
                 dispatch(setIndex(bookData.indexOf(book)));
-                console.log(book);
               }}
             >
               <h2>{book?.title}</h2>

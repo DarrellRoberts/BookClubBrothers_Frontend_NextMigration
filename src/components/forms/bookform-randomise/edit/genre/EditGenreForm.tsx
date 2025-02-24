@@ -2,16 +2,16 @@
 /* eslint-disable react/react-in-jsx-scope */
 "use client";
 
+import { setFormData } from "@/store/lib/features/randomise/randomiseEditSlice";
+import { useAppDispatch, useAppSelector } from "@/store/lib/hooks";
 import { Form, Select, Space } from "antd";
 
 const { Option } = Select;
 
-interface Props {
-  formData: object;
-  setGenre: React.Dispatch<React.SetStateAction<object>>;
-}
-
-const EditGenreForm: React.FC<Props> = ({ formData, setGenre }) => {
+const EditGenreForm = () => {
+  const formData = useAppSelector((state) => state.randomiseEdit.formData);
+  const genre = useAppSelector((state) => state.randomiseEdit.formData.genre);
+  const dispatch = useAppDispatch();
   return (
     <Form.Item label="Genre" name="genre">
       <Select
@@ -21,9 +21,8 @@ const EditGenreForm: React.FC<Props> = ({ formData, setGenre }) => {
         }}
         placeholder="Select the genres"
         optionLabelProp="label"
-        value={formData["genre"]}
-        defaultValue={formData["genre"]}
-        onChange={(e) => setGenre({ ...formData, genre: e })}
+        value={genre}
+        onChange={(e) => dispatch(setFormData({ ...formData, genre: e }))}
       >
         <Option value="Horror" label="Horror">
           <Space>

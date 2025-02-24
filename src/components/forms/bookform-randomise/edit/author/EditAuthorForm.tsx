@@ -2,20 +2,21 @@
 /* eslint-disable react/prop-types */
 "use client";
 
+import { setFormData } from "@/store/lib/features/randomise/randomiseEditSlice";
+import { useAppDispatch, useAppSelector } from "@/store/lib/hooks";
 import { Form, Input } from "antd";
 
-type Props = {
-  formData: object;
-  setAuthor: React.Dispatch<React.SetStateAction<object>>;
-};
+const EditAuthorForm = () => {
+  const formData = useAppSelector((state) => state.randomiseEdit.formData);
+  const author = useAppSelector((state) => state.randomiseEdit.formData.author);
+  const dispatch = useAppDispatch();
 
-const EditAuthorForm: React.FC<Props> = ({ formData, setAuthor }) => {
   return (
     <Form.Item
       label="Author"
       name="author"
       rules={
-        formData["author"]
+        author
           ? null
           : [
               {
@@ -27,9 +28,10 @@ const EditAuthorForm: React.FC<Props> = ({ formData, setAuthor }) => {
     >
       <Input
         type="text"
-        onChange={(e) => setAuthor({ ...formData, author: e.target.value })}
-        defaultValue={formData["author"]}
-        value={formData["author"]}
+        onChange={(e) =>
+          dispatch(setFormData({ ...formData, author: e.target.value }))
+        }
+        value={author}
       />
     </Form.Item>
   );

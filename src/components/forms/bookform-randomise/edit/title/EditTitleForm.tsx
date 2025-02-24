@@ -2,20 +2,20 @@
 /* eslint-disable react/prop-types */
 "use client";
 
+import { setFormData } from "@/store/lib/features/randomise/randomiseEditSlice";
+import { useAppDispatch, useAppSelector } from "@/store/lib/hooks";
 import { Form, Input } from "antd";
 
-type Props = {
-  setTitle: React.Dispatch<React.SetStateAction<object>>;
-  formData: object;
-};
-
-const EditTitleForm: React.FC<Props> = ({ setTitle, formData }) => {
+const EditTitleForm = () => {
+  const formData = useAppSelector((state) => state.randomiseEdit.formData);
+  const title = useAppSelector((state) => state.randomiseEdit.formData.title);
+  const dispatch = useAppDispatch();
   return (
     <Form.Item
       label="Title"
       name="title"
       rules={
-        formData["title"]
+        title
           ? null
           : [
               {
@@ -27,9 +27,10 @@ const EditTitleForm: React.FC<Props> = ({ setTitle, formData }) => {
     >
       <Input
         type="text"
-        onChange={(e) => setTitle({ ...formData, title: e.target.value })}
-        defaultValue={formData["title"]}
-        value={formData["title"]}
+        onChange={(e) =>
+          dispatch(setFormData({ ...formData, title: e.target.value }))
+        }
+        value={title}
       />
     </Form.Item>
   );

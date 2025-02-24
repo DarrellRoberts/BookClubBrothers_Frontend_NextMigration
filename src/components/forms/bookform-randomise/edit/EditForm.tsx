@@ -1,5 +1,5 @@
 import { Button, Form } from "antd";
-import React, { useEffect } from "react";
+import React from "react";
 import EditAuthorForm from "./author/EditAuthorForm";
 import EditTitleForm from "./title/EditTitleForm";
 import EditPublishedForm from "./published/EditPublishedForm";
@@ -27,30 +27,11 @@ const EditForm: React.FC<Props> = ({
   inImageURL,
   id,
 }) => {
-  const { handleSubmit, error, formData, setFormData, loadings, enterLoading } =
-    useForm(
-      `https://bookclubbrothers-backend.onrender.com/books/${id}`,
-      {
-        author: inAuthor,
-        title: inTitle,
-        yearPublished: inPublished,
-        pages: inPages,
-        imageURL: inImageURL,
-        genre: inGenre,
-      },
-      "PUT"
-    );
+  const { handleSubmit, error, loadings, enterLoading } = useForm(
+    `https://bookclubbrothers-backend.onrender.com/books/${id}`,
+    "PUT"
+  );
 
-  useEffect(() => {
-    setFormData({
-      author: inAuthor,
-      title: inTitle,
-      yearPublished: inPublished,
-      pages: inPages,
-      imageURL: inImageURL,
-      genre: inGenre,
-    });
-  }, [inTitle]);
   return (
     <Form
       onFinish={handleSubmit}
@@ -65,15 +46,20 @@ const EditForm: React.FC<Props> = ({
         maxWidth: 600,
       }}
       initialValues={{
-        remember: true,
+        title: inTitle,
+        author: inAuthor,
+        yearPublished: inPublished,
+        pages: inPages,
+        genre: inGenre,
+        imageURL: inImageURL,
       }}
     >
-      <EditTitleForm formData={formData} setTitle={setFormData} />
-      <EditAuthorForm formData={formData} setAuthor={setFormData} />
-      <EditPublishedForm formData={formData} setYearPublished={setFormData} />
-      <EditPagesForm formData={formData} setPages={setFormData} />
-      <EditGenreForm formData={formData} setGenre={setFormData} />
-      <EditImageURLForm formData={formData} setImageURL={setFormData} />
+      <EditTitleForm />
+      <EditAuthorForm />
+      <EditPublishedForm />
+      <EditPagesForm />
+      <EditGenreForm />
+      <EditImageURLForm />
       <Form.Item
         wrapperCol={{
           offset: 8,
