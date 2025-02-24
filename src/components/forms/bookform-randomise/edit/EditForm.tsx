@@ -7,6 +7,8 @@ import EditPagesForm from "./pages/EditPagesForm";
 import EditGenreForm from "./genre/EditGenreForm";
 import EditImageURLForm from "./imageURL/EditImageURLForm";
 import useForm from "@/hooks/crud-hooks/useForm";
+import { useAppDispatch, useAppSelector } from "@/store/lib/hooks";
+import { setFormData } from "@/store/lib/features/randomise/randomiseEditSlice";
 
 type Props = {
   inAuthor: string;
@@ -27,30 +29,27 @@ const EditForm: React.FC<Props> = ({
   inImageURL,
   id,
 }) => {
-  const { handleSubmit, error, formData, setFormData, loadings, enterLoading } =
-    useForm(
-      `https://bookclubbrothers-backend.onrender.com/books/${id}`,
-      {
-        author: inAuthor,
-        title: inTitle,
-        yearPublished: inPublished,
-        pages: inPages,
-        imageURL: inImageURL,
-        genre: inGenre,
-      },
-      "PUT"
-    );
+  const formData = useAppSelector((state) => state.randomiseEdit.formData);
+  const dispatch = useAppDispatch();
+
+  const { handleSubmit, error, loadings, enterLoading } = useForm(
+    `https://bookclubbrothers-backend.onrender.com/books/${id}`,
+    "PUT"
+  );
 
   useEffect(() => {
-    setFormData({
-      author: inAuthor,
-      title: inTitle,
-      yearPublished: inPublished,
-      pages: inPages,
-      imageURL: inImageURL,
-      genre: inGenre,
-    });
-  }, [inTitle]);
+    dispatch(
+      setFormData({
+        ...formData,
+        title: inTitle,
+        author: inAuthor,
+        yearPublished: inPublished,
+        pages: inPages,
+        genre: inGenre,
+        imageURL: inImageURL,
+      })
+    );
+  }, [id]);
   return (
     <Form
       onFinish={handleSubmit}
@@ -68,12 +67,12 @@ const EditForm: React.FC<Props> = ({
         remember: true,
       }}
     >
-      <EditTitleForm formData={formData} setTitle={setFormData} />
-      <EditAuthorForm formData={formData} setAuthor={setFormData} />
-      <EditPublishedForm formData={formData} setYearPublished={setFormData} />
-      <EditPagesForm formData={formData} setPages={setFormData} />
-      <EditGenreForm formData={formData} setGenre={setFormData} />
-      <EditImageURLForm formData={formData} setImageURL={setFormData} />
+      <EditTitleForm />
+      <EditAuthorForm />
+      <EditPublishedForm />
+      <EditPagesForm />
+      <EditGenreForm />
+      <EditImageURLForm />
       <Form.Item
         wrapperCol={{
           offset: 8,

@@ -3,12 +3,12 @@
 import { useAppSelector } from "@/store/lib/hooks";
 import { useState } from "react";
 
-const useForm = (url: string, form: object, reqType: string) => {
+const useForm = (url: string, reqType: string) => {
   const [loadings, setLoadings] = useState(false);
-  const [formData, setFormData] = useState(form);
   const [error, setError] = useState("");
 
   const token = useAppSelector((state) => state.token.tokenState);
+  const formData = useAppSelector((state) => state.randomiseEdit.formData);
 
   const handleSubmit = async () => {
     try {
@@ -28,9 +28,9 @@ const useForm = (url: string, form: object, reqType: string) => {
         console.log("something has happened");
       }
 
-      // if (response.ok) {
-      //   console.log(data);
-      // }
+      if (response.ok) {
+        console.log(data);
+      }
     } catch (error) {
       console.log(formData);
       setError(error);
@@ -46,7 +46,7 @@ const useForm = (url: string, form: object, reqType: string) => {
     }, 4000);
   };
 
-  return { handleSubmit, error, formData, setFormData, enterLoading, loadings };
+  return { handleSubmit, error, enterLoading, loadings };
 };
 
 export default useForm;

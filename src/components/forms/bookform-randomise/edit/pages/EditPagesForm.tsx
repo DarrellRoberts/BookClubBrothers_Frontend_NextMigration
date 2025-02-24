@@ -2,20 +2,20 @@
 /* eslint-disable react/prop-types */
 "use client";
 
+import { setFormData } from "@/store/lib/features/randomise/randomiseEditSlice";
+import { useAppDispatch, useAppSelector } from "@/store/lib/hooks";
 import { Form, Input } from "antd";
 
-type Props = {
-  formData: object;
-  setPages: React.Dispatch<React.SetStateAction<object>>;
-};
-
-const EditPagesForm: React.FC<Props> = ({ formData, setPages }) => {
+const EditPagesForm = () => {
+  const formData = useAppSelector((state) => state.randomiseEdit.formData);
+  const pages = useAppSelector((state) => state.randomiseEdit.formData.pages);
+  const dispatch = useAppDispatch();
   return (
     <Form.Item
       label="Pages"
       name="pages"
       rules={
-        formData["pages"]
+        pages
           ? null
           : [
               {
@@ -28,10 +28,10 @@ const EditPagesForm: React.FC<Props> = ({ formData, setPages }) => {
       <Input
         type="number"
         onChange={(e) =>
-          setPages({ ...formData, pages: Number(e.target.value) })
+          dispatch(setFormData({ ...formData, pages: Number(e.target.value) }))
         }
-        defaultValue={formData["pages"]}
-        value={formData["pages"]}
+        defaultValue={pages}
+        value={pages}
       />
     </Form.Item>
   );

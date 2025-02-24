@@ -2,23 +2,15 @@
 import { Button, Form, Input, Space, Select } from "antd";
 import "@/style/createbook.css";
 import useForm from "@/hooks/crud-hooks/useForm";
+import { useAppSelector } from "@/store/lib/hooks";
 
 const { Option } = Select;
 
 const CreateBook: React.FC = () => {
-  const { handleSubmit, error, formData, setFormData, enterLoading, loadings } =
-    useForm(
-      "https://bookclubbrothers-backend.onrender.com/books/unread/create",
-      {
-        title: "",
-        author: "",
-        pages: 0,
-        yearPublished: 0,
-        genre: [],
-        imageURL: "",
-      },
-      "POST"
-    );
+  const { handleSubmit, error, enterLoading, loadings } = useForm(
+    "https://bookclubbrothers-backend.onrender.com/books/unread/create",
+    "POST"
+  );
 
   return (
     <>

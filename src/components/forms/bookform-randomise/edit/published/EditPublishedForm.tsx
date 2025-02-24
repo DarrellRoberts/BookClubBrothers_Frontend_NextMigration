@@ -2,20 +2,22 @@
 /* eslint-disable react/prop-types */
 "use client";
 
+import { setFormData } from "@/store/lib/features/randomise/randomiseEditSlice";
+import { useAppDispatch, useAppSelector } from "@/store/lib/hooks";
 import { Form, Input } from "antd";
 
-type Props = {
-  formData: object;
-  setYearPublished: React.Dispatch<React.SetStateAction<object>>;
-};
-
-const EditPublishedForm: React.FC<Props> = ({ formData, setYearPublished }) => {
+const EditPublishedForm = () => {
+  const formData = useAppSelector((state) => state.randomiseEdit.formData);
+  const yearPublished = useAppSelector(
+    (state) => state.randomiseEdit.formData.yearPublished
+  );
+  const dispatch = useAppDispatch();
   return (
     <Form.Item
       label="Published"
       name="yearPublished"
       rules={
-        formData["yearPublished"]
+        yearPublished
           ? null
           : [
               {
@@ -28,13 +30,15 @@ const EditPublishedForm: React.FC<Props> = ({ formData, setYearPublished }) => {
       <Input
         type="number"
         onChange={(e) =>
-          setYearPublished({
-            ...formData,
-            yearPublished: Number(e.target.value),
-          })
+          dispatch(
+            setFormData({
+              ...formData,
+              yearPublished: Number(e.target.value),
+            })
+          )
         }
-        defaultValue={formData["yearPublished"]}
-        value={formData["yearPublished"]}
+        defaultValue={yearPublished}
+        value={yearPublished}
       />
     </Form.Item>
   );
