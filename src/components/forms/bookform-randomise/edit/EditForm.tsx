@@ -1,5 +1,5 @@
 import { Button, Form } from "antd";
-import React, { useEffect } from "react";
+import React from "react";
 import EditAuthorForm from "./author/EditAuthorForm";
 import EditTitleForm from "./title/EditTitleForm";
 import EditPublishedForm from "./published/EditPublishedForm";
@@ -7,8 +7,6 @@ import EditPagesForm from "./pages/EditPagesForm";
 import EditGenreForm from "./genre/EditGenreForm";
 import EditImageURLForm from "./imageURL/EditImageURLForm";
 import useForm from "@/hooks/crud-hooks/useForm";
-import { useAppDispatch, useAppSelector } from "@/store/lib/hooks";
-import { setFormData } from "@/store/lib/features/randomise/randomiseEditSlice";
 
 type Props = {
   inAuthor: string;
@@ -29,27 +27,11 @@ const EditForm: React.FC<Props> = ({
   inImageURL,
   id,
 }) => {
-  const formData = useAppSelector((state) => state.randomiseEdit.formData);
-  const dispatch = useAppDispatch();
-
   const { handleSubmit, error, loadings, enterLoading } = useForm(
     `https://bookclubbrothers-backend.onrender.com/books/${id}`,
     "PUT"
   );
 
-  useEffect(() => {
-    dispatch(
-      setFormData({
-        ...formData,
-        title: inTitle,
-        author: inAuthor,
-        yearPublished: inPublished,
-        pages: inPages,
-        genre: inGenre,
-        imageURL: inImageURL,
-      })
-    );
-  }, [id]);
   return (
     <Form
       onFinish={handleSubmit}
@@ -64,15 +46,20 @@ const EditForm: React.FC<Props> = ({
         maxWidth: 600,
       }}
       initialValues={{
-        remember: true,
+        title: inTitle,
+        author: inAuthor,
+        yearPublished: inPublished,
+        pages: inPages,
+        genre: inGenre,
+        imageURL: inImageURL,
       }}
     >
-      <EditTitleForm inTitle={inTitle} />
-      <EditAuthorForm inAuthor={inAuthor} />
-      <EditPublishedForm inPublished={inPublished} />
-      <EditPagesForm inPages={inPages} />
-      <EditGenreForm inGenre={inGenre} />
-      <EditImageURLForm inImageURL={inImageURL} />
+      <EditTitleForm />
+      <EditAuthorForm />
+      <EditPublishedForm />
+      <EditPagesForm />
+      <EditGenreForm />
+      <EditImageURLForm />
       <Form.Item
         wrapperCol={{
           offset: 8,

@@ -6,7 +6,7 @@ import { setFormData } from "@/store/lib/features/randomise/randomiseEditSlice";
 import { useAppDispatch, useAppSelector } from "@/store/lib/hooks";
 import { Form, Input } from "antd";
 
-const EditTitleForm = ({ inTitle }) => {
+const EditTitleForm = () => {
   const formData = useAppSelector((state) => state.randomiseEdit.formData);
   const title = useAppSelector((state) => state.randomiseEdit.formData.title);
   const dispatch = useAppDispatch();
@@ -30,7 +30,6 @@ const EditTitleForm = ({ inTitle }) => {
         onChange={(e) =>
           dispatch(setFormData({ ...formData, title: e.target.value }))
         }
-        defaultValue={inTitle}
         value={title}
       />
     </Form.Item>

@@ -10,10 +10,10 @@ type Props = {
 const SelectBook: React.FC<Props> = ({ bookId }) => {
   const { handleSubmit, enterLoading, loadings } = useForm(
     `https://bookclubbrothers-backend.onrender.com/books/${bookId}`,
+    "PUT",
     {
       read: true,
-    },
-    "PUT"
+    }
   );
 
   return (

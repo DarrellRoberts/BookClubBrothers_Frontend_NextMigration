@@ -2,7 +2,8 @@
 import { Button, Form, Input, Space, Select } from "antd";
 import "@/style/createbook.css";
 import useForm from "@/hooks/crud-hooks/useForm";
-import { useAppSelector } from "@/store/lib/hooks";
+import { useAppDispatch, useAppSelector } from "@/store/lib/hooks";
+import { setFormData } from "@/store/lib/features/randomise/randomiseEditSlice";
 
 const { Option } = Select;
 
@@ -11,6 +12,8 @@ const CreateBook: React.FC = () => {
     "https://bookclubbrothers-backend.onrender.com/books/unread/create",
     "POST"
   );
+  const formData = useAppSelector((state) => state.randomiseEdit.formData);
+  const dispatch = useAppDispatch();
 
   return (
     <>
@@ -45,7 +48,7 @@ const CreateBook: React.FC = () => {
           <Input
             type="text"
             onChange={(e) =>
-              setFormData({ ...formData, title: e.target.value })
+              dispatch(setFormData({ ...formData, title: e.target.value }))
             }
             value={formData["title"]}
           />
@@ -65,7 +68,7 @@ const CreateBook: React.FC = () => {
           <Input
             type="text"
             onChange={(e) =>
-              setFormData({ ...formData, author: e.target.value })
+              dispatch(setFormData({ ...formData, author: e.target.value }))
             }
             value={formData["author"]}
           />
@@ -84,7 +87,7 @@ const CreateBook: React.FC = () => {
           <Input
             type="number"
             onChange={(e) =>
-              setFormData({ ...formData, pages: e.target.value })
+              dispatch(setFormData({ ...formData, pages: Number(e.target.value) }))
             }
             value={formData["pages"]}
           />
@@ -103,7 +106,12 @@ const CreateBook: React.FC = () => {
           <Input
             type="number"
             onChange={(e) =>
-              setFormData({ ...formData, yearPublished: e.target.value })
+              dispatch(
+                setFormData({
+                  ...formData,
+                  yearPublished: Number(e.target.value),
+                })
+              )
             }
             value={formData["yearPublished"]}
           />
@@ -123,7 +131,7 @@ const CreateBook: React.FC = () => {
             }}
             placeholder="Select the genres"
             optionLabelProp="label"
-            onChange={(e) => setFormData({ ...formData, genre: e })}
+            onChange={(e) => dispatch(setFormData({ ...formData, genre: e }))}
             value={formData["genre"]}
           >
             <Option value="Horror" label="Horror">
@@ -246,7 +254,7 @@ const CreateBook: React.FC = () => {
           <Input
             type="text"
             onChange={(e) =>
-              setFormData({ ...formData, imageURL: e.target.value })
+              dispatch(setFormData({ ...formData, imageURL: e.target.value }))
             }
             value={formData["imageURL"]}
           />

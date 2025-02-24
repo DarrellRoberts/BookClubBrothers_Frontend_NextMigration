@@ -8,7 +8,7 @@ import { Form, Select, Space } from "antd";
 
 const { Option } = Select;
 
-const EditGenreForm = ({ inGenre }) => {
+const EditGenreForm = () => {
   const formData = useAppSelector((state) => state.randomiseEdit.formData);
   const genre = useAppSelector((state) => state.randomiseEdit.formData.genre);
   const dispatch = useAppDispatch();
@@ -22,7 +22,6 @@ const EditGenreForm = ({ inGenre }) => {
         placeholder="Select the genres"
         optionLabelProp="label"
         value={genre}
-        defaultValue={inGenre}
         onChange={(e) => dispatch(setFormData({ ...formData, genre: e }))}
       >
         <Option value="Horror" label="Horror">

@@ -47,6 +47,7 @@ const EditUnreadBook: React.FC<Props> = ({
         footer={null}
       >
         <EditForm
+          key={id}
           id={id}
           inAuthor={inAuthor}
           inTitle={inTitle}

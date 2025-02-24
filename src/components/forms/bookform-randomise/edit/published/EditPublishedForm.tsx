@@ -6,7 +6,7 @@ import { setFormData } from "@/store/lib/features/randomise/randomiseEditSlice";
 import { useAppDispatch, useAppSelector } from "@/store/lib/hooks";
 import { Form, Input } from "antd";
 
-const EditPublishedForm = ({ inPublished }) => {
+const EditPublishedForm = () => {
   const formData = useAppSelector((state) => state.randomiseEdit.formData);
   const yearPublished = useAppSelector(
     (state) => state.randomiseEdit.formData.yearPublished
@@ -37,7 +37,6 @@ const EditPublishedForm = ({ inPublished }) => {
             })
           )
         }
-        defaultValue={inPublished}
         value={yearPublished}
       />
     </Form.Item>
