@@ -41,7 +41,7 @@ const EditRatingButton: React.FC<props> = ({
         </Button>
       </div>
       <Modal
-        title="Change Rating"
+        title="Change Comment"
         open={showEditComment}
         onOk={handleOk}
         confirmLoading={confirmLoading}

@@ -3,6 +3,8 @@
 "use client";
 
 import useForm from "@/hooks/crud-hooks/useForm";
+import { setFormData } from "@/store/lib/features/books/bookFormDataSlice";
+import { useAppDispatch, useAppSelector } from "@/store/lib/hooks";
 import { Button, Form, Input } from "antd";
 
 type Props = {
@@ -11,12 +13,15 @@ type Props = {
 };
 
 const EditBookAuthor: React.FC<Props> = ({ id, inAuthor }) => {
-  const { handleSubmit, error, formData, setFormData, enterLoading, loadings } =
-    useForm(
-      `https://bookclubbrothers-backend.onrender.com/books/${id}`,
-      { author: inAuthor },
-      "PUT"
-    );
+  const author = useAppSelector((state) => state.bookFormData.formData.author);
+  const formData = useAppSelector((state) => state.bookFormData.formData);
+  const dispatch = useAppDispatch();
+
+  const { handleSubmit, error, enterLoading, loadings } = useForm(
+    `https://bookclubbrothers-backend.onrender.com/books/${id}`,
+    "PUT",
+    { author }
+  );
   return (
     <>
       <Form
@@ -32,7 +37,7 @@ const EditBookAuthor: React.FC<Props> = ({ id, inAuthor }) => {
           maxWidth: 600,
         }}
         initialValues={{
-          remember: true,
+          author: inAuthor,
         }}
       >
         {/* Author */}
@@ -47,9 +52,10 @@ const EditBookAuthor: React.FC<Props> = ({ id, inAuthor }) => {
           ]}
         >
           <Input
-            onChange={(e) => setFormData({ author: e.target.value })}
-            defaultValue={formData["author"]}
-            value={formData["author"]}
+            onChange={(e) =>
+              dispatch(setFormData({ ...formData, author: e.target.value }))
+            }
+            value={author}
           />
         </Form.Item>
 

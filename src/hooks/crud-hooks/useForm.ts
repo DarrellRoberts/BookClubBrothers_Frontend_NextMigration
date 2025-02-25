@@ -9,7 +9,7 @@ const useForm = (url: string, reqType: string, customData?: object) => {
 
   const token = useAppSelector((state) => state.token.tokenState);
   const formData =
-    customData ?? useAppSelector((state) => state.randomiseEdit.formData);
+    customData ?? useAppSelector((state) => state.bookFormData.formData);
 
   const handleSubmit = async () => {
     try {
@@ -24,7 +24,9 @@ const useForm = (url: string, reqType: string, customData?: object) => {
       });
       const data = await response.json();
       if (!response.ok) {
-        setError(data.error);
+        console.log(data);
+        console.log(token);
+        setError(data);
         console.log("something has happened");
       }
 
@@ -32,7 +34,6 @@ const useForm = (url: string, reqType: string, customData?: object) => {
         console.log("success");
       }
     } catch (error) {
-      console.log(reqType);
       setError(error);
       console.log(error);
     }

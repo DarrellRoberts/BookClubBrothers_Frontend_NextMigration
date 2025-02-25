@@ -2,13 +2,13 @@
 /* eslint-disable react/prop-types */
 "use client";
 
-import { setFormData } from "@/store/lib/features/randomise/randomiseEditSlice";
+import { setFormData } from "@/store/lib/features/books/bookFormDataSlice";
 import { useAppDispatch, useAppSelector } from "@/store/lib/hooks";
 import { Form, Input } from "antd";
 
 const EditAuthorForm = () => {
-  const formData = useAppSelector((state) => state.randomiseEdit.formData);
-  const author = useAppSelector((state) => state.randomiseEdit.formData.author);
+  const formData = useAppSelector((state) => state.bookFormData.formData);
+  const author = useAppSelector((state) => state.bookFormData.formData.author);
   const dispatch = useAppDispatch();
 
   return (

@@ -3,7 +3,7 @@ import { Button, Form, Input, Space, Select } from "antd";
 import "@/style/createbook.css";
 import useForm from "@/hooks/crud-hooks/useForm";
 import { useAppDispatch, useAppSelector } from "@/store/lib/hooks";
-import { setFormData } from "@/store/lib/features/randomise/randomiseEditSlice";
+import { setFormData } from "@/store/lib/features/books/bookFormDataSlice";
 
 const { Option } = Select;
 
@@ -12,7 +12,7 @@ const CreateBook: React.FC = () => {
     "https://bookclubbrothers-backend.onrender.com/books/unread/create",
     "POST"
   );
-  const formData = useAppSelector((state) => state.randomiseEdit.formData);
+  const formData = useAppSelector((state) => state.bookFormData.formData);
   const dispatch = useAppDispatch();
 
   return (
@@ -87,7 +87,9 @@ const CreateBook: React.FC = () => {
           <Input
             type="number"
             onChange={(e) =>
-              dispatch(setFormData({ ...formData, pages: Number(e.target.value) }))
+              dispatch(
+                setFormData({ ...formData, pages: Number(e.target.value) })
+              )
             }
             value={formData["pages"]}
           />

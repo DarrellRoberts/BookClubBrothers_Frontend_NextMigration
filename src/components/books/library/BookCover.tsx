@@ -10,7 +10,7 @@ import { useAppSelector } from "@/store/lib/hooks";
 type Props = {
   title: string;
   totalScore: number;
-  ratingArr: number[];
+  ratingArr: number[] | number;
   raterArr: string[];
   hideScores: boolean;
 };

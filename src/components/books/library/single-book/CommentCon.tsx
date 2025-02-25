@@ -27,7 +27,7 @@ type Props = {
   hideScores: boolean;
 };
 
-const RatingCon: React.FC<Props> = ({ bookData, id, hideScores }) => {
+const CommentCon: React.FC<Props> = ({ bookData, id, hideScores }) => {
   const [addComment, setAddComment] = useState<boolean>(false);
   const [showEditComment, setShowEditComment] = useState<boolean>(false);
 
@@ -99,4 +99,4 @@ const RatingCon: React.FC<Props> = ({ bookData, id, hideScores }) => {
   );
 };
 
-export default RatingCon;
+export default CommentCon;

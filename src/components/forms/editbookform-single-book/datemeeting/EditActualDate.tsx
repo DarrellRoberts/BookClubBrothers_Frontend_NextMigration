@@ -3,6 +3,8 @@
 "use client";
 
 import useForm from "@/hooks/crud-hooks/useForm";
+import { setFormData } from "@/store/lib/features/books/bookFormDataSlice";
+import { useAppDispatch, useAppSelector } from "@/store/lib/hooks";
 import { Button, Form, DatePicker } from "antd";
 
 type Props = {
@@ -10,12 +12,17 @@ type Props = {
 };
 
 const EditActualDate: React.FC<Props> = ({ id }) => {
-  const { handleSubmit, error, formData, setFormData, enterLoading, loadings } =
-    useForm(
-      `https://bookclubbrothers-backend.onrender.com/books/${id}`,
-      { actualDateOfMeeting: "" },
-      "PUT"
-    );
+  const actualDateOfMeeting = useAppSelector(
+    (state) => state.bookFormData.formData.actualDateOfMeeting
+  );
+  const formData = useAppSelector((state) => state.bookFormData.formData);
+  const dispatch = useAppDispatch();
+
+  const { handleSubmit, error, enterLoading, loadings } = useForm(
+    `https://bookclubbrothers-backend.onrender.com/books/${id}`,
+    "PUT",
+    { actualDateOfMeeting }
+  );
   return (
     <>
       <Form
@@ -37,8 +44,12 @@ const EditActualDate: React.FC<Props> = ({ id }) => {
         {/* Date of Meeting */}
         <Form.Item label="Date of Meeting" name="Date of Meeting">
           <DatePicker
-            onChange={(e) => setFormData({ actualDateOfMeeting: e["$d"] })}
-            value={formData["actualDateOfMeeting"]}
+            onChange={(e) =>
+              dispatch(
+                setFormData({ ...formData, actualDateOfMeeting: e["$d"] })
+              )
+            }
+            value={actualDateOfMeeting}
           />
         </Form.Item>
 

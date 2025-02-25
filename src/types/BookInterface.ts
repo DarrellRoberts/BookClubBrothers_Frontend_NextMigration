@@ -1,25 +1,25 @@
 interface Book {
   author: string;
-  commentInfo: {
-    commentId: string[];
-    comments: string[];
+  commentInfo?: {
+    commentId?: string[];
+    comments?: string[] | string;
   };
-  dateOfMeeting: string;
-  actualDateOfMeeting: string;
+  dateOfMeeting?: string;
+  actualDateOfMeeting?: string;
   reviewImageURL?: string;
   genre: string[];
   imageURL?: string;
   pages: number;
-  read: boolean;
-  scoreRatings: {
-    raterId: string[];
-    rating: number[];
+  read?: boolean;
+  scoreRatings?: {
+    raterId?: string[];
+    rating?: number[] | number;
   };
   suggestedBy?: string;
   title: string;
-  totalScore: number;
+  totalScore?: number;
   yearPublished: number;
-  _id: string;
+  _id?: string;
 }
 
 export type { Book };

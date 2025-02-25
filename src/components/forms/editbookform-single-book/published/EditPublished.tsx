@@ -4,6 +4,8 @@
 
 import { Button, Form, Input } from "antd";
 import useForm from "@/hooks/crud-hooks/useForm";
+import { useAppDispatch, useAppSelector } from "@/store/lib/hooks";
+import { setFormData } from "@/store/lib/features/books/bookFormDataSlice";
 
 type Props = {
   id: string | string[];
@@ -11,12 +13,17 @@ type Props = {
 };
 
 const EditPublished: React.FC<Props> = ({ id, inPublish }) => {
-  const { handleSubmit, error, formData, setFormData, enterLoading, loadings } =
-    useForm(
-      `https://bookclubbrothers-backend.onrender.com/books/${id}`,
-      { yearPublished: inPublish },
-      "PUT"
-    );
+  const yearPublished = useAppSelector(
+    (state) => state.bookFormData.formData.yearPublished
+  );
+  const formData = useAppSelector((state) => state.bookFormData.formData);
+  const dispatch = useAppDispatch();
+
+  const { handleSubmit, error, enterLoading, loadings } = useForm(
+    `https://bookclubbrothers-backend.onrender.com/books/${id}`,
+    "PUT",
+    { yearPublished }
+  );
   return (
     <>
       <Form
@@ -32,7 +39,7 @@ const EditPublished: React.FC<Props> = ({ id, inPublish }) => {
           maxWidth: 600,
         }}
         initialValues={{
-          remember: true,
+          yearPublished: inPublish,
         }}
       >
         {/* Year Published */}
@@ -49,10 +56,14 @@ const EditPublished: React.FC<Props> = ({ id, inPublish }) => {
           <Input
             type="number"
             onChange={(e) =>
-              setFormData({ yearPublished: Number(e.target.value) })
+              dispatch(
+                setFormData({
+                  ...formData,
+                  yearPublished: Number(e.target.value),
+                })
+              )
             }
-            defaultValue={formData["yearPublished"]}
-            value={formData["yearPublished"]}
+            value={yearPublished}
           />
         </Form.Item>
 

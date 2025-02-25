@@ -4,6 +4,8 @@
 
 import { Button, Form, Input } from "antd";
 import useForm from "@/hooks/crud-hooks/useForm";
+import { useAppDispatch, useAppSelector } from "@/store/lib/hooks";
+import { setFormData } from "@/store/lib/features/books/bookFormDataSlice";
 
 const { TextArea } = Input;
 
@@ -12,13 +14,18 @@ type Props = {
   inComment: string;
 };
 
-const EditRatingForm: React.FC<Props> = ({ id, inComment }) => {
-  const { handleSubmit, error, formData, setFormData, enterLoading, loadings } =
-    useForm(
-      `https://bookclubbrothers-backend.onrender.com/books/comment/edit/${id}`,
-      { comments: inComment },
-      "PUT"
-    );
+const EditCommentForm: React.FC<Props> = ({ id, inComment }) => {
+  const comments = useAppSelector(
+    (state) => state.bookFormData.formData.commentInfo.comments
+  );
+  const formData = useAppSelector((state) => state.bookFormData.formData);
+  const dispatch = useAppDispatch();
+
+  const { handleSubmit, error, enterLoading, loadings } = useForm(
+    `https://bookclubbrothers-backend.onrender.com/books/comment/edit/${id}`,
+    "PUT",
+    { comments }
+  );
 
   return (
     <>
@@ -35,17 +42,23 @@ const EditRatingForm: React.FC<Props> = ({ id, inComment }) => {
           maxWidth: 600,
         }}
         initialValues={{
-          remember: true,
+          comments: inComment,
         }}
       >
         {/* comment */}
-        <Form.Item label="Comment" name="comment">
+        <Form.Item label="Comment" name="comments">
           <TextArea
             rows={8}
             placeholder="Say a few words about the book"
-            onChange={(e) => setFormData({ comments: e.target.value })}
-            defaultValue={formData["comments"]}
-            value={formData["comments"]}
+            onChange={(e) =>
+              dispatch(
+                setFormData({
+                  ...formData,
+                  commentInfo: { comments: e.target.value },
+                })
+              )
+            }
+            value={comments}
           />
         </Form.Item>
 
@@ -73,4 +86,4 @@ const EditRatingForm: React.FC<Props> = ({ id, inComment }) => {
   );
 };
 
-export default EditRatingForm;
+export default EditCommentForm;
