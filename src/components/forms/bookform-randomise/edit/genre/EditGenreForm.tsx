@@ -2,15 +2,15 @@
 /* eslint-disable react/react-in-jsx-scope */
 "use client";
 
-import { setFormData } from "@/store/lib/features/randomise/randomiseEditSlice";
+import { setFormData } from "@/store/lib/features/books/bookFormDataSlice";
 import { useAppDispatch, useAppSelector } from "@/store/lib/hooks";
 import { Form, Select, Space } from "antd";
 
 const { Option } = Select;
 
 const EditGenreForm = () => {
-  const formData = useAppSelector((state) => state.randomiseEdit.formData);
-  const genre = useAppSelector((state) => state.randomiseEdit.formData.genre);
+  const formData = useAppSelector((state) => state.bookFormData.formData);
+  const genre = useAppSelector((state) => state.bookFormData.formData.genre);
   const dispatch = useAppDispatch();
   return (
     <Form.Item label="Genre" name="genre">

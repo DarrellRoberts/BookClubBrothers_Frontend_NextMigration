@@ -4,18 +4,25 @@
 
 import { Button, Form, Input } from "antd";
 import useForm from "@/hooks/crud-hooks/useForm";
+import { useAppDispatch, useAppSelector } from "@/store/lib/hooks";
+import { setFormData } from "@/store/lib/features/books/bookFormDataSlice";
 
 interface props {
   id: string | string[];
 }
 
 const RatingForm: React.FC<props> = ({ id }) => {
-  const { handleSubmit, error, formData, setFormData, enterLoading, loadings } =
-    useForm(
-      `https://bookclubbrothers-backend.onrender.com/books/rating/${id}`,
-      { rating: 0 },
-      "POST"
-    );
+  const rating = useAppSelector(
+    (state) => state.bookFormData.formData.scoreRatings.rating
+  );
+  const formData = useAppSelector((state) => state.bookFormData.formData);
+  const dispatch = useAppDispatch();
+
+  const { handleSubmit, error, enterLoading, loadings } = useForm(
+    `https://bookclubbrothers-backend.onrender.com/books/rating/${id}`,
+    "POST",
+    { rating }
+  );
 
   return (
     <>
@@ -31,9 +38,6 @@ const RatingForm: React.FC<props> = ({ id }) => {
         style={{
           maxWidth: 600,
         }}
-        initialValues={{
-          remember: true,
-        }}
       >
         {/* rating */}
         <Form.Item
@@ -47,8 +51,15 @@ const RatingForm: React.FC<props> = ({ id }) => {
           ]}
         >
           <Input
-            onChange={(e) => setFormData({ rating: e.target.value })}
-            value={formData["rating"]}
+            onChange={(e) =>
+              dispatch(
+                setFormData({
+                  ...formData,
+                  scoreRatings: { rating: Number(e.target.value) },
+                })
+              )
+            }
+            value={Number(rating)}
           />
         </Form.Item>
 

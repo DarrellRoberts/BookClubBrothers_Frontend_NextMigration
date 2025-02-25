@@ -3,7 +3,7 @@ import { tokenReducer } from "./features/auth/tokenSlice";
 import { editButtonReducer } from "./features/auth/editButtonsSlice";
 import { randomiseReducer } from "./features/randomise/randomiseSlice";
 import { editBookButtonReducer } from "./features/books/editBookButtonsSlice";
-import { randomiseEditReducer } from "./features/randomise/randomiseEditSlice";
+import { bookFormDataReducer } from "./features/books/bookFormDataSlice";
 
 export const makeStore = () => {
   return configureStore({
@@ -12,7 +12,7 @@ export const makeStore = () => {
       editButtons: editButtonReducer,
       randomise: randomiseReducer,
       editBookButtons: editBookButtonReducer,
-      randomiseEdit: randomiseEditReducer,
+      bookFormData: bookFormDataReducer,
     },
   });
 };

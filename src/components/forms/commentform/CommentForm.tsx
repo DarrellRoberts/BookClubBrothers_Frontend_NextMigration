@@ -4,6 +4,8 @@
 
 import { Button, Form, Input } from "antd";
 import useForm from "@/hooks/crud-hooks/useForm";
+import { useAppDispatch, useAppSelector } from "@/store/lib/hooks";
+import { setFormData } from "@/store/lib/features/books/bookFormDataSlice";
 
 const { TextArea } = Input;
 
@@ -12,12 +14,17 @@ interface props {
 }
 
 const CommentForm: React.FC<props> = ({ id }) => {
-  const { handleSubmit, error, formData, setFormData, enterLoading, loadings } =
-    useForm(
-      `https://bookclubbrothers-backend.onrender.com/books/comment/${id}`,
-      { comments: "" },
-      "POST"
-    );
+  const comments = useAppSelector(
+    (state) => state.bookFormData.formData.commentInfo.comments
+  );
+  const formData = useAppSelector((state) => state.bookFormData.formData);
+  const dispatch = useAppDispatch();
+
+  const { handleSubmit, error, enterLoading, loadings } = useForm(
+    `https://bookclubbrothers-backend.onrender.com/books/comment/${id}`,
+    "POST",
+    { comments }
+  );
 
   return (
     <>
@@ -33,17 +40,21 @@ const CommentForm: React.FC<props> = ({ id }) => {
         style={{
           maxWidth: 600,
         }}
-        initialValues={{
-          remember: true,
-        }}
       >
         {/* comment */}
         <Form.Item label="Comment" name="comment">
           <TextArea
             rows={8}
             placeholder="Say a few words about the book"
-            onChange={(e) => setFormData({ comments: e.target.value })}
-            value={formData["comments"]}
+            onChange={(e) =>
+              dispatch(
+                setFormData({
+                  ...formData,
+                  commentInfo: { comments: e.target.value },
+                })
+              )
+            }
+            value={comments}
           />
         </Form.Item>
 

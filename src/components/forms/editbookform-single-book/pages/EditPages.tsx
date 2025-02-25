@@ -4,6 +4,8 @@
 
 import { Button, Form, Input } from "antd";
 import useForm from "@/hooks/crud-hooks/useForm";
+import { useAppDispatch, useAppSelector } from "@/store/lib/hooks";
+import { setFormData } from "@/store/lib/features/books/bookFormDataSlice";
 
 type Props = {
   id: string | string[];
@@ -11,12 +13,15 @@ type Props = {
 };
 
 const EditPages: React.FC<Props> = ({ id, inPages }) => {
-  const { handleSubmit, error, formData, setFormData, enterLoading, loadings } =
-    useForm(
-      `https://bookclubbrothers-backend.onrender.com/books/${id}`,
-      { pages: inPages },
-      "PUT"
-    );
+  const pages = useAppSelector((state) => state.bookFormData.formData.pages);
+  const formData = useAppSelector((state) => state.bookFormData.formData);
+  const dispatch = useAppDispatch();
+
+  const { handleSubmit, error, enterLoading, loadings } = useForm(
+    `https://bookclubbrothers-backend.onrender.com/books/${id}`,
+    "PUT",
+    { pages }
+  );
   return (
     <>
       <Form
@@ -32,7 +37,7 @@ const EditPages: React.FC<Props> = ({ id, inPages }) => {
           maxWidth: 600,
         }}
         initialValues={{
-          remember: true,
+          pages: inPages,
         }}
       >
         {/* Pages */}
@@ -48,9 +53,12 @@ const EditPages: React.FC<Props> = ({ id, inPages }) => {
         >
           <Input
             type="number"
-            onChange={(e) => setFormData({ pages: Number(e.target.value) })}
-            defaultValue={formData["pages"]}
-            value={formData["pages"]}
+            onChange={(e) =>
+              dispatch(
+                setFormData({ ...formData, pages: Number(e.target.value) })
+              )
+            }
+            value={pages}
           />
         </Form.Item>
 

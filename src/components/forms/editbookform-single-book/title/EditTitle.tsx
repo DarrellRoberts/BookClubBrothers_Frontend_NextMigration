@@ -3,6 +3,8 @@
 "use client";
 
 import useForm from "@/hooks/crud-hooks/useForm";
+import { setFormData } from "@/store/lib/features/books/bookFormDataSlice";
+import { useAppDispatch, useAppSelector } from "@/store/lib/hooks";
 import { Button, Form, Input } from "antd";
 
 type Props = {
@@ -11,12 +13,15 @@ type Props = {
 };
 
 const EditTitle: React.FC<Props> = ({ id, inTitle }) => {
-  const { handleSubmit, error, formData, setFormData, enterLoading, loadings } =
-    useForm(
-      `https://bookclubbrothers-backend.onrender.com/books/${id}`,
-      { title: inTitle },
-      "PUT"
-    );
+  const title = useAppSelector((state) => state.bookFormData.formData.title);
+  const formData = useAppSelector((state) => state.bookFormData.formData);
+  const dispatch = useAppDispatch();
+
+  const { handleSubmit, error, enterLoading, loadings } = useForm(
+    `https://bookclubbrothers-backend.onrender.com/books/${id}`,
+    "PUT",
+    { title }
+  );
   return (
     <>
       <Form
@@ -32,7 +37,7 @@ const EditTitle: React.FC<Props> = ({ id, inTitle }) => {
           maxWidth: 600,
         }}
         initialValues={{
-          remember: true,
+          title: inTitle,
         }}
       >
         {/* Title */}
@@ -48,9 +53,10 @@ const EditTitle: React.FC<Props> = ({ id, inTitle }) => {
         >
           <Input
             //   type="text"
-            onChange={(e) => setFormData({ title: e.target.value })}
-            defaultValue={formData["title"]}
-            value={formData["title"]}
+            onChange={(e) =>
+              dispatch(setFormData({ ...formData, title: e.target.value }))
+            }
+            value={title}
           />
         </Form.Item>
 

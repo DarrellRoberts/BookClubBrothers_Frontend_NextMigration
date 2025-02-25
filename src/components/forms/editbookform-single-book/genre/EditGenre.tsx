@@ -4,6 +4,8 @@
 
 import { Button, Form, Select, Space } from "antd";
 import useForm from "@/hooks/crud-hooks/useForm";
+import { useAppDispatch, useAppSelector } from "@/store/lib/hooks";
+import { setFormData } from "@/store/lib/features/books/bookFormDataSlice";
 
 const { Option } = Select;
 
@@ -13,12 +15,15 @@ type Props = {
 };
 
 const EditGenre: React.FC<Props> = ({ id, inGenre }) => {
-  const { handleSubmit, error, formData, setFormData, enterLoading, loadings } =
-    useForm(
-      `https://bookclubbrothers-backend.onrender.com/books/${id}`,
-      { genre: inGenre },
-      "PUT"
-    );
+  const genre = useAppSelector((state) => state.bookFormData.formData.genre);
+  const formData = useAppSelector((state) => state.bookFormData.formData);
+  const dispatch = useAppDispatch();
+
+  const { handleSubmit, error, enterLoading, loadings } = useForm(
+    `https://bookclubbrothers-backend.onrender.com/books/${id}`,
+    "PUT",
+    { genre }
+  );
   return (
     <>
       <Form
@@ -34,7 +39,7 @@ const EditGenre: React.FC<Props> = ({ id, inGenre }) => {
           maxWidth: 600,
         }}
         initialValues={{
-          remember: true,
+          genre: inGenre,
         }}
       >
         {/* Genre */}
@@ -46,9 +51,8 @@ const EditGenre: React.FC<Props> = ({ id, inGenre }) => {
             }}
             placeholder="Select the genres"
             optionLabelProp="label"
-            onChange={(e) => setFormData({ genre: e })}
-            defaultValue={formData["genre"]}
-            value={formData["genre"]}
+            onChange={(e) => dispatch(setFormData({ ...formData, genre: e }))}
+            value={genre}
           >
             <Option value="Horror" label="Horror">
               <Space>
