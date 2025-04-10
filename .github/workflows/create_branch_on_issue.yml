@@ -12,6 +12,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          ref: int # Checkout the 'int' branch
 
       - name: Get branch name from issue title
         id: branch_name
