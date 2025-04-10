@@ -17,7 +17,10 @@ jobs:
         id: branch_name
         run: |
           # Sanitize the issue title to create a valid branch name
-          BRANCH_NAME=$(echo "${{ github.event.issue.title }}" | sed -e 's/[^a-zA-Z0-9._-]/-/g' | tr '[:upper:]' '[:lower:]')
+          ISSUE_NUMBER="${{ github.event.issue.number }}"
+          RANDOM_NUMBER=$((RANDOM % 1000))
+          BRANCH_NUMBER="BCB-$ISSUE_NUMBER-$RANDOM_NUMBER"
+          BRANCH_NAME=$(echo "$BRANCH_NUMBER-${{ github.event.issue.title }}" | sed -e 's/[^a-zA-Z0-9._-]/-/g' | tr '[:upper:]' '[:lower:]')
           echo "BRANCH_NAME=$BRANCH_NAME" >> "$GITHUB_OUTPUT"
 
       - name: Create and push the new branch
