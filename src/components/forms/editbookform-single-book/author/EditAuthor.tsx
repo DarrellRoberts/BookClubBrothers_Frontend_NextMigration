@@ -38,7 +38,6 @@ const EditBookAuthor: React.FC<Props> = ({ id, inAuthor }) => {
           author: inAuthor,
         }}
       >
-        {/* Author */}
         <Form.Item
           label="Author"
           name="author"
