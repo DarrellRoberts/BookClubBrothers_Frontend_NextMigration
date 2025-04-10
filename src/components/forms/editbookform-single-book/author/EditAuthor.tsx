@@ -57,7 +57,6 @@ const EditBookAuthor: React.FC<Props> = ({ id, inAuthor }) => {
           />
         </Form.Item>
 
-        {/* Submission */}
         <Form.Item
           wrapperCol={{
             offset: 8,
