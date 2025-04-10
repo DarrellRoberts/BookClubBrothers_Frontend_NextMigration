@@ -1,14 +1,11 @@
 /* eslint-disable react/react-in-jsx-scope */
-/* eslint-disable react/prop-types */
-import { setShowAuthor } from "@/store/lib/features/books/editBookButtonsSlice";
-import { useAppDispatch, useAppSelector } from "@/store/lib/hooks";
-import { Button } from "antd";
+import { setShowAuthor } from "@/store/lib/features/books/editBookButtonsSlice"
+import { useAppDispatch, useAppSelector } from "@/store/lib/hooks"
+import { Button } from "antd"
 
 const EditAuthorButton = () => {
-  const showAuthor = useAppSelector(
-    (state) => state.editBookButtons.showAuthor
-  );
-  const dispatch = useAppDispatch();
+  const showAuthor = useAppSelector((state) => state.editBookButtons.showAuthor)
+  const dispatch = useAppDispatch()
   return (
     <>
       <div className="flex items-center">
@@ -23,7 +20,7 @@ const EditAuthorButton = () => {
         )}
       </div>
     </>
-  );
-};
+  )
+}
 
-export default EditAuthorButton;
+export default EditAuthorButton
