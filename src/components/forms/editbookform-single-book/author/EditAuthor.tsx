@@ -1,27 +1,26 @@
 /* eslint-disable react/react-in-jsx-scope */
-/* eslint-disable react/prop-types */
-"use client";
+"use client"
 
-import useForm from "@/hooks/crud-hooks/useForm";
-import { setFormData } from "@/store/lib/features/books/bookFormDataSlice";
-import { useAppDispatch, useAppSelector } from "@/store/lib/hooks";
-import { Button, Form, Input } from "antd";
+import useForm from "@/hooks/crud-hooks/useForm"
+import { setFormData } from "@/store/lib/features/books/bookFormDataSlice"
+import { useAppDispatch, useAppSelector } from "@/store/lib/hooks"
+import { Button, Form, Input } from "antd"
 
 type Props = {
-  id: string | string[];
-  inAuthor: string;
-};
+  id: string | string[]
+  inAuthor: string
+}
 
 const EditBookAuthor: React.FC<Props> = ({ id, inAuthor }) => {
-  const author = useAppSelector((state) => state.bookFormData.formData.author);
-  const formData = useAppSelector((state) => state.bookFormData.formData);
-  const dispatch = useAppDispatch();
+  const author = useAppSelector((state) => state.bookFormData.formData.author)
+  const formData = useAppSelector((state) => state.bookFormData.formData)
+  const dispatch = useAppDispatch()
 
   const { handleSubmit, error, enterLoading, loadings } = useForm(
     `https://bookclubbrothers-backend.onrender.com/books/${id}`,
     "PUT",
     { author }
-  );
+  )
   return (
     <>
       <Form
@@ -78,7 +77,7 @@ const EditBookAuthor: React.FC<Props> = ({ id, inAuthor }) => {
         </Form.Item>
       </Form>
     </>
-  );
-};
+  )
+}
 
-export default EditBookAuthor;
+export default EditBookAuthor
