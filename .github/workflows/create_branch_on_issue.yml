@@ -1,0 +1,26 @@
+name: Create Branch on Issue
+
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  create_branch:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Get branch name from issue title
+        id: branch_name
+        run: |
+          # Sanitize the issue title to create a valid branch name
+          BRANCH_NAME=$(echo "${{ github.event.issue.title }}" | sed -e 's/[^a-zA-Z0-9._-]/-/g' | tr '[:upper:]' '[:lower:]')
+          echo "BRANCH_NAME=$BRANCH_NAME" >> "$GITHUB_OUTPUT"
+
+      - name: Create and push the new branch
+        run: |
+          git checkout -b "${{ steps.branch_name.outputs.BRANCH_NAME }}"
+          git push origin "${{ steps.branch_name.outputs.BRANCH_NAME }}"
