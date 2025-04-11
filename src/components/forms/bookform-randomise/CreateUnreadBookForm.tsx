@@ -1,19 +1,20 @@
 /* eslint-disable react/react-in-jsx-scope */
-import { Button, Form, Input, Space, Select } from "antd";
-import "@/style/createbook.css";
-import useForm from "@/hooks/crud-hooks/useForm";
-import { useAppDispatch, useAppSelector } from "@/store/lib/hooks";
-import { setFormData } from "@/store/lib/features/books/bookFormDataSlice";
+import { Button, Form, Input, Space, Select } from "antd"
+import "@/style/createbook.css"
+import useForm from "@/hooks/crud-hooks/useForm"
+import { useAppDispatch, useAppSelector } from "@/store/lib/hooks"
+import { setFormData } from "@/store/lib/features/books/bookFormDataSlice"
+import "./create-book-form.css"
 
-const { Option } = Select;
+const { Option } = Select
 
 const CreateBook: React.FC = () => {
-  const { handleSubmit, error, enterLoading, loadings } = useForm(
+  const { handleSubmit, error, enterLoading, loadings, setError } = useForm(
     "https://bookclubbrothers-backend.onrender.com/books/unread/create",
     "POST"
-  );
-  const formData = useAppSelector((state) => state.bookFormData.formData);
-  const dispatch = useAppDispatch();
+  )
+  const formData = useAppSelector((state) => state.bookFormData.formData)
+  const dispatch = useAppDispatch()
 
   return (
     <>
@@ -40,8 +41,17 @@ const CreateBook: React.FC = () => {
           rules={[
             {
               required: true,
+              validator(_, value) {
+                const textRegex = /^[a-zA-Z0-9\s-\s?\s!\s']+$/
+                if (textRegex.test(value) && value.length < 40) {
+                  setError(null)
+                  return Promise.resolve()
+                }
+                setError("Please check all fields are correct")
+                return Promise.reject()
+              },
               message:
-                "Please write the name of book! How else we will know which book it is?",
+                "Please write the title of the book. No special characters allowed",
             },
           ]}
         >
@@ -61,7 +71,21 @@ const CreateBook: React.FC = () => {
           rules={[
             {
               required: true,
-              message: "Please write the name of the author!",
+              validator(_, value) {
+                const nameRegex = /^[a-zA-Z\s-\s']+$/
+                if (
+                  nameRegex.test(value) &&
+                  value.length > 4 &&
+                  value.length < 30
+                ) {
+                  setError(null)
+                  return Promise.resolve()
+                }
+                setError("Please check all required fields are correct")
+                return Promise.reject()
+              },
+              message:
+                "Please write the name of the author. It must be more than 4 characters and no special characters nor numbers are allowed",
             },
           ]}
         >
@@ -80,7 +104,16 @@ const CreateBook: React.FC = () => {
           rules={[
             {
               required: true,
-              message: "Please write the number of pages (i'm curious)!",
+              validator(_, value) {
+                const numberRegex = /^(50|[1-9]\d{2}|1\d{3}|2000)$/
+                if (numberRegex.test(value)) {
+                  setError(null)
+                  return Promise.resolve()
+                }
+                setError("Please check all required fields are correct")
+                return Promise.reject()
+              },
+              message: "The number of pages must be between 50 and 2000",
             },
           ]}
         >
@@ -101,7 +134,17 @@ const CreateBook: React.FC = () => {
           rules={[
             {
               required: true,
-              message: "Please write the year it was published (I'm curious)!",
+              validator(_, value) {
+                const yearRegex = /^(1\d{3}|2\d{3}|3000)$/
+                if (yearRegex.test(value)) {
+                  setError(null)
+                  return Promise.resolve()
+                }
+                setError("Please check all required fields are correct")
+                return Promise.reject()
+              },
+              message:
+                "Please write the year it was published in a 4-digit format between 1000 and 3000",
             },
           ]}
         >
@@ -252,7 +295,25 @@ const CreateBook: React.FC = () => {
         </Form.Item>
 
         {/* ImageURL */}
-        <Form.Item label="Image URL" name="image">
+        <Form.Item
+          label="Image URL"
+          name="image"
+          rules={[
+            {
+              validator(_, value) {
+                const imageRegex = /\.(jpg|jpeg|png|svg|webp)$/i
+                if (imageRegex.test(value) || !value) {
+                  setError(null)
+                  return Promise.resolve()
+                }
+                setError("Please check all required fields are correct")
+                return Promise.reject()
+              },
+              message:
+                "URLs must end in either .jpg, .jpeg, .png, .svg, or .webp",
+            },
+          ]}
+        >
           <Input
             type="text"
             onChange={(e) =>
@@ -274,16 +335,18 @@ const CreateBook: React.FC = () => {
             ghost
             className="loginButtons"
             loading={loadings}
-            onClick={() => enterLoading()}
+            onClick={() => (error ? null : enterLoading())}
             htmlType="submit"
           >
             Submit
           </Button>
-          {error ? <h4 className="errorH">{error}</h4> : null}
+          {error ? (
+            <h4 className="bg-black text-red-500 p-[0.5rem]">{error}</h4>
+          ) : null}
         </Form.Item>
       </Form>
     </>
-  );
-};
+  )
+}
 
-export default CreateBook;
+export default CreateBook
