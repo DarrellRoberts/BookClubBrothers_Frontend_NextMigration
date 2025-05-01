@@ -38,7 +38,6 @@ const EditBookAuthor: React.FC<Props> = ({ id, inAuthor }) => {
           author: inAuthor,
         }}
       >
-        {/* Author */}
         <Form.Item
           label="Author"
           name="author"
@@ -57,7 +56,6 @@ const EditBookAuthor: React.FC<Props> = ({ id, inAuthor }) => {
           />
         </Form.Item>
 
-        {/* Submission */}
         <Form.Item
           wrapperCol={{
             offset: 8,

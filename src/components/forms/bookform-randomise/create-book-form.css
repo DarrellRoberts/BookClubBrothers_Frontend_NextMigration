@@ -1,0 +1,6 @@
+:where(.css-dev-only-do-not-override-1rqnfsa).ant-form-item
+  .ant-form-item-explain-error,
+:where(.css-1rqnfsa).ant-form-item .ant-form-item-explain-error {
+  background: black;
+  padding: 0.5rem;
+}
