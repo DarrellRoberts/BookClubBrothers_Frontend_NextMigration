@@ -5,10 +5,19 @@ import useForm from "@/hooks/crud-hooks/useForm"
 import { useAppDispatch, useAppSelector } from "@/store/lib/hooks"
 import { setFormData } from "@/store/lib/features/books/bookFormDataSlice"
 import "./create-book-form.css"
+import { useEffect, useState } from "react"
 
 const { Option } = Select
 
 const CreateBook: React.FC = () => {
+  const [errorObject, setErrorObject] = useState({
+    title: false,
+    author: false,
+    yearPublished: false,
+    pages: false,
+    imageURL: false,
+  })
+  const [noImageMessage, setNoImageMessage] = useState<any>()
   const { handleSubmit, error, enterLoading, loadings, setError } = useForm(
     "https://bookclubbrothers-backend.onrender.com/books/unread/create",
     "POST"
@@ -16,6 +25,21 @@ const CreateBook: React.FC = () => {
   const formData = useAppSelector((state) => state.bookFormData.formData)
   const dispatch = useAppDispatch()
 
+  // const handleForm = () => {
+  //   if (
+  //     Object.values(errorObject).some((value) => value === false) &&
+  //     errorObject.imageURL
+  //   ) {
+  //     setError("Please check all required fields are correct")
+  // }
+
+  useEffect(() => {
+    if (Object.values(errorObject).some((value) => value === false)) {
+      setError("Please check all required fields are correct")
+    } else {
+      setError(null)
+    }
+  }, [errorObject])
   return (
     <>
       <Form
@@ -44,10 +68,10 @@ const CreateBook: React.FC = () => {
               validator(_, value) {
                 const textRegex = /^[a-zA-Z0-9\s-\s?\s!\s']+$/
                 if (textRegex.test(value) && value.length < 40) {
-                  setError(null)
+                  setErrorObject({ ...errorObject, title: true })
                   return Promise.resolve()
                 }
-                setError("Please check all fields are correct")
+                setErrorObject({ ...errorObject, title: false })
                 return Promise.reject()
               },
               message:
@@ -78,10 +102,10 @@ const CreateBook: React.FC = () => {
                   value.length > 4 &&
                   value.length < 30
                 ) {
-                  setError(null)
+                  setErrorObject({ ...errorObject, author: true })
                   return Promise.resolve()
                 }
-                setError("Please check all required fields are correct")
+                setErrorObject({ ...errorObject, author: false })
                 return Promise.reject()
               },
               message:
@@ -107,10 +131,10 @@ const CreateBook: React.FC = () => {
               validator(_, value) {
                 const numberRegex = /^(50|[1-9]\d{2}|1\d{3}|2000)$/
                 if (numberRegex.test(value)) {
-                  setError(null)
+                  setErrorObject({ ...errorObject, pages: true })
                   return Promise.resolve()
                 }
-                setError("Please check all required fields are correct")
+                setErrorObject({ ...errorObject, pages: false })
                 return Promise.reject()
               },
               message: "The number of pages must be between 50 and 2000",
@@ -137,10 +161,10 @@ const CreateBook: React.FC = () => {
               validator(_, value) {
                 const yearRegex = /^(1\d{3}|2\d{3}|3000)$/
                 if (yearRegex.test(value)) {
-                  setError(null)
+                  setErrorObject({ ...errorObject, yearPublished: true })
                   return Promise.resolve()
                 }
-                setError("Please check all required fields are correct")
+                setErrorObject({ ...errorObject, yearPublished: false })
                 return Promise.reject()
               },
               message:
@@ -298,15 +322,35 @@ const CreateBook: React.FC = () => {
         <Form.Item
           label="Image URL"
           name="image"
+          required={true}
           rules={[
             {
               validator(_, value) {
                 const imageRegex = /\.(jpg|jpeg|png|svg|webp)$/i
-                if (imageRegex.test(value) || !value) {
-                  setError(null)
+                if (value.length === 0) {
+                  setErrorObject({ ...errorObject, imageURL: false })
+                  setNoImageMessage(
+                    <>
+                      No image URL?? Let me help with that. Click{" "}
+                      <a
+                        className="underline font-bold"
+                        href={`https://www.google.com/search?q=${formData["title"]}+book+cover&tbm=isch`}
+                        target="_blank"
+                      >
+                        here
+                      </a>{" "}
+                      you lazy bastard, find one you like, right-click and copy
+                      the image URL and paste it in the above field
+                    </>
+                  )
+                  return Promise.reject()
+                }
+                if (imageRegex.test(value)) {
+                  setErrorObject({ ...errorObject, imageURL: true })
+                  setNoImageMessage("")
                   return Promise.resolve()
                 }
-                setError("Please check all required fields are correct")
+                setErrorObject({ ...errorObject, imageURL: false })
                 return Promise.reject()
               },
               message:
@@ -342,6 +386,11 @@ const CreateBook: React.FC = () => {
           </Button>
           {error ? (
             <h4 className="bg-black text-red-500 p-[0.5rem]">{error}</h4>
+          ) : null}
+          {noImageMessage ? (
+            <h4 className="bg-black text-red-500 p-[0.5rem]">
+              {noImageMessage}
+            </h4>
           ) : null}
         </Form.Item>
       </Form>

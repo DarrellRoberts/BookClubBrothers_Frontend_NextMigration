@@ -1,29 +1,36 @@
 /* eslint-disable react/react-in-jsx-scope */
 /* eslint-disable react/prop-types */
-"use client";
+"use client"
 
-import { setFormData } from "@/store/lib/features/books/bookFormDataSlice";
-import { useAppDispatch, useAppSelector } from "@/store/lib/hooks";
-import { Form, Input } from "antd";
+import { setFormData } from "@/store/lib/features/books/bookFormDataSlice"
+import { useAppDispatch, useAppSelector } from "@/store/lib/hooks"
+import { Form, Input } from "antd"
 
-const EditPagesForm = () => {
-  const formData = useAppSelector((state) => state.bookFormData.formData);
-  const pages = useAppSelector((state) => state.bookFormData.formData.pages);
-  const dispatch = useAppDispatch();
+const EditPagesForm = ({ errorObject, setErrorObject }) => {
+  const formData = useAppSelector((state) => state.bookFormData.formData)
+  const pages = useAppSelector((state) => state.bookFormData.formData.pages)
+  const dispatch = useAppDispatch()
   return (
     <Form.Item
       label="Pages"
       name="pages"
-      rules={
-        pages
-          ? null
-          : [
-              {
-                required: true,
-                message: "Please write the number of pages!",
-              },
-            ]
-      }
+      rules={[
+        {
+          required: true,
+          validator(_, value) {
+            const numberRegex = /^(50|[1-9]\d{2}|1\d{3}|2000)$/
+            if (!numberRegex.test(value)) {
+              setErrorObject({ ...errorObject, pages: false })
+              return Promise.reject()
+            }
+            if (numberRegex.test(value)) {
+              setErrorObject({ ...errorObject, pages: true })
+              return Promise.resolve()
+            }
+          },
+          message: "The number of pages must be between 50 and 2000",
+        },
+      ]}
     >
       <Input
         type="number"
@@ -33,7 +40,7 @@ const EditPagesForm = () => {
         value={pages}
       />
     </Form.Item>
-  );
-};
+  )
+}
 
-export default EditPagesForm;
+export default EditPagesForm
