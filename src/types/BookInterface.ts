@@ -7,7 +7,7 @@ interface Book {
   dateOfMeeting?: string
   actualDateOfMeeting?: string
   reviewImageURL?: string
-  genre: string | string[]
+  genre: any
   imageURL?: string
   pages: number
   read?: boolean
