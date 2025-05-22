@@ -5,7 +5,7 @@ import { useState } from "react"
 
 const useForm = (url: string, reqType: string, customData?: object) => {
   const [loadings, setLoadings] = useState(false)
-  const [error, setError] = useState("")
+  const [error, setError] = useState<any>()
 
   const token = useAppSelector((state) => state.token.tokenState)
   const formData =
@@ -24,14 +24,12 @@ const useForm = (url: string, reqType: string, customData?: object) => {
       })
       const data = await response.json()
       if (!response.ok) {
-        console.log(data)
-        console.log(token)
         setError(data)
         console.log("something has happened")
       }
 
       if (response.ok) {
-        console.log("success")
+        return
       }
     } catch (error) {
       setError(error)

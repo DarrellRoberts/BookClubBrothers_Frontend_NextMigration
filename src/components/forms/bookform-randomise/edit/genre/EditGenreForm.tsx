@@ -1,19 +1,19 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/react-in-jsx-scope */
-"use client";
+"use client"
 
-import { setFormData } from "@/store/lib/features/books/bookFormDataSlice";
-import { useAppDispatch, useAppSelector } from "@/store/lib/hooks";
-import { Form, Select, Space } from "antd";
+import { setFormData } from "@/store/lib/features/books/bookFormDataSlice"
+import { useAppDispatch, useAppSelector } from "@/store/lib/hooks"
+import { Form, Select, Space } from "antd"
 
-const { Option } = Select;
+const { Option } = Select
 
 const EditGenreForm = () => {
-  const formData = useAppSelector((state) => state.bookFormData.formData);
-  const genre = useAppSelector((state) => state.bookFormData.formData.genre);
-  const dispatch = useAppDispatch();
+  const formData = useAppSelector((state) => state.bookFormData.formData)
+  const genre = useAppSelector((state) => state.bookFormData.formData.genre)
+  const dispatch = useAppDispatch()
   return (
-    <Form.Item label="Genre" name="genre">
+    <Form.Item label="Genre" name="genre" rules={[{ required: true }]}>
       <Select
         mode="multiple"
         style={{
@@ -138,7 +138,7 @@ const EditGenreForm = () => {
         </Option>
       </Select>
     </Form.Item>
-  );
-};
+  )
+}
 
-export default EditGenreForm;
+export default EditGenreForm
