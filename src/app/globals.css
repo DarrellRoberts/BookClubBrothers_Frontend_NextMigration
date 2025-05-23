@@ -37,6 +37,10 @@ body:has(#theme:checked) {
   --user-background-color: #151410;
 }
 
+h2 {
+  font-family: var(--main);
+}
+
 .libaryButtons {
   width: 200px;
   text-align: center;
