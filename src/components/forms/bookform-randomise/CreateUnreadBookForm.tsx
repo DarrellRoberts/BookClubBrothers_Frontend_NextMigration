@@ -67,7 +67,7 @@ const CreateBook: React.FC = () => {
               required: true,
               validator(_, value) {
                 const textRegex = /^[a-zA-Z0-9\s-\s?\s!\s']+$/
-                if (textRegex.test(value) && value.length < 40) {
+                if (textRegex.test(value) && value?.length < 40) {
                   setErrorObject({ ...errorObject, title: true })
                   return Promise.resolve()
                 }
@@ -99,8 +99,8 @@ const CreateBook: React.FC = () => {
                 const nameRegex = /^[a-zA-Z\s-\s']+$/
                 if (
                   nameRegex.test(value) &&
-                  value.length > 4 &&
-                  value.length < 30
+                  value?.length > 4 &&
+                  value?.length < 30
                 ) {
                   setErrorObject({ ...errorObject, author: true })
                   return Promise.resolve()
@@ -327,7 +327,7 @@ const CreateBook: React.FC = () => {
             {
               validator(_, value) {
                 const imageRegex = /\.(jpg|jpeg|png|svg|webp)$/i
-                if (value.length === 0) {
+                if (!value) {
                   setErrorObject({ ...errorObject, imageURL: false })
                   setNoImageMessage(
                     <>
@@ -349,9 +349,10 @@ const CreateBook: React.FC = () => {
                   setErrorObject({ ...errorObject, imageURL: true })
                   setNoImageMessage("")
                   return Promise.resolve()
+                } else if (value && !imageRegex.test(value)) {
+                  setErrorObject({ ...errorObject, imageURL: false })
+                  return Promise.reject()
                 }
-                setErrorObject({ ...errorObject, imageURL: false })
-                return Promise.reject()
               },
               message:
                 "URLs must end in either .jpg, .jpeg, .png, .svg, or .webp",
@@ -384,15 +385,19 @@ const CreateBook: React.FC = () => {
           >
             Submit
           </Button>
+        </Form.Item>
+        <div className="flex flex-col justify-center items-center w-full">
           {error ? (
-            <h4 className="bg-black text-red-500 p-[0.5rem]">{error}</h4>
+            <h4 className="bg-black text-red-500 p-[0.5rem] rounded">
+              {error}
+            </h4>
           ) : null}
           {noImageMessage ? (
-            <h4 className="bg-black text-red-500 p-[0.5rem]">
+            <h4 className="bg-black text-red-500 p-[0.5rem] rounded">
               {noImageMessage}
             </h4>
           ) : null}
-        </Form.Item>
+        </div>
       </Form>
     </>
   )
