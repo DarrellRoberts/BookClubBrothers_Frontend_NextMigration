@@ -17,9 +17,9 @@ const DeleteBook: React.FC<Props> = ({ id }) => {
 
   const confirm = () =>
     new Promise((resolve) => {
+      handleSubmit()
       setTimeout(() => {
         resolve(null)
-        handleSubmit()
         document.location.reload()
       }, 3000)
     })

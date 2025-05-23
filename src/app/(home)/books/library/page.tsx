@@ -1,57 +1,59 @@
 /* eslint-disable react/react-in-jsx-scope */
-"use client";
+"use client"
 
-import { useState, useEffect } from "react";
-import Loader from "@/components/loader/Loader";
-import BookCover from "@/components/books/library/BookCover";
-import Link from "next/link";
-import Search from "@/components/misc/search/Search";
-import "@/style/booklibrary.css";
-import "@/style/booklibraryRes.css";
-import "@/style/search.css";
-import "@/style/searchRes.css";
-import { Button } from "antd";
-import BookImageCover from "@/components/books/library/BookImageCover";
-import { handleHideScores_NoSetter } from "@/utils/time-functions/hideScores";
-import useBookFetch from "@/hooks/fetch-hooks/useReadBookFetch";
-import { Book } from "@/types/BookInterface";
-import useScrollRef from "@/hooks/scroll-hooks/useScrollRef";
-import useLimit from "@/hooks/scroll-hooks/useLimit";
+import { useState, useEffect } from "react"
+import Loader from "@/components/loader/Loader"
+import BookCover from "@/components/books/library/BookCover"
+import Link from "next/link"
+import Search from "@/components/misc/search/Search"
+import "@/style/booklibrary.css"
+import "@/style/booklibraryRes.css"
+import "@/style/search.css"
+import "@/style/searchRes.css"
+import { Button } from "antd"
+import BookImageCover from "@/components/books/library/BookImageCover"
+import { handleHideScores_NoSetter } from "@/utils/time-functions/hideScores"
+import useBookFetch from "@/hooks/fetch-hooks/useReadBookFetch"
+import { Book } from "@/types/BookInterface"
+import useScrollRef from "@/hooks/scroll-hooks/useScrollRef"
+import useLimit from "@/hooks/scroll-hooks/useLimit"
 
 const Booklibrary: React.FC = () => {
-  const [searchBar, setSearchBar] = useState<string>("");
-  const [books, setBooks] = useState<Book[]>([]);
+  const [searchBar, setSearchBar] = useState<string>("")
+  const [books, setBooks] = useState<Book[]>([])
 
-  const { limit, handleLimit, setIsLimit, isLimit } = useLimit();
+  const { limit, handleLimit, setIsLimit, isLimit } = useLimit()
 
   const { bookData, loadingBooks, error } = useBookFetch(
     `https://bookclubbrothers-backend.onrender.com/books/limit/${limit}`,
     limit
-  );
+  )
 
-  const readBooks = bookData?.filter((book) => book.read === true);
+  const readBooks = bookData?.filter((book) => book.read === true)
 
-  const lastItemRef = useScrollRef(loadingBooks, limit, handleLimit);
+  const lastItemRef = useScrollRef(loadingBooks, limit, handleLimit)
 
   const filteredResults = Array.isArray(readBooks)
     ? readBooks?.filter((book) =>
         book.title.toLowerCase().includes(searchBar.toLowerCase())
       )
-    : ["No results"];
+    : ["No results"]
+
+  console.log(bookData)
+  console.log(filteredResults)
+  useEffect(() => {
+    if (!loadingBooks) setBooks(filteredResults)
+  }, [searchBar])
 
   useEffect(() => {
-    if (!loadingBooks) setBooks(filteredResults);
-  }, [searchBar]);
-
-  useEffect(() => {
-    if (books.length === 0 && !loadingBooks) setBooks(filteredResults);
+    if (books.length === 0 && !loadingBooks) setBooks(filteredResults)
     setBooks((prevItems) => [
       ...prevItems,
       ...filteredResults.slice(prevItems.length + 1, limit),
-    ]);
-    const timer = setTimeout(() => setIsLimit(false), 500);
-    return () => clearTimeout(timer);
-  }, [limit, loadingBooks]);
+    ])
+    const timer = setTimeout(() => setIsLimit(false), 500)
+    return () => clearTimeout(timer)
+  }, [limit, loadingBooks])
 
   return (
     <>
@@ -111,7 +113,7 @@ const Booklibrary: React.FC = () => {
         <div ref={filteredResults.length === limit ? lastItemRef : null}></div>
       )}
     </>
-  );
-};
+  )
+}
 
-export default Booklibrary;
+export default Booklibrary
