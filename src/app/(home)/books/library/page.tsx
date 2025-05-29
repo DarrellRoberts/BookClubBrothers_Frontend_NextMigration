@@ -82,7 +82,9 @@ const Booklibrary: React.FC = () => {
                   </Link>
                 ) : (
                   <Link href={`/books/library/${book._id}`}>
-                    <h2 className="smallBookTitle">{book.title}</h2>
+                    <div className="flex justify-center w-full">
+                      <h2 className="smallBookTitle">{book.title}</h2>
+                    </div>
                     <div className="bookCoverCon">
                       <BookCover
                         title={book?.title}
