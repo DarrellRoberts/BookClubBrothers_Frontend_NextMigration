@@ -10,12 +10,12 @@ import {
   Legend,
   Filler,
   ChartOptions,
-} from "chart.js";
-import { Bar } from "react-chartjs-2";
-import { abbreviateString } from "@/utils/abbreviateString";
-import { useMediaQuery } from "react-responsive";
-import Cookies from "js-cookie";
-import style from "./Graph.module.css";
+} from "chart.js"
+import { Bar } from "react-chartjs-2"
+import { abbreviateString } from "@/utils/abbreviateString"
+import { useMediaQuery } from "react-responsive"
+import Cookies from "js-cookie"
+import style from "./Graph.module.css"
 
 ChartJS.register(
   CategoryScale,
@@ -26,14 +26,14 @@ ChartJS.register(
   Tooltip,
   Legend,
   Filler
-);
+)
 
 type Props = {
-  bookTitles: string[];
-  totalBookScores?: number[] | string[];
-  bookScores?: number[] | string[];
-  username?: string;
-};
+  bookTitles: string[]
+  totalBookScores?: number[] | string[]
+  bookScores?: number[] | string[]
+  username?: string
+}
 
 const Graph: React.FC<Props> = ({
   bookTitles,
@@ -41,17 +41,17 @@ const Graph: React.FC<Props> = ({
   bookScores,
   username,
 }: Props) => {
-  const handleDesktop = useMediaQuery({ query: "(min-device-width: 801px)" });
-  const darkCookie = Cookies.get("dark-mode");
+  const handleDesktop = useMediaQuery({ query: "(min-device-width: 801px)" })
+  const darkCookie = Cookies.get("dark-mode")
 
   const labelsLen = handleDesktop
     ? bookTitles
     : bookTitles?.map((title) =>
         title.length > 15 ? abbreviateString(title) : title
-      );
+      )
 
-  const datasets: number[] | string[] = bookScores ?? null;
-  const datasets2: number[] | string[] = totalBookScores;
+  const datasets: number[] | string[] = bookScores ?? null
+  const datasets2: number[] | string[] = totalBookScores
 
   const data = {
     labels: labelsLen,
@@ -72,7 +72,7 @@ const Graph: React.FC<Props> = ({
         barPercentage: 1,
       },
     ],
-  };
+  }
 
   const options: ChartOptions<"bar"> = {
     responsive: true,
@@ -129,13 +129,13 @@ const Graph: React.FC<Props> = ({
         max: 10,
       },
     },
-  };
+  }
 
   return (
     <div className={style.graph}>
       <Bar data={data} options={options} />
     </div>
-  );
-};
+  )
+}
 
-export default Graph;
+export default Graph
