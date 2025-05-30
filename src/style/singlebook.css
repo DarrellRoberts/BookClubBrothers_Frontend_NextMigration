@@ -2,6 +2,7 @@
   font-family: var(--main);
   font-size: 5rem;
   margin: 1rem;
+  padding-bottom: 5rem;
 }
 
 .bookCover {

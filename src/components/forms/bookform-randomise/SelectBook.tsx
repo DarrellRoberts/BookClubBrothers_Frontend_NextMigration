@@ -1,11 +1,11 @@
 /* eslint-disable react/react-in-jsx-scope */
 /* eslint-disable react/prop-types */
-import { Button, Form } from "antd";
-import useForm from "@/hooks/crud-hooks/useForm";
+import { Button, Form } from "antd"
+import useForm from "@/hooks/crud-hooks/useForm"
 
 type Props = {
-  bookId: string;
-};
+  bookId: string
+}
 
 const SelectBook: React.FC<Props> = ({ bookId }) => {
   const { handleSubmit, enterLoading, loadings } = useForm(
@@ -13,8 +13,9 @@ const SelectBook: React.FC<Props> = ({ bookId }) => {
     "PUT",
     {
       read: true,
+      dateOfMeeting: Date.now(),
     }
-  );
+  )
 
   return (
     <>
@@ -28,7 +29,7 @@ const SelectBook: React.FC<Props> = ({ bookId }) => {
         </Button>
       </Form>
     </>
-  );
-};
+  )
+}
 
-export default SelectBook;
+export default SelectBook

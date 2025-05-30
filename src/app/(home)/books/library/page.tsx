@@ -39,8 +39,6 @@ const Booklibrary: React.FC = () => {
       )
     : ["No results"]
 
-  console.log(bookData)
-  console.log(filteredResults)
   useEffect(() => {
     if (!loadingBooks) setBooks(filteredResults)
   }, [searchBar])
