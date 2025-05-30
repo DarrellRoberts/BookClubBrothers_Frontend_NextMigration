@@ -9,6 +9,8 @@ type Props = {
   scaleMultiplier?: number
   isLink?: boolean
   username?: string
+  width?: number
+  height?: number
 }
 
 const Profile: React.FC<Props> = ({
@@ -16,33 +18,33 @@ const Profile: React.FC<Props> = ({
   scaleMultiplier,
   isLink,
   username,
+  width,
+  height
 }) => {
   return (
     <>
       {isLink ? (
-        <Link href={`/brothers/library/${username}`}>
-          <div
-            className={style.profileCon}
-            style={{ transform: `scale(${scaleMultiplier})` }}
+        <div className={style.profileCon}>
+          <Link
+            href={`/brothers/library/${username}`}
+            // style={{ transform: `scale(${scaleMultiplier})` }}
           >
             <Image
               src={imageURL ? imageURL : ProfileUnknownUserImage}
-              width={150}
-              height={300}
+              width={width ?? 200}
+              height={height ?? 300}
               alt="Profile picture"
             />
-          </div>
-        </Link>
+          </Link>
+        </div>
       ) : (
-        <div
-          className={style.profileCon}
-          style={{ transform: `scale(${scaleMultiplier})` }}
-        >
+        <div className={style.profileCon}>
           <Image
             src={imageURL ? imageURL : ProfileUnknownUserImage}
-            width={150}
-            height={300}
+            width={width ?? 200}
+            height={height ?? 300}
             alt="Profile picture"
+            // style={{ transform: `scale(${scaleMultiplier})` }}
           />
         </div>
       )}
