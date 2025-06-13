@@ -15,7 +15,7 @@
 
 .ratingGraph {
   background-color: var(--tertiaryColor);
-  color: white;
+  color: var(--button-font-color);
   text-align: center;
   font-weight: 500;
 }

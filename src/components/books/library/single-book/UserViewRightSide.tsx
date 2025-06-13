@@ -4,8 +4,6 @@ import "@/style/singlebook.css"
 import "@/style/singlebookRes.css"
 import { handleHideScores_NoSetter } from "@/utils/time-functions/hideScores"
 import { dateFormatter } from "@/utils/time-functions/dateFormatter"
-import Profile from "@/components/misc/profile/Profile"
-import useSingleUserFetch from "@/hooks/fetch-hooks/useSingleUserFetch"
 
 type Props = {
   bookData: Book

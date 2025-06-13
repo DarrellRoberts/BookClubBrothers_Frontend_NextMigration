@@ -1,9 +1,10 @@
-import { configureStore } from "@reduxjs/toolkit";
-import { tokenReducer } from "./features/auth/tokenSlice";
-import { editButtonReducer } from "./features/auth/editButtonsSlice";
-import { randomiseReducer } from "./features/randomise/randomiseSlice";
-import { editBookButtonReducer } from "./features/books/editBookButtonsSlice";
-import { bookFormDataReducer } from "./features/books/bookFormDataSlice";
+import { configureStore } from "@reduxjs/toolkit"
+import { tokenReducer } from "./features/auth/tokenSlice"
+import { editButtonReducer } from "./features/auth/editButtonsSlice"
+import { randomiseReducer } from "./features/randomise/randomiseSlice"
+import { editBookButtonReducer } from "./features/books/editBookButtonsSlice"
+import { bookFormDataReducer } from "./features/books/bookFormDataSlice"
+import { darkModeReducer } from "./features/dark-mode/darkModeDataSlice"
 
 export const makeStore = () => {
   return configureStore({
@@ -13,12 +14,13 @@ export const makeStore = () => {
       randomise: randomiseReducer,
       editBookButtons: editBookButtonReducer,
       bookFormData: bookFormDataReducer,
+      darkMode: darkModeReducer,
     },
-  });
-};
+  })
+}
 
 // Infer the type of makeStore
-export type AppStore = ReturnType<typeof makeStore>;
+export type AppStore = ReturnType<typeof makeStore>
 // Infer the `RootState` and `AppDispatch` types from the store itself
-export type RootState = ReturnType<AppStore["getState"]>;
-export type AppDispatch = AppStore["dispatch"];
+export type RootState = ReturnType<AppStore["getState"]>
+export type AppDispatch = AppStore["dispatch"]

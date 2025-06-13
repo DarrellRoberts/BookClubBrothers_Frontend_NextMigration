@@ -65,7 +65,8 @@ const BookCover: React.FC<Props> = ({
           {Array.isArray(raterObj) && !loadingUsers ? (
             raterObj.map(([name, value]) => (
               <li className="list-none mb-1 ml-2" key={name}>
-                {name}: {hideScores && username !== name ? "?" : value}
+                {name}:{" "}
+                {hideScores && username !== name ? "?" : value.toFixed(2)}
               </li>
             ))
           ) : error ? (

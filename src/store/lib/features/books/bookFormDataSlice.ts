@@ -21,6 +21,23 @@ const initialState: BookState = {
     scoreRatings: {
       rating: [],
     },
+    shortStories: [
+      {
+        scoreRatings: {
+          raterId: [],
+          rating: [],
+        },
+        commentInfo: {
+          commentId: [],
+          comments: [],
+        },
+        parentId: "",
+        title: "",
+        author: "",
+        pages: 0,
+        _id: "",
+      },
+    ],
     title: "",
     yearPublished: 0,
   },

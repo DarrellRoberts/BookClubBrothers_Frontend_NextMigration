@@ -1,16 +1,21 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/react-in-jsx-scope */
-"use client";
+"use client"
 
-import { useState } from "react";
-import { Modal, Button } from "antd";
-import EditRatingForm from "./EditRatingForm";
+import { useState } from "react"
+import { Modal, Button } from "antd"
+import EditRatingForm from "./EditRatingForm"
+import EditAnthologyRatingForm from "./EditAnthologyRatingForm"
+import { Book } from "@/types/BookInterface"
 
 interface props {
-  setShowEditRating: React.Dispatch<React.SetStateAction<boolean>>;
-  showEditRating: boolean;
-  id: string | string[];
-  initialRating: number;
+  setShowEditRating: React.Dispatch<React.SetStateAction<boolean>>
+  showEditRating: boolean
+  id: string | string[]
+  initialRating: number
+  isAnthology: boolean
+  shortStoryData: object
+  bookData: Book
 }
 
 const EditRatingButton: React.FC<props> = ({
@@ -18,21 +23,25 @@ const EditRatingButton: React.FC<props> = ({
   setShowEditRating,
   id,
   initialRating,
+  isAnthology,
+  shortStoryData,
+  bookData,
 }) => {
-  const [confirmLoading, setConfirmLoading] = useState<boolean>(false);
+  const [confirmLoading, setConfirmLoading] = useState<boolean>(false)
 
   const showModal = () => {
-    setShowEditRating(true);
-  };
+    setShowEditRating(true)
+  }
   const handleOk = () => {
-    setConfirmLoading(true);
+    setConfirmLoading(true)
     setTimeout(() => {
-      setShowEditRating(false);
-    }, 4000);
-  };
+      setShowEditRating(false)
+    }, 4000)
+  }
   const handleCancel = () => {
-    setShowEditRating(false);
-  };
+    setShowEditRating(false)
+  }
+
   return (
     <>
       <div className="flex items-center">
@@ -48,12 +57,19 @@ const EditRatingButton: React.FC<props> = ({
         onCancel={handleCancel}
         footer={null}
       >
-        {showEditRating && (
+        {showEditRating && !isAnthology && (
           <EditRatingForm id={id} initialRating={initialRating} />
+        )}
+        {showEditRating && isAnthology && (
+          <EditAnthologyRatingForm
+            id={id}
+            shortStoryData={shortStoryData}
+            bookData={bookData}
+          />
         )}
       </Modal>
     </>
-  );
-};
+  )
+}
 
-export default EditRatingButton;
+export default EditRatingButton

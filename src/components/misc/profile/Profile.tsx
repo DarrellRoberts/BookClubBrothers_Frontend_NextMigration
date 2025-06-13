@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import style from "./Profile.module.css"
 import Image from "next/image"
 import ProfileUnknownUserImage from "@/assets/Profile.unknown-profile-image.jpg"
@@ -19,8 +19,13 @@ const Profile: React.FC<Props> = ({
   isLink,
   username,
   width,
-  height
+  height,
 }) => {
+  const [imageSrc, setImageSrc] = useState<string>("")
+
+  useEffect(() => {
+    setImageSrc(imageURL)
+  }, [username])
   return (
     <>
       {isLink ? (
@@ -30,7 +35,7 @@ const Profile: React.FC<Props> = ({
             // style={{ transform: `scale(${scaleMultiplier})` }}
           >
             <Image
-              src={imageURL ? imageURL : ProfileUnknownUserImage}
+              src={imageURL ? imageSrc : ProfileUnknownUserImage}
               width={width ?? 200}
               height={height ?? 300}
               alt="Profile picture"
@@ -40,7 +45,7 @@ const Profile: React.FC<Props> = ({
       ) : (
         <div className={style.profileCon}>
           <Image
-            src={imageURL ? imageURL : ProfileUnknownUserImage}
+            src={imageURL ? imageSrc : ProfileUnknownUserImage}
             width={width ?? 200}
             height={height ?? 300}
             alt="Profile picture"
