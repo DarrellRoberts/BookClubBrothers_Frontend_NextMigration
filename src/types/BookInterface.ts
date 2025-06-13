@@ -16,6 +16,24 @@ interface Book {
     rating?: number[] | number
   }
   suggestedBy?: string
+  shortStories: [
+    {
+      scoreRatings?: {
+        raterId?: string[]
+        rating?: number[] | number
+      }
+      commentInfo?: {
+        commentId?: string[]
+        comments?: string[] | string
+      }
+
+      parentId: string
+      title: string
+      author: string
+      pages: number
+      _id: string
+    }
+  ]
   title: string
   totalScore?: number
   yearPublished: number

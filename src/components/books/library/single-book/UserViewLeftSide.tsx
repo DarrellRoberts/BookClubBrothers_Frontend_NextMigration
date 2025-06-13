@@ -16,7 +16,7 @@ const UserViewSingleBook: React.FC<Props> = ({ bookData }) => {
   const [showLeftNavArrows, setShowLeftNavArrows] = useState<boolean>(true)
   const [showRightNavArrows, setShowRightNavArrows] = useState<boolean>(true)
 
-  const { singleUserData, loadingUser, error } = useSingleUserFetch(
+  const { singleUserData, loadingUser } = useSingleUserFetch(
     `https://bookclubbrothers-backend.onrender.com/users/id/${bookData?.suggestedBy}`
   )
   return (

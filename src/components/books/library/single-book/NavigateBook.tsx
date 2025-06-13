@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react"
 import NavigateArrow from "@/assets/right-nav-arrow.svg"
 import Link from "next/link"
 import useBookFetch from "@/hooks/fetch-hooks/useReadBookFetch"
+import { useAppSelector } from "@/store/lib/hooks"
 
 type Props = {
   isLeft?: boolean
@@ -15,6 +16,8 @@ const NavigateBook = ({
   setShowRightNavArrows,
 }: Props) => {
   const [index, setIndex] = useState<number>(0)
+
+  const isDarkMode = useAppSelector((state) => state.darkMode.darkMode)
 
   const { bookData, loadingBooks } = useBookFetch(
     `https://bookclubbrothers-backend.onrender.com/books`,
@@ -39,7 +42,6 @@ const NavigateBook = ({
       setIndex(newIndex)
     }
   }, [loadingBooks])
-
   return (
     <>
       {!loadingBooks && (
@@ -60,7 +62,7 @@ const NavigateBook = ({
               width="30"
               height="30"
               style={{
-                filter: "invert(1)",
+                filter: isDarkMode ? "invert(1)" : "invert(0)",
                 transform: isLeft && "scaleX(-1)",
               }}
             />

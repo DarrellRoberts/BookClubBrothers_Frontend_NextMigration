@@ -1,25 +1,35 @@
-import DeleteBook from "@/components/forms/bookform-delete/DeleteBook";
-import EditTitleButton from "@/components/forms/editbookform-single-book/title/EditTitleButton";
-import { Book } from "@/types/BookInterface";
-import React from "react";
-import BookCover from "../BookCover";
-import { handleHideScores_NoSetter } from "@/utils/time-functions/hideScores";
-import EditImageButton from "@/components/forms/editbookform-single-book/image/EditImageButton";
-import EditTitle from "@/components/forms/editbookform-single-book/title/EditTitle";
-import EditImage from "@/components/forms/editbookform-single-book/image/EditImage";
-import "@/style/singlebook.css";
-import "@/style/singlebookRes.css";
-import { useAppSelector } from "@/store/lib/hooks";
+import DeleteBook from "@/components/forms/bookform-delete/DeleteBook"
+import EditTitleButton from "@/components/forms/editbookform-single-book/title/EditTitleButton"
+import { Book } from "@/types/BookInterface"
+import React, { useState } from "react"
+import BookCover from "../BookCover"
+import { handleHideScores_NoSetter } from "@/utils/time-functions/hideScores"
+import EditImageButton from "@/components/forms/editbookform-single-book/image/EditImageButton"
+import EditTitle from "@/components/forms/editbookform-single-book/title/EditTitle"
+import EditImage from "@/components/forms/editbookform-single-book/image/EditImage"
+import "@/style/singlebook.css"
+import "@/style/singlebookRes.css"
+import { useAppSelector } from "@/store/lib/hooks"
+import NavigateBook from "./NavigateBook"
+import Profile from "@/components/misc/profile/Profile"
+import { User } from "@/types/UserInterface"
+import useSingleUserFetch from "@/hooks/fetch-hooks/useSingleUserFetch"
 
 type Props = {
-  bookData: Book;
-  bookId: string;
-};
+  bookData: Book
+  bookId: string
+  singleUserData: User
+}
 
 const AdminViewSingleBook: React.FC<Props> = ({ bookData, bookId }) => {
+  const [showLeftNavArrows, setShowLeftNavArrows] = useState<boolean>(true)
+  const [showRightNavArrows, setShowRightNavArrows] = useState<boolean>(true)
   const { showTitle, showBookImage } = useAppSelector(
     (state) => state.editBookButtons
-  );
+  )
+  const { singleUserData, loadingUser } = useSingleUserFetch(
+    `https://bookclubbrothers-backend.onrender.com/users/id/${bookData?.suggestedBy}`
+  )
   return (
     <>
       <div className="bookTitleCon flex flex-col">
@@ -32,6 +42,30 @@ const AdminViewSingleBook: React.FC<Props> = ({ bookData, bookId }) => {
           <h1 className="bookTitle">{bookData?.title}</h1>
         )}
         <EditTitleButton />
+        {showLeftNavArrows && (
+          <NavigateBook
+            isLeft={true}
+            setShowLeftNavArrows={setShowLeftNavArrows}
+            setShowRightNavArrows={setShowRightNavArrows}
+          />
+        )}
+        <div className="flex flex-col items-center justify-center">
+          <h2>Suggested by: </h2>
+          <Profile
+            imageURL={singleUserData?.userInfo?.profileURL}
+            width={75}
+            height={100}
+            isLink={singleUserData?.username?.length > 0}
+            username={singleUserData?.username}
+          />
+          <h2 className="p-[0] m-[0]">{singleUserData?.username}</h2>
+        </div>
+        {showRightNavArrows && (
+          <NavigateBook
+            setShowRightNavArrows={setShowRightNavArrows}
+            setShowLeftNavArrows={setShowLeftNavArrows}
+          />
+        )}
         <div>
           {bookData?.reviewImageURL ? (
             <img
@@ -63,7 +97,7 @@ const AdminViewSingleBook: React.FC<Props> = ({ bookData, bookId }) => {
         <EditImageButton />
       </div>
     </>
-  );
-};
+  )
+}
 
-export default AdminViewSingleBook;
+export default AdminViewSingleBook
