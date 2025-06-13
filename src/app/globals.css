@@ -23,6 +23,8 @@
   --default-border-color: #000000;
   --button-bg-color: #000000;
   --button-font-color: #ffffff;
+  --nested-font-color: #000000;
+  --nested-bg-color: #ffffff;
 }
 
 body {
@@ -35,6 +37,12 @@ body:has(#theme:checked) {
   --main-font-color: #ffffff;
   --default-border-color: #575757;
   --user-background-color: #151410;
+  --nested-font-color: #ffffff;
+  --nested-bg-color: #121212;
+}
+
+h2 {
+  font-family: var(--main);
 }
 
 .libaryButtons {

@@ -17,7 +17,7 @@ jobs:
           fetch-depth: 0 # Needed to get the branch information
 
       - name: Delete merged branch
-        if: github.event.pull_request.merged == true
+        if: github.event.pull_request.merged == true && github.event.pull_request.head.ref != 'int'
         run: |
           BRANCH_NAME=$(echo "${{ github.event.pull_request.head.ref }}")
           echo "Deleting branch: $BRANCH_NAME"

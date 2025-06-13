@@ -1,19 +1,19 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/react-in-jsx-scope */
-"use client";
+"use client"
 
-import styles from "./BookCover.module.css";
-import { useJwt } from "react-jwt";
-import useUserFetch from "@/hooks/fetch-hooks/useUserFetch";
-import { useAppSelector } from "@/store/lib/hooks";
+import styles from "./BookCover.module.css"
+import { useJwt } from "react-jwt"
+import useUserFetch from "@/hooks/fetch-hooks/useUserFetch"
+import { useAppSelector } from "@/store/lib/hooks"
 
 type Props = {
-  title: string;
-  totalScore: number;
-  ratingArr: number[] | number;
-  raterArr: string[];
-  hideScores: boolean;
-};
+  title: string
+  totalScore: number
+  ratingArr: number[] | number
+  raterArr: string[]
+  hideScores: boolean
+}
 
 const BookCover: React.FC<Props> = ({
   title,
@@ -22,35 +22,35 @@ const BookCover: React.FC<Props> = ({
   raterArr,
   hideScores,
 }) => {
-  const token = useAppSelector((state) => state.token.tokenState);
+  const token = useAppSelector((state) => state.token.tokenState)
   const { decodedToken }: { decodedToken?: { username: string; _id: string } } =
-    useJwt(token);
-  const username = decodedToken?.username;
+    useJwt(token)
+  const username = decodedToken?.username
 
   const { userData, loadingUsers, error } = useUserFetch(
     `https://bookclubbrothers-backend.onrender.com/users`,
     null
-  );
+  )
 
   const findUser = (id) => {
-    const user = userData?.find((user) => user._id === id);
-    return user ? user.username : "user not found";
-  };
+    const user = userData?.find((user) => user._id === id)
+    return user ? user.username : "user not found"
+  }
 
-  const raterArr2 = raterArr?.map((id) => findUser(id));
+  const raterArr2 = raterArr?.map((id) => findUser(id))
 
-  let raterObj: object = {};
+  let raterObj: object = {}
   const findBookScore = () => {
     if (raterArr2) {
       for (let i = 0; i < raterArr2.length; i++) {
-        raterObj[raterArr2[i]] = ratingArr[i];
-        findUser(raterObj[raterArr[i]]);
+        raterObj[raterArr2[i]] = ratingArr[i]
+        findUser(raterObj[raterArr[i]])
       }
-      raterObj = Object.entries(raterObj);
-      return raterObj;
+      raterObj = Object.entries(raterObj)
+      return raterObj
     }
-  };
-  findBookScore();
+  }
+  findBookScore()
 
   return (
     <>
@@ -65,7 +65,8 @@ const BookCover: React.FC<Props> = ({
           {Array.isArray(raterObj) && !loadingUsers ? (
             raterObj.map(([name, value]) => (
               <li className="list-none mb-1 ml-2" key={name}>
-                {name}: {hideScores && username !== name ? "?" : value}
+                {name}:{" "}
+                {hideScores && username !== name ? "?" : value.toFixed(2)}
               </li>
             ))
           ) : error ? (
@@ -85,7 +86,7 @@ const BookCover: React.FC<Props> = ({
         </div>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default BookCover;
+export default BookCover

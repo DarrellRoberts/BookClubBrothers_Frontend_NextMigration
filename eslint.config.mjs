@@ -1,12 +1,12 @@
-import globals from "globals";
-import pluginJs from "@eslint/js";
-import tseslint from "typescript-eslint";
-import pluginReactConfig from "eslint-plugin-react/configs/recommended.js";
+import globals from "globals"
+import pluginJs from "@eslint/js"
+import tseslint from "typescript-eslint"
+import pluginReactConfig from "eslint-plugin-react/configs/recommended.js"
 
 export default [
   {
     rules: {
-      semi: "error",
+      // semi: "error",
       "prefer-const": "error",
       // indent: ["error", 2],
       "template-curly-spacing": "error",
@@ -23,4 +23,4 @@ export default [
   pluginJs.configs.recommended,
   ...tseslint.configs.recommended,
   pluginReactConfig,
-];
+]

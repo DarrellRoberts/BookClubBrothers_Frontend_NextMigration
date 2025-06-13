@@ -1,8 +1,8 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { type Book } from "@/types/BookInterface";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit"
+import { type Book } from "@/types/BookInterface"
 
 export interface BookState {
-  formData: Book;
+  formData: Book
 }
 
 const initialState: BookState = {
@@ -21,20 +21,37 @@ const initialState: BookState = {
     scoreRatings: {
       rating: [],
     },
+    shortStories: [
+      {
+        scoreRatings: {
+          raterId: [],
+          rating: [],
+        },
+        commentInfo: {
+          commentId: [],
+          comments: [],
+        },
+        parentId: "",
+        title: "",
+        author: "",
+        pages: 0,
+        _id: "",
+      },
+    ],
     title: "",
     yearPublished: 0,
   },
-};
+}
 
 export const bookFormDataSlice = createSlice({
   name: "bookFormData",
   initialState,
   reducers: {
     setFormData: (state, action: PayloadAction<Book>): void => {
-      state.formData = action.payload;
+      state.formData = action.payload
     },
   },
-});
+})
 
-export const { setFormData } = bookFormDataSlice.actions;
-export const bookFormDataReducer = bookFormDataSlice.reducer;
+export const { setFormData } = bookFormDataSlice.actions
+export const bookFormDataReducer = bookFormDataSlice.reducer
