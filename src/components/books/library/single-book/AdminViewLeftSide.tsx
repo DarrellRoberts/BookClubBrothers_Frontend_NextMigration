@@ -12,13 +12,11 @@ import "@/style/singlebookRes.css"
 import { useAppSelector } from "@/store/lib/hooks"
 import NavigateBook from "./NavigateBook"
 import Profile from "@/components/misc/profile/Profile"
-import { User } from "@/types/UserInterface"
 import useSingleUserFetch from "@/hooks/fetch-hooks/useSingleUserFetch"
 
 type Props = {
   bookData: Book
   bookId: string
-  singleUserData: User
 }
 
 const AdminViewSingleBook: React.FC<Props> = ({ bookData, bookId }) => {
@@ -27,7 +25,7 @@ const AdminViewSingleBook: React.FC<Props> = ({ bookData, bookId }) => {
   const { showTitle, showBookImage } = useAppSelector(
     (state) => state.editBookButtons
   )
-  const { singleUserData, loadingUser } = useSingleUserFetch(
+  const { singleUserData } = useSingleUserFetch(
     `https://bookclubbrothers-backend.onrender.com/users/id/${bookData?.suggestedBy}`
   )
   return (
