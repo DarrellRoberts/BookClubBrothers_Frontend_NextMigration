@@ -52,6 +52,19 @@ const UserViewRightSide: React.FC<Props> = ({ bookData }) => {
             ? "?"
             : bookData?.totalScore}
         </li>
+        <br />
+        {bookData.shortStories?.length > 0 &&
+          bookData.shortStories?.map((story) => (
+            <li key={story._id} className="">
+              {story.title}:
+              <span>
+                {" " + handleHideScores_NoSetter(bookData?.actualDateOfMeeting)
+                  ? " ?"
+                  : story.scoreRatings.rating.reduce((acc, sum) => acc + sum) /
+                    story.scoreRatings.rating.length}
+              </span>
+            </li>
+          ))}
       </ul>
     </>
   )
