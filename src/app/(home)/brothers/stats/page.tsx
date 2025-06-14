@@ -1,29 +1,30 @@
 /* eslint-disable react/react-in-jsx-scope */
-"use client";
-import PieChart from "@/components/graphs/brothers/PieChart";
-import styles from "@/components/brothers/stats/stats.module.css";
-import BrotherTable from "@/components/stats/brother-table/BrotherTable";
+"use client"
+import PieChart from "@/components/graphs/brothers/PieChart"
+import styles from "@/components/brothers/stats/stats.module.css"
+import BrotherTable from "@/components/stats/brother-table/BrotherTable"
 import {
   unreadBookTitles,
   userReadBookTitles,
-} from "@/utils/stat-functions/scoreFunctions";
-import LoaderNoText from "@/components/loader/LoaderNoText";
-import useBookFetch from "@/hooks/fetch-hooks/useReadBookFetch";
-import useUserFetch from "@/hooks/fetch-hooks/useUserFetch";
-import BrothersScores from "@/components/brothers/stats/BrothersScores";
+} from "@/utils/stat-functions/scoreFunctions"
+import LoaderNoText from "@/components/loader/LoaderNoText"
+import useBookFetch from "@/hooks/fetch-hooks/useReadBookFetch"
+import useUserFetch from "@/hooks/fetch-hooks/useUserFetch"
+import BrothersScores from "@/components/brothers/stats/BrothersScores"
+import BrothersSuggestedBooks from "@/components/brothers/stats/BrothersSuggestedBooks"
 
 const BrothersStats: React.FC = () => {
   const { userData, loadingUsers } = useUserFetch(
     "https://bookclubbrothers-backend.onrender.com/users",
     null
-  );
+  )
 
   const { bookData, loadingBooks } = useBookFetch(
     "https://bookclubbrothers-backend.onrender.com/books",
     null
-  );
+  )
 
-  const readBooks = bookData?.filter((book) => book.read === true);
+  const readBooks = bookData?.filter((book) => book.read === true)
 
   return (
     <div className={loadingUsers && loadingBooks ? "h-screen" : ""}>
@@ -62,9 +63,13 @@ const BrothersStats: React.FC = () => {
             userData={userData}
           />
         </div>
+        <div>
+          <h2>Number of Suggested Books</h2>
+          <BrothersSuggestedBooks bookData={readBooks} userData={userData} />
+        </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default BrothersStats;
+export default BrothersStats

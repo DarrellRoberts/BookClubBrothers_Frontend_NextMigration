@@ -1,4 +1,4 @@
-import React from "react";
+import React from "react"
 import {
   Chart as ChartJS,
   LinearScale,
@@ -7,21 +7,21 @@ import {
   Tooltip,
   Legend,
   ChartOptions,
-} from "chart.js";
-import { Scatter } from "react-chartjs-2";
-import Cookies from "js-cookie";
-import styles from "./Graph.module.css";
+} from "chart.js"
+import { Scatter } from "react-chartjs-2"
+import styles from "./Graph.module.css"
+import { useAppSelector } from "@/store/lib/hooks"
 
-ChartJS.register(LinearScale, PointElement, LineElement, Tooltip, Legend);
+ChartJS.register(LinearScale, PointElement, LineElement, Tooltip, Legend)
 
 type Props = {
-  labelArray: string[];
-  pagesArray: number[];
-  scoreArray: string[];
-  xAxes: string;
-  xMax: number;
-  xMin: number;
-};
+  labelArray: string[]
+  pagesArray: number[]
+  scoreArray: string[]
+  xAxes: string
+  xMax: number
+  xMin: number
+}
 
 const ScatterGraph: React.FC<Props> = ({
   labelArray,
@@ -31,7 +31,7 @@ const ScatterGraph: React.FC<Props> = ({
   xMax,
   xMin,
 }) => {
-  const darkCookie = Cookies.get("dark-mode");
+  const isDarkMode = useAppSelector((state) => state.darkMode.darkMode)
 
   const data = {
     labels: scoreArray,
@@ -44,7 +44,7 @@ const ScatterGraph: React.FC<Props> = ({
         pointRadius: 8,
       },
     ],
-  };
+  }
 
   const options: ChartOptions<"scatter"> = {
     responsive: true,
@@ -53,7 +53,7 @@ const ScatterGraph: React.FC<Props> = ({
     plugins: {
       legend: {
         labels: {
-          color: darkCookie ? "white" : "black",
+          color: isDarkMode ? "white" : "black",
           font: {
             size: 20,
             family: "Gentium Book Plus",
@@ -63,10 +63,10 @@ const ScatterGraph: React.FC<Props> = ({
       tooltip: {
         callbacks: {
           label: (context) => {
-            const pages = pagesArray[context.dataIndex];
-            const scores = scoreArray[context.dataIndex];
-            const bookTitle = labelArray[context.dataIndex];
-            return `${bookTitle}: ${pages}, ${scores}`;
+            const pages = pagesArray[context.dataIndex]
+            const scores = scoreArray[context.dataIndex]
+            const bookTitle = labelArray[context.dataIndex]
+            return `${bookTitle}: ${pages}, ${scores}`
           },
         },
       },
@@ -74,7 +74,7 @@ const ScatterGraph: React.FC<Props> = ({
     scales: {
       y: {
         ticks: {
-          color: darkCookie ? "white" : "black",
+          color: isDarkMode ? "white" : "black",
           font: {
             size: 20,
             family: "Gentium Book Plus",
@@ -94,7 +94,7 @@ const ScatterGraph: React.FC<Props> = ({
       },
       x: {
         ticks: {
-          color: darkCookie ? "white" : "black",
+          color: isDarkMode ? "white" : "black",
           font: {
             size: 20,
             family: "Gentium Book Plus",
@@ -102,7 +102,7 @@ const ScatterGraph: React.FC<Props> = ({
         },
         title: {
           display: true,
-          color: darkCookie ? "white" : "black",
+          color: isDarkMode ? "white" : "black",
           text: xAxes,
           font: {
             size: 20,
@@ -114,12 +114,12 @@ const ScatterGraph: React.FC<Props> = ({
         min: xMin,
       },
     },
-  };
+  }
   return (
     <div className={styles.graph}>
       <Scatter data={data} options={options} />
     </div>
-  );
-};
+  )
+}
 
-export default ScatterGraph;
+export default ScatterGraph
