@@ -20,7 +20,7 @@ interface Book {
     {
       scoreRatings?: {
         raterId?: string[]
-        rating?: number[] | number
+        rating?: number[]
       }
       commentInfo?: {
         commentId?: string[]

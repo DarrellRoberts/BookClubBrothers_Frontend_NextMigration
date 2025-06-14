@@ -1,31 +1,31 @@
-import { Book } from "@/types/BookInterface";
-import React from "react";
-import "@/style/singlebook.css";
-import "@/style/singlebookRes.css";
-import { handleHideScores_NoSetter } from "@/utils/time-functions/hideScores";
-import EditActualDateButton from "@/components/forms/editbookform-single-book/datemeeting/EditActualDateButton";
-import EditActualDate from "@/components/forms/editbookform-single-book/datemeeting/EditActualDate";
-import EditDateButton from "@/components/forms/editbookform-single-book/datemeeting/EditDateButton";
-import EditDate from "@/components/forms/editbookform-single-book/datemeeting/EditDate";
-import EditPagesButton from "@/components/forms/editbookform-single-book/pages/EditPagesButton";
-import EditPages from "@/components/forms/editbookform-single-book/pages/EditPages";
-import EditPublishButton from "@/components/forms/editbookform-single-book/published/EditPublishButton";
-import EditPublished from "@/components/forms/editbookform-single-book/published/EditPublished";
-import EditAuthorButton from "@/components/forms/editbookform-single-book/author/EditAuthorButton";
-import EditAuthor from "@/components/forms/editbookform-single-book/author/EditAuthor";
-import { dateFormatter } from "@/utils/time-functions/dateFormatter";
-import { useAppSelector } from "@/store/lib/hooks";
-import EditGenreButton from "@/components/forms/editbookform-single-book/genre/EditGenreButton";
-import EditGenre from "@/components/forms/editbookform-single-book/genre/EditGenre";
+import { Book } from "@/types/BookInterface"
+import React from "react"
+import "@/style/singlebook.css"
+import "@/style/singlebookRes.css"
+import { handleHideScores_NoSetter } from "@/utils/time-functions/hideScores"
+import EditActualDateButton from "@/components/forms/editbookform-single-book/datemeeting/EditActualDateButton"
+import EditActualDate from "@/components/forms/editbookform-single-book/datemeeting/EditActualDate"
+import EditDateButton from "@/components/forms/editbookform-single-book/datemeeting/EditDateButton"
+import EditDate from "@/components/forms/editbookform-single-book/datemeeting/EditDate"
+import EditPagesButton from "@/components/forms/editbookform-single-book/pages/EditPagesButton"
+import EditPages from "@/components/forms/editbookform-single-book/pages/EditPages"
+import EditPublishButton from "@/components/forms/editbookform-single-book/published/EditPublishButton"
+import EditPublished from "@/components/forms/editbookform-single-book/published/EditPublished"
+import EditAuthorButton from "@/components/forms/editbookform-single-book/author/EditAuthorButton"
+import EditAuthor from "@/components/forms/editbookform-single-book/author/EditAuthor"
+import { dateFormatter } from "@/utils/time-functions/dateFormatter"
+import { useAppSelector } from "@/store/lib/hooks"
+import EditGenreButton from "@/components/forms/editbookform-single-book/genre/EditGenreButton"
+import EditGenre from "@/components/forms/editbookform-single-book/genre/EditGenre"
 
 type Props = {
-  bookData: Book;
-  bookId: string;
-};
+  bookData: Book
+  bookId: string
+}
 
 const AdminViewRightSide: React.FC<Props> = ({ bookData, bookId }) => {
   const { showAuthor, showPublish, showGenre, showDate, showPage } =
-    useAppSelector((state) => state.editBookButtons);
+    useAppSelector((state) => state.editBookButtons)
 
   return (
     <ul>
@@ -101,8 +101,22 @@ const AdminViewRightSide: React.FC<Props> = ({ bookData, bookId }) => {
           ? "?"
           : bookData?.totalScore}
       </li>
+      <br />
+      {bookData.shortStories?.length > 0 &&
+        bookData.shortStories?.map((story) => (
+          <li key={story._id} className="">
+            {story.title}:
+            <span>
+              {handleHideScores_NoSetter(bookData?.actualDateOfMeeting)
+                ? " ?"
+                : " " +
+                  story.scoreRatings.rating.reduce((acc, sum) => acc + sum) /
+                    story.scoreRatings.rating.length}
+            </span>
+          </li>
+        ))}
     </ul>
-  );
-};
+  )
+}
 
-export default AdminViewRightSide;
+export default AdminViewRightSide
