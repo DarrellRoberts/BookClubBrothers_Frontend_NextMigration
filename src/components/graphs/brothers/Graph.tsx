@@ -14,8 +14,8 @@ import {
 import { Bar } from "react-chartjs-2"
 import { abbreviateString } from "@/utils/abbreviateString"
 import { useMediaQuery } from "react-responsive"
-import Cookies from "js-cookie"
 import style from "./Graph.module.css"
+import { useAppSelector } from "@/store/lib/hooks"
 
 ChartJS.register(
   CategoryScale,
@@ -31,8 +31,9 @@ ChartJS.register(
 type Props = {
   bookTitles: string[]
   totalBookScores?: number[] | string[]
-  bookScores?: number[] | string[]
+  bookScores?: (string | number)[]
   username?: string
+  isSuggested?: boolean
 }
 
 const Graph: React.FC<Props> = ({
@@ -40,9 +41,10 @@ const Graph: React.FC<Props> = ({
   totalBookScores,
   bookScores,
   username,
+  isSuggested,
 }: Props) => {
   const handleDesktop = useMediaQuery({ query: "(min-device-width: 801px)" })
-  const darkCookie = Cookies.get("dark-mode")
+  const isDarkMode = useAppSelector((state) => state.darkMode.darkMode)
 
   const labelsLen = handleDesktop
     ? bookTitles
@@ -50,14 +52,16 @@ const Graph: React.FC<Props> = ({
         title.length > 15 ? abbreviateString(title) : title
       )
 
-  const datasets: number[] | string[] = bookScores ?? null
+  const datasets: (string | number)[] = bookScores ?? null
   const datasets2: number[] | string[] = totalBookScores
 
   const data = {
     labels: labelsLen,
     datasets: [
       {
-        label: `${username}'s Scores`,
+        label: !isSuggested
+          ? `${username}'s Scores`
+          : `${username}'s Suggested Books`,
         axis: "y",
         data: datasets,
         backgroundColor: ["#095d09"],
@@ -82,7 +86,7 @@ const Graph: React.FC<Props> = ({
       legend: {
         display: datasets2 ? true : false,
         labels: {
-          color: darkCookie ? "white" : "black",
+          color: isDarkMode ? "white" : "black",
           font: {
             size: 20,
             family: "Gentium Book Plus",
@@ -96,7 +100,7 @@ const Graph: React.FC<Props> = ({
     scales: {
       y: {
         ticks: {
-          color: darkCookie ? "white" : "black",
+          color: isDarkMode ? "white" : "black",
           font: {
             size: 16,
             family: "Gentium Book Plus",
@@ -109,7 +113,7 @@ const Graph: React.FC<Props> = ({
       },
       x: {
         ticks: {
-          color: darkCookie ? "white" : "black",
+          color: isDarkMode ? "white" : "black",
           font: {
             size: 20,
             family: "Gentium Book Plus",
@@ -117,8 +121,8 @@ const Graph: React.FC<Props> = ({
         },
         title: {
           display: true,
-          color: darkCookie ? "white" : "black",
-          text: "Scores",
+          color: isDarkMode ? "white" : "black",
+          text: isSuggested ? "Number of suggested books" : "Scores",
           font: {
             size: 20,
             family: "Gentium Book Plus",
@@ -126,7 +130,7 @@ const Graph: React.FC<Props> = ({
         },
         display: true,
         beginAtZero: true,
-        max: 10,
+        max: isSuggested ? datasets?.length + 2 : 10,
       },
     },
   }
