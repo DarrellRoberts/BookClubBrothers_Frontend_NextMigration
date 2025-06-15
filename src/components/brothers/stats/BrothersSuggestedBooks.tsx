@@ -10,6 +10,11 @@ type Props = {
   bookData: Book[]
 }
 
+type UserTitles = {
+  titles: string[]
+  score: number[]
+}
+
 const BrothersSuggestedBooks: React.FC<Props> = ({ userData, bookData }) => {
   const suggestedTitlesObject = {}
   const createSuggestedTitlesMap = () => {
@@ -32,6 +37,8 @@ const BrothersSuggestedBooks: React.FC<Props> = ({ userData, bookData }) => {
   }
   createSuggestedTitlesMap()
 
+  console.log(Object.entries(suggestedTitlesObject)?.map((user) => user))
+
   return (
     <>
       {bookData?.length <= 0 ? (
@@ -41,7 +48,7 @@ const BrothersSuggestedBooks: React.FC<Props> = ({ userData, bookData }) => {
           <Graph
             bookTitles={Object.keys(suggestedTitlesObject)}
             bookScores={Object.entries(suggestedTitlesObject)?.map(
-              (user) => user[1].titles.length
+              (user: [string, UserTitles]) => user[1].titles.length
             )}
             username="User"
             isSuggested={true}
