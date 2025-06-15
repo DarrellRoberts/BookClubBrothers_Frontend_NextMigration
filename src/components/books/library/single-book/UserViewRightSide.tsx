@@ -58,10 +58,11 @@ const UserViewRightSide: React.FC<Props> = ({ bookData }) => {
             <li key={story._id} className="">
               {story.title}:
               <span>
-                {" " + handleHideScores_NoSetter(bookData?.actualDateOfMeeting)
+                {handleHideScores_NoSetter(bookData?.actualDateOfMeeting)
                   ? " ?"
-                  : story.scoreRatings.rating.reduce((acc, sum) => acc + sum) /
-                    story.scoreRatings.rating.length}
+                  : " " +
+                    story.scoreRatings.rating.reduce((acc, sum) => acc + sum) /
+                      story.scoreRatings.rating.length}
               </span>
             </li>
           ))}
