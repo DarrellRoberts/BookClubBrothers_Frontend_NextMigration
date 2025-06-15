@@ -25,7 +25,6 @@ const BrothersStats: React.FC = () => {
   )
 
   const readBooks = bookData?.filter((book) => book.read === true)
-
   return (
     <div className={loadingUsers && loadingBooks ? "h-screen" : ""}>
       <h1 className={styles.statsTitle}>Brothers Stats</h1>
@@ -65,12 +64,7 @@ const BrothersStats: React.FC = () => {
         </div>
         <div>
           <h2>Number of Suggested Books</h2>
-          <BrothersSuggestedBooks
-            bookData={readBooks}
-            userData={userData}
-            loadingBooks={loadingBooks}
-            loadingUsers={loadingUsers}
-          />
+          <BrothersSuggestedBooks bookData={readBooks} userData={userData} />
         </div>
       </div>
     </div>
