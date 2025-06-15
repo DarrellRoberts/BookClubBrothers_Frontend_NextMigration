@@ -34,6 +34,7 @@ type Props = {
   bookScores?: (string | number)[]
   username?: string
   isSuggested?: boolean
+  tooltipData?: object
 }
 
 const Graph: React.FC<Props> = ({
@@ -42,6 +43,7 @@ const Graph: React.FC<Props> = ({
   bookScores,
   username,
   isSuggested,
+  tooltipData,
 }: Props) => {
   const handleDesktop = useMediaQuery({ query: "(min-device-width: 801px)" })
   const isDarkMode = useAppSelector((state) => state.darkMode.darkMode)
@@ -90,6 +92,16 @@ const Graph: React.FC<Props> = ({
           font: {
             size: 20,
             family: "Gentium Book Plus",
+          },
+        },
+      },
+      tooltip: tooltipData && {
+        callbacks: {
+          label: (context) => {
+            const titlesArray = tooltipData[context.dataIndex][1].titles.map(
+              (book) => book
+            )
+            return titlesArray
           },
         },
       },

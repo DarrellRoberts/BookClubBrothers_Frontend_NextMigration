@@ -25,7 +25,6 @@ const BrothersStats: React.FC = () => {
   )
 
   const readBooks = bookData?.filter((book) => book.read === true)
-
   return (
     <div className={loadingUsers && loadingBooks ? "h-screen" : ""}>
       <h1 className={styles.statsTitle}>Brothers Stats</h1>
