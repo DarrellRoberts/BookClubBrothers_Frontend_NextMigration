@@ -11,33 +11,41 @@ type Props = {
 }
 
 const BrothersSuggestedBooks: React.FC<Props> = ({ userData, bookData }) => {
-  const suggestedObj = {}
-  const createSuggestedMap = () => {
-    const usernameArr =
-      bookData?.map((book) => findUser(book?.suggestedBy, userData)) ?? []
-    if (usernameArr?.length === 0) return {}
-    for (const username of usernameArr) {
-      if (!suggestedObj[username]) {
-        suggestedObj[username] = 1
-      } else if (suggestedObj[username]) {
-        suggestedObj[username] = suggestedObj[username] + 1
+  const suggestedTitlesObject = {}
+  const createSuggestedTitlesMap = () => {
+    if (!bookData) return {}
+    if (bookData?.length === 0) return {}
+    if (userData?.length === 0) return {}
+    for (const user of bookData) {
+      const username = findUser(user.suggestedBy, userData)
+      if (!suggestedTitlesObject[username]) {
+        suggestedTitlesObject[username] = {}
       }
+      suggestedTitlesObject[username]["titles"] = bookData
+        ?.filter((book) => book.suggestedBy === user.suggestedBy)
+        ?.map((book) => book.title)
+      suggestedTitlesObject[username]["score"] = bookData
+        ?.filter((book) => book.suggestedBy === user.suggestedBy)
+        ?.map((book) => book.totalScore)
     }
-    return suggestedObj
+    return suggestedTitlesObject
   }
-  createSuggestedMap()
+  createSuggestedTitlesMap()
 
   return (
     <>
-      {userData?.length <= 0 ? (
+      {bookData?.length <= 0 ? (
         <LoaderNoText />
       ) : (
         <>
           <Graph
-            bookTitles={Object.keys(suggestedObj)}
-            bookScores={Object.values(suggestedObj)}
+            bookTitles={Object.keys(suggestedTitlesObject)}
+            bookScores={Object.entries(suggestedTitlesObject)?.map(
+              (user) => user[1].titles.length
+            )}
             username="User"
             isSuggested={true}
+            tooltipData={Object.entries(suggestedTitlesObject)}
           />
         </>
       )}

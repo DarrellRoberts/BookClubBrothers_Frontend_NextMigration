@@ -65,7 +65,12 @@ const BrothersStats: React.FC = () => {
         </div>
         <div>
           <h2>Number of Suggested Books</h2>
-          <BrothersSuggestedBooks bookData={readBooks} userData={userData} />
+          <BrothersSuggestedBooks
+            bookData={readBooks}
+            userData={userData}
+            loadingBooks={loadingBooks}
+            loadingUsers={loadingUsers}
+          />
         </div>
       </div>
     </div>
