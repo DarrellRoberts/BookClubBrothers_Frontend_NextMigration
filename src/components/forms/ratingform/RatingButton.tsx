@@ -61,7 +61,11 @@ const RatingButton: React.FC<props> = ({
         footer={null}
       >
         {/* <p>{modalText}</p> */}
-        <AnthologyRatingForm bookData={bookData} id={id} />
+        {isAnthology ? (
+          <AnthologyRatingForm bookData={bookData} id={id} />
+        ) : (
+          <RatingForm id={id} />
+        )}
       </Modal>
     </>
   )
