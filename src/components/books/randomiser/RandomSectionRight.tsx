@@ -1,36 +1,30 @@
-import React from "react";
-import style from "./randomiser.module.css";
-import LoaderNoText from "@/components/loader/LoaderNoText";
-import Randomiser from "./Randomiser";
-import EditUnreadBook from "@/components/forms/bookform-randomise/edit/EditUnreadBook";
-import DeleteBook from "@/components/forms/bookform-delete/DeleteBook";
-import { Book } from "@/types/BookInterface";
-import { useAppSelector } from "@/store/lib/hooks";
-import { User } from "@/types/UserInterface";
-import { useAuth } from "@/hooks/auth-hooks/useAuth";
+import React from "react"
+import style from "./randomiser.module.css"
+import LoaderNoText from "@/components/loader/LoaderNoText"
+import Randomiser from "./Randomiser"
+import EditUnreadBook from "@/components/forms/bookform-randomise/edit/EditUnreadBook"
+import DeleteBook from "@/components/forms/bookform-delete/DeleteBook"
+import { Book } from "@/types/BookInterface"
+import { useAppSelector } from "@/store/lib/hooks"
+import { User } from "@/types/UserInterface"
+import { useAuth } from "@/hooks/auth-hooks/useAuth"
 
 type Props = {
-  bookData: Book[];
-  loadingBooks: boolean;
-  error: Error;
-  userData: User[];
-};
+  bookData: Book[]
+  error: Error
+  userData: User[]
+}
 
-const RandomSectionRight: React.FC<Props> = ({
-  bookData,
-  loadingBooks,
-  error,
-  userData,
-}) => {
-  const index = useAppSelector((state) => state.randomise.index);
-  const showRandom = useAppSelector((state) => state.randomise.showRandom);
-  const { decodedToken } = useAuth();
-  const adminId = process.env.NEXT_PUBLIC_ADMIN_ID;
+const RandomSectionRight: React.FC<Props> = ({ bookData, error, userData }) => {
+  const index = useAppSelector((state) => state.randomise.index)
+  const showRandom = useAppSelector((state) => state.randomise.showRandom)
+  const { decodedToken } = useAuth()
+  const adminId = process.env.NEXT_PUBLIC_ADMIN_ID
 
   const findUser = (id) => {
-    const user = userData?.find((user) => user._id === id);
-    return user ? user.username : "user not found";
-  };
+    const user = userData?.find((user) => user._id === id)
+    return user ? user.username : "user not found"
+  }
 
   return (
     <div
@@ -44,7 +38,7 @@ const RandomSectionRight: React.FC<Props> = ({
         backgroundPosition: "center",
       }}
     >
-      {loadingBooks ? (
+      {!bookData ? (
         <div className="flex justify-center items-center mt-20">
           <LoaderNoText />
         </div>
@@ -52,6 +46,8 @@ const RandomSectionRight: React.FC<Props> = ({
         <div className={style.randomDetailsCon + " bg-white"}>
           {error ? (
             <h2 className="text-red-500 bg-black">{error.message}</h2>
+          ) : !bookData[index] ? (
+            <h2>No results found</h2>
           ) : (
             <>
               <h2>{bookData[index]?.title}</h2>
@@ -96,7 +92,7 @@ const RandomSectionRight: React.FC<Props> = ({
         </div>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default RandomSectionRight;
+export default RandomSectionRight

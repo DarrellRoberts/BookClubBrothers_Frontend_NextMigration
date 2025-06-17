@@ -37,7 +37,7 @@
   display: flex;
   align-items: center;
   flex-direction: column;
-  height: 40%;
+  height: 25vh;
   overflow-y: scroll;
 }
 
@@ -242,7 +242,7 @@
     font-size: 1rem;
   }
   .randomBoxLeftList {
-    height: 80%;
+    height: 20vh;
   }
   .randomDetailsCon {
     justify-content: flex-start;
