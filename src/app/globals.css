@@ -1,6 +1,13 @@
-@tailwind base;
+@import "tailwindcss";
+
+/* @tailwind base;
 @tailwind components;
-@tailwind utilities;
+@tailwind utilities; */
+
+@theme {
+  --font-main: var(--main);
+  --color-bc-green: var(--tertiaryColor);
+}
 
 @font-face {
   font-family: "Gentium Book Plus";

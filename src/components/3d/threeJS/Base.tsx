@@ -1,44 +1,44 @@
-"use client";
-import React, { useEffect } from "react";
-import { useState } from "react";
-import TextInfo from "./components/TextInfo";
-import ThreeScene from "./components/ThreeScene";
-import Loader from "@/components/loader/Loader";
-import { Book } from "@/types/BookInterface";
-import { Button } from "antd";
+"use client"
+import React, { useEffect } from "react"
+import { useState } from "react"
+import TextInfo from "./components/TextInfo"
+import ThreeScene from "./components/ThreeScene"
+import Loader from "@/components/loader/Loader"
+import { Book } from "@/types/BookInterface"
+import { Button } from "antd"
 
 type Props = {
-  readBooks: string[];
-  readIds: string[];
-  readBooksJson: Book[];
-};
+  readBooks: string[]
+  readIds: string[]
+  readBooksJson: Book[]
+}
 
 export default function Base({ readBooks, readIds, readBooksJson }: Props) {
-  const [clicked, setClicked] = useState<boolean>(true);
-  const [clickId, setClickId] = useState<string>(null);
-  const [token, setToken] = useState<string | null>(null);
-  const [renderIds, setRenderIds] = useState<string[]>([]);
-  const [startIndex, setStartIndex] = useState<number>(5);
-  const [endIndex, setEndIndex] = useState<number>(11);
+  const [clicked, setClicked] = useState<boolean>(true)
+  const [clickId, setClickId] = useState<string>(null)
+  const [token, setToken] = useState<string | null>(null)
+  const [renderIds, setRenderIds] = useState<string[]>([])
+  const [startIndex, setStartIndex] = useState<number>(5)
+  const [endIndex, setEndIndex] = useState<number>(11)
 
   useEffect(() => {
-    setRenderIds([...readIds]);
-    const storedToken = localStorage.getItem("token");
+    setRenderIds([...readIds])
+    const storedToken = localStorage.getItem("token")
     if (storedToken) {
-      setToken(storedToken);
+      setToken(storedToken)
     }
-  }, []);
+  }, [])
 
   return (
     <>
       {!clicked ? (
         <TextInfo clickId={clickId} readBooksJson={readBooksJson} />
       ) : null}
-      <div className="flex justify-center align-center h-screen">
+      <div className="flex justify-center align-center h-[103vh]">
         {readBooks.length < 0 ? (
           <Loader />
         ) : (
-          <div className="flex flex-col w-screen">
+          <div className="flex flex-col w-full items-center overflow-hidden">
             <ThreeScene
               clicked={clicked}
               setClicked={setClicked}
@@ -51,14 +51,14 @@ export default function Base({ readBooks, readIds, readBooksJson }: Props) {
             />
             {readBooks.length - 1 !== renderIds.length ? (
               <Button
-                className="absolute bottom-0 right-[50%] translate-x-[50%] "
+                className="absolute bottom-20"
                 onClick={() => {
                   setRenderIds([
                     ...renderIds,
                     ...readBooks.slice(startIndex, endIndex),
-                  ]);
-                  setStartIndex((prev) => prev + 6);
-                  setEndIndex((prev) => prev + 5);
+                  ])
+                  setStartIndex((prev) => prev + 6)
+                  setEndIndex((prev) => prev + 5)
                 }}
               >
                 Load more
@@ -68,5 +68,5 @@ export default function Base({ readBooks, readIds, readBooksJson }: Props) {
         )}
       </div>
     </>
-  );
+  )
 }

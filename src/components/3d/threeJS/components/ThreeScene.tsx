@@ -6,7 +6,6 @@ import { Dispatch, SetStateAction, Suspense } from "react"
 import { Canvas } from "@react-three/fiber"
 import { Scroll, ScrollControls } from "@react-three/drei"
 import Loader from "./Loader"
-import style from "./3d.module.css"
 import HeaderCon3D from "@/components/header/HeaderCon3D"
 import DarkMode3D from "@/components/misc/dark-mode/DarkMode3D"
 
@@ -54,8 +53,10 @@ export default function ThreeScene({
         </Suspense>
         <Scroll html>
           <HeaderCon3D propsToken={token} />
-          <div className={style.darkMode}>
-            <h1 className={style.title}>Books 3D Library</h1>
+          <div className="flex max-md:justify-center">
+            <h1 className="font-main text-8xl ml-8 max-md:text-6xl max-md:pt-0 max-md:text-center">
+              Books 3D Library
+            </h1>
             <DarkMode3D />
           </div>
         </Scroll>
