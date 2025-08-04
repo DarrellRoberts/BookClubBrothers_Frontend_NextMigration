@@ -2,8 +2,6 @@ import { Book } from "@/types/BookInterface"
 import React, { useState } from "react"
 import BookCover from "../BookCover"
 import { handleHideScores_NoSetter } from "@/utils/time-functions/hideScores"
-import "@/style/singlebook.css"
-import "@/style/singlebookRes.css"
 import Profile from "@/components/misc/profile/Profile"
 import useSingleUserFetch from "@/hooks/fetch-hooks/useSingleUserFetch"
 import NavigateBook from "./NavigateBook"
@@ -12,7 +10,7 @@ type Props = {
   bookData: Book
 }
 
-const UserViewSingleBook: React.FC<Props> = ({ bookData }) => {
+const UserViewLeftSide: React.FC<Props> = ({ bookData }) => {
   const [showLeftNavArrows, setShowLeftNavArrows] = useState<boolean>(true)
   const [showRightNavArrows, setShowRightNavArrows] = useState<boolean>(true)
 
@@ -21,8 +19,10 @@ const UserViewSingleBook: React.FC<Props> = ({ bookData }) => {
   )
   return (
     <>
-      <div className="bookTitleCon flex flex-col">
-        <h1 className="bookTitle">{bookData?.title}</h1>
+      <div className="flex flex-col items-center justify-center max-md:flex-col max-md:items-center">
+        <h1 className="font-main text-8xl m-4 pb-20 max-md:text-6xl max-md:mt-8 max-md:text-center max-sm:text-4xl">
+          {bookData?.title}
+        </h1>
         {!loadingUser ? (
           <div className="flex items-center justify-end h-[100px] mb-[2rem]">
             {showLeftNavArrows && (
@@ -58,10 +58,10 @@ const UserViewSingleBook: React.FC<Props> = ({ bookData }) => {
               alt="book_review_image"
               width=""
               height=""
-              className="bookCover border-4 border-solid m-5"
+              className="w-[600px] h-[400px] border-2 border-solid border-[var(--default-border-color)] m-5 max-md:w-[350px] max-md:h-[275px] max-sm:w-[275px] max-sm:h-[225px]"
             />
           ) : (
-            <div className="bookTitleCoverCon flex justify-center text-center items-center border-4 m-5 border-solid">
+            <div className="w-[600px] h-[400px] border-2 border-[var(--default-border-color)] flex justify-center text-center items-center border-solid m-5 max-md:w-[275px] max-md:h-[350px]">
               <BookCover
                 title={bookData?.title}
                 totalScore={bookData?.totalScore}
@@ -79,4 +79,4 @@ const UserViewSingleBook: React.FC<Props> = ({ bookData }) => {
   )
 }
 
-export default UserViewSingleBook
+export default UserViewLeftSide

@@ -5,8 +5,6 @@ import { useParams } from "next/navigation"
 import Loader from "@/components/loader/Loader"
 import RatingCon from "../../../../../components/books/library/single-book/RatingCon"
 import CommentCon from "../../../../../components/books/library/single-book/CommentCon"
-import "@/style/singlebook.css"
-import "@/style/singlebookRes.css"
 import { handleHideScores_NoSetter } from "@/utils/time-functions/hideScores"
 import useBookFetch from "@/hooks/fetch-hooks/useReadBookFetch"
 import { useAppSelector } from "@/store/lib/hooks"
@@ -30,7 +28,7 @@ const SingleBook: React.FC = () => {
   return (
     <>
       {showDelete ? (
-        <h1 className="bookTitle flex justify-center items-center h-screen text-center">
+        <h1 className="font-main text-[5rem] m-4 pb-[5rem] md:text-[3.5rem] md:mt-8 md:text-center sm:text-[2.5rem]">
           Book is deleted
         </h1>
       ) : error ? (
@@ -38,14 +36,14 @@ const SingleBook: React.FC = () => {
       ) : loadingBooks && !bookData ? (
         <Loader />
       ) : (
-        <div className="mainSingleCon flex items-center">
+        <div className="max-md:flex-col max-md:items-center flex items-center">
           {decodedToken?._id === adminId ? (
             <AdminViewLeftSide bookData={bookData} bookId={bookData._id} />
           ) : (
             <UserViewLeftSide bookData={bookData} />
           )}
 
-          <div className="bookRightCon flex flex-col m-20">
+          <div className="font-main border-2 border-[var(--default-border-color)] p-6 max-lg:w-[400px] max-md:w-[300px] max-md:m-0 max-md:mb-8 flex flex-col m-20">
             <h2 className="text-5xl underline">Details</h2>
             {decodedToken?._id === adminId ? (
               <AdminViewRightSide bookData={bookData} bookId={bookData._id} />
@@ -55,7 +53,7 @@ const SingleBook: React.FC = () => {
           </div>
         </div>
       )}
-      <div className="ratingAndCommentCon">
+      <div className="flex mb-8 max-md:flex-col max-md:items-center">
         <RatingCon
           bookData={bookData}
           id={id}

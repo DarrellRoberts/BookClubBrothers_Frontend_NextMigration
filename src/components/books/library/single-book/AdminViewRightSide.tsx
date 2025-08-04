@@ -1,7 +1,5 @@
 import { Book } from "@/types/BookInterface"
 import React from "react"
-import "@/style/singlebook.css"
-import "@/style/singlebookRes.css"
 import { handleHideScores_NoSetter } from "@/utils/time-functions/hideScores"
 import EditActualDateButton from "@/components/forms/editbookform-single-book/datemeeting/EditActualDateButton"
 import EditActualDate from "@/components/forms/editbookform-single-book/datemeeting/EditActualDate"
@@ -28,94 +26,99 @@ const AdminViewRightSide: React.FC<Props> = ({ bookData, bookId }) => {
     useAppSelector((state) => state.editBookButtons)
 
   return (
-    <ul>
-      <li className="mt-5 underline">Author</li>
-      <li className="">
-        {showAuthor ? (
-          <EditAuthor inAuthor={bookData?.author} id={bookId} />
-        ) : (
-          bookData?.author
-        )}
-      </li>
-      <span>
-        <EditAuthorButton />
-      </span>
+    <div className="font-[var(--main)] p-6 w-[400px] max-md:p-6 max-md:w-[300px] max-md:m-0 max-md:mb-8">
+      <ul>
+        <li className="mt-5 underline">Author</li>
+        <li className="">
+          {showAuthor ? (
+            <EditAuthor inAuthor={bookData?.author} id={bookId} />
+          ) : (
+            bookData?.author
+          )}
+        </li>
+        <span>
+          <EditAuthorButton />
+        </span>
 
-      <li className="mt-5 underline">Published in</li>
-      <li className="">
-        {showPublish ? (
-          <EditPublished inPublish={bookData?.yearPublished} id={bookId} />
-        ) : bookData?.yearPublished < 0 ? (
-          Math.abs(bookData?.yearPublished) + " BCE"
+        <li className="mt-5 underline">Published in</li>
+        <li className="">
+          {showPublish ? (
+            <EditPublished inPublish={bookData?.yearPublished} id={bookId} />
+          ) : bookData?.yearPublished < 0 ? (
+            Math.abs(bookData?.yearPublished) + " BCE"
+          ) : (
+            bookData?.yearPublished
+          )}
+        </li>
+        <EditPublishButton />
+        <li className="mt-5 underline">Number of pages</li>
+        {showPage ? (
+          <EditPages inPages={bookData?.pages} id={bookId} />
         ) : (
-          bookData?.yearPublished
+          <li className="">{bookData?.pages}</li>
         )}
-      </li>
-      <EditPublishButton />
-      <li className="mt-5 underline">Number of pages</li>
-      {showPage ? (
-        <EditPages inPages={bookData?.pages} id={bookId} />
-      ) : (
-        <li className="">{bookData?.pages}</li>
-      )}
-      <EditPagesButton />
+        <EditPagesButton />
 
-      <li className="mt-5 underline">Genres</li>
-      {showGenre ? (
-        <EditGenre id={bookId} inGenre={bookData?.genre?.map((type) => type)} />
-      ) : (
-        bookData?.genre?.map((type, i) => (
-          <li key={i}>
-            {type[bookData?.genre?.length - 1] ? ` ${type}` : ` ${type},`}
-          </li>
-        ))
-      )}
-      <EditGenreButton />
-
-      <li className="mt-5 underline">Planned Meeting Date</li>
-      <li className="">
-        {showDate ? (
-          <EditDate id={bookId} />
-        ) : bookData?.dateOfMeeting ? (
-          dateFormatter(bookData?.dateOfMeeting)
+        <li className="mt-5 underline">Genres</li>
+        {showGenre ? (
+          <EditGenre
+            id={bookId}
+            inGenre={bookData?.genre?.map((type) => type)}
+          />
         ) : (
-          "???"
+          bookData?.genre?.map((type, i) => (
+            <li key={i}>
+              {type[bookData?.genre?.length - 1] ? ` ${type}` : ` ${type},`}
+            </li>
+          ))
         )}
-      </li>
-      <EditDateButton />
+        <EditGenreButton />
 
-      <li className="mt-5 underline">Actual Meeting Date</li>
-      <li className="">
-        {showDate ? (
-          <EditActualDate id={bookId} />
-        ) : bookData?.actualDateOfMeeting ? (
-          dateFormatter(bookData?.actualDateOfMeeting)
-        ) : (
-          "???"
-        )}
-      </li>
-      <EditActualDateButton />
-      <li className="mt-5 underline">Score</li>
-      <li className="">
-        {handleHideScores_NoSetter(bookData?.actualDateOfMeeting)
-          ? "?"
-          : bookData?.totalScore}
-      </li>
-      <br />
-      {bookData.shortStories?.length > 0 &&
-        bookData.shortStories?.map((story) => (
-          <li key={story._id} className="">
-            {story.title}:
-            <span>
-              {handleHideScores_NoSetter(bookData?.actualDateOfMeeting)
-                ? " ?"
-                : " " +
-                  story.scoreRatings.rating.reduce((acc, sum) => acc + sum) /
-                    story.scoreRatings.rating.length}
-            </span>
-          </li>
-        ))}
-    </ul>
+        <li className="mt-5 underline">Planned Meeting Date</li>
+        <li className="">
+          {showDate ? (
+            <EditDate id={bookId} />
+          ) : bookData?.dateOfMeeting ? (
+            dateFormatter(bookData?.dateOfMeeting)
+          ) : (
+            "???"
+          )}
+        </li>
+        <EditDateButton />
+
+        <li className="mt-5 underline">Actual Meeting Date</li>
+        <li className="">
+          {showDate ? (
+            <EditActualDate id={bookId} />
+          ) : bookData?.actualDateOfMeeting ? (
+            dateFormatter(bookData?.actualDateOfMeeting)
+          ) : (
+            "???"
+          )}
+        </li>
+        <EditActualDateButton />
+        <li className="mt-5 underline">Score</li>
+        <li className="">
+          {handleHideScores_NoSetter(bookData?.actualDateOfMeeting)
+            ? "?"
+            : bookData?.totalScore}
+        </li>
+        <br />
+        {bookData.shortStories?.length > 0 &&
+          bookData.shortStories?.map((story) => (
+            <li key={story._id} className="">
+              {story.title}:
+              <span>
+                {handleHideScores_NoSetter(bookData?.actualDateOfMeeting)
+                  ? " ?"
+                  : " " +
+                    story.scoreRatings.rating.reduce((acc, sum) => acc + sum) /
+                      story.scoreRatings.rating.length}
+              </span>
+            </li>
+          ))}
+      </ul>
+    </div>
   )
 }
 

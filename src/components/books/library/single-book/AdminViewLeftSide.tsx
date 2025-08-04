@@ -7,8 +7,6 @@ import { handleHideScores_NoSetter } from "@/utils/time-functions/hideScores"
 import EditImageButton from "@/components/forms/editbookform-single-book/image/EditImageButton"
 import EditTitle from "@/components/forms/editbookform-single-book/title/EditTitle"
 import EditImage from "@/components/forms/editbookform-single-book/image/EditImage"
-import "@/style/singlebook.css"
-import "@/style/singlebookRes.css"
 import { useAppSelector } from "@/store/lib/hooks"
 import NavigateBook from "./NavigateBook"
 import Profile from "@/components/misc/profile/Profile"
@@ -30,14 +28,16 @@ const AdminViewSingleBook: React.FC<Props> = ({ bookData, bookId }) => {
   )
   return (
     <>
-      <div className="bookTitleCon flex flex-col">
+      <div className="flex flex-col items-center justify-center max-md:flex-col max-md:items-center">
         <DeleteBook id={bookId} />
         {showTitle ? (
           <div className="flex mt-5">
             <EditTitle id={bookId} inTitle={bookData?.title} />
           </div>
         ) : (
-          <h1 className="bookTitle">{bookData?.title}</h1>
+          <h1 className="font-main text-8xl m-4 pb-20 max-md:text-6xl max-md:mt-8 max-md:text-center max-sm:text-4xl">
+            {bookData?.title}
+          </h1>
         )}
         <EditTitleButton />
         {showLeftNavArrows && (
@@ -71,10 +71,10 @@ const AdminViewSingleBook: React.FC<Props> = ({ bookData, bookId }) => {
               alt="book_review_image"
               width=""
               height=""
-              className="bookCover border-4 border-solid m-5"
+              className="w-[600px] h-[400px] border-2 border-solid border-[var(--default-border-color)] m-5 max-md:w-[350px] max-md:h-[275px] max-sm:w-[275px] max-sm:h-[225px]"
             />
           ) : (
-            <div className="bookTitleCoverCon flex justify-center text-center items-center border-4 m-5 border-solid">
+            <div className="w-[600px] h-[400px] border-2 border-[var(--default-border-color)] flex justify-center text-center items-center border-solid m-5 max-md:w-[275px] max-md:h-[350px]">
               <BookCover
                 title={bookData?.title}
                 totalScore={bookData?.totalScore}
