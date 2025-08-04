@@ -1,62 +1,62 @@
 /* eslint-disable react/prop-types */
-/* eslint-disable react/jsx-key */
-/* eslint-disable react/no-unescaped-entities */
-/* eslint-disable react/react-in-jsx-scope */
-"use client";
+"use client"
 
-import { useState } from "react";
-import CommentButton from "../../../forms/commentform/CommentButton";
-import EditCommentButton from "../../../forms/commentform/EditCommentButton";
-import { useJwt } from "react-jwt";
-import { type Book } from "@/types/BookInterface";
+import React from "react"
+import { useState } from "react"
+import CommentButton from "../../../forms/commentform/CommentButton"
+import EditCommentButton from "../../../forms/commentform/EditCommentButton"
+import { useJwt } from "react-jwt"
+import { type Book } from "@/types/BookInterface"
 import {
   findComment,
   findCommentByUsername,
-} from "@/utils/comment-functions/findComments";
-import { findUserByUsername } from "@/utils/find-functions/find";
-import styles from "./commentCon.module.css";
-import Link from "next/link";
-import ProfileSmall from "@/components/misc/profile/ProfileSmall";
-import useUserFetch from "@/hooks/fetch-hooks/useUserFetch";
-import LoaderNoText from "@/components/loader/LoaderNoText";
-import { useAppSelector } from "@/store/lib/hooks";
+} from "@/utils/comment-functions/findComments"
+import { findUserByUsername } from "@/utils/find-functions/find"
+import Link from "next/link"
+import ProfileSmall from "@/components/misc/profile/ProfileSmall"
+import useUserFetch from "@/hooks/fetch-hooks/useUserFetch"
+import LoaderNoText from "@/components/loader/LoaderNoText"
+import { useAppSelector } from "@/store/lib/hooks"
 
 type Props = {
-  bookData: Book;
-  id: string;
-  hideScores: boolean;
-};
+  bookData: Book
+  id: string
+  hideScores: boolean
+}
 
 const CommentCon: React.FC<Props> = ({ bookData, id, hideScores }) => {
-  const [addComment, setAddComment] = useState<boolean>(false);
-  const [showEditComment, setShowEditComment] = useState<boolean>(false);
+  const [addComment, setAddComment] = useState<boolean>(false)
+  const [showEditComment, setShowEditComment] = useState<boolean>(false)
 
-  const token = useAppSelector((state) => state.token.tokenState);
+  const token = useAppSelector((state) => state.token.tokenState)
   const { decodedToken }: { decodedToken?: { username: string } } =
-    useJwt(token);
-  const username = decodedToken?.username;
+    useJwt(token)
+  const username = decodedToken?.username
   const { userData, loadingUsers, error } = useUserFetch(
     `https://bookclubbrothers-backend.onrender.com/users`,
     null
-  );
+  )
 
-  const commentObj: object | string[] = {};
-  findComment(bookData, userData, commentObj);
-  const initialComment = findCommentByUsername(username, bookData, userData);
+  const commentObj: object | string[] = {}
+  findComment(bookData, userData, commentObj)
+  const initialComment = findCommentByUsername(username, bookData, userData)
 
   return (
     <>
-      <div className={styles.commentCon}>
-        <h2 className="ratingTitle underline">Comments</h2>
+      <div className="border-2 border-[var(--default-border-color)] flex flex-col items-center justify-start lg:w-[600px] ml-8 text-[var(--main-font-color)] font-main max-md:w-[300px]  max-md:m-8  max-md:p-4">
+        <h2 className="text-4xl text-center font-main underline">Comments</h2>
         {error ? (
           <h2>{error.message}</h2>
         ) : loadingUsers ? (
           <LoaderNoText />
         ) : (
           Object.entries(commentObj).map(([name, value], i) => (
-            <div className={styles.commentWrap} key={i}>
+            <div
+              className="flex m-4 mx-8 bg-black text-white justify-around p-4 rounded-2xl  max-md:flex-col"
+              key={i}
+            >
               <div>
-                <h3>{name}</h3>
+                <h3 className=" max-lg:text-4xl  max-md:text-center">{name}</h3>
                 <Link href={`/brothers/library/${name}`}>
                   <ProfileSmall
                     imageURL={
@@ -66,9 +66,11 @@ const CommentCon: React.FC<Props> = ({ bookData, id, hideScores }) => {
                 </Link>
               </div>
               <li
-                className={`${
-                  hideScores && username !== name ? "text-3xl" : null
-                } list-none mb-1 ml-2 flex items-center text-center`}
+                className={`
+                  ${hideScores && username !== name ? "text-3xl" : null} 
+                  list-none mb-1 ml-2 flex items-center text-center
+                   max-md:m-4  max-md:p-0  max-md:items-center max-md:justify-center
+                `}
               >
                 {hideScores && username !== name ? "?" : `"${value}"`}
               </li>
@@ -96,7 +98,7 @@ const CommentCon: React.FC<Props> = ({ bookData, id, hideScores }) => {
         ) : null}
       </div>
     </>
-  );
-};
+  )
+}
 
-export default CommentCon;
+export default CommentCon

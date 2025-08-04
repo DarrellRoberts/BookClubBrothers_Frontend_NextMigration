@@ -2,7 +2,6 @@
 /* eslint-disable react/react-in-jsx-scope */
 "use client"
 
-import styles from "./BookCover.module.css"
 import { useJwt } from "react-jwt"
 import useUserFetch from "@/hooks/fetch-hooks/useUserFetch"
 import { useAppSelector } from "@/store/lib/hooks"
@@ -54,12 +53,14 @@ const BookCover: React.FC<Props> = ({
 
   return (
     <>
-      <div className="flex h-[100%] w-[100%]">
-        <div className="leftcover  flex flex-col items-center justify-center w-[45%] bg-black text-white">
-          <h2 className={styles.titleCover}>{title}</h2>
-          <h2 className={styles.titleCover}>(Image pending)</h2>
+      <div className="flex h-full w-full">
+        <div className="leftcover flex w-[45%] flex-col items-center justify-center bg-black text-white">
+          <h2 className="font-main text-2xl max-md:text-base">{title}</h2>
+          <h2 className="font-main text-2xl max-md:text-base">
+            (Image pending)
+          </h2>
         </div>
-        <div className={`${styles.rightcover} flex flex-col items-start ml-2`}>
+        <div className="flex flex-col items-start font-main text-xl ml-2 max-md:text-base">
           <h2 className="underline mb-5">Book Club Brothers</h2>
 
           {Array.isArray(raterObj) && !loadingUsers ? (
