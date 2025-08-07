@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/react-in-jsx-scope */
+import Image from "next/image"
 
 type Props = {
   title?: string
@@ -9,15 +10,12 @@ type Props = {
 const BookImageCover: React.FC<Props> = ({ title, imageURL }) => {
   return (
     <>
-      <div className="flex w-full justify-center">
-        <h2 className="font-main text-[2rem] font-bolder text-center underline m-0 inline-size-[275px] text-ellipsis whitespace-nowrap overflow-hidden max-md:text-[1.75rem] max-md:no-underline max-md:w-full max-sm:text-2xl max-sm:w-[250px] max-xs:w-[300px]">
-          {title ?? ""}
-        </h2>
-      </div>
-      <img
+      <Image
         src={imageURL}
-        alt="book_review_image"
-        className="m-5 border-[var(--default-border-color)] border-5 border-solid"
+        alt={title}
+        className="border-[var(--default-border-color)] border-5 border-solid h-63 aspect-[1.55/1] max-xs:w-75 max-xs:aspect-auto max-xs:h-63"
+        width={252 * 1.55}
+        height={252}
       />
     </>
   )

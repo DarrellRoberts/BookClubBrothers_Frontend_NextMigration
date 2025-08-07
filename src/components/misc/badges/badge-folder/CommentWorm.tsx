@@ -1,17 +1,17 @@
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/react-in-jsx-scope */
-import CommentWormImage from "@/assets/badges/Badge-comment.badge-image.jpg";
-import BadgeTemplate from "../BadgeTemplate";
-import Link from "next/link";
-import style from "../badges.module.css";
+import CommentWormImage from "@/assets/badges/Badge-comment.badge-image.png"
+import BadgeTemplate from "../BadgeTemplate"
+import Link from "next/link"
+import style from "../badges.module.css"
 
 type Props = {
-  commentWorm: boolean;
-};
+  commentWorm: boolean
+}
 
 const BookWorm: React.FC<Props> = ({ commentWorm }) => {
-  const badge = CommentWormImage.src;
+  const badge = CommentWormImage.src
   const content = (
     <div className={style.contentCon}>
       <img src={badge} alt="Comment Worm" width="250px" />
@@ -20,7 +20,7 @@ const BookWorm: React.FC<Props> = ({ commentWorm }) => {
         what's this?
       </Link>
     </div>
-  );
+  )
 
   return (
     <>
@@ -32,7 +32,7 @@ const BookWorm: React.FC<Props> = ({ commentWorm }) => {
         />
       ) : null}
     </>
-  );
-};
+  )
+}
 
-export default BookWorm;
+export default BookWorm

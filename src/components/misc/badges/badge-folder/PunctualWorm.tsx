@@ -1,18 +1,18 @@
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/react-in-jsx-scope */
-import PunctualWormImage from "@/assets/badges/Badge-punctual-image.jpg";
-import BadgeTemplate from "../BadgeTemplate";
-import Link from "next/link";
-import { Badge } from "antd";
-import style from "../badges.module.css";
+import PunctualWormImage from "@/assets/badges/Badge-punctual-image.png"
+import BadgeTemplate from "../BadgeTemplate"
+import Link from "next/link"
+import { Badge } from "antd"
+import style from "../badges.module.css"
 
 type Props = {
-  punctualWorm: number;
-};
+  punctualWorm: number
+}
 
 const PunctualWorm: React.FC<Props> = ({ punctualWorm }) => {
-  const badge = PunctualWormImage.src;
+  const badge = PunctualWormImage.src
 
   const content = (
     <div className={style.contentCon}>
@@ -22,7 +22,7 @@ const PunctualWorm: React.FC<Props> = ({ punctualWorm }) => {
         what's this?
       </Link>
     </div>
-  );
+  )
   return (
     <>
       {punctualWorm ? (
@@ -35,7 +35,7 @@ const PunctualWorm: React.FC<Props> = ({ punctualWorm }) => {
         </Badge>
       ) : null}
     </>
-  );
-};
+  )
+}
 
-export default PunctualWorm;
+export default PunctualWorm

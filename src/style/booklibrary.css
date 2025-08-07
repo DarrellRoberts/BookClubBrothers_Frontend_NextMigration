@@ -8,11 +8,10 @@
   margin-top: 1rem;
 }
 
-.bookCon img {
-  /* width: 400px; */
+/* .bookCon img {
   aspect-ratio: 1.55/1;
   height: 250px;
-}
+} */
 
 .bookCoverCon {
   display: flex;
@@ -51,7 +50,7 @@
   justify-content: center;
 }
 
-:where(.css-dev-only-do-not-override-1rqnfsa).ant-btn-default {
+/* :where(.css-dev-only-do-not-override-1rqnfsa).ant-btn-default {
   background-color: black;
   color: white;
 }
@@ -91,4 +90,4 @@
   ):hover {
   color: white;
   border-color: black;
-}
+} */

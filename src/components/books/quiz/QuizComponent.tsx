@@ -20,14 +20,14 @@ const QuizComponent = () => {
         </h2>
       </div>
 
-      <div className="flex flex-col border-2 border-black p-6 w-[500px] h-[300px] text-xl font-main max-md:w-[350px] max-md:p-4 max-md:top-[90px]">
+      <div className="flex flex-col border-2 border-bc-border w-[500px] h-[300px] text-xl font-main max-md:w-[350px] max-md:p-4 max-md:top-[90px] p-10">
         <h2 className="mb-2 font-bold">{quiz[index]?.question}</h2>
         <ul>
           {quiz[index]?.options?.map((option, i) =>
             !showCorrect ? (
               <>
                 <li
-                  className="list-disc cursor-pointer hover:bg-black hover:text-white"
+                  className="list-disc cursor-pointer hover:bg-black hover:text-white ml-5"
                   onClick={(e: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
                     const target = e.target as HTMLLIElement
                     const clickedOption = target.textContent

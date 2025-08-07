@@ -7,6 +7,8 @@
 @theme {
   --font-main: var(--main);
   --color-bc-green: var(--tertiaryColor);
+  --color-bc-border: var(--default-border-color);
+  --color-bc-font: var(--main-font-color);
   --breakpoint-xs: 400px;
 }
 
@@ -38,6 +40,7 @@
 body {
   background-color: var(--main-bg-color);
   color: var(--main-font-color);
+  font-family: var(--main);
 }
 
 body:has(#theme:checked) {
@@ -47,10 +50,6 @@ body:has(#theme:checked) {
   --user-background-color: #151410;
   --nested-font-color: #ffffff;
   --nested-bg-color: #121212;
-}
-
-h2 {
-  font-family: var(--main);
 }
 
 .libaryButtons {
@@ -73,11 +72,14 @@ h2 {
 :where(.css-1rqnfsa).ant-btn-default {
   background-color: var(--button-bg-color);
   color: var(--button-font-color);
+  font-family: var(--main);
+  border-color: var(--main-bg-color);
 }
 
 :where(.css-1rqnfsa).ant-btn > span:hover,
 :where(.css-dev-only-do-not-override-1rqnfsa).ant-btn > span:hover {
   color: var(--button-font-color);
+  border-color: var(--main-bg-color);
 }
 
 :where(.css-dev-only-do-not-override-1rqnfsa).ant-btn-default:not(
@@ -87,7 +89,7 @@ h2 {
     .ant-btn-disabled
   ):hover {
   color: var(--main-bg-color);
-  border-color: var(--main-font-color);
+  border-color: var(--main-bg-color);
   background-color: var(--tertiaryColor);
 }
 
@@ -202,4 +204,49 @@ h2 {
   background-color: var(--tertiaryColor);
   border-color: var(--tertiaryColor);
   color: white;
+}
+
+:where(.css-dev-only-do-not-override-1rqnfsa).ant-input-search
+  > .ant-input-group
+  > .ant-input-group-addon:last-child
+  .ant-input-search-button,
+:where(.css-1rqnfsa).ant-input-search
+  > .ant-input-group
+  > .ant-input-group-addon:last-child
+  .ant-input-search-button {
+  background-color: black;
+  border-color: var(--main-font-color);
+}
+
+:where(.css-dev-only-do-not-override-1rqnfsa).ant-input-search
+  > .ant-input-group
+  > .ant-input-group-addon:last-child
+  .ant-input-search-button:hover,
+:where(.css-1rqnfsa).ant-input-search
+  > .ant-input-group
+  > .ant-input-group-addon:last-child
+  .ant-input-search-button:hover {
+  background-color: var(--tertiaryColor);
+}
+
+:where(.css-1rqnfsa).ant-input-affix-wrapper:active,
+:where(.css-dev-only-do-not-override-1rqnfsa).ant-input-affix-wrapper:active {
+  border-color: var(--tertiaryColor);
+}
+
+:where(.css-1rqnfsa).ant-input-affix-wrapper:focus,
+:where(.css-dev-only-do-not-override-1rqnfsa).ant-input-affix-wrapper:focus {
+  border-color: var(--tertiaryColor);
+}
+
+:where(.css-dev-only-do-not-override-1rqnfsa).ant-input-affix-wrapper:hover,
+:where(.css-1rqnfsa).ant-input-affix-wrapper:hover {
+  border-color: var(--tertiaryColor);
+}
+
+:where(
+    .css-dev-only-do-not-override-1rqnfsa
+  ).ant-input-affix-wrapper:focus-within,
+:where(.css-1rqnfsa).ant-input-affix-wrapper:focus-within {
+  border-color: var(--tertiaryColor);
 }

@@ -1,20 +1,20 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/react-in-jsx-scope */
-"use client";
+"use client"
 
-import { Book } from "@/types/BookInterface";
-import { User } from "@/types/UserInterface";
-import { AutoComplete, Input, Space } from "antd";
-import { useState } from "react";
-import { formatServerDate } from "@/utils/time-functions/formatServerDate";
-import style from "./search.module.css";
-import ProfileSmall from "../profile/ProfileSmall";
-import Link from "next/link";
+import { Book } from "@/types/BookInterface"
+import { User } from "@/types/UserInterface"
+import { AutoComplete, Input, Space } from "antd"
+import { useState } from "react"
+import { formatServerDate } from "@/utils/time-functions/formatServerDate"
+import style from "./search.module.css"
+import ProfileSmall from "../profile/ProfileSmall"
+import Link from "next/link"
 
 interface Props {
-  setSearchBar: React.Dispatch<React.SetStateAction<string>>;
-  filteredBooks?: Book[];
-  filteredUsers?: User[];
+  setSearchBar: React.Dispatch<React.SetStateAction<string>>
+  filteredBooks?: Book[]
+  filteredUsers?: User[]
 }
 
 const SearchBar: React.FC<Props> = ({
@@ -22,38 +22,44 @@ const SearchBar: React.FC<Props> = ({
   filteredBooks,
   filteredUsers,
 }) => {
-  const [inputValue, setValue] = useState("");
-  const { Search } = Input;
-  const autoCompleteData = filteredBooks ? filteredBooks : filteredUsers;
+  const [inputValue, setValue] = useState("")
+  const { Search } = Input
+  const autoCompleteData = filteredBooks ? filteredBooks : filteredUsers
 
   const onSearch = () => {
-    setSearchBar(inputValue);
-    setValue("");
-  };
+    setSearchBar(inputValue)
+    setValue("")
+  }
 
   const handleInputChange = (e) => {
-    setValue(e.target.value);
-    setSearchBar(e.target.value);
-  };
+    setValue(e.target.value)
+    setSearchBar(e.target.value)
+  }
 
   const onSelect = (value: string) => {
-    setSearchBar(value);
-    setValue("");
-  };
+    setSearchBar(value)
+    setValue("")
+  }
 
   const options = autoCompleteData?.map((item) =>
     item.title
       ? {
           value: item.title,
           label: (
-            <div className={style.autocompleteBookGrid}>
+            <div>
               <Link href={`/books/library/${item._id}`}>
-                <div className={style.autocompleteDetails}>
-                  <h2>{item?.title}</h2>
+                <div>
+                  <h2 className="underline text-black font-main font-normal">
+                    {item?.title}
+                  </h2>
                 </div>
                 <div className="flex gap-1">
-                  <span>Total Score: </span>
-                  <span>{item?.totalScore ?? "?"}</span>
+                  <span className="text-black font-main font-normal">
+                    Total Score:{" "}
+                  </span>
+                  <span className="text-black font-main font-normal">
+                    {item?.totalScore ?? "?"}
+                  </span>
                 </div>
               </Link>
             </div>
@@ -73,15 +79,17 @@ const SearchBar: React.FC<Props> = ({
                     {item?.username}
                   </h2>
                   <div className="flex flex-col">
-                    <span>Last login: </span>
-                    <span>{formatServerDate(item?.lastLoggedIn)}</span>
+                    <span style={{ color: "black" }}>Last login: </span>
+                    <span style={{ color: "black" }}>
+                      {formatServerDate(item?.lastLoggedIn)}
+                    </span>
                   </div>
                 </div>
               </Link>
             </div>
           ),
         }
-  ) ?? [{ value: "", label: <h2>No results loaded</h2> }];
+  ) ?? [{ value: "", label: <h2>No results loaded</h2> }]
 
   options.push({
     value: "",
@@ -91,7 +99,7 @@ const SearchBar: React.FC<Props> = ({
         <h2>to load more results</h2>
       </div>
     ),
-  });
+  })
 
   return (
     <>
@@ -109,7 +117,7 @@ const SearchBar: React.FC<Props> = ({
         </AutoComplete>
       </Space>
     </>
-  );
-};
+  )
+}
 
-export default SearchBar;
+export default SearchBar

@@ -5,6 +5,7 @@ import { handleHideScores_NoSetter } from "@/utils/time-functions/hideScores"
 import Profile from "@/components/misc/profile/Profile"
 import useSingleUserFetch from "@/hooks/fetch-hooks/useSingleUserFetch"
 import NavigateBook from "./NavigateBook"
+import Image from "next/image"
 
 type Props = {
   bookData: Book
@@ -53,25 +54,24 @@ const UserViewLeftSide: React.FC<Props> = ({ bookData }) => {
         ) : null}
         <div>
           {bookData?.reviewImageURL ? (
-            <img
+            <Image
               src={bookData?.reviewImageURL}
               alt="book_review_image"
-              width=""
-              height=""
+              width={600}
+              height={400}
               className="w-[600px] h-[400px] border-2 border-solid border-[var(--default-border-color)] m-5 max-md:w-[350px] max-md:h-[275px] max-sm:w-[275px] max-sm:h-[225px]"
             />
           ) : (
-            <div className="w-[600px] h-[400px] border-2 border-[var(--default-border-color)] flex justify-center text-center items-center border-solid m-5 max-md:w-[275px] max-md:h-[350px]">
-              <BookCover
-                title={bookData?.title}
-                totalScore={bookData?.totalScore}
-                ratingArr={bookData?.scoreRatings?.rating}
-                raterArr={bookData?.scoreRatings?.raterId}
-                hideScores={handleHideScores_NoSetter(
-                  bookData?.actualDateOfMeeting
-                )}
-              />
-            </div>
+            <BookCover
+              title={bookData?.title}
+              totalScore={bookData?.totalScore}
+              ratingArr={bookData?.scoreRatings?.rating}
+              raterArr={bookData?.scoreRatings?.raterId}
+              hideScores={handleHideScores_NoSetter(
+                bookData?.actualDateOfMeeting
+              )}
+              isSingleBook={true}
+            />
           )}
         </div>
       </div>
