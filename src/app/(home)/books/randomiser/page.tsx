@@ -1,7 +1,6 @@
 /* eslint-disable react/react-in-jsx-scope */
 "use client"
 
-import style from "@/components/books/randomiser/randomiser.module.css"
 import useBookFetch from "@/hooks/fetch-hooks/useUnreadBookFetch"
 import useUserFetch from "@/hooks/fetch-hooks/useUserFetch"
 import RandomSectionLeft from "@/components/books/randomiser/RandomSectionLeft"
@@ -27,7 +26,9 @@ const RandomiserHomepage: React.FC = () => {
 
   return (
     <div>
-      <h1 className={style.randomTitle}>Randomiser</h1>
+      <h1 className="font-main text-[clamp(4rem,8vw,8rem)] ml-8 text-center mt-12 max-md:text-[2.5rem] max-md:mt-12">
+        Randomiser
+      </h1>
       <div className="flex justify-center">
         <RandomiserFilters
           userData={userData}
@@ -35,18 +36,18 @@ const RandomiserHomepage: React.FC = () => {
           bookData={bookData}
         />
       </div>
-      <div className={style.randomCon}>
+      <div className="flex flex-col items-center justify-center">
         {randomiserBooks?.length === 0 ? (
-          <div className={style.randomBox}>
-            <div className="flex w-full justify-center mt-[3rem]">
+          <div className="grid aspect-[2/1.5] w-[clamp(250px,100vw,900px)] grid-cols-[1fr_2fr] grid-rows-1 p-4 border-solid border-2 border-[var(--default-border-color)] max-md:flex max-md:flex-col max-md:justify-evenly max-md:aspect-[1/1.5] max-md:w-[275px]">
+            <div className="mt-12 flex w-full justify-center">
               <h2 className="text-3xl">No results found</h2>
             </div>
-            <div className="flex w-full justify-center mt-[3rem]">
+            <div className="mt-12 flex w-full justify-center">
               <h2 className="text-3xl">Try another filter</h2>
             </div>
           </div>
         ) : (
-          <div className={style.randomBox}>
+          <div className="grid aspect-[2/1.5] w-[clamp(250px,100vw,900px)] grid-cols-[1fr_2fr] grid-rows-1 p-4 border-solid border-2 border-[var(--default-border-color)] max-md:flex max-md:flex-col max-md:justify-evenly max-md:aspect-[1/1.5] max-md:w-[275px]">
             <RandomSectionLeft
               bookData={randomiserBooks}
               userData={userData}

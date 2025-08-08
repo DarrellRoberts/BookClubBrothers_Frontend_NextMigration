@@ -6,8 +6,6 @@ import { useState, useEffect } from "react"
 import RatingButton from "../../../forms/ratingform/RatingButton"
 import EditRatingButton from "../../../forms/ratingform/EditRatingButton"
 import { useJwt } from "react-jwt"
-import "@/style/ratingcon.css"
-import "@/style/ratingconRes.css"
 import { Book } from "@/types/BookInterface"
 import { useAppSelector } from "@/store/lib/hooks"
 
@@ -76,9 +74,6 @@ const RatingCon: React.FC<Props> = ({ bookData, id, loading, hideScores }) => {
           if (!shortStoryRatingsByRater[username]) {
             shortStoryRatingsByRater[username] = {}
           }
-          // Add the short story title and its rating to the rater's object
-          // This will automatically handle cases where a rater has rated multiple stories,
-          // adding them to the same nested object.
           shortStoryRatingsByRater[username][title] = rating
         })
       }
@@ -87,11 +82,10 @@ const RatingCon: React.FC<Props> = ({ bookData, id, loading, hideScores }) => {
   }
   findShortStoriesScoresCorrected()
 
-  // function to find initialRating
   const findRatingByUsername = (raterObj, username) => {
     const result = raterObj?.find((pair) => pair[0] === username)
     if (result) {
-      return result[1] // Return the rating if username is found
+      return result[1]
     } else {
       return false
     }
@@ -103,28 +97,28 @@ const RatingCon: React.FC<Props> = ({ bookData, id, loading, hideScores }) => {
       getData()
     }
   }, [loading])
+
   return (
-    <div className="ratingCon">
-      <h2 className="ratingTitle underline">Ratings</h2>
+    <div className="border-2 border-[var(--default-border-color)] flex flex-col w-[300px] ml-4 max-md:m-0">
+      <h2 className="text-4xl text-center font-main underline">Ratings</h2>
       {Array.isArray(raterObj)
         ? raterObj.map(([name, value], index) => (
             <div key={index}>
               <li className="list-none m-2 font-bold">{name}:</li>
               <div
-                className="flex w-full"
-                style={{
-                  justifyContent:
-                    hideScores && username !== name ? "center" : "start",
-                }}
+                className={`flex w-full ${
+                  hideScores && username !== name
+                    ? "justify-center"
+                    : "justify-start"
+                }`}
               >
                 <div
-                  className="ratingGraph"
+                  className="bg-bc-green text-[var(--button-font-color)] text-center font-medium"
                   style={{
                     width:
                       hideScores && username !== name
                         ? "fit-content"
                         : `${value * 10}%`,
-                    backgroundColor: "var(--tertiaryColor)",
                     padding:
                       hideScores && username !== name ? "0.5rem 1rem" : "0",
                     borderRadius: hideScores && username !== name ? "50%" : "0",
@@ -139,18 +133,18 @@ const RatingCon: React.FC<Props> = ({ bookData, id, loading, hideScores }) => {
                     ([title, value]: [string, number], index) => (
                       <h2
                         key={index}
+                        className="w-full text-center border-b border-solid border-var(--default-border-color) mb-4 mt-4 leading-[0.25em]"
                         style={{
                           borderColor: "var(--default-border-color)",
                         }}
-                        className="w-full text-center border-b-[1px] border-solid border-black mb-4 mt-4 leading-[0.25em]"
                       >
                         <span
+                          className="pt-[2px] pb-[2px] pr-[8px] pl-[8px] border"
                           style={{
                             background: "var(--nested-bg-color)",
                             borderColor: "var(--default-border-color)",
                             color: "var(--nested-font-color)",
                           }}
-                          className="pt-[2px] pb-[2px] pr-[8px] pl-[8px] border"
                         >
                           {hideScores && username !== name
                             ? "?"

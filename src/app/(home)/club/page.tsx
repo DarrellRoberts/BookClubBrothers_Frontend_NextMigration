@@ -1,29 +1,33 @@
 /* eslint-disable react/react-in-jsx-scope */
-import Link from "next/link";
-import "@/style/bookHomepage.css";
-import "@/style/bookHomepageRes.css";
+import Link from "next/link"
+import "@/style/bookHomepage.css"
+import "@/style/bookHomepageRes.css"
+import { Button } from "antd"
 
 const ClubHomepage: React.FC = () => {
   return (
-    <div className="h-screen">
+    <div className="h-[calc(85vh-100px)]">
       <h1 className="booksTitle">The Club</h1>
-      <div className="flex justify-center ">
-        <div className="bookHomeGrid">
-          <div className="libaryButtons m-10 border-4 border-black p-3 rounded-lg bg-black text-white">
-            <Link href="/club/about">
-              <h2>About Us</h2>
-            </Link>
-          </div>
+      <div className="flex justify-evenly w-full">
+        <Link href="/club/about">
+          <Button size="large">About Us</Button>
+        </Link>
 
-          <div className="libaryButtons m-10 border-4 border-black p-3 rounded-lg bg-black text-white">
-            <Link href="/club/badges">
-              <h2>Badges</h2>
-            </Link>
-          </div>
-        </div>
+        <Link href="/club/badges">
+          <Button size="large">Badges</Button>
+        </Link>
       </div>
+      <div
+        className="flex justify-center mt-10 h-2/3"
+        style={{
+          backgroundImage: `url('/club-dashboard-club-background-image.png')`,
+          backgroundPosition: "50% 40%",
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
+        }}
+      ></div>
     </div>
-  );
-};
+  )
+}
 
-export default ClubHomepage;
+export default ClubHomepage
