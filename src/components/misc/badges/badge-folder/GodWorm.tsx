@@ -1,17 +1,17 @@
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/react-in-jsx-scope */
-import GodWormImage from "@/assets/badges/Badge-allbooks-badge.jpg";
-import BadgeTemplate from "../BadgeTemplate";
-import Link from "next/link";
-import style from "../badges.module.css";
+import GodWormImage from "@/assets/badges/Badge-allbooks-badge.png"
+import BadgeTemplate from "../BadgeTemplate"
+import Link from "next/link"
+import style from "../badges.module.css"
 
 type Props = {
-  godWorm: boolean;
-};
+  godWorm: boolean
+}
 
 const GodWorm: React.FC<Props> = ({ godWorm }) => {
-  const badge = GodWormImage.src;
+  const badge = GodWormImage.src
 
   const content = (
     <div className={style.contentCon}>
@@ -21,7 +21,7 @@ const GodWorm: React.FC<Props> = ({ godWorm }) => {
         what's this?
       </Link>
     </div>
-  );
+  )
   return (
     <>
       {godWorm ? (
@@ -32,7 +32,7 @@ const GodWorm: React.FC<Props> = ({ godWorm }) => {
         />
       ) : null}
     </>
-  );
-};
+  )
+}
 
-export default GodWorm;
+export default GodWorm

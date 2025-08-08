@@ -1,15 +1,14 @@
-import React, { useState } from "react";
-import quiz from "./quiz.json";
-import "@/style/quiz.css";
-import "@/style/quizRes.css";
+import React, { useState } from "react"
+import quiz from "./quiz.json"
 
 const QuizComponent = () => {
-  const [showCorrect, setShowCorrect] = useState(false);
-  const [index, setIndex] = useState(0);
-  const [counter, setCounter] = useState(0);
+  const [showCorrect, setShowCorrect] = useState(false)
+  const [index, setIndex] = useState(0)
+  const [counter, setCounter] = useState(0)
+
   return (
     <>
-      <div className="quizTitle flex mb-5">
+      <div className="flex mb-5 font-[var(--main)] text-4xl md:text-2xl">
         <h2>
           {index < quiz.length
             ? `Question: ${index + 1}/${quiz.length}`
@@ -21,23 +20,23 @@ const QuizComponent = () => {
         </h2>
       </div>
 
-      <div className="quizQuestionCon flex flex-col">
+      <div className="flex flex-col border-2 border-bc-border w-[500px] h-[300px] text-xl font-main max-md:w-[350px] max-md:p-4 max-md:top-[90px] p-10">
         <h2 className="mb-2 font-bold">{quiz[index]?.question}</h2>
         <ul>
           {quiz[index]?.options?.map((option, i) =>
             !showCorrect ? (
               <>
                 <li
-                  className="cursor-pointer list-disc hover:bg-black hover:text-white"
+                  className="list-disc cursor-pointer hover:bg-black hover:text-white ml-5"
                   onClick={(e: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
-                    const target = e.target as HTMLLIElement;
-                    const clickedOption = target.textContent;
+                    const target = e.target as HTMLLIElement
+                    const clickedOption = target.textContent
 
                     if (clickedOption === quiz[index].correctAnswer) {
-                      setCounter(counter + 1);
+                      setCounter(counter + 1)
                     }
 
-                    setShowCorrect(true);
+                    setShowCorrect(true)
                   }}
                 >
                   {option}
@@ -49,7 +48,7 @@ const QuizComponent = () => {
                 key={i}
                 className={
                   option === quiz[index].correctAnswer
-                    ? "text-green-500 font-bold list-disc"
+                    ? "list-disc font-bold text-green-500"
                     : "text-red-500"
                 }
               >
@@ -59,10 +58,10 @@ const QuizComponent = () => {
           )}
           {showCorrect ? (
             <li
-              className="cursor-pointer absolute right-1 top-32 font-bold"
+              className="absolute right-1 top-32 cursor-pointer font-bold"
               onClick={() => {
-                setIndex(index + 1);
-                setShowCorrect(false);
+                setIndex(index + 1)
+                setShowCorrect(false)
               }}
             >
               Next question
@@ -70,11 +69,11 @@ const QuizComponent = () => {
           ) : null}
           {index > quiz.length - 1 ? (
             <li
-              className="cursor-pointer absolute right-1 top-32 font-bold"
+              className="absolute right-1 top-32 cursor-pointer font-bold"
               onClick={() => {
-                setIndex(0);
-                setCounter(0);
-                setShowCorrect(false);
+                setIndex(0)
+                setCounter(0)
+                setShowCorrect(false)
               }}
             >
               Restart quiz
@@ -83,7 +82,7 @@ const QuizComponent = () => {
         </ul>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default QuizComponent;
+export default QuizComponent

@@ -1,46 +1,45 @@
 /* eslint-disable react/react-in-jsx-scope */
-"use client";
+"use client"
 
-import { useState } from "react";
-import Loader from "@/components/loader/Loader";
-import Search from "@/components/misc/search/Search";
-import "@/style/brothercat.css";
-import "@/style/brothercatRes.css";
-import "@/style/search.css";
-import "@/style/searchRes.css";
-import "@/style/button.css";
-import useBookFetch from "@/hooks/fetch-hooks/useReadBookFetch";
-import useUserFetch from "@/hooks/fetch-hooks/useUserFetch";
-import BrothersProfile from "@/components/brothers/library/BrothersProfile";
+import { useState } from "react"
+import Loader from "@/components/loader/Loader"
+import Search from "@/components/misc/search/Search"
+import useBookFetch from "@/hooks/fetch-hooks/useReadBookFetch"
+import useUserFetch from "@/hooks/fetch-hooks/useUserFetch"
+import BrothersProfile from "@/components/brothers/library/BrothersProfile"
 
 const Brothercat: React.FC = () => {
-  const [searchBar, setSearchBar] = useState("");
+  const [searchBar, setSearchBar] = useState("")
 
   const { userData, loadingUsers } = useUserFetch(
     `https://bookclubbrothers-backend.onrender.com/users`,
     null
-  );
+  )
 
   const { bookData, loadingBooks } = useBookFetch(
     "https://bookclubbrothers-backend.onrender.com/books",
     null
-  );
+  )
 
-  const readBooks = bookData?.filter((book) => book.read === true);
+  const readBooks = bookData?.filter((book) => book.read === true)
 
   const filteredResults = Array.isArray(userData)
-    ? userData?.filter((user) => user?.username?.includes(searchBar))
-    : ["No results"];
+    ? userData?.filter((user) =>
+        user?.username?.toLowerCase().includes(searchBar.toLowerCase())
+      )
+    : ["No results"]
   return (
     <>
-      <div className="searchBackCon">
+      <div className="m-6">
         <Search setSearchBar={setSearchBar} filteredUsers={filteredResults} />
       </div>
       {loadingUsers && loadingBooks ? (
         <Loader />
       ) : (
         <>
-          <h1 className="brothersTitle">Brothers Library</h1>
+          <h1 className="text-8xl m-5 max-lg:text-6xl max-lg:text-center">
+            Brothers Library
+          </h1>
           <div className="flex flex-col items-center">
             {filteredResults?.length > 0 ? (
               filteredResults?.map((user, index) => (
@@ -60,7 +59,7 @@ const Brothercat: React.FC = () => {
         </>
       )}
     </>
-  );
-};
+  )
+}
 
-export default Brothercat;
+export default Brothercat

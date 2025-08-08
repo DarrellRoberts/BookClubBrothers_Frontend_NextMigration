@@ -1,18 +1,18 @@
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/react-in-jsx-scope */
-import LoneWolfImage from "@/assets/badges/Badge-lonewolf-badge-image.jpg";
-import BadgeTemplate from "../BadgeTemplate";
-import Link from "next/link";
-import { Badge } from "antd";
-import style from "../badges.module.css";
+import LoneWolfImage from "@/assets/badges/Badge-lonewolf-badge-image.png"
+import BadgeTemplate from "../BadgeTemplate"
+import Link from "next/link"
+import { Badge } from "antd"
+import style from "../badges.module.css"
 
 type Props = {
-  loneWolf: number;
-};
+  loneWolf: number
+}
 
 const LoneWolf: React.FC<Props> = ({ loneWolf }) => {
-  const badge = LoneWolfImage.src;
+  const badge = LoneWolfImage.src
 
   const content = (
     <div className={style.contentCon}>
@@ -22,7 +22,7 @@ const LoneWolf: React.FC<Props> = ({ loneWolf }) => {
         what's this?
       </Link>
     </div>
-  );
+  )
   return (
     <>
       {loneWolf ? (
@@ -35,7 +35,7 @@ const LoneWolf: React.FC<Props> = ({ loneWolf }) => {
         </Badge>
       ) : null}
     </>
-  );
-};
+  )
+}
 
-export default LoneWolf;
+export default LoneWolf

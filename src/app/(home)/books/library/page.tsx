@@ -6,10 +6,6 @@ import Loader from "@/components/loader/Loader"
 import BookCover from "@/components/books/library/BookCover"
 import Link from "next/link"
 import Search from "@/components/misc/search/Search"
-import "@/style/booklibrary.css"
-import "@/style/booklibraryRes.css"
-import "@/style/search.css"
-import "@/style/searchRes.css"
 import { Button } from "antd"
 import BookImageCover from "@/components/books/library/BookImageCover"
 import { handleHideScores_NoSetter } from "@/utils/time-functions/hideScores"
@@ -55,24 +51,31 @@ const Booklibrary: React.FC = () => {
 
   return (
     <>
-      <div className="searchBackCon">
+      <div className="flex justify-between m-6 max-xs:flex-col-reverse max-xs:items-center ">
         <Search setSearchBar={setSearchBar} filteredBooks={filteredResults} />
         <Link href="/books/library/3d">
           <Button>3D View</Button>
         </Link>
       </div>
-      <h1 className="bookLibraryTitle">Book Library</h1>
+      <h1 className="text-8xl m-5 max-lg:text-6xl max-lg:text-center">
+        Book Library
+      </h1>
       {loadingBooks && books.length === 0 ? (
         <Loader screensize="h-screen" />
       ) : error ? (
         <h2> {error?.message}</h2>
       ) : (
-        <div className="bookCon flex flex-wrap">
+        <div className="flex flex-wrap gap-6 mx-4 max-lg:flex-col max-lg:items-center">
           {books?.length > 0 ? (
             books?.map((book) => (
               <div key={book._id}>
                 {book.reviewImageURL ? (
                   <Link href={`/books/library/${book._id}`}>
+                    <div className="flex justify-center">
+                      <h2 className="text-3xl sm:text-1.75xl font-bold text-center underline overflow-hidden whitespace-nowrap text-ellipsis max-w-[275px] mb-2">
+                        {book.title}
+                      </h2>
+                    </div>
                     <BookImageCover
                       title={book?.title}
                       imageURL={book?.reviewImageURL}
@@ -81,19 +84,21 @@ const Booklibrary: React.FC = () => {
                 ) : (
                   <Link href={`/books/library/${book._id}`}>
                     <div className="flex justify-center w-full">
-                      <h2 className="smallBookTitle">{book.title}</h2>
+                      <div className="flex justify-center">
+                        <h2 className="text-3xl sm:text-1.75xl font-bold text-center underline overflow-hidden whitespace-nowrap text-ellipsis max-w-[275px] mb-2">
+                          {book.title}
+                        </h2>
+                      </div>
                     </div>
-                    <div className="bookCoverCon">
-                      <BookCover
-                        title={book?.title}
-                        totalScore={book?.totalScore}
-                        ratingArr={book?.scoreRatings?.rating}
-                        raterArr={book?.scoreRatings?.raterId}
-                        hideScores={handleHideScores_NoSetter(
-                          book?.actualDateOfMeeting
-                        )}
-                      />
-                    </div>
+                    <BookCover
+                      title={book?.title}
+                      totalScore={book?.totalScore}
+                      ratingArr={book?.scoreRatings?.rating}
+                      raterArr={book?.scoreRatings?.raterId}
+                      hideScores={handleHideScores_NoSetter(
+                        book?.actualDateOfMeeting
+                      )}
+                    />
                   </Link>
                 )}
               </div>

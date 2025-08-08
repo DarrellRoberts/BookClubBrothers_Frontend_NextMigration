@@ -1,4 +1,4 @@
-@media screen and (max-width: 815px) {
+/* @media screen and (max-width: 800px) {
   .deleteButton {
     margin-top: 1.5rem;
   }
@@ -17,7 +17,6 @@
     font-family: var(--main);
     font-size: 3.5rem;
     margin-top: 2rem;
-    /* padding: 0px; */
     text-align: center;
   }
 
@@ -26,7 +25,6 @@
     width: 350px;
   }
 
-  /* for no image book cover  */
   .bookTitleCoverCon {
     width: 275px;
     height: 350px;
@@ -62,4 +60,4 @@
     height: 225px;
     width: 275px;
   }
-}
+} */
