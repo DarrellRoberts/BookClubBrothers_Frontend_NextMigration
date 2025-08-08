@@ -31,7 +31,7 @@ const BookHomepage: React.FC = () => {
         className="flex justify-center mt-10 h-2/3"
         style={{
           backgroundImage: `url('/book-dashboard-library-background-image.png')`,
-          backgroundPosition: "50% 40%",
+          backgroundPosition: "50% 70%",
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
         }}

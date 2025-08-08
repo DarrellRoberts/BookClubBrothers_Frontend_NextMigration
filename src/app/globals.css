@@ -26,15 +26,15 @@
 
 :root {
   --main: "Gentium Book Plus";
-  --main-bg-color: #ffffff;
-  --main-font-color: #000000;
+  --main-bg-color: #eeeee6;
+  --main-font-color: #121212;
   --tertiaryColor: #095d09;
   --user-background-color: #fefdea;
   --default-border-color: #000000;
-  --button-bg-color: #000000;
-  --button-font-color: #ffffff;
-  --nested-font-color: #000000;
-  --nested-bg-color: #ffffff;
+  --button-bg-color: #121212;
+  --button-font-color: #eeeee6;
+  --nested-font-color: #121212;
+  --nested-bg-color: #eeeee6;
 }
 
 body {
@@ -45,10 +45,10 @@ body {
 
 body:has(#theme:checked) {
   --main-bg-color: #121212;
-  --main-font-color: #ffffff;
+  --main-font-color: #eeeee6;
   --default-border-color: #575757;
   --user-background-color: #151410;
-  --nested-font-color: #ffffff;
+  --nested-font-color: #eeeee6;
   --nested-bg-color: #121212;
 }
 
