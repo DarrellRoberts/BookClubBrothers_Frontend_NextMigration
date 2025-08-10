@@ -4,7 +4,7 @@ import Link from "next/link"
 
 const BookHomepage: React.FC = () => {
   return (
-    <div className="h-[calc(85vh-100px)]">
+    <div className="h-[calc(85vh-100px)] max-xs:h-[calc(85vh-75px)]">
       <h1 className="text-8xl m-5 max-lg:text-6xl max-lg:text-center">
         The Books
       </h1>
@@ -30,7 +30,7 @@ const BookHomepage: React.FC = () => {
       <div
         className="flex justify-center mt-10 h-2/3"
         style={{
-          backgroundImage: `url('/book-dashboard-library-background-image.png')`,
+          backgroundImage: `url('/book-dashboard-library-background-image.webp')`,
           backgroundPosition: "50% 70%",
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",

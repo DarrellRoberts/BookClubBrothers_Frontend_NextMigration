@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/react-in-jsx-scope */
-import LoneWolfImage from "@/assets/badges/Badge-lonewolf-badge-image.png"
+import LoneWolfImage from "@/assets/badges/Badge-lonewolf-badge-image.webp"
 import BadgeTemplate from "../BadgeTemplate"
 import Link from "next/link"
 import { Badge } from "antd"
@@ -18,7 +18,10 @@ const LoneWolf: React.FC<Props> = ({ loneWolf }) => {
     <div className={style.contentCon}>
       <img src={badge} alt="Lone Worm" width="250px" />
       <p>Have been the only person to score a book.</p>
-      <Link className="underline" href="/club/badges">
+      <Link
+        style={{ color: "white", textDecoration: "underline" }}
+        href="/club/badges"
+      >
         what's this?
       </Link>
     </div>
