@@ -4,7 +4,7 @@ import Link from "next/link"
 
 const BrothersHomepage: React.FC = () => {
   return (
-    <div className="h-[calc(85vh-100px)]">
+    <div className="h-[calc(85vh-100px)] max-xs:h-[calc(85vh-75px)]">
       <h1 className="text-8xl m-5 max-lg:text-6xl max-lg:text-center">
         The Brothers
       </h1>
@@ -22,7 +22,7 @@ const BrothersHomepage: React.FC = () => {
       <div
         className="flex justify-center mt-10 h-2/3"
         style={{
-          backgroundImage: `url('/brother-dashboard-background-image.png')`,
+          backgroundImage: `url('/brother-dashboard-background-image.webp')`,
           backgroundPosition: "50% 80%",
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",

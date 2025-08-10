@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/react-in-jsx-scope */
-import GodWormImage from "@/assets/badges/Badge-allbooks-badge.png"
+import GodWormImage from "@/assets/badges/Badge-allbooks-badge.webp"
 import BadgeTemplate from "../BadgeTemplate"
 import Link from "next/link"
 import style from "../badges.module.css"
@@ -17,7 +17,10 @@ const GodWorm: React.FC<Props> = ({ godWorm }) => {
     <div className={style.contentCon}>
       <img src={badge} alt="God of Worms" width="250px" />
       <p>At one time have read all of the books</p>
-      <Link className="underline" href="/club/badges">
+      <Link
+        style={{ color: "white", textDecoration: "underline" }}
+        href="/club/badges"
+      >
         what's this?
       </Link>
     </div>
