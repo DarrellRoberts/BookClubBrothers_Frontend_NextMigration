@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/react-in-jsx-scope */
-import PunctualWormImage from "@/assets/badges/Badge-punctual-image.png"
+import PunctualWormImage from "@/assets/badges/Badge-punctual-image.webp"
 import BadgeTemplate from "../BadgeTemplate"
 import Link from "next/link"
 import { Badge } from "antd"
@@ -18,7 +18,10 @@ const PunctualWorm: React.FC<Props> = ({ punctualWorm }) => {
     <div className={style.contentCon}>
       <img src={badge} alt="Mad Hatter Worm" width="250px" />
       <p>Scored a book before the book meeting date</p>
-      <Link className="underline" href="/club/badges">
+      <Link
+        style={{ color: "white", textDecoration: "underline" }}
+        href="/club/badges"
+      >
         what's this?
       </Link>
     </div>
