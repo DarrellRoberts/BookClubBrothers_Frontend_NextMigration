@@ -5,17 +5,17 @@ import PunctualWormImage from "@/assets/badges/Badge-punctual-image.webp"
 import BadgeTemplate from "../BadgeTemplate"
 import Link from "next/link"
 import { Badge } from "antd"
-import style from "../badges.module.css"
 
 type Props = {
   punctualWorm: number
+  isVertical: boolean
 }
 
-const PunctualWorm: React.FC<Props> = ({ punctualWorm }) => {
+const PunctualWorm: React.FC<Props> = ({ punctualWorm, isVertical }) => {
   const badge = PunctualWormImage.src
 
   const content = (
-    <div className={style.contentCon}>
+    <div className="">
       <img src={badge} alt="Mad Hatter Worm" width="250px" />
       <p>Scored a book before the book meeting date</p>
       <Link
@@ -34,6 +34,7 @@ const PunctualWorm: React.FC<Props> = ({ punctualWorm }) => {
             title={`Mad Hatter Worm (x${punctualWorm})`}
             content={content}
             badgeImageURL={badge}
+            isVertical={isVertical}
           />
         </Badge>
       ) : null}

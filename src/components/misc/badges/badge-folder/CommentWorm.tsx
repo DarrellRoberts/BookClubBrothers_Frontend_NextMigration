@@ -4,16 +4,16 @@
 import CommentWormImage from "@/assets/badges/Badge-comment.badge-image.webp"
 import BadgeTemplate from "../BadgeTemplate"
 import Link from "next/link"
-import style from "../badges.module.css"
 
 type Props = {
   commentWorm: boolean
+  isVertical: boolean
 }
 
-const BookWorm: React.FC<Props> = ({ commentWorm }) => {
+const BookWorm: React.FC<Props> = ({ commentWorm, isVertical }) => {
   const badge = CommentWormImage.src
   const content = (
-    <div className={style.contentCon}>
+    <div className="">
       <img src={badge} alt="Comment Worm" width="250px" />
       <p>Have commented on five or more books</p>
       <Link
@@ -32,6 +32,7 @@ const BookWorm: React.FC<Props> = ({ commentWorm }) => {
           title={"Comment Worm"}
           content={content}
           badgeImageURL={badge}
+          isVertical={isVertical}
         />
       ) : null}
     </>
