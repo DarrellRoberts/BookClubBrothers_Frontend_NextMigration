@@ -7,7 +7,7 @@ import Link from "next/link"
 
 type Props = {
   firstBookWorm: boolean
-  isVertical: boolean
+  isVertical?: boolean
 }
 
 const FirstBook: React.FC<Props> = ({ firstBookWorm, isVertical }) => {

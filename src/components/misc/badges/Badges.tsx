@@ -15,7 +15,7 @@ type Props = {
     firstBook: boolean
     punctual: number
   }
-  isVertical: boolean
+  isVertical?: boolean
 }
 
 const Badges: React.FC<Props> = ({ badgeData, isVertical }) => {

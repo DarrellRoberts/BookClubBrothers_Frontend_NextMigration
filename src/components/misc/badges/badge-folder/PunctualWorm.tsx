@@ -8,7 +8,7 @@ import { Badge } from "antd"
 
 type Props = {
   punctualWorm: number
-  isVertical: boolean
+  isVertical?: boolean
 }
 
 const PunctualWorm: React.FC<Props> = ({ punctualWorm, isVertical }) => {

@@ -7,7 +7,7 @@ import Link from "next/link"
 
 type Props = {
   godWorm: boolean
-  isVertical: boolean
+  isVertical?: boolean
 }
 
 const GodWorm: React.FC<Props> = ({ godWorm, isVertical }) => {

@@ -8,7 +8,7 @@ import { Badge } from "antd"
 
 type Props = {
   loneWolf: number
-  isVertical: boolean
+  isVertical?: boolean
 }
 
 const LoneWolf: React.FC<Props> = ({ loneWolf, isVertical }) => {

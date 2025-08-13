@@ -9,7 +9,7 @@ type Props = {
   badgeImageURL: string
   title: string
   content: string | ReactNode
-  isVertical: boolean
+  isVertical?: boolean
 }
 
 const BadgeTemplate: React.FC<Props> = ({
