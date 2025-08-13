@@ -4,17 +4,17 @@
 import BookWormImage from "@/assets/badges/Badge.worm-badge-image.webp"
 import BadgeTemplate from "../BadgeTemplate"
 import Link from "next/link"
-import style from "../badges.module.css"
 
 type Props = {
   bookWorm: boolean
+  isVertical: boolean
 }
 
-const BookWorm: React.FC<Props> = ({ bookWorm }) => {
+const BookWorm: React.FC<Props> = ({ bookWorm, isVertical }) => {
   const badge = BookWormImage.src
 
   const content = (
-    <div className={style.contentCon}>
+    <div className="">
       <img src={badge} alt="Book Worm" width="250px" />
       <p>Read the most books at one time</p>
       <Link
@@ -33,6 +33,7 @@ const BookWorm: React.FC<Props> = ({ bookWorm }) => {
           title={"Book Worm"}
           content={content}
           badgeImageURL={badge}
+          isVertical={isVertical}
         />
       ) : null}
     </>

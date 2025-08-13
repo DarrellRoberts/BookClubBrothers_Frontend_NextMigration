@@ -1,8 +1,5 @@
-import React from "react";
-import "@/style/bookHomepage.css";
-import "@/style/bookHomepageRes.css";
-import Badges from "@/components/misc/badges/Badges";
-import style from "@/components/club/badges/BadgesHomepage.module.css";
+import React from "react"
+import Badges from "@/components/misc/badges/Badges"
 
 const BadgesHomepage: React.FC = () => {
   const badgeData = {
@@ -12,7 +9,7 @@ const BadgesHomepage: React.FC = () => {
     fiveComments: true,
     firstBook: true,
     punctual: 1,
-  };
+  }
   const badgeTitles = [
     "Brother Worm",
     "Book Worm",
@@ -20,24 +17,23 @@ const BadgesHomepage: React.FC = () => {
     "Comment Worm",
     "God of Worms",
     "Mad Hatter Worm",
-  ];
+  ]
   return (
     <>
-      <h1 className="booksTitle">Badges</h1>
-      <div className={style.badgeTable}>
-        <div className={style.badgeCon}>
-          <Badges badgeData={badgeData} />
-        </div>
-        <div className={style.badgeTitles}>
+      <h1 className="text-8xl m-4 max-sm:text-6xl">Badges</h1>
+      <div className="flex justify-center gap-20">
+        <Badges badgeData={badgeData} isVertical={true} />
+        <div className="grid grid-rows-6 h-150 gap-10 items-center">
           {badgeTitles.map((badge, i) => (
             <div key={i}>
-              <h2>{badge}</h2>
+              <h2 className="text-4xl max-sm:text-2xl">{badge}</h2>
+              <hr />
             </div>
           ))}
         </div>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default BadgesHomepage;
+export default BadgesHomepage

@@ -5,17 +5,17 @@ import LoneWolfImage from "@/assets/badges/Badge-lonewolf-badge-image.webp"
 import BadgeTemplate from "../BadgeTemplate"
 import Link from "next/link"
 import { Badge } from "antd"
-import style from "../badges.module.css"
 
 type Props = {
   loneWolf: number
+  isVertical: boolean
 }
 
-const LoneWolf: React.FC<Props> = ({ loneWolf }) => {
+const LoneWolf: React.FC<Props> = ({ loneWolf, isVertical }) => {
   const badge = LoneWolfImage.src
 
   const content = (
-    <div className={style.contentCon}>
+    <div className="">
       <img src={badge} alt="Lone Worm" width="250px" />
       <p>Have been the only person to score a book.</p>
       <Link
@@ -34,6 +34,7 @@ const LoneWolf: React.FC<Props> = ({ loneWolf }) => {
             title={`Lone Worm (x${loneWolf})`}
             content={content}
             badgeImageURL={badge}
+            isVertical={isVertical}
           />
         </Badge>
       ) : null}
