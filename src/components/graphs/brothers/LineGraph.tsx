@@ -113,7 +113,7 @@ const LineGraph: React.FC<Props> = ({
     },
   }
   return (
-    <div className={styles.lineGraph}>
+    <div className="h-200 mt-4 w-full">
       <Line data={data} options={options} />
     </div>
   )

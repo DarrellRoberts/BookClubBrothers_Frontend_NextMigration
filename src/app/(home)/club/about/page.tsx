@@ -14,21 +14,20 @@ import { useAppSelector } from "@/store/lib/hooks"
 
 const Club: React.FC = () => {
   const darkMode = useAppSelector((state) => state.darkMode)
-  console.log(darkMode.darkMode)
   return (
     <div className="flex flex-col items-center w-full my-4">
       <div className="flex justify-between w-full px-4">
         <Image
           className={
             darkMode.darkMode
-              ? "brightness-50 w-75 max-lg:w-50 max-lg:h-50 max-sm:w-25 max-sm:h-25"
-              : "brightness-100 w-75 max-lg:w-50 max-lg:h-50 max-sm:w-25 max-sm:h-25"
+              ? "brightness-50 w-75 max-lg:w-50 max-lg:h-50 max-sm:w-25 max-sm:h-25 p-2"
+              : "brightness-100 w-75 max-lg:w-50 max-lg:h-50 max-sm:w-25 max-sm:h-25 p-2"
           }
           src={Gargoyle}
           alt="gargoyle_with_trumpet"
         />
         <Image
-          className="w-50 aspect-[9/16] border-15 border-black max-lg:w-35 max-sm:w-25"
+          className="w-50 aspect-[9/16] border-15 border-black max-lg:w-35 max-sm:w-25 p-1 bg-white"
           src={BerlinMeet1}
           alt="clubmeeting4"
         />
@@ -45,17 +44,17 @@ const Club: React.FC = () => {
       <h1 className="text-8xl my-2 max-sm:text-6xl">The Club</h1>
       <div className="flex justify-evenly w-full">
         <Image
-          className="w-75 aspect-square border-15 border-black max-lg:w-50 max-sm:w-25 max-sm:h-25"
+          className="w-100 aspect-3/2 border-15 border-black max-lg:w-50 max-sm:w-25 max-sm:h-25 p-1 bg-white"
           src={Meeting2}
           alt="clubmeeting2"
         />
         <Image
-          className="w-50 aspect-[9/16] border-15 border-black max-lg:w-35 max-sm:w-25"
+          className="w-50 aspect-[9/16] border-15 border-black max-lg:w-35 max-sm:w-25 p-1 bg-white"
           src={Meeting1}
           alt="clubmeeting1"
         />
         <Image
-          className="w-75 aspect-square border-15 border-black max-lg:w-50 max-sm:w-25 max-sm:h-25"
+          className="w-100 aspect-3/2 border-15 border-black max-lg:w-50 max-sm:w-25 max-sm:h-25 p-1 bg-white"
           src={Meeting3}
           alt="clubmeeting3"
         />
@@ -134,7 +133,7 @@ const Club: React.FC = () => {
         </p>
       </div>
       <Image
-        className="w-75 aspect-square border-15 border-black"
+        className="w-100 max-sm:w-75 aspect-3/2 border-15 border-black p-1 bg-white"
         src={BerlinMeet2}
         alt="clubmeeting5"
       />

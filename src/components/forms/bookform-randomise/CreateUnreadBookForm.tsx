@@ -1,10 +1,8 @@
 /* eslint-disable react/react-in-jsx-scope */
 import { Button, Form, Input, Space, Select } from "antd"
-import "@/style/createbook.css"
 import useForm from "@/hooks/crud-hooks/useForm"
 import { useAppDispatch, useAppSelector } from "@/store/lib/hooks"
 import { setFormData } from "@/store/lib/features/books/bookFormDataSlice"
-import "./create-book-form.css"
 import { useEffect, useState } from "react"
 
 const { Option } = Select
@@ -24,14 +22,6 @@ const CreateBook: React.FC = () => {
   )
   const formData = useAppSelector((state) => state.bookFormData.formData)
   const dispatch = useAppDispatch()
-
-  // const handleForm = () => {
-  //   if (
-  //     Object.values(errorObject).some((value) => value === false) &&
-  //     errorObject.imageURL
-  //   ) {
-  //     setError("Please check all required fields are correct")
-  // }
 
   useEffect(() => {
     if (Object.values(errorObject).some((value) => value === false)) {
@@ -378,7 +368,6 @@ const CreateBook: React.FC = () => {
           <Button
             type="primary"
             ghost
-            className="loginButtons"
             loading={loadings}
             onClick={() => (error ? null : enterLoading())}
             htmlType="submit"
