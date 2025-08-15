@@ -1,25 +1,22 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable react/react-in-jsx-scope */
-"use client";
+"use client"
 
-import { Button } from "antd";
-import { useState } from "react";
-import "../../style/login.css";
-import { useAuth } from "@/hooks/auth-hooks/useAuth";
+import { Button } from "antd"
+import { useState } from "react"
+import { useAuth } from "@/hooks/auth-hooks/useAuth"
 
 const Logout: React.FC = () => {
-  const [loadings, setLoadings] = useState([]);
+  const [loadings, setLoadings] = useState([])
 
-  const { logout } = useAuth();
+  const { logout } = useAuth()
 
   const handleClick = () => {
-    setLoadings([true]);
+    setLoadings([true])
     setTimeout(() => {
-      localStorage.removeItem("username");
-      setLoadings([false]);
-      logout();
-    }, 3000);
-  };
+      localStorage.removeItem("username")
+      setLoadings([false])
+      logout()
+    }, 3000)
+  }
   return (
     <>
       <div className="flex items-center">
@@ -35,7 +32,7 @@ const Logout: React.FC = () => {
         </Button>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default Logout;
+export default Logout

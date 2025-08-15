@@ -1,33 +1,29 @@
-/* eslint-disable react/react-in-jsx-scope */
-/* eslint-disable react/prop-types */
-import { useState } from "react";
-import { Modal, Button } from "antd";
-import CreateBookForm from "./CreateUnreadBookForm";
-import { useAppDispatch, useAppSelector } from "@/store/lib/hooks";
-import { setShowCreate } from "@/store/lib/features/auth/editButtonsSlice";
+import { useState } from "react"
+import { Modal, Button } from "antd"
+import CreateBookForm from "./CreateUnreadBookForm"
+import { useAppDispatch, useAppSelector } from "@/store/lib/hooks"
+import { setShowCreate } from "@/store/lib/features/auth/editButtonsSlice"
 
 const CreateBook = () => {
-  const [modalText, setModalText] = useState(<CreateBookForm />);
-  const [confirmLoading, setConfirmLoading] = useState<boolean>(false);
+  const [modalText, setModalText] = useState(<CreateBookForm />)
+  const [confirmLoading, setConfirmLoading] = useState<boolean>(false)
 
-  const dispatch = useAppDispatch();
-  const showCreateBook = useAppSelector(
-    (state) => state.editButtons.showCreate
-  );
+  const dispatch = useAppDispatch()
+  const showCreateBook = useAppSelector((state) => state.editButtons.showCreate)
 
   const showModal = () => {
-    dispatch(setShowCreate());
-  };
+    dispatch(setShowCreate())
+  }
   const handleOk = () => {
-    setConfirmLoading(true);
+    setConfirmLoading(true)
     setTimeout(() => {
-      dispatch(setShowCreate());
-    }, 4000);
-    setModalText(<CreateBookForm />);
-  };
+      dispatch(setShowCreate())
+    }, 4000)
+    setModalText(<CreateBookForm />)
+  }
   const handleCancel = () => {
-    dispatch(setShowCreate());
-  };
+    dispatch(setShowCreate())
+  }
   return (
     <>
       <div className="flex items-center">
@@ -46,7 +42,7 @@ const CreateBook = () => {
         <p>{modalText}</p>
       </Modal>
     </>
-  );
-};
+  )
+}
 
-export default CreateBook;
+export default CreateBook

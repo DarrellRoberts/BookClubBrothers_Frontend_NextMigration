@@ -1,10 +1,7 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable react/react-in-jsx-scope */
 "use client"
 
 import { Button, Form, Input } from "antd"
 import { useState } from "react"
-import styles from "./LoginForm.module.css"
 import { useAuth } from "@/hooks/auth-hooks/useAuth"
 
 interface Login {
@@ -22,6 +19,7 @@ const LoginForm: React.FC<Login> = ({ setLoginOpen }) => {
   const handleSubmit = async () => {
     try {
       setError(null)
+      setLoadings([true])
       const response = await fetch(
         "https://bookclubbrothers-backend.onrender.com/users/login",
         {
@@ -39,7 +37,6 @@ const LoginForm: React.FC<Login> = ({ setLoginOpen }) => {
       }
 
       if (response.ok) {
-        setLoadings([true])
         setTimeout(() => {
           localStorage.setItem("username", username)
           login(data.token)
@@ -108,7 +105,11 @@ const LoginForm: React.FC<Login> = ({ setLoginOpen }) => {
               value={password}
             />
           </Form.Item>
-          {error ? <h4 className={styles.errorH}>{error}</h4> : null}
+          {error ? (
+            <h4 className="bg-black mb-4 p-4 font-bold text-red-500 text-center">
+              {error}
+            </h4>
+          ) : null}
 
           <Form.Item
             wrapperCol={{

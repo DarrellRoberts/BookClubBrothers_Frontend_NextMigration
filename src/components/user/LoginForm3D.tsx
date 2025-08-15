@@ -1,24 +1,21 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable react/react-in-jsx-scope */
-"use client";
+"use client"
 
-import { Button, Form, Input } from "antd";
-import { useState } from "react";
-import styles from "./LoginForm.module.css";
+import { Button, Form, Input } from "antd"
+import { useState } from "react"
 
 interface Login {
-  setLoginOpen: React.Dispatch<React.SetStateAction<React.ReactNode>>;
+  setLoginOpen: React.Dispatch<React.SetStateAction<React.ReactNode>>
 }
 
 const LoginForm3D: React.FC<Login> = ({ setLoginOpen }) => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState(null);
-  const [loadings, setLoadings] = useState([false]);
+  const [username, setUsername] = useState("")
+  const [password, setPassword] = useState("")
+  const [error, setError] = useState(null)
+  const [loadings, setLoadings] = useState([false])
 
   const handleSubmit = async () => {
     try {
-      setError(null);
+      setError(null)
       const response = await fetch(
         "https://bookclubbrothers-backend.onrender.com/users/login",
         {
@@ -26,29 +23,29 @@ const LoginForm3D: React.FC<Login> = ({ setLoginOpen }) => {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ username, password }),
         }
-      );
+      )
 
-      const data = await response.json();
+      const data = await response.json()
 
       if (!response.ok) {
-        setError(data.error);
-        setLoadings([false]);
+        setError(data.error)
+        setLoadings([false])
       }
 
       if (response.ok) {
-        setLoadings([true]);
+        setLoadings([true])
         setTimeout(() => {
-          localStorage.setItem("username", username);
-          localStorage.setItem("token", data.token);
-          setLoadings([false]);
-          setLoginOpen(false);
-        }, 5000);
+          localStorage.setItem("username", username)
+          localStorage.setItem("token", data.token)
+          setLoadings([false])
+          setLoginOpen(false)
+        }, 5000)
       }
     } catch (err) {
-      setError(err);
-      console.log(error);
+      setError(err)
+      console.log(error)
     }
-  };
+  }
 
   return (
     <>
@@ -83,7 +80,7 @@ const LoginForm3D: React.FC<Login> = ({ setLoginOpen }) => {
             <Input
               type="username"
               onChange={(e) => {
-                setUsername(e.target.value);
+                setUsername(e.target.value)
               }}
               value={username}
             />
@@ -105,7 +102,11 @@ const LoginForm3D: React.FC<Login> = ({ setLoginOpen }) => {
               value={password}
             />
           </Form.Item>
-          {error ? <h4 className={styles.errorH}>{error}</h4> : null}
+          {error ? (
+            <h4 className="bg-black mb-4 p-4 font-bold text-red-500 text-center">
+              {error}
+            </h4>
+          ) : null}
 
           <Form.Item
             wrapperCol={{
@@ -126,7 +127,7 @@ const LoginForm3D: React.FC<Login> = ({ setLoginOpen }) => {
         </Form>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default LoginForm3D;
+export default LoginForm3D

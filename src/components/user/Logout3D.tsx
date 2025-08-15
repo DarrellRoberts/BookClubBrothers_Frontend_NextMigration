@@ -1,22 +1,19 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable react/react-in-jsx-scope */
-"use client";
+"use client"
 
-import { Button } from "antd";
-import { useState } from "react";
-import "../../style/login.css";
+import { Button } from "antd"
+import { useState } from "react"
 
 const Logout3D: React.FC = () => {
-  const [loadings, setLoadings] = useState([]);
+  const [loadings, setLoadings] = useState([])
 
   const handleClick = () => {
-    setLoadings([true]);
+    setLoadings([true])
     setTimeout(() => {
-      localStorage.removeItem("username");
-      localStorage.removeItem("token");
-      setLoadings([false]);
-    }, 3000);
-  };
+      localStorage.removeItem("username")
+      localStorage.removeItem("token")
+      setLoadings([false])
+    }, 3000)
+  }
   return (
     <>
       <div className="flex items-center">
@@ -32,7 +29,7 @@ const Logout3D: React.FC = () => {
         </Button>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default Logout3D;
+export default Logout3D

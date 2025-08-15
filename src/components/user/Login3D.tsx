@@ -1,35 +1,31 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable react/react-in-jsx-scope */
-"use client";
+"use client"
 
-import { Button, Modal, Form } from "antd";
-// import Signup from "./Signup";
-import { useState } from "react";
-import LoginForm3D from "./LoginForm3D";
-import "../../style/login.css";
+import { Button, Modal, Form } from "antd"
+import { useState } from "react"
+import LoginForm3D from "./LoginForm3D"
 
 const Login: React.FC = () => {
-  const [loginOpen, setLoginOpen] = useState<boolean>(false);
-  const [confirmLoading, setConfirmLoading] = useState<boolean>(false);
+  const [loginOpen, setLoginOpen] = useState<boolean>(false)
+  const [confirmLoading, setConfirmLoading] = useState<boolean>(false)
   const [modalText, setModalText] = useState(
     <LoginForm3D setLoginOpen={setLoginOpen} />
-  );
+  )
 
   const showModal = () => {
-    setLoginOpen(true);
-  };
+    setLoginOpen(true)
+  }
   const handleOk = () => {
-    setConfirmLoading(true);
+    setConfirmLoading(true)
     setTimeout(() => {
-      setLoginOpen(false);
-      setConfirmLoading(false);
-    }, 2000);
-    setModalText(<LoginForm3D setLoginOpen={setLoginOpen} />);
-  };
+      setLoginOpen(false)
+      setConfirmLoading(false)
+    }, 2000)
+    setModalText(<LoginForm3D setLoginOpen={setLoginOpen} />)
+  }
   const handleCancel = () => {
-    console.log("Clicked cancel button");
-    setLoginOpen(false);
-  };
+    console.log("Clicked cancel button")
+    setLoginOpen(false)
+  }
   return (
     <>
       <div className="flex items-center">
@@ -58,7 +54,7 @@ const Login: React.FC = () => {
         </Form.Item>
       </Modal>
     </>
-  );
-};
+  )
+}
 
-export default Login;
+export default Login
