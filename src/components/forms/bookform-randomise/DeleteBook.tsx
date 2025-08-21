@@ -31,7 +31,7 @@ const DeleteBook: React.FC<Props> = ({ id }) => {
         description="Are you sure you want to delete this book?"
         onConfirm={confirm}
       >
-        <Button className="deleteUnreadButton" danger>
+        <Button className="deleteUnreadButton" danger size="large">
           Delete Book
         </Button>
       </Popconfirm>

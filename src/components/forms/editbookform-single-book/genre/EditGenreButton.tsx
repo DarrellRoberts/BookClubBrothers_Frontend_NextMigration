@@ -11,17 +11,25 @@ const EditGenreButton = () => {
     <>
       <div className="flex items-center">
         {showGenre ? (
-          <Button className="mb-5" onClick={() => dispatch(setShowGenre())}>
+          <Button
+            className="mb-5"
+            onClick={() => dispatch(setShowGenre())}
+            size="large"
+          >
             X
           </Button>
         ) : (
-          <Button className="mb-5" onClick={() => dispatch(setShowGenre())}>
+          <Button
+            className="mb-5"
+            onClick={() => dispatch(setShowGenre())}
+            size="large"
+          >
             Edit Genre
           </Button>
         )}
       </div>
     </>
-  );
+  )
 };
 
 export default EditGenreButton;

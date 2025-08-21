@@ -1,27 +1,27 @@
 /* eslint-disable react/react-in-jsx-scope */
 /* eslint-disable react/prop-types */
-"use client";
+"use client"
 
-import useForm from "@/hooks/crud-hooks/useForm";
-import { setFormData } from "@/store/lib/features/books/bookFormDataSlice";
-import { useAppDispatch, useAppSelector } from "@/store/lib/hooks";
-import { Button, Form, Input } from "antd";
+import useForm from "@/hooks/crud-hooks/useForm"
+import { setFormData } from "@/store/lib/features/books/bookFormDataSlice"
+import { useAppDispatch, useAppSelector } from "@/store/lib/hooks"
+import { Button, Form, Input } from "antd"
 
 type Props = {
-  id: string | string[];
-  inTitle: string;
-};
+  id: string | string[]
+  inTitle: string
+}
 
 const EditTitle: React.FC<Props> = ({ id, inTitle }) => {
-  const title = useAppSelector((state) => state.bookFormData.formData.title);
-  const formData = useAppSelector((state) => state.bookFormData.formData);
-  const dispatch = useAppDispatch();
+  const title = useAppSelector((state) => state.bookFormData.formData.title)
+  const formData = useAppSelector((state) => state.bookFormData.formData)
+  const dispatch = useAppDispatch()
 
   const { handleSubmit, error, enterLoading, loadings } = useForm(
     `https://bookclubbrothers-backend.onrender.com/books/${id}`,
     "PUT",
     { title }
-  );
+  )
   return (
     <>
       <Form
@@ -72,6 +72,7 @@ const EditTitle: React.FC<Props> = ({ id, inTitle }) => {
             loading={loadings}
             onClick={() => enterLoading()}
             htmlType="submit"
+            size="large"
           >
             Submit
           </Button>
@@ -79,7 +80,7 @@ const EditTitle: React.FC<Props> = ({ id, inTitle }) => {
         </Form.Item>
       </Form>
     </>
-  );
-};
+  )
+}
 
-export default EditTitle;
+export default EditTitle

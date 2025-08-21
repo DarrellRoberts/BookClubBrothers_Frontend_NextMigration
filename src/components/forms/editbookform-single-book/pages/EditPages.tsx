@@ -1,27 +1,27 @@
 /* eslint-disable react/react-in-jsx-scope */
 /* eslint-disable react/prop-types */
-"use client";
+"use client"
 
-import { Button, Form, Input } from "antd";
-import useForm from "@/hooks/crud-hooks/useForm";
-import { useAppDispatch, useAppSelector } from "@/store/lib/hooks";
-import { setFormData } from "@/store/lib/features/books/bookFormDataSlice";
+import { Button, Form, Input } from "antd"
+import useForm from "@/hooks/crud-hooks/useForm"
+import { useAppDispatch, useAppSelector } from "@/store/lib/hooks"
+import { setFormData } from "@/store/lib/features/books/bookFormDataSlice"
 
 type Props = {
-  id: string | string[];
-  inPages: number;
-};
+  id: string | string[]
+  inPages: number
+}
 
 const EditPages: React.FC<Props> = ({ id, inPages }) => {
-  const pages = useAppSelector((state) => state.bookFormData.formData.pages);
-  const formData = useAppSelector((state) => state.bookFormData.formData);
-  const dispatch = useAppDispatch();
+  const pages = useAppSelector((state) => state.bookFormData.formData.pages)
+  const formData = useAppSelector((state) => state.bookFormData.formData)
+  const dispatch = useAppDispatch()
 
   const { handleSubmit, error, enterLoading, loadings } = useForm(
     `https://bookclubbrothers-backend.onrender.com/books/${id}`,
     "PUT",
     { pages }
-  );
+  )
   return (
     <>
       <Form
@@ -74,6 +74,7 @@ const EditPages: React.FC<Props> = ({ id, inPages }) => {
             loading={loadings}
             onClick={() => enterLoading()}
             htmlType="submit"
+            size="large"
           >
             Submit
           </Button>
@@ -81,7 +82,7 @@ const EditPages: React.FC<Props> = ({ id, inPages }) => {
         </Form.Item>
       </Form>
     </>
-  );
-};
+  )
+}
 
-export default EditPages;
+export default EditPages

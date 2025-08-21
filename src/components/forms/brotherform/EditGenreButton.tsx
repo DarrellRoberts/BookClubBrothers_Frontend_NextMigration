@@ -1,44 +1,44 @@
 /* eslint-disable react/react-in-jsx-scope */
 /* eslint-disable react/prop-types */
-"use client";
+"use client"
 
-import { Button, Modal } from "antd";
-import { useState } from "react";
-import EditGenre from "./EditGenre";
-import { useAppDispatch, useAppSelector } from "@/store/lib/hooks";
-import { setShowGenre } from "@/store/lib/features/auth/editButtonsSlice";
+import { Button, Modal } from "antd"
+import { useState } from "react"
+import EditGenre from "./EditGenre"
+import { useAppDispatch, useAppSelector } from "@/store/lib/hooks"
+import { setShowGenre } from "@/store/lib/features/auth/editButtonsSlice"
 
 type Props = {
-  id: string;
-  inGenre: string[] | null;
-};
+  id: string
+  inGenre: string[] | null
+}
 
 const EditGenreButton: React.FC<Props> = ({ id, inGenre }) => {
   const [modalText, setModalText] = useState(
     <EditGenre id={id} inGenre={inGenre} />
-  );
-  const [confirmLoading, setConfirmLoading] = useState<boolean>(false);
-  const showGenre = useAppSelector((state) => state.editButtons.showGenre);
-  const dispatch = useAppDispatch();
+  )
+  const [confirmLoading, setConfirmLoading] = useState<boolean>(false)
+  const showGenre = useAppSelector((state) => state.editButtons.showGenre)
+  const dispatch = useAppDispatch()
 
   const showModal = () => {
-    dispatch(setShowGenre());
-  };
+    dispatch(setShowGenre())
+  }
   const handleOk = () => {
-    setConfirmLoading(true);
+    setConfirmLoading(true)
     setTimeout(() => {
-      dispatch(setShowGenre());
-    }, 4000);
-    setModalText(<EditGenre id={id} inGenre={inGenre} />);
-  };
+      dispatch(setShowGenre())
+    }, 4000)
+    setModalText(<EditGenre id={id} inGenre={inGenre} />)
+  }
   const handleCancel = () => {
-    dispatch(setShowGenre());
-  };
+    dispatch(setShowGenre())
+  }
   return (
     <>
       <div className="flex items-center">
         {showGenre ? null : (
-          <Button className="" onClick={showModal}>
+          <Button className="" onClick={showModal} size="large">
             Edit
           </Button>
         )}
@@ -54,7 +54,7 @@ const EditGenreButton: React.FC<Props> = ({ id, inGenre }) => {
         <p>{modalText}</p>
       </Modal>
     </>
-  );
-};
+  )
+}
 
-export default EditGenreButton;
+export default EditGenreButton

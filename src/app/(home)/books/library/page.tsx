@@ -54,7 +54,7 @@ const Booklibrary: React.FC = () => {
       <div className="flex justify-between m-6 max-xs:flex-col-reverse max-xs:items-center ">
         <Search setSearchBar={setSearchBar} filteredBooks={filteredResults} />
         <Link href="/books/library/3d">
-          <Button>3D View</Button>
+          <Button size="large">3D View</Button>
         </Link>
       </div>
       <h1 className="text-8xl m-5 max-lg:text-6xl max-lg:text-center">

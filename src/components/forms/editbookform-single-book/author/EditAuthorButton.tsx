@@ -10,11 +10,19 @@ const EditAuthorButton = () => {
     <>
       <div className="flex items-center">
         {showAuthor ? (
-          <Button className="mb-5" onClick={() => dispatch(setShowAuthor())}>
+          <Button
+            className="mb-5"
+            onClick={() => dispatch(setShowAuthor())}
+            size="large"
+          >
             X
           </Button>
         ) : (
-          <Button className="mb-5" onClick={() => dispatch(setShowAuthor())}>
+          <Button
+            className="mb-5"
+            onClick={() => dispatch(setShowAuthor())}
+            size="large"
+          >
             Edit Author
           </Button>
         )}

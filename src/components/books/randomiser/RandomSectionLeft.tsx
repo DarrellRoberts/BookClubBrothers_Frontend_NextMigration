@@ -39,7 +39,7 @@ const RandomSectionLeft: React.FC<Props> = ({
           bookData?.map((book) => (
             <div
               key={book._id}
-              className="grid grid-cols-1 grid-rows-1 justify-items-center rounded-2xl bg-[var(--tertiaryColor)] p-4 px-8 mt-4 cursor-pointer max-md:flex max-md:flex-col max-md:p-0"
+              className="grid grid-cols-1 grid-rows-1 justify-items-center rounded-2xl bg-[var(--tertiaryColor)] p-4 px-8 mt-4 cursor-pointer max-md:flex max-md:flex-col"
               onClick={() => {
                 dispatch(setIndex(bookData.indexOf(book)))
               }}

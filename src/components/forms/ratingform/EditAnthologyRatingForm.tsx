@@ -93,6 +93,7 @@ const EditAnthologyRatingForm: React.FC<Props> = ({
           ghost
           className="loginButtons"
           onClick={() => handleRatingsReset()}
+          size="large"
         >
           Reset
         </Button>
@@ -127,6 +128,7 @@ const EditAnthologyRatingForm: React.FC<Props> = ({
             loading={loadings}
             onClick={() => enterLoading()}
             htmlType="submit"
+            size="large"
           >
             Submit
           </Button>

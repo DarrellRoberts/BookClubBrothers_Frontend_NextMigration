@@ -36,7 +36,7 @@ const EditUnreadBook: React.FC<Props> = ({
   return (
     <>
       <div className="flex items-center">
-        <Button className="m-5" onClick={showModal}>
+        <Button className="m-5" onClick={showModal} size="large">
           Edit book
         </Button>
       </div>
@@ -58,7 +58,7 @@ const EditUnreadBook: React.FC<Props> = ({
         />
       </Modal>
     </>
-  );
+  )
 };
 
 export default EditUnreadBook;

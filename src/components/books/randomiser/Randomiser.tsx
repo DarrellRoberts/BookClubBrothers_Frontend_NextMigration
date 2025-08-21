@@ -36,7 +36,9 @@ const Randomiser: React.FC<Props> = ({ bookLength, bookId }) => {
       <div className="flex justify-evenly items-center max-md:flex-col">
         {showRandom ? (
           <>
-            <Button onClick={handleRandomise}>Randomise</Button>
+            <Button onClick={handleRandomise} size="large">
+              Randomise
+            </Button>
             {adminId === decodedToken?._id ? (
               <SelectBook bookId={bookId} />
             ) : null}

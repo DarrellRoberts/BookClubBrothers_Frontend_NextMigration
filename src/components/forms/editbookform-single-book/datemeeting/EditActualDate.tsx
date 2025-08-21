@@ -1,28 +1,28 @@
 /* eslint-disable react/react-in-jsx-scope */
 /* eslint-disable react/prop-types */
-"use client";
+"use client"
 
-import useForm from "@/hooks/crud-hooks/useForm";
-import { setFormData } from "@/store/lib/features/books/bookFormDataSlice";
-import { useAppDispatch, useAppSelector } from "@/store/lib/hooks";
-import { Button, Form, DatePicker } from "antd";
+import useForm from "@/hooks/crud-hooks/useForm"
+import { setFormData } from "@/store/lib/features/books/bookFormDataSlice"
+import { useAppDispatch, useAppSelector } from "@/store/lib/hooks"
+import { Button, Form, DatePicker } from "antd"
 
 type Props = {
-  id: string | string[];
-};
+  id: string | string[]
+}
 
 const EditActualDate: React.FC<Props> = ({ id }) => {
   const actualDateOfMeeting = useAppSelector(
     (state) => state.bookFormData.formData.actualDateOfMeeting
-  );
-  const formData = useAppSelector((state) => state.bookFormData.formData);
-  const dispatch = useAppDispatch();
+  )
+  const formData = useAppSelector((state) => state.bookFormData.formData)
+  const dispatch = useAppDispatch()
 
   const { handleSubmit, error, enterLoading, loadings } = useForm(
     `https://bookclubbrothers-backend.onrender.com/books/${id}`,
     "PUT",
     { actualDateOfMeeting }
-  );
+  )
   return (
     <>
       <Form
@@ -65,6 +65,7 @@ const EditActualDate: React.FC<Props> = ({ id }) => {
             loading={loadings}
             onClick={() => enterLoading()}
             htmlType="submit"
+            size="large"
           >
             Submit
           </Button>
@@ -72,7 +73,7 @@ const EditActualDate: React.FC<Props> = ({ id }) => {
         </Form.Item>
       </Form>
     </>
-  );
-};
+  )
+}
 
-export default EditActualDate;
+export default EditActualDate

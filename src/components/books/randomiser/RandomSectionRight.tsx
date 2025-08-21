@@ -72,7 +72,7 @@ const RandomSectionRight: React.FC<Props> = ({ bookData, error, userData }) => {
                     : findUser(bookData[index]?.suggestedBy)}{" "}
                 </li>
               </ul>
-              <div className="flex items-center justify-center w-full max-md:flex-col">
+              <div className="flex items-center justify-center w-full">
                 <Randomiser
                   bookLength={bookData?.length}
                   bookId={bookData[index]?._id}

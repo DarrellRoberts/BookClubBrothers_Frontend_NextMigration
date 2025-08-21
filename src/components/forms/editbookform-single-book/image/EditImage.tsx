@@ -112,6 +112,7 @@ const EditImage: React.FC<props> = ({ id }) => {
           htmlType="submit"
           loading={loadings[0]}
           onClick={() => enterLoading(0)}
+          size="large"
         >
           Submit
         </Button>
@@ -119,7 +120,7 @@ const EditImage: React.FC<props> = ({ id }) => {
         {error ? <p>{error}</p> : null}
       </Form>
     </>
-  );
+  )
 };
 
 export default EditImage;
