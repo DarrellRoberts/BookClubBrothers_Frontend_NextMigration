@@ -1,28 +1,28 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/react-in-jsx-scope */
-"use client";
+"use client"
 
-import { useState } from "react";
-import { Button, Form, Input } from "antd";
-import { useAppSelector } from "@/store/lib/hooks";
+import { useState } from "react"
+import { Button, Form, Input } from "antd"
+import { useAppSelector } from "@/store/lib/hooks"
 
 interface props {
-  id: string;
-  inCity: string;
-  inCountry: string;
+  id: string
+  inCity: string
+  inCountry: string
 }
 
 const EditCityAndCountry: React.FC<props> = ({ id, inCity, inCountry }) => {
-  const [country, setCountry] = useState(inCountry);
-  const [city, setCity] = useState(inCity);
-  const [error, setError] = useState("");
-  const [loadings, setLoadings] = useState([]);
+  const [country, setCountry] = useState(inCountry)
+  const [city, setCity] = useState(inCity)
+  const [error, setError] = useState("")
+  const [loadings, setLoadings] = useState([])
 
-  const token = useAppSelector((state) => state.token.tokenState);
+  const token = useAppSelector((state) => state.token.tokenState)
 
   const handleSubmit = async () => {
     try {
-      setError(null);
+      setError(null)
       const response = await fetch(
         `https://bookclubbrothers-backend.onrender.com/users/${id}`,
         {
@@ -35,37 +35,37 @@ const EditCityAndCountry: React.FC<props> = ({ id, inCity, inCountry }) => {
             userInfo: { residence: { country, city } },
           }),
         }
-      );
-      const data = await response.json();
+      )
+      const data = await response.json()
       if (!response.ok) {
-        setError(data.error);
-        console.log("something has happened");
+        setError(data.error)
+        console.log("something has happened")
       }
 
       if (response.ok) {
-        console.log("SUCCESS!!!");
+        console.log("SUCCESS!!!")
       }
     } catch (error) {
-      setError(error);
-      console.log(error);
+      setError(error)
+      console.log(error)
     }
-  };
+  }
 
   const enterLoading = (index) => {
     setLoadings((prevLoadings) => {
-      const newLoadings = [...prevLoadings];
-      newLoadings[index] = true;
-      return newLoadings;
-    });
+      const newLoadings = [...prevLoadings]
+      newLoadings[index] = true
+      return newLoadings
+    })
     setTimeout(() => {
       setLoadings((prevLoadings) => {
-        const newLoadings = [...prevLoadings];
-        newLoadings[index] = false;
-        document.location.reload();
-        return newLoadings;
-      });
-    }, 4000);
-  };
+        const newLoadings = [...prevLoadings]
+        newLoadings[index] = false
+        document.location.reload()
+        return newLoadings
+      })
+    }, 4000)
+  }
   return (
     <>
       <Form
@@ -132,6 +132,7 @@ const EditCityAndCountry: React.FC<props> = ({ id, inCity, inCountry }) => {
             loading={loadings[0]}
             onClick={() => enterLoading(0)}
             htmlType="submit"
+            size="large"
           >
             Submit
           </Button>
@@ -139,7 +140,7 @@ const EditCityAndCountry: React.FC<props> = ({ id, inCity, inCountry }) => {
         </Form.Item>
       </Form>
     </>
-  );
-};
+  )
+}
 
-export default EditCityAndCountry;
+export default EditCityAndCountry

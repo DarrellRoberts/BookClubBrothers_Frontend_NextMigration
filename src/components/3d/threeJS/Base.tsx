@@ -34,7 +34,7 @@ export default function Base({ readBooks, readIds, readBooksJson }: Props) {
       {!clicked ? (
         <TextInfo clickId={clickId} readBooksJson={readBooksJson} />
       ) : null}
-      <div className="flex justify-center align-center h-[103vh]">
+      <div className="flex justify-center align-center h-[106vh]">
         {readBooks.length < 0 ? (
           <Loader />
         ) : (
@@ -60,6 +60,7 @@ export default function Base({ readBooks, readIds, readBooksJson }: Props) {
                   setStartIndex((prev) => prev + 6)
                   setEndIndex((prev) => prev + 5)
                 }}
+                size="large"
               >
                 Load more
               </Button>

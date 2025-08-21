@@ -1,28 +1,28 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/react-in-jsx-scope */
-"use client";
+"use client"
 
-import { Button, Form, Input } from "antd";
-import useForm from "@/hooks/crud-hooks/useForm";
-import { useAppDispatch, useAppSelector } from "@/store/lib/hooks";
-import { setFormData } from "@/store/lib/features/books/bookFormDataSlice";
+import { Button, Form, Input } from "antd"
+import useForm from "@/hooks/crud-hooks/useForm"
+import { useAppDispatch, useAppSelector } from "@/store/lib/hooks"
+import { setFormData } from "@/store/lib/features/books/bookFormDataSlice"
 
 interface props {
-  id: string | string[];
+  id: string | string[]
 }
 
 const RatingForm: React.FC<props> = ({ id }) => {
   const rating = useAppSelector(
     (state) => state.bookFormData.formData.scoreRatings.rating
-  );
-  const formData = useAppSelector((state) => state.bookFormData.formData);
-  const dispatch = useAppDispatch();
+  )
+  const formData = useAppSelector((state) => state.bookFormData.formData)
+  const dispatch = useAppDispatch()
 
   const { handleSubmit, error, enterLoading, loadings } = useForm(
     `https://bookclubbrothers-backend.onrender.com/books/rating/${id}`,
     "POST",
     { rating }
-  );
+  )
 
   return (
     <>
@@ -77,6 +77,7 @@ const RatingForm: React.FC<props> = ({ id }) => {
             loading={loadings}
             onClick={() => enterLoading()}
             htmlType="submit"
+            size="large"
           >
             Submit
           </Button>
@@ -84,7 +85,7 @@ const RatingForm: React.FC<props> = ({ id }) => {
         </Form.Item>
       </Form>
     </>
-  );
-};
+  )
+}
 
-export default RatingForm;
+export default RatingForm

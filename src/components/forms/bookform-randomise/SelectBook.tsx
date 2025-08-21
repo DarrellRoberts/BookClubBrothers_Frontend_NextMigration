@@ -24,6 +24,7 @@ const SelectBook: React.FC<Props> = ({ bookId }) => {
           loading={loadings}
           onClick={() => enterLoading()}
           htmlType="submit"
+          size="large"
         >
           Select
         </Button>

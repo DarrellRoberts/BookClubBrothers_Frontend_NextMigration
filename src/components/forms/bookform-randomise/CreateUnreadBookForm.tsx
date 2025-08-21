@@ -371,6 +371,7 @@ const CreateBook: React.FC = () => {
             loading={loadings}
             onClick={() => (error ? null : enterLoading())}
             htmlType="submit"
+            size="large"
           >
             Submit
           </Button>

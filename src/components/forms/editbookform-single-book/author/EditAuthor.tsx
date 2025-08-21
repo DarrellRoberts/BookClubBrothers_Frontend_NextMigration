@@ -67,6 +67,7 @@ const EditBookAuthor: React.FC<Props> = ({ id, inAuthor }) => {
             loading={loadings}
             onClick={() => enterLoading()}
             htmlType="submit"
+            size="large"
           >
             Submit
           </Button>

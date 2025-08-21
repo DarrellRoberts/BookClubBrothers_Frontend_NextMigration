@@ -1,39 +1,39 @@
 /* eslint-disable react/react-in-jsx-scope */
 /* eslint-disable react/prop-types */
-"use client";
+"use client"
 
-import { useState } from "react";
-import { Button, Modal } from "antd";
-import CommentForm from "./CommentForm";
+import { useState } from "react"
+import { Button, Modal } from "antd"
+import CommentForm from "./CommentForm"
 
 interface props {
-  setAddComment: React.Dispatch<React.SetStateAction<boolean>>;
-  addComment: boolean;
-  id: string | string[];
+  setAddComment: React.Dispatch<React.SetStateAction<boolean>>
+  addComment: boolean
+  id: string | string[]
 }
 
 const CommentButton: React.FC<props> = ({ setAddComment, addComment, id }) => {
-  const [confirmLoading, setConfirmLoading] = useState<boolean>(false);
-  const [modalText, setModalText] = useState(<CommentForm id={id} />);
+  const [confirmLoading, setConfirmLoading] = useState<boolean>(false)
+  const [modalText, setModalText] = useState(<CommentForm id={id} />)
 
   const showModal = () => {
-    setAddComment(true);
-  };
+    setAddComment(true)
+  }
   const handleOk = () => {
-    setConfirmLoading(true);
+    setConfirmLoading(true)
     setTimeout(() => {
-      setAddComment(false);
-      setModalText(<CommentForm id={id} />);
-    }, 4000);
-  };
+      setAddComment(false)
+      setModalText(<CommentForm id={id} />)
+    }, 4000)
+  }
   const handleCancel = () => {
-    setAddComment(false);
-  };
+    setAddComment(false)
+  }
 
   return (
     <>
       <div className="flex items-center">
-        <Button className="m-5" onClick={showModal}>
+        <Button className="m-5" onClick={showModal} size="large">
           Add Comment
         </Button>
       </div>
@@ -48,7 +48,7 @@ const CommentButton: React.FC<props> = ({ setAddComment, addComment, id }) => {
         <p>{modalText}</p>
       </Modal>
     </>
-  );
-};
+  )
+}
 
-export default CommentButton;
+export default CommentButton

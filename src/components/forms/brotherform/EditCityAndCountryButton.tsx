@@ -1,18 +1,18 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/react-in-jsx-scope */
-"use client";
+"use client"
 
-import { Modal, Button } from "antd";
-import { useState } from "react";
-import EditCityAndCountry from "./EditCityAndCountry";
-import { useAppDispatch, useAppSelector } from "@/store/lib/hooks";
-import { setShowCountry } from "@/store/lib/features/auth/editButtonsSlice";
+import { Modal, Button } from "antd"
+import { useState } from "react"
+import EditCityAndCountry from "./EditCityAndCountry"
+import { useAppDispatch, useAppSelector } from "@/store/lib/hooks"
+import { setShowCountry } from "@/store/lib/features/auth/editButtonsSlice"
 
 type Props = {
-  id: string;
-  inCountry: string;
-  inCity: string;
-};
+  id: string
+  inCountry: string
+  inCity: string
+}
 
 const EditCityAndCountryButton: React.FC<Props> = ({
   id,
@@ -21,29 +21,29 @@ const EditCityAndCountryButton: React.FC<Props> = ({
 }) => {
   const [modalText, setModalText] = useState(
     <EditCityAndCountry id={id} inCountry={inCountry} inCity={inCity} />
-  );
-  const [confirmLoading, setConfirmLoading] = useState<boolean>(false);
-  const showCountry = useAppSelector((state) => state.editButtons.showCountry);
-  const dispatch = useAppDispatch();
+  )
+  const [confirmLoading, setConfirmLoading] = useState<boolean>(false)
+  const showCountry = useAppSelector((state) => state.editButtons.showCountry)
+  const dispatch = useAppDispatch()
 
   const showModal = () => {
-    dispatch(setShowCountry());
-  };
+    dispatch(setShowCountry())
+  }
   const handleOk = () => {
-    setConfirmLoading(true);
+    setConfirmLoading(true)
     setTimeout(() => {
-      dispatch(setShowCountry());
-    }, 4000);
+      dispatch(setShowCountry())
+    }, 4000)
     setModalText(
       <EditCityAndCountry id={id} inCountry={inCountry} inCity={inCity} />
-    );
-  };
+    )
+  }
   const handleCancel = () => {
-    dispatch(setShowCountry());
-  };
+    dispatch(setShowCountry())
+  }
   return (
     <>
-      <Button className="" onClick={showModal}>
+      <Button className="" onClick={showModal} size="large">
         Edit
       </Button>
       <Modal
@@ -57,7 +57,7 @@ const EditCityAndCountryButton: React.FC<Props> = ({
         <p>{modalText}</p>
       </Modal>
     </>
-  );
-};
+  )
+}
 
-export default EditCityAndCountryButton;
+export default EditCityAndCountryButton

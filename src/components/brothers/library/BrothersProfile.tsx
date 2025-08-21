@@ -47,7 +47,7 @@ const BrothersProfile: React.FC<Props> = ({ user, readBooks, userData }) => {
         {decodedToken?._id === user?._id ? (
           <div className="flex">
             <EditUsernameButton inUsername={user?.username} id={user?._id} />
-            <h2 className="text-bc-font underline max-sm:text-[2.5rem] max-xs:text-[1.5rem] text-5xl font-main">
+            <h2 className="underline max-sm:text-[2.5rem] max-xs:text-[1.5rem] text-5xl">
               {user?.username}
             </h2>
           </div>

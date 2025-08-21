@@ -28,7 +28,7 @@ const BookHomepage: React.FC = () => {
         </div>
       </div>
       <div
-        className="flex justify-center mt-10 h-2/3"
+        className="flex justify-center mt-5 h-2/3"
         style={{
           backgroundImage: `url('/book-dashboard-library-background-image.webp')`,
           backgroundPosition: "50% 70%",

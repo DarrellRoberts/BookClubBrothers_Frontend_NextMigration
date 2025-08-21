@@ -224,6 +224,7 @@ const EditGenre: React.FC<props> = ({ id, inGenre }) => {
             loading={loadings[0]}
             onClick={() => enterLoading(0)}
             htmlType="submit"
+            size="large"
           >
             Submit
           </Button>
@@ -231,7 +232,7 @@ const EditGenre: React.FC<props> = ({ id, inGenre }) => {
         </Form.Item>
       </Form>
     </>
-  );
+  )
 };
 
 export default EditGenre;

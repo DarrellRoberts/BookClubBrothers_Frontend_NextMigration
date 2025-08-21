@@ -1,30 +1,30 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/react-in-jsx-scope */
-"use client";
+"use client"
 
-import { Button, Form, Input } from "antd";
-import useForm from "@/hooks/crud-hooks/useForm";
-import { useAppDispatch, useAppSelector } from "@/store/lib/hooks";
-import { setFormData } from "@/store/lib/features/books/bookFormDataSlice";
+import { Button, Form, Input } from "antd"
+import useForm from "@/hooks/crud-hooks/useForm"
+import { useAppDispatch, useAppSelector } from "@/store/lib/hooks"
+import { setFormData } from "@/store/lib/features/books/bookFormDataSlice"
 
-const { TextArea } = Input;
+const { TextArea } = Input
 
 interface props {
-  id: string | string[];
+  id: string | string[]
 }
 
 const CommentForm: React.FC<props> = ({ id }) => {
   const comments = useAppSelector(
     (state) => state.bookFormData.formData.commentInfo.comments
-  );
-  const formData = useAppSelector((state) => state.bookFormData.formData);
-  const dispatch = useAppDispatch();
+  )
+  const formData = useAppSelector((state) => state.bookFormData.formData)
+  const dispatch = useAppDispatch()
 
   const { handleSubmit, error, enterLoading, loadings } = useForm(
     `https://bookclubbrothers-backend.onrender.com/books/comment/${id}`,
     "POST",
     { comments }
-  );
+  )
 
   return (
     <>
@@ -72,6 +72,7 @@ const CommentForm: React.FC<props> = ({ id }) => {
             loading={loadings}
             onClick={() => enterLoading()}
             htmlType="submit"
+            size="large"
           >
             Submit
           </Button>
@@ -79,7 +80,7 @@ const CommentForm: React.FC<props> = ({ id }) => {
         </Form.Item>
       </Form>
     </>
-  );
-};
+  )
+}
 
-export default CommentForm;
+export default CommentForm

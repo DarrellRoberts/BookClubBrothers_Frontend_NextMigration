@@ -124,13 +124,14 @@ const PictureUpload: React.FC<props> = ({ id, inImage }) => {
         htmlType="submit"
         loading={loadings[0]}
         onClick={() => enterLoading(0)}
+        size="large"
       >
         Submit
       </Button>
 
       {error ? <p>{error}</p> : null}
     </Form>
-  );
+  )
 };
 
 export default PictureUpload;

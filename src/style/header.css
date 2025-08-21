@@ -1,62 +1,61 @@
-.logo {
-    font-family: var(--main);
-    color: white;
-    font-size: 2rem;
-}
-
 .headerLinks {
-    display: flex;
-    justify-content: space-evenly;
-    width: 50%;
-    font-family: var(--main);
-    font-size: 1.75rem; 
-    color: white;
+  display: flex;
+  justify-content: space-evenly;
+  width: 50%;
+  font-size: 1.75rem;
+  color: white;
 }
 
 .bookMenu:hover .bookHover {
-    display: block;
-    visibility: visible;
+  display: block;
+  visibility: visible;
 }
 
 .bookHover {
-    padding: 1rem 0rem;
-    border-bottom-right-radius: 50%;
-    visibility: hidden;
-    background-color: var(--tertiaryColor);
-    position: absolute;
-    z-index: 2;
+  padding: 1rem 0rem;
+  border-bottom-right-radius: 50%;
+  visibility: hidden;
+  background-color: var(--tertiaryColor);
+  position: absolute;
+  z-index: 2;
 }
 
 .bookHover li {
-    padding: 0rem 1rem;
+  padding: 0rem 1rem;
 }
 
 .bookHover li:hover {
-    background-color: white;
-    color: black;
+  background-color: white;
+  color: black;
+  border-top-right-radius: 50%;
+  border-top-left-radius: 0%;
+  border-bottom-right-radius: 25%;
+  border-bottom-left-radius: 50%;
+  animation: anim 2s linear 0s infinite;
+}
+
+.bookHover li:active {
+  background-color: black;
+  color: white;
+}
+
+@keyframes anim {
+  0% {
     border-top-right-radius: 50%;
     border-top-left-radius: 0%;
     border-bottom-right-radius: 25%;
     border-bottom-left-radius: 50%;
-    animation: anim 2s linear 0s infinite;
-}
-
-.bookHover li:active {
-    background-color: black;
-    color: white;
-}
-
-@keyframes anim {
-    0% {border-top-right-radius: 50%;
-        border-top-left-radius: 0%;
-        border-bottom-right-radius: 25%;
-        border-bottom-left-radius: 50%;}
-    50% {border-top-right-radius: 0%;
-        border-top-left-radius: 50%;
-        border-bottom-right-radius: 50%;
-        border-bottom-left-radius: 25%;}
-    100% {border-top-right-radius: 50%;
-        border-top-left-radius: 0%;
-        border-bottom-right-radius: 25%;
-        border-bottom-left-radius: 50%;}
+  }
+  50% {
+    border-top-right-radius: 0%;
+    border-top-left-radius: 50%;
+    border-bottom-right-radius: 50%;
+    border-bottom-left-radius: 25%;
+  }
+  100% {
+    border-top-right-radius: 50%;
+    border-top-left-radius: 0%;
+    border-bottom-right-radius: 25%;
+    border-bottom-left-radius: 50%;
+  }
 }

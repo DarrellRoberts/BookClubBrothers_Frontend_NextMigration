@@ -132,6 +132,7 @@ const EditForm: React.FC<Props> = ({
           loading={loadings}
           onClick={() => handleForm()}
           htmlType="submit"
+          size="large"
         >
           Submit
         </Button>

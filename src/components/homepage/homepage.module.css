@@ -20,10 +20,6 @@
   width: 100%;
 }
 
-/* var(--default-border-color) */
-/* var(--main-font-color) */
-/* var(--main-bg-color) */
-
 .bookEgg {
   border-width: 2px;
   border-color: var(--default-border-color);
@@ -34,7 +30,6 @@
   justify-content: flex-start;
   height: 425px;
   width: 300px;
-  font-family: var(--main);
   animation: appear 1s linear 0s 1;
 }
 
@@ -49,7 +44,6 @@
   justify-content: flex-start;
   height: 325px;
   width: 250px;
-  font-family: var(--main);
   position: absolute;
   top: 370px;
   transform: translateX(-50%);
@@ -67,7 +61,6 @@
   justify-content: flex-start;
   height: 225px;
   width: 200px;
-  font-family: var(--main);
   position: absolute;
   top: 450px;
   transform: translateX(-50%);
@@ -90,6 +83,21 @@
   }
   100% {
     opacity: 1;
+  }
+}
+
+@media screen and (max-width: 1600px) {
+  .bookEgg {
+    width: 272px;
+    height: 386px;
+  }
+  .clubEgg {
+    width: 227px;
+    height: 295px;
+  }
+  .brothersEgg {
+    width: 181px;
+    height: 204px;
   }
 }
 

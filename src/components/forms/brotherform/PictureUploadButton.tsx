@@ -1,44 +1,44 @@
 /* eslint-disable react/react-in-jsx-scope */
 /* eslint-disable react/prop-types */
-"use client";
+"use client"
 
-import { Button, Modal } from "antd";
-import { useState } from "react";
-import PictureUpload from "./PictureUpload";
-import { useAppDispatch, useAppSelector } from "@/store/lib/hooks";
-import { setShowImage } from "@/store/lib/features/auth/editButtonsSlice";
+import { Button, Modal } from "antd"
+import { useState } from "react"
+import PictureUpload from "./PictureUpload"
+import { useAppDispatch, useAppSelector } from "@/store/lib/hooks"
+import { setShowImage } from "@/store/lib/features/auth/editButtonsSlice"
 
 type Props = {
-  id: string;
-  inImage: string;
-};
+  id: string
+  inImage: string
+}
 
 const PictureUploadButton: React.FC<Props> = ({ id, inImage }) => {
   const [modalText, setModalText] = useState(
     <PictureUpload id={id} inImage={inImage} />
-  );
-  const [confirmLoading, setConfirmLoading] = useState<boolean>(false);
-  const showImage = useAppSelector((state) => state.editButtons.showImage);
+  )
+  const [confirmLoading, setConfirmLoading] = useState<boolean>(false)
+  const showImage = useAppSelector((state) => state.editButtons.showImage)
 
-  const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch()
 
   const showModal = () => {
-    dispatch(setShowImage());
-  };
+    dispatch(setShowImage())
+  }
   const handleOk = () => {
-    setConfirmLoading(true);
+    setConfirmLoading(true)
     setTimeout(() => {
-      dispatch(setShowImage());
-    }, 4000);
-    setModalText(<PictureUpload id={id} inImage={inImage} />);
-  };
+      dispatch(setShowImage())
+    }, 4000)
+    setModalText(<PictureUpload id={id} inImage={inImage} />)
+  }
   const handleCancel = () => {
-    dispatch(setShowImage());
-  };
+    dispatch(setShowImage())
+  }
   return (
     <>
       <div className="flex items-center">
-        <Button className="" onClick={showModal}>
+        <Button className="" onClick={showModal} size="large">
           Change image
         </Button>
       </div>
@@ -53,7 +53,7 @@ const PictureUploadButton: React.FC<Props> = ({ id, inImage }) => {
         <p>{modalText}</p>
       </Modal>
     </>
-  );
-};
+  )
+}
 
-export default PictureUploadButton;
+export default PictureUploadButton
