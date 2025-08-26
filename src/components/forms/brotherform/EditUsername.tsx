@@ -1,26 +1,26 @@
 /* eslint-disable react/react-in-jsx-scope */
 /* eslint-disable react/prop-types */
-"use client";
+"use client"
 
-import { useState } from "react";
-import { Button, Form, Input } from "antd";
-import { useAppSelector } from "@/store/lib/hooks";
+import { useState } from "react"
+import { Button, Form, Input } from "antd"
+import { useAppSelector } from "@/store/lib/hooks"
 
 interface props {
-  id: string;
-  inUsername: string;
+  id: string
+  inUsername: string
 }
 
 const EditUsername: React.FC<props> = ({ id, inUsername }) => {
-  const [username, setUsername] = useState(inUsername);
-  const [error, setError] = useState("");
-  const [loadings, setLoadings] = useState([]);
+  const [username, setUsername] = useState(inUsername)
+  const [error, setError] = useState("")
+  const [loadings, setLoadings] = useState([])
 
-  const token = useAppSelector((state) => state.token.tokenState);
+  const token = useAppSelector((state) => state.token.tokenState)
 
   const handleSubmit = async () => {
     try {
-      setError(null);
+      setError(null)
       const response = await fetch(
         `https://bookclubbrothers-backend.onrender.com/users/username/${id}`,
         {
@@ -33,37 +33,37 @@ const EditUsername: React.FC<props> = ({ id, inUsername }) => {
             username,
           }),
         }
-      );
-      const data = await response.json();
+      )
+      const data = await response.json()
       if (!response.ok) {
-        setError(data.error);
-        console.log("something has happened");
+        setError(data.error)
+        console.log("something has happened")
       }
 
       if (response.ok) {
-        console.log("SUCCESS!!!");
+        console.log("SUCCESS!!!")
       }
     } catch (error) {
-      setError(error);
-      console.log(error);
+      setError(error)
+      console.log(error)
     }
-  };
+  }
 
   const enterLoading = (index) => {
     setLoadings((prevLoadings) => {
-      const newLoadings = [...prevLoadings];
-      newLoadings[index] = true;
-      return newLoadings;
-    });
+      const newLoadings = [...prevLoadings]
+      newLoadings[index] = true
+      return newLoadings
+    })
     setTimeout(() => {
       setLoadings((prevLoadings) => {
-        const newLoadings = [...prevLoadings];
-        newLoadings[index] = false;
-        document.location.reload();
-        return newLoadings;
-      });
-    }, 4000);
-  };
+        const newLoadings = [...prevLoadings]
+        newLoadings[index] = false
+        document.location.reload()
+        return newLoadings
+      })
+    }, 4000)
+  }
   return (
     <>
       <Form
@@ -113,6 +113,7 @@ const EditUsername: React.FC<props> = ({ id, inUsername }) => {
             loading={loadings[0]}
             onClick={() => enterLoading(0)}
             htmlType="submit"
+            size="large"
           >
             Submit
           </Button>
@@ -120,7 +121,7 @@ const EditUsername: React.FC<props> = ({ id, inUsername }) => {
         </Form.Item>
       </Form>
     </>
-  );
-};
+  )
+}
 
-export default EditUsername;
+export default EditUsername

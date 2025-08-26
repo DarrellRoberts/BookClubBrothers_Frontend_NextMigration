@@ -1,7 +1,6 @@
 .graph {
   height: 800px;
   width: clamp(500px, 100vw, 100%);
-  /* width: 100%; */
   margin-top: 1rem;
 }
 

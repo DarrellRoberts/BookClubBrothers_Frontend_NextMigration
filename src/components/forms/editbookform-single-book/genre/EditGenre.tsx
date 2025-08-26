@@ -1,29 +1,29 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/react-in-jsx-scope */
-"use client";
+"use client"
 
-import { Button, Form, Select, Space } from "antd";
-import useForm from "@/hooks/crud-hooks/useForm";
-import { useAppDispatch, useAppSelector } from "@/store/lib/hooks";
-import { setFormData } from "@/store/lib/features/books/bookFormDataSlice";
+import { Button, Form, Select, Space } from "antd"
+import useForm from "@/hooks/crud-hooks/useForm"
+import { useAppDispatch, useAppSelector } from "@/store/lib/hooks"
+import { setFormData } from "@/store/lib/features/books/bookFormDataSlice"
 
-const { Option } = Select;
+const { Option } = Select
 
 type Props = {
-  id: string | string[];
-  inGenre: Array<string>;
-};
+  id: string | string[]
+  inGenre: Array<string>
+}
 
 const EditGenre: React.FC<Props> = ({ id, inGenre }) => {
-  const genre = useAppSelector((state) => state.bookFormData.formData.genre);
-  const formData = useAppSelector((state) => state.bookFormData.formData);
-  const dispatch = useAppDispatch();
+  const genre = useAppSelector((state) => state.bookFormData.formData.genre)
+  const formData = useAppSelector((state) => state.bookFormData.formData)
+  const dispatch = useAppDispatch()
 
   const { handleSubmit, error, enterLoading, loadings } = useForm(
     `https://bookclubbrothers-backend.onrender.com/books/${id}`,
     "PUT",
     { genre }
-  );
+  )
   return (
     <>
       <Form
@@ -181,6 +181,7 @@ const EditGenre: React.FC<Props> = ({ id, inGenre }) => {
             loading={loadings}
             onClick={() => enterLoading()}
             htmlType="submit"
+            size="large"
           >
             Submit
           </Button>
@@ -188,7 +189,7 @@ const EditGenre: React.FC<Props> = ({ id, inGenre }) => {
         </Form.Item>
       </Form>
     </>
-  );
-};
+  )
+}
 
-export default EditGenre;
+export default EditGenre

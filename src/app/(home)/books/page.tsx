@@ -1,41 +1,43 @@
 /* eslint-disable react/react-in-jsx-scope */
-import Link from "next/link";
-import "@/style/bookHomepage.css";
-import "@/style/bookHomepageRes.css";
+import { Button } from "antd"
+import Link from "next/link"
 
 const BookHomepage: React.FC = () => {
   return (
-    <div className="h-screen">
-      <h1 className="booksTitle">The Books</h1>
+    <div className="h-[calc(85vh-100px)] max-xs:h-[calc(85vh-75px)]">
+      <h1 className="text-8xl m-5 max-lg:text-6xl max-lg:text-center">
+        The Books
+      </h1>
       <div className="flex justify-center ">
-        <div className="bookHomeGrid">
-          <div className="libaryButtons m-10 border-4 border-black p-3 rounded-lg bg-black text-white">
-            <Link href="/books/library">
-              <h2>Book Library</h2>
-            </Link>
-          </div>
+        <div className="flex justify-evenly w-full">
+          <Link href="/books/library">
+            <Button size="large">Library</Button>
+          </Link>
 
-          <div className="libaryButtons m-10 border-4 border-black p-3 rounded-lg bg-black text-white">
-            <Link href="/books/randomiser">
-              <h2>Book Randomiser</h2>
-            </Link>
-          </div>
+          <Link href="/books/randomiser">
+            <Button size="large">Randomiser</Button>
+          </Link>
 
-          <div className="libaryButtons m-10 border-4 border-black p-3 rounded-lg bg-black text-white">
-            <Link href="/books/quiz">
-              <h2>Quiz</h2>
-            </Link>
-          </div>
+          <Link href="/books/quiz">
+            <Button size="large">Quiz</Button>
+          </Link>
 
-          <div className="libaryButtons m-10 border-4 border-black p-3 rounded-lg bg-black text-white">
-            <Link href="/books/stats">
-              <h2>Book Stats</h2>
-            </Link>
-          </div>
+          <Link href="/books/stats">
+            <Button size="large">Book Stats</Button>
+          </Link>
         </div>
       </div>
+      <div
+        className="flex justify-center mt-5 h-2/3"
+        style={{
+          backgroundImage: `url('/book-dashboard-library-background-image.webp')`,
+          backgroundPosition: "50% 70%",
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
+        }}
+      ></div>
     </div>
-  );
-};
+  )
+}
 
-export default BookHomepage;
+export default BookHomepage

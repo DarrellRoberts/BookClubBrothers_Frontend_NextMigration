@@ -1,33 +1,34 @@
 /* eslint-disable react/react-in-jsx-scope */
-"use client";
-import { handleHideScores_NoSetter } from "@/utils/time-functions/hideScores";
-import "@/style/bookHomepage.css";
-import "@/style/bookHomepageRes.css";
-import styles from "@/components/books/stats/bookstats.module.css";
-import useBookFetch from "@/hooks/fetch-hooks/useReadBookFetch";
-import BookStatsTotalScores from "@/components/books/stats/BookStatsTotalScores";
-import BookStatsGenre from "@/components/books/stats/BookStatsGenre";
-import BookStatsPages from "@/components/books/stats/BookStatsPages";
-import BookStatsYrPublished from "@/components/books/stats/BookStatsYrPublished";
-import BookStatsMeetingDate from "@/components/books/stats/BookStatsMeetingDate";
+"use client"
+import { handleHideScores_NoSetter } from "@/utils/time-functions/hideScores"
+import useBookFetch from "@/hooks/fetch-hooks/useReadBookFetch"
+import BookStatsTotalScores from "@/components/books/stats/BookStatsTotalScores"
+import BookStatsGenre from "@/components/books/stats/BookStatsGenre"
+import BookStatsPages from "@/components/books/stats/BookStatsPages"
+import BookStatsYrPublished from "@/components/books/stats/BookStatsYrPublished"
+import BookStatsMeetingDate from "@/components/books/stats/BookStatsMeetingDate"
 
 const BookStats = () => {
   const { bookData, loadingBooks } = useBookFetch(
     "https://bookclubbrothers-backend.onrender.com/books",
     null
-  );
+  )
 
   const readBooks = bookData?.filter(
     (book) =>
       book.read === true && !handleHideScores_NoSetter(book.actualDateOfMeeting)
-  );
+  )
 
   return (
     <div className={loadingBooks ? "h-screen" : ""}>
-      <h1 className="booksTitle">Book Stats</h1>
-      <div className={styles.booksStatsCon}>
+      <h1 className="font-main text-[5rem] ml-12 max-md:text-[3.5rem] max-md:m-0 max-md:pt-0 max-md:text-center">
+        Book Stats
+      </h1>
+      <div className="grid grid-cols-[repeat(auto-fill,minmax(600px,1fr))] max-sm:grid-cols-[repeat(auto-fill,minmax(300px,1fr))]">
         <div className="flex flex-col justify-self-center">
-          <h2>Total Scores</h2>
+          <h2 className="font-main text-[2.5rem] underline my-8 ml-12 text-left max-sm:text-center max-sm:my-8 max-sm:ml-0">
+            Total Scores
+          </h2>
           <BookStatsTotalScores
             bookData={bookData}
             loadingBooks={loadingBooks}
@@ -35,17 +36,23 @@ const BookStats = () => {
         </div>
 
         <div className="flex flex-col justify-self-center">
-          <h2>By Genre</h2>
+          <h2 className="font-main text-[2.5rem] underline my-8 ml-12 text-left max-sm:text-center max-sm:my-8 max-sm:ml-0">
+            By Genre
+          </h2>
           <BookStatsGenre readBooks={readBooks} />
         </div>
 
         <div className="flex flex-col justify-self-center">
-          <h2>By Number of Pages</h2>
+          <h2 className="font-main text-[2.5rem] underline my-8 ml-12 text-left max-sm:text-center max-sm:my-8 max-sm:ml-0">
+            By Number of Pages
+          </h2>
           <BookStatsPages readBooks={readBooks} loadingBooks={loadingBooks} />
         </div>
 
         <div className="flex flex-col justify-self-center">
-          <h2>By Year Published</h2>
+          <h2 className="font-main text-[2.5rem] underline my-8 ml-12 text-left max-sm:text-center max-sm:my-8 max-sm:ml-0">
+            By Year Published
+          </h2>
           <BookStatsYrPublished
             readBooks={readBooks}
             loadingBooks={loadingBooks}
@@ -53,15 +60,17 @@ const BookStats = () => {
         </div>
       </div>
 
-      <div className={styles.meetingDateCon}>
-        <h2>By Meeting Date</h2>
+      <div className="flex flex-col items-center font-main mx-8">
+        <h2 className="font-main text-[2.5rem] underline my-8 ml-12 text-left max-sm:text-center max-sm:my-8 max-sm:ml-0">
+          By Meeting Date
+        </h2>
         <BookStatsMeetingDate
           readBooks={readBooks}
           loadingBooks={loadingBooks}
         />
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default BookStats;
+export default BookStats

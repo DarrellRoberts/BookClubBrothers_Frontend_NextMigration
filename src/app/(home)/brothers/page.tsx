@@ -1,29 +1,35 @@
 /* eslint-disable react/react-in-jsx-scope */
-import Link from "next/link";
-import "../../../style/brothersHomepage.css";
-import "../../../style/brothersHomepageRes.css";
+import { Button } from "antd"
+import Link from "next/link"
 
 const BrothersHomepage: React.FC = () => {
   return (
-    <div className="h-screen">
-      <h1 className="booksTitle">The Brothers</h1>
+    <div className="h-[calc(85vh-100px)] max-xs:h-[calc(85vh-75px)]">
+      <h1 className="text-8xl m-5 max-lg:text-6xl max-lg:text-center">
+        The Brothers
+      </h1>
       <div className="flex justify-center ">
-        <div className="bookHomeGrid">
-          <div className="libaryButtons m-10 border-4 border-black p-3 rounded-lg bg-black text-white">
-            <Link href="/brothers/library">
-              <h2>Brothers Library</h2>
-            </Link>
-          </div>
+        <div className="grid grid-cols-2 gap-20">
+          <Link href="/brothers/library">
+            <Button size="large">Brothers Library</Button>
+          </Link>
 
-          <div className="libaryButtons m-10 border-4 border-black p-3 rounded-lg bg-black text-white">
-            <Link href="/brothers/stats">
-              <h2>Brothers Stats</h2>
-            </Link>
-          </div>
+          <Link href="/brothers/stats">
+            <Button size="large">Brothers Stats</Button>
+          </Link>
         </div>
       </div>
+      <div
+        className="flex justify-center mt-5 h-2/3"
+        style={{
+          backgroundImage: `url('/brother-dashboard-background-image.webp')`,
+          backgroundPosition: "50% 80%",
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
+        }}
+      ></div>
     </div>
-  );
-};
+  )
+}
 
-export default BrothersHomepage;
+export default BrothersHomepage

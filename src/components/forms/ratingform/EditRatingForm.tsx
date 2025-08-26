@@ -82,6 +82,7 @@ const EditRatingForm: React.FC<props> = ({ id, initialRating }) => {
             loading={loadings}
             onClick={() => enterLoading()}
             htmlType="submit"
+            size="large"
           >
             Submit
           </Button>
@@ -89,7 +90,7 @@ const EditRatingForm: React.FC<props> = ({ id, initialRating }) => {
         </Form.Item>
       </Form>
     </>
-  );
+  )
 };
 
 export default EditRatingForm;

@@ -1,5 +1,4 @@
 import React from "react"
-import style from "./randomiser.module.css"
 import LoaderNoText from "@/components/loader/LoaderNoText"
 import Randomiser from "./Randomiser"
 import EditUnreadBook from "@/components/forms/bookform-randomise/edit/EditUnreadBook"
@@ -28,7 +27,7 @@ const RandomSectionRight: React.FC<Props> = ({ bookData, error, userData }) => {
 
   return (
     <div
-      className={style.randomBoxRight}
+      className="grid grid-rows-2 border-[var(--default-border-color)] border-5 border-solid p-2 max-md:flex max-md:flex-col max-md:p-0 max-md:border-0"
       style={{
         backgroundImage: bookData
           ? `URL(${bookData[index]?.imageURL})`
@@ -43,29 +42,37 @@ const RandomSectionRight: React.FC<Props> = ({ bookData, error, userData }) => {
           <LoaderNoText />
         </div>
       ) : (
-        <div className={style.randomDetailsCon + " bg-white"}>
+        <div className="bg-[var(--main-bg-color)] font-main flex flex-col justify-center items-center border-[var(--default-border-color)] border-5 border-solid h-[400px] max-md:justify-start max-md:h-[300px] max-md:m-8">
           {error ? (
             <h2 className="text-red-500 bg-black">{error.message}</h2>
           ) : !bookData[index] ? (
             <h2>No results found</h2>
           ) : (
             <>
-              <h2>{bookData[index]?.title}</h2>
+              <h2 className="text-5xl underline text-center max-md:text-2xl max-md:text-center">
+                {bookData[index]?.title}
+              </h2>
               <ul className="text-center">
-                <li>Author: {bookData[index]?.author}</li>
-                <li>Published: {bookData[index]?.yearPublished}</li>
-                <li>Pages: {bookData[index]?.pages}</li>
-                <li>
+                <li className="text-2xl max-md:text-xl">
+                  Author: {bookData[index]?.author}
+                </li>
+                <li className="text-2xl max-md:text-xl">
+                  Published: {bookData[index]?.yearPublished}
+                </li>
+                <li className="text-2xl max-md:text-xl">
+                  Pages: {bookData[index]?.pages}
+                </li>
+                <li className="text-2xl max-md:text-xl">
                   Genre: {bookData[index]?.genre.map((theme) => ` ${theme} `)}
                 </li>
-                <li>
+                <li className="text-2xl max-md:text-xl">
                   Suggested by:{" "}
                   {findUser(bookData[index]?.suggestedBy) === "user not found"
                     ? " (loading...)"
                     : findUser(bookData[index]?.suggestedBy)}{" "}
                 </li>
               </ul>
-              <div className={style.buttonCon}>
+              <div className="flex items-center justify-center w-full">
                 <Randomiser
                   bookLength={bookData?.length}
                   bookId={bookData[index]?._id}

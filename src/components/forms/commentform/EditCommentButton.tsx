@@ -36,7 +36,7 @@ const EditRatingButton: React.FC<props> = ({
   return (
     <>
       <div className="flex items-center">
-        <Button className="m-5" onClick={showModal}>
+        <Button className="m-5" onClick={showModal} size="large">
           Edit comment
         </Button>
       </div>
@@ -51,7 +51,7 @@ const EditRatingButton: React.FC<props> = ({
         {showEditComment && <EditCommentForm id={id} inComment={inComment} />}
       </Modal>
     </>
-  );
+  )
 };
 
 export default EditRatingButton;

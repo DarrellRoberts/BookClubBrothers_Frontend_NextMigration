@@ -1,27 +1,30 @@
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/react-in-jsx-scope */
-import BookWormImage from "@/assets/badges/Badge-monkworm-image.jpg";
-import BadgeTemplate from "../BadgeTemplate";
-import Link from "next/link";
-import style from "../badges.module.css";
+import BookWormImage from "@/assets/badges/Badge-monkworm-image.webp"
+import BadgeTemplate from "../BadgeTemplate"
+import Link from "next/link"
 
 type Props = {
-  firstBookWorm: boolean;
-};
+  firstBookWorm: boolean
+  isVertical?: boolean
+}
 
-const FirstBook: React.FC<Props> = ({ firstBookWorm }) => {
-  const badge = BookWormImage.src;
+const FirstBook: React.FC<Props> = ({ firstBookWorm, isVertical }) => {
+  const badge = BookWormImage.src
 
   const content = (
-    <div className={style.contentCon}>
+    <div className="">
       <img src={badge} alt="Brother Worm" width="250px" />
       <p>Have rated their first book</p>
-      <Link className="underline" href="/club/badges">
+      <Link
+        style={{ color: "white", textDecoration: "underline" }}
+        href="/club/badges"
+      >
         what's this?
       </Link>
     </div>
-  );
+  )
   return (
     <>
       {firstBookWorm ? (
@@ -29,10 +32,11 @@ const FirstBook: React.FC<Props> = ({ firstBookWorm }) => {
           title={"Brother Worm"}
           content={content}
           badgeImageURL={badge}
+          isVertical={isVertical}
         />
       ) : null}
     </>
-  );
-};
+  )
+}
 
-export default FirstBook;
+export default FirstBook

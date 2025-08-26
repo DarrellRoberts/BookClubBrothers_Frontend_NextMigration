@@ -31,7 +31,9 @@ const DarkMode: React.FC = () => {
   }, [])
   return (
     <div className={style.themeCon}>
-      <label htmlFor="theme">Change Theme</label>
+      <label htmlFor="theme" className="opacity-0">
+        Change Theme
+      </label>
       <input
         type="checkbox"
         id="theme"
