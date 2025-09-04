@@ -1,14 +1,15 @@
-import React from "react";
-import BrotherTableDesktop from "./BrotherTableDesktop";
-import BrotherTableTablet from "./BrotherTableTablet";
-import { type User } from "@/types/UserInterface";
-import { type Book } from "@/types/BookInterface";
-import LoaderNoText from "@/components/loader/LoaderNoText";
+import React from "react"
+import BrotherTableDesktop from "./BrotherTableDesktop"
+import BrotherTableTablet from "./BrotherTableTablet"
+import { type User } from "@/types/UserInterface"
+import { type Book } from "@/types/BookInterface"
+import BrotherSkeletonTableDesktop from "./BrotherSkeletonTableDesktop"
+import BrotherSkeletonTableTablet from "./BrotherSkeletonTableTablet"
 
 type Props = {
-  userData: User[];
-  bookData: Book[];
-};
+  userData: User[]
+  bookData: Book[]
+}
 
 const BrotherTable: React.FC<Props> = ({ userData, bookData }) => {
   return (
@@ -19,10 +20,13 @@ const BrotherTable: React.FC<Props> = ({ userData, bookData }) => {
           <BrotherTableTablet userData={userData} bookData={bookData} />
         </>
       ) : (
-        <LoaderNoText />
+        <>
+          <BrotherSkeletonTableDesktop />
+          <BrotherSkeletonTableTablet />
+        </>
       )}
     </>
-  );
-};
+  )
+}
 
-export default BrotherTable;
+export default BrotherTable

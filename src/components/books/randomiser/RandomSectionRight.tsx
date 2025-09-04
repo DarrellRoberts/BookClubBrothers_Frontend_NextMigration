@@ -7,6 +7,7 @@ import { Book } from "@/types/BookInterface"
 import { useAppSelector } from "@/store/lib/hooks"
 import { User } from "@/types/UserInterface"
 import { useAuth } from "@/hooks/auth-hooks/useAuth"
+import { Skeleton } from "antd"
 
 type Props = {
   bookData: Book[]
@@ -19,6 +20,7 @@ const RandomSectionRight: React.FC<Props> = ({ bookData, error, userData }) => {
   const showRandom = useAppSelector((state) => state.randomise.showRandom)
   const { decodedToken } = useAuth()
   const adminId = process.env.NEXT_PUBLIC_ADMIN_ID
+  const isDarkMode = useAppSelector((state) => state.darkMode.darkMode)
 
   const findUser = (id) => {
     const user = userData?.find((user) => user._id === id)
@@ -38,9 +40,52 @@ const RandomSectionRight: React.FC<Props> = ({ bookData, error, userData }) => {
       }}
     >
       {!bookData ? (
-        <div className="flex justify-center items-center mt-20">
-          <LoaderNoText />
-        </div>
+        <>
+          <div className="bg-[var(--main-bg-color)] font-main flex flex-col justify-center items-center border-[var(--default-border-color)] border-5 border-solid h-[400px] max-md:justify-start max-md:h-[300px] max-md:m-8">
+            <Skeleton.Input
+              active={true}
+              size="large"
+              style={{ filter: isDarkMode ? "invert(1)" : "invert(0)" }}
+            />
+            <ul className="text-center">
+              <li className="text-2xl max-md:text-xl">
+                Author:{" "}
+                <Skeleton.Input
+                  active={true}
+                  style={{ filter: isDarkMode ? "invert(1)" : "invert(0)" }}
+                />
+              </li>
+              <li className="text-2xl max-md:text-xl">
+                Published:{" "}
+                <Skeleton.Input
+                  active={true}
+                  style={{ filter: isDarkMode ? "invert(1)" : "invert(0)" }}
+                />
+              </li>
+              <li className="text-2xl max-md:text-xl">
+                Pages:{" "}
+                <Skeleton.Input
+                  active={true}
+                  style={{ filter: isDarkMode ? "invert(1)" : "invert(0)" }}
+                />
+              </li>
+              <li className="text-2xl max-md:text-xl">
+                Genre:{" "}
+                <Skeleton.Input
+                  active={true}
+                  style={{ filter: isDarkMode ? "invert(1)" : "invert(0)" }}
+                />
+              </li>
+              <li className="text-2xl max-md:text-xl">
+                Suggested by:
+                <Skeleton.Input
+                  active={true}
+                  style={{ filter: isDarkMode ? "invert(1)" : "invert(0)" }}
+                />
+              </li>
+            </ul>
+          </div>
+        </>
       ) : (
         <div className="bg-[var(--main-bg-color)] font-main flex flex-col justify-center items-center border-[var(--default-border-color)] border-5 border-solid h-[400px] max-md:justify-start max-md:h-[300px] max-md:m-8">
           {error ? (

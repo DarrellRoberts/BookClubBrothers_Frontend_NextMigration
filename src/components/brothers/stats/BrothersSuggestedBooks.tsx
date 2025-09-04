@@ -36,9 +36,6 @@ const BrothersSuggestedBooks: React.FC<Props> = ({ userData, bookData }) => {
     return suggestedTitlesObject
   }
   createSuggestedTitlesMap()
-
-  console.log(Object.entries(suggestedTitlesObject)?.map((user) => user))
-
   return (
     <>
       {bookData?.length <= 0 ? (
