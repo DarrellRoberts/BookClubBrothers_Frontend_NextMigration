@@ -1,8 +1,9 @@
 import { Book } from "@/types/BookInterface"
 import { User } from "@/types/UserInterface"
 import React, { useEffect, useState } from "react"
-import { useAppDispatch } from "@/store/lib/hooks"
+import { useAppDispatch, useAppSelector } from "@/store/lib/hooks"
 import { setIndex } from "@/store/lib/features/randomise/randomiseSlice"
+import RandomiserSkeletonFilters from "./RandomiserSkeletonFilters"
 
 type Props = {
   bookData: Book[]
@@ -87,39 +88,44 @@ const RandomiserFilters: React.FC<Props> = ({
       dispatch(setIndex(0))
     }
   }, [nameFilter, genreFilter])
-  console.log(genreFilter)
   return (
     <div className="flex flex-col">
       <div>
         <h2 className="text-center">Filter by suggestor</h2>
         <div className="flex w-full justify-evenly max-md:grid max-md:grid-cols-2 max-md:items-center max-md:justify-items-center max-md:gap-4">
-          {userData?.map((user) => (
-            <div key={user._id}>
-              <input
-                className="accent-bc-green"
-                type="checkbox"
-                checked={nameFilter.includes(user._id)}
-                name={user.username}
-                value={user._id}
-                onChange={() => handleNameCheckbox(user._id)}
-              />
-              <label htmlFor={user.username} className="font-main ml-1">
-                {user.username}
-              </label>
-            </div>
-          ))}
-          <div>
-            <input
-              type="checkbox"
-              className="accent-bc-green"
-              name="Clear all"
-              checked={nameFilter.length === 0}
-              onChange={() => setNameFilter([])}
-            />
-            <label htmlFor="Clear all" className="font-main ml-1">
-              Clear all
-            </label>
-          </div>
+          {!userData ? (
+            <RandomiserSkeletonFilters freq={6} />
+          ) : (
+            <>
+              {userData?.map((user) => (
+                <div key={user._id}>
+                  <input
+                    className="accent-bc-green"
+                    type="checkbox"
+                    checked={nameFilter.includes(user._id)}
+                    name={user.username}
+                    value={user._id}
+                    onChange={() => handleNameCheckbox(user._id)}
+                  />
+                  <label htmlFor={user.username} className="font-main ml-1">
+                    {user.username}
+                  </label>
+                </div>
+              ))}
+              <div>
+                <input
+                  type="checkbox"
+                  className="accent-bc-green"
+                  name="Clear all"
+                  checked={nameFilter.length === 0}
+                  onChange={() => setNameFilter([])}
+                />
+                <label htmlFor="Clear all" className="font-main ml-1">
+                  Clear all
+                </label>
+              </div>
+            </>
+          )}
         </div>
       </div>
       <div className="my-12">

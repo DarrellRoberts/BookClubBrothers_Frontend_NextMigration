@@ -2,11 +2,11 @@
 "use client"
 
 import { useState } from "react"
-import Loader from "@/components/loader/Loader"
 import Search from "@/components/misc/search/Search"
 import useBookFetch from "@/hooks/fetch-hooks/useReadBookFetch"
 import useUserFetch from "@/hooks/fetch-hooks/useUserFetch"
 import BrothersProfile from "@/components/brothers/library/BrothersProfile"
+import BrothersLoadingProfile from "@/components/brothers/library/BrothersLoadingProfile"
 
 const Brothercat: React.FC = () => {
   const [searchBar, setSearchBar] = useState("")
@@ -34,7 +34,14 @@ const Brothercat: React.FC = () => {
         <Search setSearchBar={setSearchBar} filteredUsers={filteredResults} />
       </div>
       {loadingUsers && loadingBooks ? (
-        <Loader />
+        <>
+          <h1 className="text-8xl m-5 max-lg:text-6xl max-lg:text-center">
+            Brothers Library
+          </h1>
+          <div className="flex flex-col items-center">
+            <BrothersLoadingProfile />
+          </div>
+        </>
       ) : (
         <>
           <h1 className="text-8xl m-5 max-lg:text-6xl max-lg:text-center">
