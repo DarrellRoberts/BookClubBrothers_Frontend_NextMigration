@@ -43,7 +43,7 @@ const HeaderCon: React.FC<Props> = ({ propsToken }) => {
   return (
     <header
       ref={headerCon}
-      className={`flex justify-between items-center w-screen bg-black ${
+      className={`flex justify-between items-center w-full bg-black ${
         !token && !propsToken ? "pb-0" : ""
       }`}
     >
@@ -60,10 +60,10 @@ const HeaderCon: React.FC<Props> = ({ propsToken }) => {
             </div>
           )}
 
-          <div className="flex items-center mr-10">
+          <div className="flex items-center justify-end">
             <Link href="/">
               <h2
-                className={`text-white text-3xl max-xs:text-xl text-end max-xs:w-10 ${
+                className={`text-white text-3xl max-sm:text-xl text-end mx-2 ${
                   !token && !propsToken ? "pb-0" : ""
                 }`}
               >
