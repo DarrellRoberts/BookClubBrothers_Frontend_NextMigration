@@ -1,22 +1,23 @@
-import ScatterGraph from "@/components/graphs/brothers/ScatterGraph";
-import LoaderNoText from "@/components/loader/LoaderNoText";
-import { Book } from "@/types/BookInterface";
-import React from "react";
+import BrotherLoadingBooksScored from "@/components/brothers/dashboard/BrotherLoadingBooksScored"
+import ScatterGraph from "@/components/graphs/brothers/ScatterGraph"
+import LoaderNoText from "@/components/loader/LoaderNoText"
+import { Book } from "@/types/BookInterface"
+import React from "react"
 
 type Props = {
-  readBooks: Book[];
-  loadingBooks: boolean;
-};
+  readBooks: Book[]
+  loadingBooks: boolean
+}
 
 const BookStatsYrPublished: React.FC<Props> = ({ readBooks, loadingBooks }) => {
-  const totalScoreArray = readBooks?.map((book) => book.totalScore?.toFixed(2));
-  const labelArray = readBooks?.map((book) => book.title);
-  const yearPublishedArray = readBooks?.map((book) => book.yearPublished);
+  const totalScoreArray = readBooks?.map((book) => book.totalScore?.toFixed(2))
+  const labelArray = readBooks?.map((book) => book.title)
+  const yearPublishedArray = readBooks?.map((book) => book.yearPublished)
 
   return (
     <>
       {loadingBooks ? (
-        <LoaderNoText />
+        <BrotherLoadingBooksScored />
       ) : (
         <ScatterGraph
           labelArray={labelArray}
@@ -28,7 +29,7 @@ const BookStatsYrPublished: React.FC<Props> = ({ readBooks, loadingBooks }) => {
         />
       )}
     </>
-  );
-};
+  )
+}
 
-export default BookStatsYrPublished;
+export default BookStatsYrPublished

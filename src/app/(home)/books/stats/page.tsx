@@ -20,7 +20,7 @@ const BookStats = () => {
   )
 
   return (
-    <div className={loadingBooks ? "h-screen" : ""}>
+    <div>
       <h1 className="font-main text-[5rem] ml-12 max-md:text-[3.5rem] max-md:m-0 max-md:pt-0 max-md:text-center">
         Book Stats
       </h1>
@@ -39,7 +39,7 @@ const BookStats = () => {
           <h2 className="font-main text-[2.5rem] underline my-8 ml-12 text-left max-sm:text-center max-sm:my-8 max-sm:ml-0">
             By Genre
           </h2>
-          <BookStatsGenre readBooks={readBooks} />
+          <BookStatsGenre readBooks={readBooks} loadingBooks={loadingBooks} />
         </div>
 
         <div className="flex flex-col justify-self-center">
@@ -60,7 +60,7 @@ const BookStats = () => {
         </div>
       </div>
 
-      <div className="flex flex-col items-center font-main mx-8">
+      <div className="mx-8">
         <h2 className="font-main text-[2.5rem] underline my-8 ml-12 text-left max-sm:text-center max-sm:my-8 max-sm:ml-0">
           By Meeting Date
         </h2>
