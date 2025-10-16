@@ -3,6 +3,7 @@ import NavigateArrow from "@/assets/right-nav-arrow.svg"
 import Link from "next/link"
 import useBookFetch from "@/hooks/fetch-hooks/useReadBookFetch"
 import { useAppSelector } from "@/store/lib/hooks"
+import { useParams } from "next/navigation"
 
 type Props = {
   isLeft?: boolean
@@ -17,6 +18,8 @@ const NavigateBook = ({
 }: Props) => {
   const [index, setIndex] = useState<number>(0)
 
+  const paramsId = useParams()?.id
+
   const isDarkMode = useAppSelector((state) => state.darkMode.darkMode)
 
   const { bookData, loadingBooks } = useBookFetch(
@@ -27,12 +30,9 @@ const NavigateBook = ({
   const filteredBooks = bookData?.filter((book) => book.read)
 
   useEffect(() => {
-    let params: string | string[] = window.location.pathname
-    params = params.split("/")
-    params = params[params.length - 1]
-    if (params) {
+    if (paramsId) {
       const newIndex = filteredBooks?.indexOf(
-        filteredBooks?.find((book) => book._id === params)
+        filteredBooks?.find((book) => book._id === paramsId)
       )
       if (newIndex === 0) {
         setShowLeftNavArrows(false)

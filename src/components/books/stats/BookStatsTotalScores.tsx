@@ -1,32 +1,33 @@
-import Filters from "@/components/graphs/brothers/Filters";
-import Graph from "@/components/graphs/brothers/Graph";
-import LoaderNoText from "@/components/loader/LoaderNoText";
-import { handleHideScores_NoSetter } from "@/utils/time-functions/hideScores";
-import { Book } from "@/types/BookInterface";
-import React, { useEffect, useState } from "react";
+import Filters from "@/components/graphs/brothers/Filters"
+import Graph from "@/components/graphs/brothers/Graph"
+import LoaderNoText from "@/components/loader/LoaderNoText"
+import { handleHideScores_NoSetter } from "@/utils/time-functions/hideScores"
+import { Book } from "@/types/BookInterface"
+import React, { useEffect, useState } from "react"
+import BrotherLoadingBooksScored from "@/components/brothers/dashboard/BrotherLoadingBooksScored"
 
 type Props = {
-  bookData: Book[];
-  loadingBooks: boolean;
-};
+  bookData: Book[]
+  loadingBooks: boolean
+}
 
 const BookStatsTotalScores: React.FC<Props> = ({ bookData, loadingBooks }) => {
-  const [fetchedData, setFetchedData] = useState<Book[]>();
+  const [fetchedData, setFetchedData] = useState<Book[]>()
 
   const readBooks = bookData?.filter(
     (book) =>
       book.read === true && !handleHideScores_NoSetter(book.actualDateOfMeeting)
-  );
+  )
 
   const sortBooksLowest = () => {
-    setFetchedData(readBooks?.sort((a, b) => a.totalScore - b.totalScore));
-  };
+    setFetchedData(readBooks?.sort((a, b) => a.totalScore - b.totalScore))
+  }
 
   const sortBooksHighest = () => {
     setFetchedData(
       readBooks?.sort((a, b) => a.totalScore - b.totalScore).reverse()
-    );
-  };
+    )
+  }
 
   const sortBooksDefault = () => {
     setFetchedData(
@@ -35,8 +36,8 @@ const BookStatsTotalScores: React.FC<Props> = ({ bookData, loadingBooks }) => {
           new Date(b.dateOfMeeting).getTime() -
           new Date(a.dateOfMeeting).getTime()
       )
-    );
-  };
+    )
+  }
 
   const sortBooksOther = () => {
     setFetchedData(
@@ -45,17 +46,17 @@ const BookStatsTotalScores: React.FC<Props> = ({ bookData, loadingBooks }) => {
           new Date(a.dateOfMeeting).getTime() -
           new Date(b.dateOfMeeting).getTime()
       )
-    );
-  };
+    )
+  }
 
   useEffect(() => {
-    sortBooksDefault();
-  }, [loadingBooks]);
+    sortBooksDefault()
+  }, [loadingBooks])
 
   return (
     <>
-      {fetchedData?.length <= 0 ? (
-        <LoaderNoText />
+      {loadingBooks ? (
+        <BrotherLoadingBooksScored />
       ) : (
         <>
           <Filters
@@ -73,7 +74,7 @@ const BookStatsTotalScores: React.FC<Props> = ({ bookData, loadingBooks }) => {
         </>
       )}
     </>
-  );
-};
+  )
+}
 
-export default BookStatsTotalScores;
+export default BookStatsTotalScores

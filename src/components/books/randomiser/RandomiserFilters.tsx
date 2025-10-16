@@ -84,17 +84,26 @@ const RandomiserFilters: React.FC<Props> = ({
         )
       )
       setBookData(tempArray)
-      console.log(tempArray)
       dispatch(setIndex(0))
     }
   }, [nameFilter, genreFilter])
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col w-full">
       <div>
         <h2 className="text-center">Filter by suggestor</h2>
-        <div className="flex w-full justify-evenly max-md:grid max-md:grid-cols-2 max-md:items-center max-md:justify-items-center max-md:gap-4">
+        <div className="flex w-full justify-evenly flex-wrap gap-4">
           {!userData ? (
-            <RandomiserSkeletonFilters freq={6} />
+            <div className="flex flex-col w-full">
+              <div className="flex w-full justify-evenly flex-wrap gap-4">
+                <RandomiserSkeletonFilters freq={6} />
+              </div>
+              <div className="my-4">
+                <h2 className="text-center">Filter by genre</h2>
+                <div className="flex w-full justify-evenly flex-wrap gap-4">
+                  <RandomiserSkeletonFilters freq={genreList.length} />
+                </div>
+              </div>
+            </div>
           ) : (
             <>
               {userData?.map((user) => (
@@ -124,40 +133,40 @@ const RandomiserFilters: React.FC<Props> = ({
                   Clear all
                 </label>
               </div>
+              <div className="my-12 flex flex-col w-full">
+                <h2 className="text-center">Filter by genre</h2>
+                <div className="flex w-full justify-evenly flex-wrap gap-8">
+                  {genreList?.map((genre, index) => (
+                    <div key={index}>
+                      <input
+                        type="checkbox"
+                        className="accent-bc-green"
+                        checked={genreFilter.includes(genre)}
+                        name={genre}
+                        value={genre}
+                        onChange={() => handleGenreCheckbox(genre)}
+                      />
+                      <label htmlFor={genre} className="font-main ml-1">
+                        {genre}
+                      </label>
+                    </div>
+                  ))}
+                  <div>
+                    <input
+                      type="checkbox"
+                      className="accent-bc-green"
+                      name="Clear all"
+                      checked={genreFilter.length === 0}
+                      onChange={() => setGenreFilter([])}
+                    />
+                    <label htmlFor="Clear all" className="font-main ml-1">
+                      Clear all
+                    </label>
+                  </div>
+                </div>
+              </div>
             </>
           )}
-        </div>
-      </div>
-      <div className="my-12">
-        <h2 className="text-center">Filter by genre</h2>
-        <div className="grid w-full grid-cols-8 gap-4 max-md:grid-cols-2 max-md:items-center max-md:justify-items-center">
-          {genreList?.map((genre, index) => (
-            <div key={index}>
-              <input
-                type="checkbox"
-                className="accent-bc-green"
-                checked={genreFilter.includes(genre)}
-                name={genre}
-                value={genre}
-                onChange={() => handleGenreCheckbox(genre)}
-              />
-              <label htmlFor={genre} className="font-main ml-1">
-                {genre}
-              </label>
-            </div>
-          ))}
-          <div>
-            <input
-              type="checkbox"
-              className="accent-bc-green"
-              name="Clear all"
-              checked={genreFilter.length === 0}
-              onChange={() => setGenreFilter([])}
-            />
-            <label htmlFor="Clear all" className="font-main ml-1">
-              Clear all
-            </label>
-          </div>
         </div>
       </div>
     </div>

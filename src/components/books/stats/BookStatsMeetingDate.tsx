@@ -1,31 +1,34 @@
-import LineGraph from "@/components/graphs/brothers/LineGraph";
-import LoaderNoText from "@/components/loader/LoaderNoText";
-import { dateFormatter } from "@/utils/time-functions/dateFormatter";
-import { Book } from "@/types/BookInterface";
-import React from "react";
+import LineGraph from "@/components/graphs/brothers/LineGraph"
+import LoaderNoText from "@/components/loader/LoaderNoText"
+import { dateFormatter } from "@/utils/time-functions/dateFormatter"
+import { Book } from "@/types/BookInterface"
+import React from "react"
+import BrotherLoadingBooksScored from "@/components/brothers/dashboard/BrotherLoadingBooksScored"
 
 type Props = {
-  readBooks: Book[];
-  loadingBooks: boolean;
-};
+  readBooks: Book[]
+  loadingBooks: boolean
+}
 
 const BookStatsMeetingDate: React.FC<Props> = ({ readBooks, loadingBooks }) => {
   const dateArray: string[] = readBooks?.map((book) =>
     dateFormatter(book.actualDateOfMeeting)
-  );
+  )
   const yearArray: string[] | number[] = dateArray
     ?.map((date) => date.split(" ")[3])
-    .reverse();
-  const yearMatchArray: string[] = [...new Set(yearArray)];
+    .reverse()
+  const yearMatchArray: string[] = [...new Set(yearArray)]
   const findYearCount = (year: string, yearArray: string[]): number => {
-    return yearArray.filter((yr) => yr === year).length;
-  };
-  const totalScoreArray = readBooks?.map((book) => book.totalScore?.toFixed(2));
-  const labelArray = readBooks?.map((book) => book.title);
+    return yearArray.filter((yr) => yr === year).length
+  }
+  const totalScoreArray = readBooks?.map((book) => book.totalScore?.toFixed(2))
+  const labelArray = readBooks?.map((book) => book.title)
 
-  return (
+  return loadingBooks ? (
+    <BrotherLoadingBooksScored />
+  ) : (
     <>
-      <div>
+      <div className="flex w-full justify-center">
         <ul>
           {yearMatchArray?.map((year, i) => (
             <li key={i}>
@@ -34,18 +37,14 @@ const BookStatsMeetingDate: React.FC<Props> = ({ readBooks, loadingBooks }) => {
           ))}
         </ul>
       </div>
-      {loadingBooks ? (
-        <LoaderNoText />
-      ) : (
-        <LineGraph
-          labelArray={labelArray.slice().reverse()}
-          dateArray={dateArray.slice().reverse()}
-          scoreArray={totalScoreArray.slice().reverse()}
-          xAxes={"Meeting Date"}
-        />
-      )}
+      <LineGraph
+        labelArray={labelArray.slice().reverse()}
+        dateArray={dateArray.slice().reverse()}
+        scoreArray={totalScoreArray.slice().reverse()}
+        xAxes={"Meeting Date"}
+      />
     </>
-  );
-};
+  )
+}
 
-export default BookStatsMeetingDate;
+export default BookStatsMeetingDate
