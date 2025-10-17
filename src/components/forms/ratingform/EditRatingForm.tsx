@@ -1,30 +1,39 @@
 /* eslint-disable react/react-in-jsx-scope */
 /* eslint-disable react/prop-types */
-"use client";
+"use client"
 
-import { Button, Form, Input } from "antd";
-import useForm from "@/hooks/crud-hooks/useForm";
-import { useAppDispatch, useAppSelector } from "@/store/lib/hooks";
-import { setFormData } from "@/store/lib/features/books/bookFormDataSlice";
+import { Button, Form, Input } from "antd"
+import useForm from "@/hooks/crud-hooks/useForm"
+import { useAppDispatch, useAppSelector } from "@/store/lib/hooks"
+import { setFormData } from "@/store/lib/features/books/bookFormDataSlice"
+import { User } from "@/types/UserInterface"
+import ScorePreview from "./ScorePreview"
 
-interface props {
-  id: string | string[];
-  initialRating: number;
+type Props = {
+  id: string | string[]
+  initialRating: number
+  users: User[]
+  bookTitle: string
 }
 
-const EditRatingForm: React.FC<props> = ({ id, initialRating }) => {
+const EditRatingForm: React.FC<Props> = ({
+  id,
+  initialRating,
+  users,
+  bookTitle,
+}) => {
   const rating = useAppSelector(
     (state) => state.bookFormData.formData.scoreRatings.rating
-  );
-  const formData = useAppSelector((state) => state.bookFormData.formData);
-  const dispatch = useAppDispatch();
+  ) as number
+
+  const formData = useAppSelector((state) => state.bookFormData.formData)
+  const dispatch = useAppDispatch()
 
   const { handleSubmit, error, enterLoading, loadings } = useForm(
     `https://bookclubbrothers-backend.onrender.com/books/rating/edit/${id}`,
     "PUT",
     { rating }
-  );
-
+  )
   return (
     <>
       <Form
@@ -56,18 +65,25 @@ const EditRatingForm: React.FC<props> = ({ id, initialRating }) => {
         >
           <Input
             defaultValue={initialRating ?? 0}
-            onChange={(e) =>
+            type="number"
+            max={10}
+            min={0}
+            step="0.25"
+            onChange={(e) => {
+              if (Number(e.target.value) > 10 || Number(e.target.value) < 0) {
+                return
+              }
               dispatch(
                 setFormData({
                   ...formData,
                   scoreRatings: { rating: Number(e.target.value) },
                 })
               )
-            }
+            }}
             value={Number(rating)}
           />
         </Form.Item>
-
+        <ScorePreview users={users} rating={rating} bookTitle={bookTitle} />
         {/* Submission */}
         <Form.Item
           wrapperCol={{
@@ -91,6 +107,6 @@ const EditRatingForm: React.FC<props> = ({ id, initialRating }) => {
       </Form>
     </>
   )
-};
+}
 
-export default EditRatingForm;
+export default EditRatingForm
