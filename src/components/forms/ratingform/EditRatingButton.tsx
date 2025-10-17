@@ -7,25 +7,28 @@ import { Modal, Button } from "antd"
 import EditRatingForm from "./EditRatingForm"
 import EditAnthologyRatingForm from "./EditAnthologyRatingForm"
 import { Book } from "@/types/BookInterface"
+import { User } from "@/types/UserInterface"
 
-interface props {
+type Props = {
   setShowEditRating: React.Dispatch<React.SetStateAction<boolean>>
   showEditRating: boolean
   id: string | string[]
   initialRating: number
   isAnthology: boolean
   shortStoryData: object
-  bookData: Book
+  singleBook: Book
+  users: User[]
 }
 
-const EditRatingButton: React.FC<props> = ({
+const EditRatingButton: React.FC<Props> = ({
   showEditRating,
   setShowEditRating,
   id,
   initialRating,
   isAnthology,
   shortStoryData,
-  bookData,
+  singleBook,
+  users,
 }) => {
   const [confirmLoading, setConfirmLoading] = useState<boolean>(false)
 
@@ -58,13 +61,18 @@ const EditRatingButton: React.FC<props> = ({
         footer={null}
       >
         {showEditRating && !isAnthology && (
-          <EditRatingForm id={id} initialRating={initialRating} />
+          <EditRatingForm
+            id={id}
+            initialRating={initialRating}
+            users={users}
+            bookTitle={singleBook.title}
+          />
         )}
         {showEditRating && isAnthology && (
           <EditAnthologyRatingForm
             id={id}
             shortStoryData={shortStoryData}
-            bookData={bookData}
+            singleBook={singleBook}
           />
         )}
       </Modal>

@@ -75,7 +75,7 @@ const SingleBook: React.FC = () => {
       </div>
       <div className="flex mb-8 max-md:flex-col max-md:items-center w-full justify-around">
         <RatingCon
-          bookData={bookData}
+          singleBook={bookData}
           id={id}
           loading={loadingBooks}
           hideScores={handleHideScores_NoSetter(bookData?.actualDateOfMeeting)}

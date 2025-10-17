@@ -11,20 +11,25 @@ import { useAppSelector } from "@/store/lib/hooks"
 import { Skeleton } from "antd"
 
 type Props = {
-  bookData: Book
+  singleBook: Book
   id: string
   loading: boolean
   hideScores: boolean
 }
 
-const RatingCon: React.FC<Props> = ({ bookData, id, loading, hideScores }) => {
+const RatingCon: React.FC<Props> = ({
+  singleBook,
+  id,
+  loading,
+  hideScores,
+}) => {
   const [users, setUserData] = useState([])
   const [showRating, setShowRating] = useState<boolean>(false)
   const [showEditRating, setShowEditRating] = useState<boolean>(false)
   const [error, setError] = useState("")
 
   const token = useAppSelector((state) => state.token.tokenState)
-  const { decodedToken }: { decodedToken?: { username: string } } =
+  const { decodedToken }: { decodedToken?: { username: string; _id: string } } =
     useJwt(token)
   const username = decodedToken?.username
   const isDarkMode = useAppSelector((state) => state.darkMode.darkMode)
@@ -48,13 +53,13 @@ const RatingCon: React.FC<Props> = ({ bookData, id, loading, hideScores }) => {
     return user ? user.username : "user not found"
   }
 
-  const raterArr2 = bookData?.scoreRatings?.raterId?.map((id) => findUser(id))
+  const raterArr2 = singleBook?.scoreRatings?.raterId?.map((id) => findUser(id))
 
   let raterObj: object = {}
   const findBookScore = () => {
     for (let i = 0; i < raterArr2?.length; i++) {
-      raterObj[raterArr2[i]] = bookData?.scoreRatings?.rating[i]
-      findUser(raterObj[bookData?.scoreRatings?.rating[i]])
+      raterObj[raterArr2[i]] = singleBook?.scoreRatings?.rating[i]
+      findUser(raterObj[singleBook?.scoreRatings?.rating[i]])
     }
     raterObj = Object.entries(raterObj)
     return raterObj
@@ -63,9 +68,9 @@ const RatingCon: React.FC<Props> = ({ bookData, id, loading, hideScores }) => {
 
   const shortStoryRatingsByRater = {}
   const findShortStoriesScoresCorrected = () => {
-    if (!bookData?.shortStories) return {}
+    if (!singleBook?.shortStories) return {}
     if (users.length === 0) return {}
-    bookData.shortStories.forEach((story) => {
+    singleBook.shortStories.forEach((story) => {
       const title = story.title
       const scoreRatings = story.scoreRatings
       if (scoreRatings && scoreRatings.raterId && scoreRatings.rating) {
@@ -103,7 +108,7 @@ const RatingCon: React.FC<Props> = ({ bookData, id, loading, hideScores }) => {
   return (
     <div className="border-2 border-[var(--default-border-color)] flex flex-col w-[600px] max-md:w-full ml-4 max-md:m-0">
       <h2 className="text-4xl text-center font-main underline">Ratings</h2>
-      {!bookData ? (
+      {!singleBook ? (
         <div className="flex flex-col gap-4 mt-4">
           <div className="flex flex-col gap-2">
             <Skeleton.Input
@@ -231,10 +236,10 @@ const RatingCon: React.FC<Props> = ({ bookData, id, loading, hideScores }) => {
 
       <li className="list-none mt-auto font-bold">
         Group Rating:{" "}
-        {bookData?.totalScore
+        {singleBook?.totalScore
           ? hideScores
             ? "?"
-            : Math.floor(bookData?.totalScore * 100) / 100
+            : Math.floor(singleBook?.totalScore * 100) / 100
           : "Pending..."}
       </li>
       {decodedToken ? (
@@ -245,17 +250,19 @@ const RatingCon: React.FC<Props> = ({ bookData, id, loading, hideScores }) => {
               setShowEditRating={setShowEditRating}
               id={id}
               initialRating={initialRating}
-              bookData={bookData}
+              singleBook={singleBook}
               shortStoryData={shortStoryRatingsByRater[username]}
-              isAnthology={bookData?.shortStories.length > 0}
+              isAnthology={singleBook?.shortStories.length > 0}
+              users={users}
             />
           ) : (
             <RatingButton
               showRating={showRating}
               setShowRating={setShowRating}
               id={id}
-              bookData={bookData}
-              isAnthology={bookData?.shortStories.length > 0}
+              singleBook={singleBook}
+              users={users}
+              isAnthology={singleBook?.shortStories.length > 0}
             />
           )}
         </div>
