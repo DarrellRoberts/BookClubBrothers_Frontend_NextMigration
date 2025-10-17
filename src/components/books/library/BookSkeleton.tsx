@@ -17,7 +17,7 @@ const BookSkeleton: React.FC<Props> = ({ freq, noTitle }) => {
   newArr.fill(1.1).forEach((_, index) => index * freq)
 
   return (
-    <div className="ml-4 flex w-full flex-wrap gap-6">
+    <div className="flex flex-wrap justify-evenly w-full gap-6">
       {newArr.map((node) => (
         <div className="flex flex-col items-center gap-1" key={node}>
           {noTitle ? null : (
