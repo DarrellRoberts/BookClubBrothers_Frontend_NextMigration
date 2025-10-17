@@ -1,8 +1,9 @@
 import { Book } from "@/types/BookInterface"
 import { User } from "@/types/UserInterface"
 import React, { useEffect, useState } from "react"
-import { useAppDispatch } from "@/store/lib/hooks"
+import { useAppDispatch, useAppSelector } from "@/store/lib/hooks"
 import { setIndex } from "@/store/lib/features/randomise/randomiseSlice"
+import RandomiserSkeletonFilters from "./RandomiserSkeletonFilters"
 
 type Props = {
   bookData: Book[]
@@ -83,75 +84,89 @@ const RandomiserFilters: React.FC<Props> = ({
         )
       )
       setBookData(tempArray)
-      console.log(tempArray)
       dispatch(setIndex(0))
     }
   }, [nameFilter, genreFilter])
-  console.log(genreFilter)
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col w-full">
       <div>
         <h2 className="text-center">Filter by suggestor</h2>
-        <div className="flex w-full justify-evenly max-md:grid max-md:grid-cols-2 max-md:items-center max-md:justify-items-center max-md:gap-4">
-          {userData?.map((user) => (
-            <div key={user._id}>
-              <input
-                className="accent-bc-green"
-                type="checkbox"
-                checked={nameFilter.includes(user._id)}
-                name={user.username}
-                value={user._id}
-                onChange={() => handleNameCheckbox(user._id)}
-              />
-              <label htmlFor={user.username} className="font-main ml-1">
-                {user.username}
-              </label>
+        <div className="flex w-full justify-evenly flex-wrap gap-4">
+          {!userData ? (
+            <div className="flex flex-col w-full">
+              <div className="flex w-full justify-evenly flex-wrap gap-4">
+                <RandomiserSkeletonFilters freq={6} />
+              </div>
+              <div className="my-4">
+                <h2 className="text-center">Filter by genre</h2>
+                <div className="flex w-full justify-evenly flex-wrap gap-4">
+                  <RandomiserSkeletonFilters freq={genreList.length} />
+                </div>
+              </div>
             </div>
-          ))}
-          <div>
-            <input
-              type="checkbox"
-              className="accent-bc-green"
-              name="Clear all"
-              checked={nameFilter.length === 0}
-              onChange={() => setNameFilter([])}
-            />
-            <label htmlFor="Clear all" className="font-main ml-1">
-              Clear all
-            </label>
-          </div>
-        </div>
-      </div>
-      <div className="my-12">
-        <h2 className="text-center">Filter by genre</h2>
-        <div className="grid w-full grid-cols-8 gap-4 max-md:grid-cols-2 max-md:items-center max-md:justify-items-center">
-          {genreList?.map((genre, index) => (
-            <div key={index}>
-              <input
-                type="checkbox"
-                className="accent-bc-green"
-                checked={genreFilter.includes(genre)}
-                name={genre}
-                value={genre}
-                onChange={() => handleGenreCheckbox(genre)}
-              />
-              <label htmlFor={genre} className="font-main ml-1">
-                {genre}
-              </label>
-            </div>
-          ))}
-          <div>
-            <input
-              type="checkbox"
-              className="accent-bc-green"
-              name="Clear all"
-              checked={genreFilter.length === 0}
-              onChange={() => setGenreFilter([])}
-            />
-            <label htmlFor="Clear all" className="font-main ml-1">
-              Clear all
-            </label>
-          </div>
+          ) : (
+            <>
+              {userData?.map((user) => (
+                <div key={user._id}>
+                  <input
+                    className="accent-bc-green"
+                    type="checkbox"
+                    checked={nameFilter.includes(user._id)}
+                    name={user.username}
+                    value={user._id}
+                    onChange={() => handleNameCheckbox(user._id)}
+                  />
+                  <label htmlFor={user.username} className="font-main ml-1">
+                    {user.username}
+                  </label>
+                </div>
+              ))}
+              <div>
+                <input
+                  type="checkbox"
+                  className="accent-bc-green"
+                  name="Clear all"
+                  checked={nameFilter.length === 0}
+                  onChange={() => setNameFilter([])}
+                />
+                <label htmlFor="Clear all" className="font-main ml-1">
+                  Clear all
+                </label>
+              </div>
+              <div className="my-12 flex flex-col w-full">
+                <h2 className="text-center">Filter by genre</h2>
+                <div className="flex w-full justify-evenly flex-wrap gap-8">
+                  {genreList?.map((genre, index) => (
+                    <div key={index}>
+                      <input
+                        type="checkbox"
+                        className="accent-bc-green"
+                        checked={genreFilter.includes(genre)}
+                        name={genre}
+                        value={genre}
+                        onChange={() => handleGenreCheckbox(genre)}
+                      />
+                      <label htmlFor={genre} className="font-main ml-1">
+                        {genre}
+                      </label>
+                    </div>
+                  ))}
+                  <div>
+                    <input
+                      type="checkbox"
+                      className="accent-bc-green"
+                      name="Clear all"
+                      checked={genreFilter.length === 0}
+                      onChange={() => setGenreFilter([])}
+                    />
+                    <label htmlFor="Clear all" className="font-main ml-1">
+                      Clear all
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </>
+          )}
         </div>
       </div>
     </div>

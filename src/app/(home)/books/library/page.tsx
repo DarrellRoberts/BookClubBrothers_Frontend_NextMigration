@@ -13,6 +13,7 @@ import useBookFetch from "@/hooks/fetch-hooks/useReadBookFetch"
 import { Book } from "@/types/BookInterface"
 import useScrollRef from "@/hooks/scroll-hooks/useScrollRef"
 import useLimit from "@/hooks/scroll-hooks/useLimit"
+import BookSkeleton from "@/components/books/library/BookSkeleton"
 
 const Booklibrary: React.FC = () => {
   const [searchBar, setSearchBar] = useState<string>("")
@@ -61,7 +62,7 @@ const Booklibrary: React.FC = () => {
         Book Library
       </h1>
       {loadingBooks && books.length === 0 ? (
-        <Loader screensize="h-screen" />
+        <BookSkeleton freq={8} />
       ) : error ? (
         <h2> {error?.message}</h2>
       ) : (

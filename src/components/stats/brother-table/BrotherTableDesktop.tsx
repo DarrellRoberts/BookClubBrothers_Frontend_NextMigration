@@ -1,23 +1,23 @@
 /* eslint-disable no-unsafe-optional-chaining */
-import React from "react";
-import styles from "./stats.module.css";
-import UsernameColumn from "./columns/UsernameColumn";
-import BooksReadColumn from "./columns/BooksReadColumn";
-import HighestScoreColumn from "./columns/HighestScoreColumn";
-import LowestScoreColumn from "./columns/LowestScoreColumn";
-import BestBookColumn from "./columns/BestBookColumn";
+import React from "react"
+import styles from "./stats.module.css"
+import UsernameColumn from "./columns/UsernameColumn"
+import BooksReadColumn from "./columns/BooksReadColumn"
+import HighestScoreColumn from "./columns/HighestScoreColumn"
+import LowestScoreColumn from "./columns/LowestScoreColumn"
+import BestBookColumn from "./columns/BestBookColumn"
 import {
   findBestBook,
   findWorstBook,
-} from "@/utils/stat-functions/scoreFunctions";
-import WorstBookColumn from "./columns/WorstBookColumn";
-import { type User } from "@/types/UserInterface";
-import { type Book } from "@/types/BookInterface";
+} from "@/utils/stat-functions/scoreFunctions"
+import WorstBookColumn from "./columns/WorstBookColumn"
+import { type User } from "@/types/UserInterface"
+import { type Book } from "@/types/BookInterface"
 
 type Props = {
-  userData: User[];
-  bookData: Book[];
-};
+  userData: User[]
+  bookData: Book[]
+}
 
 const BrotherTableDesktop: React.FC<Props> = ({ userData, bookData }) => {
   return (
@@ -45,15 +45,15 @@ const BrotherTableDesktop: React.FC<Props> = ({ userData, bookData }) => {
         />
 
         <BestBookColumn
-          bestBooks={userData.map((user) => findBestBook(user, bookData))}
+          bestBooks={userData?.map((user) => findBestBook(user, bookData))}
         />
 
         <WorstBookColumn
-          worstBooks={userData.map((user) => findWorstBook(user, bookData))}
+          worstBooks={userData?.map((user) => findWorstBook(user, bookData))}
         />
       </div>
     </>
-  );
-};
+  )
+}
 
-export default BrotherTableDesktop;
+export default BrotherTableDesktop

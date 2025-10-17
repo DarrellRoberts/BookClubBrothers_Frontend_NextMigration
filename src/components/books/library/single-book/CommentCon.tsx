@@ -17,6 +17,7 @@ import ProfileSmall from "@/components/misc/profile/ProfileSmall"
 import useUserFetch from "@/hooks/fetch-hooks/useUserFetch"
 import LoaderNoText from "@/components/loader/LoaderNoText"
 import { useAppSelector } from "@/store/lib/hooks"
+import { Skeleton } from "antd"
 
 type Props = {
   bookData: Book
@@ -37,18 +38,34 @@ const CommentCon: React.FC<Props> = ({ bookData, id, hideScores }) => {
     null
   )
 
+  const isDarkMode = useAppSelector((state) => state.darkMode.darkMode)
   const commentObj: object | string[] = {}
   findComment(bookData, userData, commentObj)
   const initialComment = findCommentByUsername(username, bookData, userData)
 
   return (
     <>
-      <div className="border-2 border-[var(--default-border-color)] flex flex-col items-center justify-start lg:w-[600px] ml-8 text-[var(--main-font-color)] font-main max-md:w-[300px]  max-md:m-8  max-md:p-4">
+      <div
+        className={`border-2 border-[var(--default-border-color)] flex flex-col items-center justify-start lg:w-[600px] ml-8 text-[var(--main-font-color)] font-main max-md:w-full max-md:m-8 max-md:p-4 ${
+          Object.entries(commentObj).length > 0 ? "h-auto" : "h-50"
+        }`}
+      >
         <h2 className="text-4xl text-center font-main underline">Comments</h2>
         {error ? (
           <h2>{error.message}</h2>
         ) : loadingUsers ? (
-          <LoaderNoText />
+          <div className="flex flex-col items-center my-2">
+            <Skeleton.Node
+              active={true}
+              style={{
+                width: 300,
+                height: 400,
+                filter: isDarkMode ? "invert(1)" : "invert(0)",
+              }}
+            >
+              <Skeleton className="mx-6" />
+            </Skeleton.Node>
+          </div>
         ) : (
           Object.entries(commentObj).map(([name, value], i) => (
             <div
