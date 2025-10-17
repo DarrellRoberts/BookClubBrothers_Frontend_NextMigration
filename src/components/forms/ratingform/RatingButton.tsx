@@ -7,23 +7,28 @@ import { Modal, Button } from "antd"
 import RatingForm from "./RatingForm"
 import { Book } from "@/types/BookInterface"
 import AnthologyRatingForm from "./AnthologyRatingForm"
+import { User } from "@/types/UserInterface"
 
-interface props {
+type Props = {
   setShowRating: React.Dispatch<React.SetStateAction<boolean>>
   showRating: boolean
   id: string | string[]
-  bookData: Book
+  singleBook: Book
   isAnthology: boolean
+  users: User[]
 }
 
-const RatingButton: React.FC<props> = ({
+const RatingButton: React.FC<Props> = ({
   showRating,
   setShowRating,
   id,
   isAnthology,
-  bookData,
+  singleBook,
+  users,
 }) => {
-  const [modalText, setModalText] = useState(<RatingForm id={id} />)
+  const [modalText, setModalText] = useState(
+    <RatingForm id={id} users={users} bookTitle={singleBook.title} />
+  )
   const [confirmLoading, setConfirmLoading] = useState<boolean>(false)
 
   const showModal = () => {
@@ -34,7 +39,9 @@ const RatingButton: React.FC<props> = ({
     setTimeout(() => {
       setShowRating(false)
     }, 4000)
-    setModalText(<RatingForm id={id} />)
+    setModalText(
+      <RatingForm id={id} users={users} bookTitle={singleBook.title} />
+    )
   }
   const handleCancel = () => {
     setShowRating(false)
@@ -42,7 +49,7 @@ const RatingButton: React.FC<props> = ({
 
   useEffect(() => {
     if (isAnthology) {
-      setModalText(<AnthologyRatingForm bookData={bookData} id={id} />)
+      setModalText(<AnthologyRatingForm singleBook={singleBook} id={id} />)
     }
   }, [])
   return (
@@ -62,9 +69,9 @@ const RatingButton: React.FC<props> = ({
       >
         {/* <p>{modalText}</p> */}
         {isAnthology ? (
-          <AnthologyRatingForm bookData={bookData} id={id} />
+          <AnthologyRatingForm singleBook={singleBook} id={id} />
         ) : (
-          <RatingForm id={id} />
+          <RatingForm id={id} users={users} bookTitle={singleBook.title} />
         )}
       </Modal>
     </>

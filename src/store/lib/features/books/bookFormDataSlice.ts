@@ -19,7 +19,7 @@ const initialState: BookState = {
     pages: 0,
     read: false,
     scoreRatings: {
-      rating: [],
+      rating: 0,
     },
     shortStories: [
       {
