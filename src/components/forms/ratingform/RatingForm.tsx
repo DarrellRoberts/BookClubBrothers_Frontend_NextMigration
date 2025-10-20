@@ -8,6 +8,7 @@ import { useAppDispatch, useAppSelector } from "@/store/lib/hooks"
 import { setFormData } from "@/store/lib/features/books/bookFormDataSlice"
 import { User } from "@/types/UserInterface"
 import ScorePreview from "./ScorePreview"
+import { useEffect } from "react"
 
 type Props = {
   id: string | string[]
@@ -27,6 +28,15 @@ const RatingForm: React.FC<Props> = ({ id, users, bookTitle }) => {
     "POST",
     { rating }
   )
+
+  useEffect(() => {
+    dispatch(
+      setFormData({
+        ...formData,
+        scoreRatings: { rating: 0 },
+      })
+    )
+  }, [id])
 
   return (
     <>

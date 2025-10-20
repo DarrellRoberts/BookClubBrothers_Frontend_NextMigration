@@ -8,6 +8,7 @@ import RatingForm from "./RatingForm"
 import { Book } from "@/types/BookInterface"
 import AnthologyRatingForm from "./AnthologyRatingForm"
 import { User } from "@/types/UserInterface"
+import { useRouter } from "next/navigation"
 
 type Props = {
   setShowRating: React.Dispatch<React.SetStateAction<boolean>>
@@ -30,6 +31,7 @@ const RatingButton: React.FC<Props> = ({
     <RatingForm id={id} users={users} bookTitle={singleBook.title} />
   )
   const [confirmLoading, setConfirmLoading] = useState<boolean>(false)
+  const router = useRouter()
 
   const showModal = () => {
     setShowRating(true)
@@ -45,6 +47,7 @@ const RatingButton: React.FC<Props> = ({
   }
   const handleCancel = () => {
     setShowRating(false)
+    router.replace(`/books/library/${id}`)
   }
 
   useEffect(() => {

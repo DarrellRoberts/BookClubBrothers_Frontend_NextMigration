@@ -8,6 +8,7 @@ import { useAppDispatch, useAppSelector } from "@/store/lib/hooks"
 import { setFormData } from "@/store/lib/features/books/bookFormDataSlice"
 import { User } from "@/types/UserInterface"
 import ScorePreview from "./ScorePreview"
+import { useEffect } from "react"
 
 type Props = {
   id: string | string[]
@@ -34,6 +35,15 @@ const EditRatingForm: React.FC<Props> = ({
     "PUT",
     { rating }
   )
+
+  useEffect(() => {
+    dispatch(
+      setFormData({
+        ...formData,
+        scoreRatings: { rating: initialRating },
+      })
+    )
+  }, [id])
   return (
     <>
       <Form
@@ -83,7 +93,12 @@ const EditRatingForm: React.FC<Props> = ({
             value={Number(rating)}
           />
         </Form.Item>
-        <ScorePreview users={users} rating={rating} bookTitle={bookTitle} />
+        <ScorePreview
+          users={users}
+          rating={rating}
+          initialRating={initialRating}
+          bookTitle={bookTitle}
+        />
         {/* Submission */}
         <Form.Item
           wrapperCol={{
