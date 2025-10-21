@@ -16,6 +16,7 @@ export interface Book {
     rating?: number[] | number
   }
   suggestedBy?: string
+  shortStories?: ShortBook[]
   title: string
   totalScore?: number
   yearPublished: number
@@ -23,22 +24,18 @@ export interface Book {
 }
 
 export interface ShortBook {
-  shortStories: [
-    {
-      scoreRatings?: {
-        raterId?: string[]
-        rating?: number[]
-      }
-      commentInfo?: {
-        commentId?: string[]
-        comments?: string[] | string
-      }
+  scoreRatings?: {
+    raterId?: string[]
+    rating?: number[]
+  }
+  commentInfo?: {
+    commentId?: string[]
+    comments?: string[] | string
+  }
 
-      parentId: string
-      title: string
-      author: string
-      pages: number
-      _id: string
-    }
-  ]
+  parentId: string
+  title: string
+  author: string
+  pages: number
+  _id: string
 }

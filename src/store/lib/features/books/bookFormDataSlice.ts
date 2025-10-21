@@ -3,7 +3,6 @@ import { ShortBook, type Book } from "@/types/BookInterface"
 
 export interface BookState {
   formData: Book
-  anthologyFormData: ShortBook
 }
 
 const initialState: BookState = {
@@ -24,25 +23,6 @@ const initialState: BookState = {
     },
     title: "",
     yearPublished: 0,
-  },
-  anthologyFormData: {
-    shortStories: [
-      {
-        scoreRatings: {
-          raterId: [],
-          rating: [],
-        },
-        commentInfo: {
-          commentId: [],
-          comments: [],
-        },
-        parentId: null,
-        title: "",
-        author: "",
-        pages: 0,
-        _id: null,
-      },
-    ],
   },
 }
 

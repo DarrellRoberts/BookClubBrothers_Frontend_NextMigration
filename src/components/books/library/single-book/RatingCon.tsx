@@ -70,7 +70,7 @@ const RatingCon: React.FC<Props> = ({
   const findShortStoriesScoresCorrected = () => {
     if (!singleBook?.shortStories) return {}
     if (users.length === 0) return {}
-    singleBook.shortStories.forEach((story) => {
+    singleBook.shortStories?.forEach((story) => {
       const title = story.title
       const scoreRatings = story.scoreRatings
       if (scoreRatings && scoreRatings.raterId && scoreRatings.rating) {
