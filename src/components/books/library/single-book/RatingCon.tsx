@@ -100,9 +100,7 @@ const RatingCon: React.FC<Props> = ({
   const initialRating = findRatingByUsername(raterObj, username)
 
   useEffect(() => {
-    if (!loading) {
-      getData()
-    }
+    getData()
   }, [loading])
 
   return (

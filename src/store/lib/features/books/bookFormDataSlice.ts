@@ -1,8 +1,9 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
-import { type Book } from "@/types/BookInterface"
+import { ShortBook, type Book } from "@/types/BookInterface"
 
 export interface BookState {
   formData: Book
+  anthologyFormData: ShortBook
 }
 
 const initialState: BookState = {
@@ -21,6 +22,10 @@ const initialState: BookState = {
     scoreRatings: {
       rating: 0,
     },
+    title: "",
+    yearPublished: 0,
+  },
+  anthologyFormData: {
     shortStories: [
       {
         scoreRatings: {
@@ -31,15 +36,13 @@ const initialState: BookState = {
           commentId: [],
           comments: [],
         },
-        parentId: "",
+        parentId: null,
         title: "",
         author: "",
         pages: 0,
-        _id: "",
+        _id: null,
       },
     ],
-    title: "",
-    yearPublished: 0,
   },
 }
 

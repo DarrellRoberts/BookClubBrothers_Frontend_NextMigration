@@ -1,12 +1,13 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 
 export interface EditButtonState {
-  showImage: boolean;
-  showUsername: boolean;
-  showCountry: boolean;
-  showGenre: boolean;
-  showEdit: boolean;
-  showCreate: boolean;
+  showImage: boolean
+  showUsername: boolean
+  showCountry: boolean
+  showGenre: boolean
+  showEdit: boolean
+  showCreate: boolean
+  isRefresh: boolean
 }
 
 const initialState: EditButtonState = {
@@ -16,32 +17,36 @@ const initialState: EditButtonState = {
   showGenre: false,
   showEdit: false,
   showCreate: false,
-};
+  isRefresh: false,
+}
 
 export const editButtonSlice = createSlice({
   name: "editButtons",
   initialState,
   reducers: {
     setShowImage: (state): void => {
-      state.showImage = !state.showImage;
+      state.showImage = !state.showImage
     },
     setShowUsername: (state): void => {
-      state.showUsername = !state.showUsername;
+      state.showUsername = !state.showUsername
     },
     setShowCountry: (state): void => {
-      state.showCountry = !state.showCountry;
+      state.showCountry = !state.showCountry
     },
     setShowGenre: (state): void => {
-      state.showGenre = !state.showGenre;
+      state.showGenre = !state.showGenre
     },
     setShowEdit: (state): void => {
-      state.showEdit = !state.showEdit;
+      state.showEdit = !state.showEdit
     },
     setShowCreate: (state): void => {
-      state.showCreate = !state.showCreate;
+      state.showCreate = !state.showCreate
+    },
+    setIsRefresh: (state, action: PayloadAction<boolean>): void => {
+      state.isRefresh = action.payload
     },
   },
-});
+})
 
 export const {
   setShowImage,
@@ -50,5 +55,6 @@ export const {
   setShowGenre,
   setShowEdit,
   setShowCreate,
-} = editButtonSlice.actions;
-export const editButtonReducer = editButtonSlice.reducer;
+  setIsRefresh,
+} = editButtonSlice.actions
+export const editButtonReducer = editButtonSlice.reducer
