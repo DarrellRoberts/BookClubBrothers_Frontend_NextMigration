@@ -13,7 +13,7 @@ export default function Home() {
       {token ? (
         <Dashboard />
       ) : (
-        <div className="h-[calc(85vh-100px)] max-xs:h-[100dvh]">
+        <div className="h-[calc(85vh-100px)] max-xs:h-[calc(85vh-75px)]">
           <Homepage />
         </div>
       )}
