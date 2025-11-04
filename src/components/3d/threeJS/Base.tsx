@@ -6,6 +6,7 @@ import ThreeScene from "./components/ThreeScene"
 import Loader from "@/components/loader/Loader"
 import { Book } from "@/types/BookInterface"
 import { Button } from "antd"
+import { div } from "three/webgpu"
 
 type Props = {
   readBooks: string[]
@@ -57,7 +58,7 @@ export default function Base({ readBooks, readIds, readBooksJson }: Props) {
             />
             {readBooks.length - 1 !== renderIds.length ? (
               <Button
-                className="absolute bottom-20"
+                className="absolute bottom-30 max-sm:bottom-50"
                 onClick={() => {
                   handleLoadMore()
                 }}
