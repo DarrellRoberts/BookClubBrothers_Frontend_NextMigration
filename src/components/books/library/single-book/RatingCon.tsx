@@ -1,5 +1,3 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable react/react-in-jsx-scope */
 "use client"
 
 import { useState, useEffect } from "react"
@@ -33,6 +31,7 @@ const RatingCon: React.FC<Props> = ({
     useJwt(token)
   const username = decodedToken?.username
   const isDarkMode = useAppSelector((state) => state.darkMode.darkMode)
+  const isRefresh = useAppSelector((state) => state.editButtons.isRefresh)
 
   const getData = async () => {
     try {
@@ -101,7 +100,7 @@ const RatingCon: React.FC<Props> = ({
 
   useEffect(() => {
     getData()
-  }, [loading])
+  }, [loading, isRefresh])
 
   return (
     <div className="border-2 border-[var(--default-border-color)] flex flex-col w-[600px] max-md:w-full ml-4 max-md:m-0">

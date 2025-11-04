@@ -113,11 +113,11 @@ const Booklibrary: React.FC = () => {
           )}
         </div>
       )}
-      {isLimit ? (
+      {isLimit && books.length !== 0 ? (
         <Loader screensize="h-100" />
-      ) : (
+      ) : books.length !== 0 ? (
         <div ref={filteredResults.length === limit ? lastItemRef : null}></div>
-      )}
+      ) : null}
     </>
   )
 }

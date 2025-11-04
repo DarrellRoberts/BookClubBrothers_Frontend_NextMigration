@@ -14,9 +14,15 @@ type Props = {
   id: string | string[]
   users: User[]
   bookTitle: string
+  handleCancel: () => void
 }
 
-const RatingForm: React.FC<Props> = ({ id, users, bookTitle }) => {
+const RatingForm: React.FC<Props> = ({
+  id,
+  users,
+  bookTitle,
+  handleCancel,
+}) => {
   const rating = useAppSelector(
     (state) => state.bookFormData.formData.scoreRatings.rating
   ) as number
@@ -28,6 +34,13 @@ const RatingForm: React.FC<Props> = ({ id, users, bookTitle }) => {
     "POST",
     { rating }
   )
+
+  const handleLoading = () => {
+    enterLoading()
+    setTimeout(() => {
+      handleCancel()
+    }, 4000)
+  }
 
   useEffect(() => {
     dispatch(
@@ -96,7 +109,7 @@ const RatingForm: React.FC<Props> = ({ id, users, bookTitle }) => {
             ghost
             className="loginButtons"
             loading={loadings}
-            onClick={() => enterLoading()}
+            onClick={() => handleLoading()}
             htmlType="submit"
             size="large"
           >

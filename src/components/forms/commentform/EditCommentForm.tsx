@@ -1,5 +1,3 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable react/react-in-jsx-scope */
 "use client"
 
 import { Button, Form, Input } from "antd"
@@ -12,9 +10,10 @@ const { TextArea } = Input
 type Props = {
   id: string | string[]
   inComment: string
+  handleCancel: () => void
 }
 
-const EditCommentForm: React.FC<Props> = ({ id, inComment }) => {
+const EditCommentForm: React.FC<Props> = ({ id, inComment, handleCancel }) => {
   const comments = useAppSelector(
     (state) => state.bookFormData.formData.commentInfo.comments
   )
@@ -26,6 +25,13 @@ const EditCommentForm: React.FC<Props> = ({ id, inComment }) => {
     "PUT",
     { comments }
   )
+
+  const handleLoadings = () => {
+    enterLoading()
+    setTimeout(() => {
+      handleCancel()
+    }, 4000)
+  }
 
   return (
     <>
@@ -74,7 +80,7 @@ const EditCommentForm: React.FC<Props> = ({ id, inComment }) => {
             ghost
             className="loginButtons"
             loading={loadings}
-            onClick={() => enterLoading()}
+            onClick={() => handleLoadings()}
             htmlType="submit"
             size="large"
           >

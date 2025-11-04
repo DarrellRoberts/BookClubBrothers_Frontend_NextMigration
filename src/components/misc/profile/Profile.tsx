@@ -6,50 +6,48 @@ import Link from "next/link"
 
 type Props = {
   imageURL: string
-  scaleMultiplier?: number
   isLink?: boolean
   username?: string
   width?: number
   height?: number
 }
 
-const Profile: React.FC<Props> = ({
-  imageURL,
-  scaleMultiplier,
-  isLink,
-  username,
-  width,
-  height,
-}) => {
+const Profile = ({ imageURL, isLink, username, width, height }: Props) => {
   const [imageSrc, setImageSrc] = useState<string>("")
 
   useEffect(() => {
     setImageSrc(imageURL)
   }, [username])
+
   return (
     <>
-      {isLink ? (
+      {isLink && imageURL ? (
         <div className={style.profileCon}>
-          <Link
-            href={`/brothers/library/${username}`}
-            // style={{ transform: `scale(${scaleMultiplier})` }}
-          >
+          <Link href={`/brothers/library/${username}`}>
             <Image
-              src={imageURL ? imageSrc : ProfileUnknownUserImage}
+              src={imageURL}
               width={width ?? 200}
               height={height ?? 300}
               alt="Profile picture"
             />
           </Link>
         </div>
-      ) : (
+      ) : imageURL ? (
         <div className={style.profileCon}>
           <Image
-            src={imageURL ? imageSrc : ProfileUnknownUserImage}
+            src={imageURL ? imageSrc : ProfileUnknownUserImage.src}
             width={width ?? 200}
             height={height ?? 300}
             alt="Profile picture"
-            // style={{ transform: `scale(${scaleMultiplier})` }}
+          />
+        </div>
+      ) : (
+        <div className={style.profileCon}>
+          <Image
+            src={ProfileUnknownUserImage.src}
+            width={width ?? 200}
+            height={height ?? 300}
+            alt="Profile picture"
           />
         </div>
       )}
@@ -57,4 +55,4 @@ const Profile: React.FC<Props> = ({
   )
 }
 
-export default Profile
+export default React.memo(Profile)
