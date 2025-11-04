@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useMemo } from "react"
 import { Skeleton } from "antd"
 import { useAppSelector } from "@/store/lib/hooks"
 import { useMediaQuery } from "react-responsive"
@@ -8,17 +8,21 @@ type Props = {
   noTitle?: boolean
 }
 
-const BookSkeleton: React.FC<Props> = ({ freq, noTitle }) => {
+const BookSkeleton = ({ freq, noTitle }: Props) => {
   const handleDesktop = useMediaQuery({ query: "(min-device-width: 601px)" })
   const isDarkMode = useAppSelector((state) => state.darkMode.darkMode)
 
-  const newArr = new Array()
-  newArr.length = freq
-  newArr.fill(1.1).forEach((_, index) => index * freq)
+  const skeletonArray = useMemo(() => {
+    let newArr = new Array()
+    for (let i = 0; i < freq; i++) {
+      newArr.push(i + freq)
+    }
+    return newArr
+  }, [freq])
 
   return (
     <div className="flex flex-wrap justify-evenly w-full gap-6">
-      {newArr.map((node) => (
+      {skeletonArray?.map((node) => (
         <div className="flex flex-col items-center gap-1" key={node}>
           {noTitle ? null : (
             <Skeleton.Input
@@ -44,4 +48,4 @@ const BookSkeleton: React.FC<Props> = ({ freq, noTitle }) => {
   )
 }
 
-export default BookSkeleton
+export default React.memo(BookSkeleton)

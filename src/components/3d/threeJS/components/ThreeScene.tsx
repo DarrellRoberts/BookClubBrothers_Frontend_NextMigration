@@ -8,8 +8,9 @@ import { Scroll, ScrollControls } from "@react-three/drei"
 import Loader from "./Loader"
 import HeaderCon3D from "@/components/header/HeaderCon3D"
 import DarkMode3D from "@/components/misc/dark-mode/DarkMode3D"
+import { useBookModels } from "@/hooks/threejs-hooks/useBookModels"
 
-interface Props {
+type Props = {
   clicked: boolean
   setClicked: Dispatch<SetStateAction<boolean>>
   setClickId: Dispatch<SetStateAction<string>>

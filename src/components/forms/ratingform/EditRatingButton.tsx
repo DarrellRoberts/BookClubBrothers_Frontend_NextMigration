@@ -1,14 +1,10 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable react/react-in-jsx-scope */
 "use client"
 
-import { useState } from "react"
 import { Modal, Button } from "antd"
 import EditRatingForm from "./EditRatingForm"
 import EditAnthologyRatingForm from "./EditAnthologyRatingForm"
 import { Book } from "@/types/BookInterface"
 import { User } from "@/types/UserInterface"
-import { useRouter } from "next/navigation"
 
 type Props = {
   setShowEditRating: React.Dispatch<React.SetStateAction<boolean>>
@@ -31,21 +27,12 @@ const EditRatingButton: React.FC<Props> = ({
   singleBook,
   users,
 }) => {
-  const [confirmLoading, setConfirmLoading] = useState<boolean>(false)
-  const router = useRouter()
 
   const showModal = () => {
     setShowEditRating(true)
   }
-  const handleOk = () => {
-    setConfirmLoading(true)
-    setTimeout(() => {
-      setShowEditRating(false)
-    }, 4000)
-  }
   const handleCancel = () => {
     setShowEditRating(false)
-    router.replace(`/books/library/${id}`)
   }
 
   return (
@@ -58,8 +45,6 @@ const EditRatingButton: React.FC<Props> = ({
       <Modal
         title="Change Rating"
         open={showEditRating}
-        onOk={handleOk}
-        confirmLoading={confirmLoading}
         onCancel={handleCancel}
         footer={null}
       >
@@ -69,6 +54,7 @@ const EditRatingButton: React.FC<Props> = ({
             initialRating={initialRating}
             users={users}
             bookTitle={singleBook.title}
+            handleCancel={handleCancel}
           />
         )}
         {showEditRating && isAnthology && (

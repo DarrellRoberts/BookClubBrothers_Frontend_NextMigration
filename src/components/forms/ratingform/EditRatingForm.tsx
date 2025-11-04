@@ -1,5 +1,3 @@
-/* eslint-disable react/react-in-jsx-scope */
-/* eslint-disable react/prop-types */
 "use client"
 
 import { Button, Form, Input } from "antd"
@@ -15,6 +13,7 @@ type Props = {
   initialRating: number
   users: User[]
   bookTitle: string
+  handleCancel: () => void
 }
 
 const EditRatingForm: React.FC<Props> = ({
@@ -22,6 +21,7 @@ const EditRatingForm: React.FC<Props> = ({
   initialRating,
   users,
   bookTitle,
+  handleCancel,
 }) => {
   const rating = useAppSelector(
     (state) => state.bookFormData.formData.scoreRatings.rating
@@ -35,6 +35,13 @@ const EditRatingForm: React.FC<Props> = ({
     "PUT",
     { rating }
   )
+
+  const handleLoading = () => {
+    enterLoading()
+    setTimeout(() => {
+      handleCancel()
+    }, 4000)
+  }
 
   useEffect(() => {
     dispatch(
@@ -62,7 +69,6 @@ const EditRatingForm: React.FC<Props> = ({
           rating: initialRating,
         }}
       >
-        {/* rating */}
         <Form.Item
           label="Rating"
           name="rating"
@@ -111,7 +117,7 @@ const EditRatingForm: React.FC<Props> = ({
             ghost
             className="loginButtons"
             loading={loadings}
-            onClick={() => enterLoading()}
+            onClick={() => handleLoading()}
             htmlType="submit"
             size="large"
           >

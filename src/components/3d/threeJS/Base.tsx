@@ -21,6 +21,12 @@ export default function Base({ readBooks, readIds, readBooksJson }: Props) {
   const [startIndex, setStartIndex] = useState<number>(5)
   const [endIndex, setEndIndex] = useState<number>(11)
 
+  const handleLoadMore = () => {
+    setRenderIds([...renderIds, ...readBooks.slice(startIndex, endIndex)])
+    setStartIndex((prev) => prev + 6)
+    setEndIndex((prev) => prev + 5)
+  }
+
   useEffect(() => {
     setRenderIds([...readIds])
     const storedToken = localStorage.getItem("token")
@@ -53,12 +59,7 @@ export default function Base({ readBooks, readIds, readBooksJson }: Props) {
               <Button
                 className="absolute bottom-20"
                 onClick={() => {
-                  setRenderIds([
-                    ...renderIds,
-                    ...readBooks.slice(startIndex, endIndex),
-                  ])
-                  setStartIndex((prev) => prev + 6)
-                  setEndIndex((prev) => prev + 5)
+                  handleLoadMore()
                 }}
                 size="large"
               >

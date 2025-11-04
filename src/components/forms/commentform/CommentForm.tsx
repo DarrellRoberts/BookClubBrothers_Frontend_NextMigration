@@ -1,5 +1,3 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable react/react-in-jsx-scope */
 "use client"
 
 import { Button, Form, Input } from "antd"
@@ -9,11 +7,12 @@ import { setFormData } from "@/store/lib/features/books/bookFormDataSlice"
 
 const { TextArea } = Input
 
-interface props {
+type Props = {
   id: string | string[]
+  handleCancel: () => void
 }
 
-const CommentForm: React.FC<props> = ({ id }) => {
+const CommentForm = ({ id, handleCancel }: Props) => {
   const comments = useAppSelector(
     (state) => state.bookFormData.formData.commentInfo.comments
   )
@@ -25,6 +24,13 @@ const CommentForm: React.FC<props> = ({ id }) => {
     "POST",
     { comments }
   )
+
+  const handleLoading = () => {
+    enterLoading()
+    setTimeout(() => {
+      handleCancel()
+    }, 4000)
+  }
 
   return (
     <>
@@ -70,7 +76,7 @@ const CommentForm: React.FC<props> = ({ id }) => {
             ghost
             className="loginButtons"
             loading={loadings}
-            onClick={() => enterLoading()}
+            onClick={() => handleLoading()}
             htmlType="submit"
             size="large"
           >

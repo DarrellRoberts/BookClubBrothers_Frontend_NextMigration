@@ -27,32 +27,28 @@ const RatingButton: React.FC<Props> = ({
   singleBook,
   users,
 }) => {
-  const [modalText, setModalText] = useState(
-    <RatingForm id={id} users={users} bookTitle={singleBook.title} />
-  )
-  const [confirmLoading, setConfirmLoading] = useState<boolean>(false)
-  const router = useRouter()
+  const [modalText, setModalText] = useState(null)
 
   const showModal = () => {
     setShowRating(true)
   }
-  const handleOk = () => {
-    setConfirmLoading(true)
-    setTimeout(() => {
-      setShowRating(false)
-    }, 4000)
-    setModalText(
-      <RatingForm id={id} users={users} bookTitle={singleBook.title} />
-    )
-  }
+
   const handleCancel = () => {
     setShowRating(false)
-    router.replace(`/books/library/${id}`)
   }
 
   useEffect(() => {
     if (isAnthology) {
       setModalText(<AnthologyRatingForm singleBook={singleBook} id={id} />)
+    } else {
+      setModalText(
+        <RatingForm
+          id={id}
+          users={users}
+          bookTitle={singleBook.title}
+          handleCancel={handleCancel}
+        />
+      )
     }
   }, [])
   return (
@@ -65,16 +61,18 @@ const RatingButton: React.FC<Props> = ({
       <Modal
         title="Submit Rating"
         open={showRating}
-        onOk={handleOk}
-        confirmLoading={confirmLoading}
         onCancel={handleCancel}
         footer={null}
       >
-        {/* <p>{modalText}</p> */}
         {isAnthology ? (
           <AnthologyRatingForm singleBook={singleBook} id={id} />
         ) : (
-          <RatingForm id={id} users={users} bookTitle={singleBook.title} />
+          <RatingForm
+            id={id}
+            users={users}
+            bookTitle={singleBook.title}
+            handleCancel={handleCancel}
+          />
         )}
       </Modal>
     </>
