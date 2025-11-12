@@ -27,7 +27,6 @@ const EditRatingButton: React.FC<Props> = ({
   singleBook,
   users,
 }) => {
-
   const showModal = () => {
     setShowEditRating(true)
   }
@@ -38,7 +37,7 @@ const EditRatingButton: React.FC<Props> = ({
   return (
     <>
       <div className="flex items-center">
-        <Button className="m-5" onClick={showModal} size="large">
+        <Button className="m-5" onClick={() => showModal()} size="large">
           Change rating
         </Button>
       </div>
