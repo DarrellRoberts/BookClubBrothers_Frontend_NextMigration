@@ -21,6 +21,7 @@ const BadgeTemplate: React.FC<Props> = ({
   return (
     <Popover title={title} content={content}>
       <Image
+        data-testid="badge-image"
         className="rounded-full border-1 border-bc-font"
         src={badgeImageURL}
         alt={title}
