@@ -4,10 +4,16 @@ import { Button, Form, Input } from "antd"
 import useForm from "@/hooks/crud-hooks/useForm"
 import { useAppDispatch, useAppSelector } from "@/store/lib/hooks"
 import { setFormData } from "@/store/lib/features/books/bookFormDataSlice"
+import { useEffect } from "react"
+import { User } from "@/types/UserInterface"
+import ScorePreview from "./ScorePreview"
 
-interface props {
+type Props = {
   id: string | string[]
   initialRating: number
+  users: User[]
+  bookTitle: string
+  handleCancel: () => void
 }
 
 const EditRatingForm: React.FC<Props> = ({
@@ -23,11 +29,18 @@ const EditRatingForm: React.FC<Props> = ({
   const formData = useAppSelector((state) => state.bookFormData.formData)
   const dispatch = useAppDispatch()
 
-  const { handleSubmit, error, enterLoading, loadings } = useForm(
+  const { handleSubmit, error, loadings, enterLoading } = useForm(
     `https://bookclubbrothers-backend.onrender.com/books/rating/edit/${id}`,
     "PUT",
     { rating }
   )
+
+  const handleLoading = () => {
+    enterLoading()
+    setTimeout(() => {
+      handleCancel()
+    }, 4000)
+  }
 
   useEffect(() => {
     dispatch(
@@ -87,7 +100,7 @@ const EditRatingForm: React.FC<Props> = ({
         </Form.Item>
         <ScorePreview
           users={users}
-          rating={rating}
+          rating={rating as number}
           initialRating={initialRating}
           bookTitle={bookTitle}
         />
