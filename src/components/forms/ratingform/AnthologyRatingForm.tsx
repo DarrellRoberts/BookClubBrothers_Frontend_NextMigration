@@ -8,10 +8,10 @@ import { useAppSelector } from "@/store/lib/hooks"
 
 type Props = {
   id: string | string[]
-  bookData: Book
+  singleBook: Book
 }
 
-const AnthologyRatingForm: React.FC<Props> = ({ id, bookData }) => {
+const AnthologyRatingForm: React.FC<Props> = ({ id, singleBook }) => {
   const [raterStoriesObject, setRaterStoriesObject] = useState<object>({})
   const [loadings, setLoadings] = useState<boolean>(false)
   const token = useAppSelector((state) => state.token.tokenState)
@@ -26,11 +26,11 @@ const AnthologyRatingForm: React.FC<Props> = ({ id, bookData }) => {
 
   const handleSubmit2 = async () => {
     const promiseArr = []
-    if (!bookData.shortStories) return null
-    for (let i = 0; i < bookData.shortStories.length; i++) {
+    if (!singleBook.shortStories) return null
+    for (let i = 0; i < singleBook.shortStories.length; i++) {
       promiseArr.push(
         await handleMultipleSubmits(
-          `https://bookclubbrothers-backend.onrender.com/books/${id}/${bookData?.shortStories[i]._id}`,
+          `https://bookclubbrothers-backend.onrender.com/books/${id}/${singleBook?.shortStories[i]._id}`,
           { rating: Object.values(raterStoriesObject)[i] },
           "POST",
           token
@@ -49,7 +49,7 @@ const AnthologyRatingForm: React.FC<Props> = ({ id, bookData }) => {
   }
 
   const handleTotalRating = useMemo(() => {
-    if (!bookData?.shortStories) return null
+    if (!singleBook?.shortStories) return null
     if (Object.values(raterStoriesObject).length === 0) return null
     const total: number = Object.values(raterStoriesObject).reduce(
       (prev: number, curr: number) => prev + curr,
@@ -60,7 +60,7 @@ const AnthologyRatingForm: React.FC<Props> = ({ id, bookData }) => {
   }, [raterStoriesObject])
 
   const handleRatingsReset = () => {
-    if (!bookData?.shortStories) return null
+    if (!singleBook?.shortStories) return null
     setRaterStoriesObject({})
   }
   return (
@@ -87,7 +87,7 @@ const AnthologyRatingForm: React.FC<Props> = ({ id, bookData }) => {
         >
           Reset
         </Button>
-        {bookData.shortStories?.map((story) => (
+        {singleBook.shortStories?.map((story) => (
           <Form.Item key={story._id} label={story.title}>
             <InputNumber
               className="ml-2"

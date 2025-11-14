@@ -19,11 +19,6 @@ const Profile: React.FC<Props> = ({
   width,
   height,
 }) => {
-  // const [imageSrc, setImageSrc] = useState<string>("")
-
-  // useEffect(() => {
-  //   setImageSrc(imageURL)
-  // }, [username])
   return isLink && imageURL ? (
     <div className={style.profileCon}>
       <Link href={`/brothers/library/${username}`}>
@@ -57,4 +52,4 @@ const Profile: React.FC<Props> = ({
   )
 }
 
-export default Profile
+export default React.memo(Profile)

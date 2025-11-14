@@ -11,7 +11,7 @@ interface props {
   inComment: string
 }
 
-const EditRatingButton: React.FC<props> = ({
+const EditRatingButton = ({
   showEditComment,
   setShowEditComment,
   id,
@@ -41,12 +41,14 @@ const EditRatingButton: React.FC<props> = ({
       <Modal
         title="Change Comment"
         open={showEditComment}
-        onOk={handleOk}
-        confirmLoading={confirmLoading}
         onCancel={handleCancel}
         footer={null}
       >
-        {showEditComment && <EditCommentForm id={id} inComment={inComment} />}
+        <EditCommentForm
+          id={id}
+          inComment={inComment}
+          handleCancel={handleCancel}
+        />
       </Modal>
     </>
   )

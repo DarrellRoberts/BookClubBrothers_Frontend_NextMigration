@@ -1,14 +1,16 @@
-import Graph from "@/components/graphs/brothers/Graph";
-import LoaderNoText from "@/components/loader/LoaderNoText";
-import { genreAverageScore } from "@/utils/stat-functions/scoreFunctions";
-import { Book } from "@/types/BookInterface";
-import React from "react";
+import Graph from "@/components/graphs/brothers/Graph"
+import LoaderNoText from "@/components/loader/LoaderNoText"
+import { genreAverageScore } from "@/utils/stat-functions/scoreFunctions"
+import { Book } from "@/types/BookInterface"
+import React from "react"
+import BrotherLoadingBooksScored from "@/components/brothers/dashboard/BrotherLoadingBooksScored"
 
 type Props = {
-  readBooks: Book[];
-};
+  readBooks: Book[]
+  loadingBooks: boolean
+}
 
-const BookStatsGenre: React.FC<Props> = ({ readBooks }) => {
+const BookStatsGenre: React.FC<Props> = ({ readBooks, loadingBooks }) => {
   const genreArray: string[] = [
     "Horror",
     "Thriller",
@@ -24,14 +26,13 @@ const BookStatsGenre: React.FC<Props> = ({ readBooks }) => {
     "Postmodern",
     "Anthology",
     "Non-fiction",
-  ];
-  const genreAvgScoreArray = genreArray.map((genre) =>
-    genreAverageScore(readBooks, genre)
-  );
+  ]
+  const genreAvgScoreArray =
+    genreArray.map((genre) => genreAverageScore(readBooks, genre)) ?? []
   return (
     <>
-      {genreAvgScoreArray?.length <= 0 ? (
-        <LoaderNoText />
+      {loadingBooks ? (
+        <BrotherLoadingBooksScored />
       ) : (
         <>
           <Graph
@@ -42,7 +43,7 @@ const BookStatsGenre: React.FC<Props> = ({ readBooks }) => {
         </>
       )}
     </>
-  );
-};
+  )
+}
 
-export default BookStatsGenre;
+export default BookStatsGenre

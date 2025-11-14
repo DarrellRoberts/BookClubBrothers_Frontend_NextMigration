@@ -8,13 +8,13 @@ import { useAppSelector } from "@/store/lib/hooks"
 
 type Props = {
   id: string | string[]
-  bookData: Book
+  singleBook: Book
   shortStoryData: object
 }
 
 const EditAnthologyRatingForm: React.FC<Props> = ({
   id,
-  bookData,
+  singleBook,
   shortStoryData,
 }) => {
   const [raterStoriesObject, setRaterStoriesObject] = useState<object>({})
@@ -31,11 +31,11 @@ const EditAnthologyRatingForm: React.FC<Props> = ({
 
   const handleSubmit2 = async () => {
     const promiseArr = []
-    if (!bookData.shortStories) return null
-    for (let i = 0; i < bookData.shortStories.length; i++) {
+    if (!singleBook.shortStories) return null
+    for (let i = 0; i < singleBook.shortStories.length; i++) {
       promiseArr.push(
         await handleMultipleSubmits(
-          `https://bookclubbrothers-backend.onrender.com/books/${id}/${bookData?.shortStories[i]._id}`,
+          `https://bookclubbrothers-backend.onrender.com/books/${id}/${singleBook?.shortStories[i]._id}`,
           { rating: Object.values(raterStoriesObject)[i] },
           "PUT",
           token
@@ -54,7 +54,7 @@ const EditAnthologyRatingForm: React.FC<Props> = ({
   }
 
   const handleTotalRating = useMemo(() => {
-    // if (!bookData?.shortStories) return null
+    // if (!singleBook?.shortStories) return null
     if (Object.values(raterStoriesObject).length === 0) return null
     const total: number = Object.values(raterStoriesObject).reduce(
       (prev: number, curr: number) => prev + curr,
@@ -65,7 +65,7 @@ const EditAnthologyRatingForm: React.FC<Props> = ({
   }, [raterStoriesObject])
 
   const handleRatingsReset = () => {
-    if (!bookData?.shortStories) return null
+    if (!singleBook?.shortStories) return null
     setRaterStoriesObject({ ...shortStoryData })
   }
   useEffect(() => {
@@ -95,7 +95,7 @@ const EditAnthologyRatingForm: React.FC<Props> = ({
         >
           Reset
         </Button>
-        {bookData.shortStories?.map((story) => (
+        {singleBook.shortStories?.map((story) => (
           <Form.Item key={story._id} label={story.title}>
             <InputNumber
               className="ml-6"

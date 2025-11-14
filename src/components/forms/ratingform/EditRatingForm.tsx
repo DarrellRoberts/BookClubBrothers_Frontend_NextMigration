@@ -10,7 +10,13 @@ interface props {
   initialRating: number
 }
 
-const EditRatingForm: React.FC<props> = ({ id, initialRating }) => {
+const EditRatingForm: React.FC<Props> = ({
+  id,
+  initialRating,
+  users,
+  bookTitle,
+  handleCancel,
+}) => {
   const rating = useAppSelector(
     (state) => state.bookFormData.formData.scoreRatings.rating
   )
@@ -23,6 +29,14 @@ const EditRatingForm: React.FC<props> = ({ id, initialRating }) => {
     { rating }
   )
 
+  useEffect(() => {
+    dispatch(
+      setFormData({
+        ...formData,
+        scoreRatings: { rating: initialRating },
+      })
+    )
+  }, [id])
   return (
     <>
       <Form
@@ -41,7 +55,6 @@ const EditRatingForm: React.FC<props> = ({ id, initialRating }) => {
           rating: initialRating,
         }}
       >
-        {/* rating */}
         <Form.Item
           label="Rating"
           name="rating"
@@ -54,18 +67,30 @@ const EditRatingForm: React.FC<props> = ({ id, initialRating }) => {
         >
           <Input
             defaultValue={initialRating ?? 0}
-            onChange={(e) =>
+            type="number"
+            max={10}
+            min={0}
+            step="0.25"
+            onChange={(e) => {
+              if (Number(e.target.value) > 10 || Number(e.target.value) < 0) {
+                return
+              }
               dispatch(
                 setFormData({
                   ...formData,
                   scoreRatings: { rating: Number(e.target.value) },
                 })
               )
-            }
+            }}
             value={Number(rating)}
           />
         </Form.Item>
-
+        <ScorePreview
+          users={users}
+          rating={rating}
+          initialRating={initialRating}
+          bookTitle={bookTitle}
+        />
         {/* Submission */}
         <Form.Item
           wrapperCol={{
@@ -78,7 +103,7 @@ const EditRatingForm: React.FC<props> = ({ id, initialRating }) => {
             ghost
             className="loginButtons"
             loading={loadings}
-            onClick={() => enterLoading()}
+            onClick={() => handleLoading()}
             htmlType="submit"
             size="large"
           >

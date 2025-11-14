@@ -47,7 +47,6 @@ const RandomSectionLeft: React.FC<Props> = ({
             <Skeleton.Input size="small" />
           </Skeleton.Node>
         ) : (
-          // </div>
           bookData?.map((book) => (
             <div
               key={book._id}

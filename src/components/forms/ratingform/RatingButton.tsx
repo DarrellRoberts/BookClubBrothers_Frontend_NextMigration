@@ -5,64 +5,72 @@ import { Modal, Button } from "antd"
 import RatingForm from "./RatingForm"
 import { Book } from "@/types/BookInterface"
 import AnthologyRatingForm from "./AnthologyRatingForm"
+import { User } from "@/types/UserInterface"
+import { useRouter } from "next/navigation"
 
-interface props {
+type Props = {
   setShowRating: React.Dispatch<React.SetStateAction<boolean>>
   showRating: boolean
   id: string | string[]
-  bookData: Book
+  singleBook: Book
   isAnthology: boolean
+  users: User[]
 }
 
-const RatingButton: React.FC<props> = ({
+const RatingButton: React.FC<Props> = ({
   showRating,
   setShowRating,
   id,
   isAnthology,
-  bookData,
+  singleBook,
+  users,
 }) => {
-  const [modalText, setModalText] = useState(<RatingForm id={id} />)
-  const [confirmLoading, setConfirmLoading] = useState<boolean>(false)
+  const [modalText, setModalText] = useState(null)
 
   const showModal = () => {
     setShowRating(true)
   }
-  const handleOk = () => {
-    setConfirmLoading(true)
-    setTimeout(() => {
-      setShowRating(false)
-    }, 4000)
-    setModalText(<RatingForm id={id} />)
-  }
+
   const handleCancel = () => {
     setShowRating(false)
   }
 
   useEffect(() => {
     if (isAnthology) {
-      setModalText(<AnthologyRatingForm bookData={bookData} id={id} />)
+      setModalText(<AnthologyRatingForm singleBook={singleBook} id={id} />)
+    } else {
+      setModalText(
+        <RatingForm
+          id={id}
+          users={users}
+          bookTitle={singleBook.title}
+          handleCancel={handleCancel}
+        />
+      )
     }
   }, [])
   return (
     <>
       <div className="flex items-center">
-        <Button className="m-5" onClick={showModal} size="large">
+        <Button className="m-5" onClick={() => showModal()} size="large">
           Submit rating
         </Button>
       </div>
       <Modal
         title="Submit Rating"
         open={showRating}
-        onOk={handleOk}
-        confirmLoading={confirmLoading}
         onCancel={handleCancel}
         footer={null}
       >
-        {/* <p>{modalText}</p> */}
         {isAnthology ? (
-          <AnthologyRatingForm bookData={bookData} id={id} />
+          <AnthologyRatingForm singleBook={singleBook} id={id} />
         ) : (
-          <RatingForm id={id} />
+          <RatingForm
+            id={id}
+            users={users}
+            bookTitle={singleBook.title}
+            handleCancel={handleCancel}
+          />
         )}
       </Modal>
     </>

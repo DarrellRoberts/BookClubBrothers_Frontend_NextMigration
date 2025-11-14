@@ -33,9 +33,18 @@ const BrotherLoadingBooksScored: React.FC = () => {
         />
       </div>
       <div className="flex flex-col gap-4 mx-6 mt-4">
-        <Skeleton style={{ filter: isDarkMode ? "invert(1)" : "invert(0)" }} />
-        <Skeleton style={{ filter: isDarkMode ? "invert(1)" : "invert(0)" }} />
-        <Skeleton style={{ filter: isDarkMode ? "invert(1)" : "invert(0)" }} />
+        <Skeleton
+          active={true}
+          style={{ filter: isDarkMode ? "invert(1)" : "invert(0)" }}
+        />
+        <Skeleton
+          active={true}
+          style={{ filter: isDarkMode ? "invert(1)" : "invert(0)" }}
+        />
+        <Skeleton
+          active={true}
+          style={{ filter: isDarkMode ? "invert(1)" : "invert(0)" }}
+        />
       </div>
     </>
   )

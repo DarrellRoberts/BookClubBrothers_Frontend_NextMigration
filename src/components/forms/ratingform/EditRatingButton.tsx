@@ -1,40 +1,34 @@
 "use client"
 
-import { useState } from "react"
 import { Modal, Button } from "antd"
 import EditRatingForm from "./EditRatingForm"
 import EditAnthologyRatingForm from "./EditAnthologyRatingForm"
 import { Book } from "@/types/BookInterface"
+import { User } from "@/types/UserInterface"
 
-interface props {
+type Props = {
   setShowEditRating: React.Dispatch<React.SetStateAction<boolean>>
   showEditRating: boolean
   id: string | string[]
   initialRating: number
   isAnthology: boolean
   shortStoryData: object
-  bookData: Book
+  singleBook: Book
+  users: User[]
 }
 
-const EditRatingButton: React.FC<props> = ({
+const EditRatingButton: React.FC<Props> = ({
   showEditRating,
   setShowEditRating,
   id,
   initialRating,
   isAnthology,
   shortStoryData,
-  bookData,
+  singleBook,
+  users,
 }) => {
-  const [confirmLoading, setConfirmLoading] = useState<boolean>(false)
-
   const showModal = () => {
     setShowEditRating(true)
-  }
-  const handleOk = () => {
-    setConfirmLoading(true)
-    setTimeout(() => {
-      setShowEditRating(false)
-    }, 4000)
   }
   const handleCancel = () => {
     setShowEditRating(false)
@@ -43,26 +37,30 @@ const EditRatingButton: React.FC<props> = ({
   return (
     <>
       <div className="flex items-center">
-        <Button className="m-5" onClick={showModal} size="large">
+        <Button className="m-5" onClick={() => showModal()} size="large">
           Change rating
         </Button>
       </div>
       <Modal
         title="Change Rating"
         open={showEditRating}
-        onOk={handleOk}
-        confirmLoading={confirmLoading}
         onCancel={handleCancel}
         footer={null}
       >
         {showEditRating && !isAnthology && (
-          <EditRatingForm id={id} initialRating={initialRating} />
+          <EditRatingForm
+            id={id}
+            initialRating={initialRating}
+            users={users}
+            bookTitle={singleBook.title}
+            handleCancel={handleCancel}
+          />
         )}
         {showEditRating && isAnthology && (
           <EditAnthologyRatingForm
             id={id}
             shortStoryData={shortStoryData}
-            bookData={bookData}
+            singleBook={singleBook}
           />
         )}
       </Modal>

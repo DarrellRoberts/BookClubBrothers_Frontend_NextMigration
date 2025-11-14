@@ -8,7 +8,7 @@ type Props = {
   noTitle?: boolean
 }
 
-const BookSkeleton: React.FC<Props> = ({ freq, noTitle }) => {
+const BookSkeleton = ({ freq, noTitle }: Props) => {
   const handleDesktop = useMediaQuery({ query: "(min-device-width: 601px)" })
   const isDarkMode = useAppSelector((state) => state.darkMode.darkMode)
 
@@ -47,4 +47,4 @@ const BookSkeleton: React.FC<Props> = ({ freq, noTitle }) => {
   )
 }
 
-export default BookSkeleton
+export default React.memo(BookSkeleton)

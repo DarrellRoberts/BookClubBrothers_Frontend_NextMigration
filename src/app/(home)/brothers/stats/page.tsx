@@ -14,6 +14,7 @@ import React, { useEffect } from "react"
 import { Skeleton } from "antd"
 import { useAppSelector } from "@/store/lib/hooks"
 import BrotherLoadingBooksScored from "@/components/brothers/dashboard/BrotherLoadingBooksScored"
+import { useMediaQuery } from "react-responsive"
 
 const BrothersStats: React.FC = () => {
   const { userData, loadingUsers } = useUserFetch(
@@ -26,6 +27,7 @@ const BrothersStats: React.FC = () => {
     null
   )
   const isDarkMode = useAppSelector((state) => state.darkMode.darkMode)
+  const handleDesktop = useMediaQuery({ query: "(min-device-width: 601px)" })
   const readBooks = bookData?.filter((book) => book.read === true)
 
   let newArr = new Array()
@@ -34,7 +36,7 @@ const BrothersStats: React.FC = () => {
 
   return (
     <div>
-      <h1 className="font-['var(--main)'] text-[5rem] ml-12 max-[825px]:text-[3.5rem] max-[450px]:text-[2.5rem]">
+      <h1 className="text-[5rem] ml-12 max-[825px]:text-[3.5rem] max-[450px]:text-[2.5rem]">
         Brothers Stats
       </h1>
 
@@ -53,35 +55,97 @@ max-[450px]:text-center max-[450px]:ml-0 max-[450px]:my-8"
           <>
             <div
               className="grid grid-cols-[repeat(auto-fill,minmax(250px,1fr))] gap-8
-max-[600px]:grid-cols-[repeat(auto-fill,minmax(150px,1fr))] max-sm:flex max-sm:flex-col"
+max-[600px]:grid-cols-[repeat(auto-fill,minmax(150px,1fr))] "
             >
-              {newArr?.map((node) => (
-                <div className="flex flex-col items-center gap-2" key={node}>
-                  <Skeleton.Input
-                    active={true}
-                    style={{ filter: isDarkMode ? "invert(1)" : "invert(0)" }}
-                  />
-                  <Skeleton.Avatar
-                    active={true}
-                    shape="circle"
-                    size="large"
-                    style={{
-                      filter: isDarkMode ? "invert(1)" : "invert(0)",
-                      width: 275,
-                      height: 275,
-                    }}
-                  />
-                </div>
-              ))}
+              <div className="flex flex-col items-center gap-2">
+                <Skeleton.Input
+                  active={true}
+                  style={{ filter: isDarkMode ? "invert(1)" : "invert(0)" }}
+                />
+                <Skeleton.Avatar
+                  active={true}
+                  shape="circle"
+                  size="large"
+                  style={{
+                    filter: isDarkMode ? "invert(1)" : "invert(0)",
+                    width: handleDesktop ? 275 : 190,
+                    height: handleDesktop ? 275 : 190,
+                  }}
+                />
+              </div>
+              <div className="flex flex-col items-center gap-2">
+                <Skeleton.Input
+                  active={true}
+                  style={{ filter: isDarkMode ? "invert(1)" : "invert(0)" }}
+                />
+                <Skeleton.Avatar
+                  active={true}
+                  shape="circle"
+                  size="large"
+                  style={{
+                    filter: isDarkMode ? "invert(1)" : "invert(0)",
+                    width: handleDesktop ? 275 : 190,
+                    height: handleDesktop ? 275 : 190,
+                  }}
+                />
+              </div>
+              <div className="flex flex-col items-center gap-2">
+                <Skeleton.Input
+                  active={true}
+                  style={{ filter: isDarkMode ? "invert(1)" : "invert(0)" }}
+                />
+                <Skeleton.Avatar
+                  active={true}
+                  shape="circle"
+                  size="large"
+                  style={{
+                    filter: isDarkMode ? "invert(1)" : "invert(0)",
+                    width: handleDesktop ? 275 : 190,
+                    height: handleDesktop ? 275 : 190,
+                  }}
+                />
+              </div>
+              <div className="flex flex-col items-center gap-2">
+                <Skeleton.Input
+                  active={true}
+                  style={{ filter: isDarkMode ? "invert(1)" : "invert(0)" }}
+                />
+                <Skeleton.Avatar
+                  active={true}
+                  shape="circle"
+                  size="large"
+                  style={{
+                    filter: isDarkMode ? "invert(1)" : "invert(0)",
+                    width: handleDesktop ? 275 : 190,
+                    height: handleDesktop ? 275 : 190,
+                  }}
+                />
+              </div>
+              <div className="flex flex-col items-center gap-2">
+                <Skeleton.Input
+                  active={true}
+                  style={{ filter: isDarkMode ? "invert(1)" : "invert(0)" }}
+                />
+                <Skeleton.Avatar
+                  active={true}
+                  shape="circle"
+                  size="large"
+                  style={{
+                    filter: isDarkMode ? "invert(1)" : "invert(0)",
+                    width: handleDesktop ? 275 : 190,
+                    height: handleDesktop ? 275 : 190,
+                  }}
+                />
+              </div>
             </div>
             <div>
-              <h2 className="font-['var(--main)'] text-[2.5rem] underline my-8 ml-12 max-[450px]:text-center max-[450px]:ml-0 max-[450px]:my-8">
+              <h2 className="text-[2.5rem] underline my-8 ml-12 max-[450px]:text-center max-[450px]:ml-0 max-[450px]:my-8">
                 Average Scores
               </h2>
               <BrotherLoadingBooksScored />
             </div>
             <div>
-              <h2 className="font-['var(--main)'] text-[2.5rem] underline my-8 ml-12 max-[450px]:text-center max-[450px]:ml-0 max-[450px]:my-8">
+              <h2 className="text-[2.5rem] underline my-8 ml-12 max-[450px]:text-center max-[450px]:ml-0 max-[450px]:my-8">
                 Number of Suggested Books
               </h2>
               <BrotherLoadingBooksScored />
@@ -95,9 +159,7 @@ max-[600px]:grid-cols-[repeat(auto-fill,minmax(150px,1fr))]"
             >
               {userData?.map((user, i) => (
                 <div key={i}>
-                  <h3 className="text-center font-['var(--main)'] text-[1.5rem]">
-                    {user.username}
-                  </h3>
+                  <h3 className="text-center text-[1.5rem]">{user.username}</h3>
                   <PieChart
                     key={i}
                     booksRead={[
@@ -126,7 +188,7 @@ max-[600px]:grid-cols-[repeat(auto-fill,minmax(150px,1fr))]"
             </div>
             <div>
               <h2
-                className="font-['var(--main)'] text-[2.5rem] underline my-8 ml-12
+                className="text-[2.5rem] underline my-8 ml-12
 max-[450px]:text-center max-[450px]:ml-0 max-[450px]:my-8"
               >
                 Number of Suggested Books

@@ -19,35 +19,23 @@ type Props = {
 }
 
 const AdminViewSingleBook: React.FC<Props> = ({ bookData, bookId }) => {
-  const [showLeftNavArrows, setShowLeftNavArrows] = useState<boolean>(true)
-  const [showRightNavArrows, setShowRightNavArrows] = useState<boolean>(true)
   const { showTitle, showBookImage } = useAppSelector(
     (state) => state.editBookButtons
   )
   const { singleUserData } = useSingleUserFetch(
-    `https://bookclubbrothers-backend.onrender.com/users/id/${bookData?.suggestedBy}`
+    `https://bookclubbrothers-backend.onrender.com/users/id/${bookData?.suggestedBy}`,
+    bookData?.suggestedBy
   )
   return (
     <>
       <div className="flex flex-col items-center justify-center max-md:flex-col max-md:items-center">
         <DeleteBook id={bookId} />
-        {showTitle ? (
+        {showTitle && (
           <div className="flex mt-5">
             <EditTitle id={bookId} inTitle={bookData?.title} />
           </div>
-        ) : (
-          <h1 className="font-main text-8xl m-4 pb-20 max-md:text-6xl max-md:mt-8 max-md:text-center max-sm:text-4xl">
-            {bookData?.title}
-          </h1>
         )}
         <EditTitleButton />
-        {showLeftNavArrows && (
-          <NavigateBook
-            isLeft={true}
-            setShowLeftNavArrows={setShowLeftNavArrows}
-            setShowRightNavArrows={setShowRightNavArrows}
-          />
-        )}
         <div className="flex flex-col items-center justify-center">
           <h2>Suggested by: </h2>
           <Profile
@@ -59,12 +47,6 @@ const AdminViewSingleBook: React.FC<Props> = ({ bookData, bookId }) => {
           />
           <h2 className="p-[0] m-[0]">{singleUserData?.username}</h2>
         </div>
-        {showRightNavArrows && (
-          <NavigateBook
-            setShowRightNavArrows={setShowRightNavArrows}
-            setShowLeftNavArrows={setShowLeftNavArrows}
-          />
-        )}
         <div>
           {bookData?.reviewImageURL ? (
             <Image
