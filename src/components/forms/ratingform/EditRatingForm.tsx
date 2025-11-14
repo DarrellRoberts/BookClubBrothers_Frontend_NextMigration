@@ -1,29 +1,27 @@
-/* eslint-disable react/react-in-jsx-scope */
-/* eslint-disable react/prop-types */
-"use client";
+"use client"
 
-import { Button, Form, Input } from "antd";
-import useForm from "@/hooks/crud-hooks/useForm";
-import { useAppDispatch, useAppSelector } from "@/store/lib/hooks";
-import { setFormData } from "@/store/lib/features/books/bookFormDataSlice";
+import { Button, Form, Input } from "antd"
+import useForm from "@/hooks/crud-hooks/useForm"
+import { useAppDispatch, useAppSelector } from "@/store/lib/hooks"
+import { setFormData } from "@/store/lib/features/books/bookFormDataSlice"
 
 interface props {
-  id: string | string[];
-  initialRating: number;
+  id: string | string[]
+  initialRating: number
 }
 
 const EditRatingForm: React.FC<props> = ({ id, initialRating }) => {
   const rating = useAppSelector(
     (state) => state.bookFormData.formData.scoreRatings.rating
-  );
-  const formData = useAppSelector((state) => state.bookFormData.formData);
-  const dispatch = useAppDispatch();
+  )
+  const formData = useAppSelector((state) => state.bookFormData.formData)
+  const dispatch = useAppDispatch()
 
   const { handleSubmit, error, enterLoading, loadings } = useForm(
     `https://bookclubbrothers-backend.onrender.com/books/rating/edit/${id}`,
     "PUT",
     { rating }
-  );
+  )
 
   return (
     <>
@@ -91,6 +89,6 @@ const EditRatingForm: React.FC<props> = ({ id, initialRating }) => {
       </Form>
     </>
   )
-};
+}
 
-export default EditRatingForm;
+export default EditRatingForm

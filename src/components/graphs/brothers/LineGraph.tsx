@@ -1,5 +1,4 @@
 import React from "react"
-import styles from "./Graph.module.css"
 import { Line } from "react-chartjs-2"
 import { useAppSelector } from "@/store/lib/hooks"
 

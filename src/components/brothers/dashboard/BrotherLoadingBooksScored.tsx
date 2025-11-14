@@ -1,11 +1,4 @@
-import Filters from "@/components/graphs/brothers/Filters"
-import Graph from "@/components/graphs/brothers/Graph"
-import LoaderNoText from "@/components/loader/LoaderNoText"
-import { filterUserReadBooks } from "@/utils/stat-functions/scoreFunctions"
-import { handleHideScores_NoSetter } from "@/utils/time-functions/hideScores"
-import { Book } from "@/types/BookInterface"
-import { User } from "@/types/UserInterface"
-import React, { useEffect, useState } from "react"
+import React from "react"
 import { Skeleton } from "antd"
 import { useAppSelector } from "@/store/lib/hooks"
 

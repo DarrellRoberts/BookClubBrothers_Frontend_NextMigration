@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unescaped-entities */
 import React, { ReactNode } from "react"
 import { Popover } from "antd"
 import "./popover.css"

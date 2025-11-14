@@ -1,7 +1,6 @@
-/* eslint-disable react/react-in-jsx-scope */
-import Link from "next/link";
-import "../../style/header.css";
-import "../../style/headerRes.css";
+import Link from "next/link"
+import "../../style/header.css"
+import "../../style/headerRes.css"
 
 const HeaderLinks: React.FC = () => {
   return (
@@ -60,7 +59,7 @@ const HeaderLinks: React.FC = () => {
         </ul>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default HeaderLinks;
+export default HeaderLinks
