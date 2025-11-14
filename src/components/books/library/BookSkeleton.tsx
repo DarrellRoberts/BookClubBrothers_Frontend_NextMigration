@@ -13,15 +13,14 @@ const BookSkeleton = ({ freq, noTitle }: Props) => {
   const isDarkMode = useAppSelector((state) => state.darkMode.darkMode)
 
   const skeletonArray = useMemo(() => {
-    let newArr = new Array()
-    for (let i = 0; i < freq; i++) {
-      newArr.push(i + freq)
-    }
-    return newArr
+    const newArr = new Array()
+    newArr.length = freq
+    newArr.fill(1)
+    return newArr.map((_, index) => index * freq)
   }, [freq])
 
   return (
-    <div className="flex flex-wrap justify-evenly w-full gap-6">
+    <div className="ml-4 flex w-full flex-wrap gap-6">
       {skeletonArray?.map((node) => (
         <div className="flex flex-col items-center gap-1" key={node}>
           {noTitle ? null : (

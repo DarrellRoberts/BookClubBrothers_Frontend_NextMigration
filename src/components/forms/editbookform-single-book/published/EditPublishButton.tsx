@@ -1,5 +1,3 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable react/react-in-jsx-scope */
 import { setShowPublish } from "@/store/lib/features/books/editBookButtonsSlice"
 import { useAppDispatch, useAppSelector } from "@/store/lib/hooks"
 import { Button } from "antd"

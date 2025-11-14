@@ -1,5 +1,3 @@
-/* eslint-disable react/react-in-jsx-scope */
-/* eslint-disable react/prop-types */
 import { Button } from "antd"
 import SelectBook from "../../forms/bookform-randomise/SelectBook"
 import { useAppDispatch, useAppSelector } from "@/store/lib/hooks"
@@ -8,6 +6,7 @@ import {
   setShowRandom,
 } from "@/store/lib/features/randomise/randomiseSlice"
 import { useAuth } from "@/hooks/auth-hooks/useAuth"
+import { useCallback } from "react"
 
 type Props = {
   bookLength: number
@@ -20,32 +19,30 @@ const Randomiser: React.FC<Props> = ({ bookLength, bookId }) => {
   const adminId = process.env.NEXT_PUBLIC_ADMIN_ID
   const { decodedToken } = useAuth()
 
-  const handleRandomise = () => {
+  const handleRandomise = useCallback(() => {
     dispatch(setShowRandom())
-    const Int = setInterval(() => {
+    const timerId = setInterval(() => {
       dispatch(setIndex(Math.floor(Math.random() * bookLength)))
     }, 50)
     setTimeout(() => {
-      clearInterval(Int)
+      clearInterval(timerId)
       dispatch(setShowRandom())
     }, 3000)
-  }
+  }, [showRandom])
 
   return (
-    <>
-      <div className="flex justify-evenly items-center max-md:flex-col">
-        {showRandom ? (
-          <>
-            <Button onClick={handleRandomise} size="large">
-              Randomise
-            </Button>
-            {adminId === decodedToken?._id ? (
-              <SelectBook bookId={bookId} />
-            ) : null}
-          </>
-        ) : null}
-      </div>
-    </>
+    <div className="flex justify-evenly items-center max-md:flex-col">
+      {showRandom ? (
+        <>
+          <Button onClick={handleRandomise} size="large">
+            Randomise
+          </Button>
+          {adminId === decodedToken?._id ? (
+            <SelectBook bookId={bookId} />
+          ) : null}
+        </>
+      ) : null}
+    </div>
   )
 }
 

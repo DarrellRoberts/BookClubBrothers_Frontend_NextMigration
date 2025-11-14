@@ -1,6 +1,3 @@
-/* eslint-disable react/no-unescaped-entities */
-/* eslint-disable react/prop-types */
-/* eslint-disable react/react-in-jsx-scope */
 import CommentWormImage from "@/assets/badges/Badge-comment.badge-image.webp"
 import BadgeTemplate from "../BadgeTemplate"
 import Link from "next/link"

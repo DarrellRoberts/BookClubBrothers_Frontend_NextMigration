@@ -1,6 +1,3 @@
-/* eslint-disable react/no-unescaped-entities */
-/* eslint-disable react/prop-types */
-/* eslint-disable react/react-in-jsx-scope */
 import BookWormImage from "@/assets/badges/Badge-monkworm-image.webp"
 import BadgeTemplate from "../BadgeTemplate"
 import Link from "next/link"

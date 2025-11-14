@@ -1,16 +1,15 @@
-/* eslint-disable react/react-in-jsx-scope */
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
-import { Doughnut } from "react-chartjs-2";
-import style from "./Graph.module.css";
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js"
+import { Doughnut } from "react-chartjs-2"
+import style from "./Graph.module.css"
 
-ChartJS.register(ArcElement, Tooltip, Legend);
+ChartJS.register(ArcElement, Tooltip, Legend)
 
 type Props = {
-  booksRead: number[];
-  unreadBooks: string[];
-  userReadBooks: string[];
-  bookTotal: number;
-};
+  booksRead: number[]
+  unreadBooks: string[]
+  userReadBooks: string[]
+  bookTotal: number
+}
 
 const PieChart: React.FC<Props> = ({
   booksRead,
@@ -21,12 +20,12 @@ const PieChart: React.FC<Props> = ({
   const booksReadPercentage: string = (
     (userReadBooks?.length / bookTotal) *
     100
-  ).toFixed(2);
-  const dataset1: number[] = booksRead ?? [];
+  ).toFixed(2)
+  const dataset1: number[] = booksRead ?? []
   const labels1 = [
     ["Read Books", ...(userReadBooks ?? [])],
     ["Unread Books", ...(unreadBooks ?? [])],
-  ];
+  ]
 
   const data = {
     labels: labels1,
@@ -37,7 +36,7 @@ const PieChart: React.FC<Props> = ({
         hoverOffset: 5,
       },
     ],
-  };
+  }
 
   const options = {
     responsive: true,
@@ -57,14 +56,14 @@ const PieChart: React.FC<Props> = ({
         },
       },
     },
-  };
+  }
 
   return (
     <div className={style.pieCon}>
       <Doughnut data={data} options={options} />
       <h3 className={style.percentage}>{booksReadPercentage} %</h3>
     </div>
-  );
-};
+  )
+}
 
-export default PieChart;
+export default PieChart

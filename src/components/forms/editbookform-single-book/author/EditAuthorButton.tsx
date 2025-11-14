@@ -1,4 +1,3 @@
-/* eslint-disable react/react-in-jsx-scope */
 import { setShowAuthor } from "@/store/lib/features/books/editBookButtonsSlice"
 import { useAppDispatch, useAppSelector } from "@/store/lib/hooks"
 import { Button } from "antd"

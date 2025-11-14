@@ -1,9 +1,6 @@
-/* eslint-disable react/no-unescaped-entities */
-/* eslint-disable react/react-in-jsx-scope */
 "use client"
 
 import { useParams } from "next/navigation"
-import LoadingScreen from "@/components/loader/brothers-loader/LoadingScreen"
 import { useJwt } from "react-jwt"
 import CommentCon from "@/components/brothers/dashboard/BrotherCommentCon"
 import useUserFetch from "@/hooks/fetch-hooks/useUserFetch"

@@ -4,16 +4,10 @@ import { Button, Form, Input } from "antd"
 import useForm from "@/hooks/crud-hooks/useForm"
 import { useAppDispatch, useAppSelector } from "@/store/lib/hooks"
 import { setFormData } from "@/store/lib/features/books/bookFormDataSlice"
-import { User } from "@/types/UserInterface"
-import ScorePreview from "./ScorePreview"
-import { useEffect } from "react"
 
-type Props = {
+interface props {
   id: string | string[]
   initialRating: number
-  users: User[]
-  bookTitle: string
-  handleCancel: () => void
 }
 
 const EditRatingForm: React.FC<Props> = ({
@@ -25,8 +19,7 @@ const EditRatingForm: React.FC<Props> = ({
 }) => {
   const rating = useAppSelector(
     (state) => state.bookFormData.formData.scoreRatings.rating
-  ) as number
-
+  )
   const formData = useAppSelector((state) => state.bookFormData.formData)
   const dispatch = useAppDispatch()
 
@@ -35,13 +28,6 @@ const EditRatingForm: React.FC<Props> = ({
     "PUT",
     { rating }
   )
-
-  const handleLoading = () => {
-    enterLoading()
-    setTimeout(() => {
-      handleCancel()
-    }, 4000)
-  }
 
   useEffect(() => {
     dispatch(

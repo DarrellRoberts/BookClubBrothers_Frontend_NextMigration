@@ -12,46 +12,43 @@ type Props = {
   height?: number
 }
 
-const Profile = ({ imageURL, isLink, username, width, height }: Props) => {
-  const [imageSrc, setImageSrc] = useState<string>("")
-
-  useEffect(() => {
-    setImageSrc(imageURL)
-  }, [username])
-
-  return (
-    <>
-      {isLink && imageURL ? (
-        <div className={style.profileCon}>
-          <Link href={`/brothers/library/${username}`}>
-            <Image
-              src={imageURL}
-              width={width ?? 200}
-              height={height ?? 300}
-              alt="Profile picture"
-            />
-          </Link>
-        </div>
-      ) : imageURL ? (
-        <div className={style.profileCon}>
-          <Image
-            src={imageURL ? imageSrc : ProfileUnknownUserImage.src}
-            width={width ?? 200}
-            height={height ?? 300}
-            alt="Profile picture"
-          />
-        </div>
-      ) : (
-        <div className={style.profileCon}>
-          <Image
-            src={ProfileUnknownUserImage.src}
-            width={width ?? 200}
-            height={height ?? 300}
-            alt="Profile picture"
-          />
-        </div>
-      )}
-    </>
+const Profile: React.FC<Props> = ({
+  imageURL,
+  isLink,
+  username,
+  width,
+  height,
+}) => {
+  return isLink && imageURL ? (
+    <div className={style.profileCon}>
+      <Link href={`/brothers/library/${username}`}>
+        <Image
+          src={imageURL}
+          width={width ?? 200}
+          height={height ?? 300}
+          alt="Profile picture"
+          loading="eager"
+        />
+      </Link>
+    </div>
+  ) : imageURL ? (
+    <div className={style.profileCon}>
+      <Image
+        src={imageURL}
+        width={width ?? 200}
+        height={height ?? 300}
+        alt="Profile picture"
+      />
+    </div>
+  ) : (
+    <div className={style.profileCon}>
+      <Image
+        src={ProfileUnknownUserImage.src}
+        width={width ?? 200}
+        height={height ?? 300}
+        alt="Profile picture"
+      />
+    </div>
   )
 }
 

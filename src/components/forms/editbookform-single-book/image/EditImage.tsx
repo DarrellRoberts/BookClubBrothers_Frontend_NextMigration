@@ -1,49 +1,47 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable react/react-in-jsx-scope */
-"use client";
+"use client"
 
-import { useState } from "react";
-import axios from "axios";
-import { Button, Form, Upload } from "antd";
-import { PlusOutlined } from "@ant-design/icons";
-import { useAppSelector } from "@/store/lib/hooks";
+import { useState } from "react"
+import axios from "axios"
+import { Button, Form, Upload } from "antd"
+import { PlusOutlined } from "@ant-design/icons"
+import { useAppSelector } from "@/store/lib/hooks"
 
 const normFile = (e) => {
   if (Array.isArray(e)) {
-    return e;
+    return e
   }
-  return e && e.fileList;
-};
+  return e && e.fileList
+}
 
 interface props {
-  id: string | string[];
+  id: string | string[]
 }
 
 interface imageInt {
-  image: string;
-  name?: string;
-  size: number;
-  type: string;
-  text: () => Promise<string>;
-  arrayBuffer: () => Promise<ArrayBuffer>;
+  image: string
+  name?: string
+  size: number
+  type: string
+  text: () => Promise<string>
+  arrayBuffer: () => Promise<ArrayBuffer>
   slice: {
-    (start?: number, end?: number, contentType?: string);
-  };
-  stream: () => ReadableStream<Uint8Array>;
+    (start?: number, end?: number, contentType?: string)
+  }
+  stream: () => ReadableStream<Uint8Array>
 }
 
 const EditImage: React.FC<props> = ({ id }) => {
-  const [image, setImage] = useState<imageInt>();
-  const [error, setError] = useState("");
-  const [loadings, setLoadings] = useState([]);
-  const token = useAppSelector((state) => state.token.tokenState);
+  const [image, setImage] = useState<imageInt>()
+  const [error, setError] = useState("")
+  const [loadings, setLoadings] = useState([])
+  const token = useAppSelector((state) => state.token.tokenState)
 
-  const [form] = Form.useForm(); // Create a form instance
+  const [form] = Form.useForm() // Create a form instance
 
   const handleSubmit = async () => {
     try {
-      const formData = new FormData();
-      formData.append("picture", image, image?.name);
+      const formData = new FormData()
+      formData.append("picture", image, image?.name)
       await axios.post(
         `https://bookclubbrothers-backend.onrender.com/books/${id}`,
         formData,
@@ -52,33 +50,33 @@ const EditImage: React.FC<props> = ({ id }) => {
             Authorization: `Bearer ${token}`,
           },
         }
-      );
+      )
     } catch (error) {
-      setError(error);
-      console.error(error);
+      setError(error)
+      console.error(error)
     }
-  };
+  }
 
   const handleImageChange = (info) => {
-    setImage(info.file);
-    console.log(info);
-  };
+    setImage(info.file)
+    console.log(info)
+  }
 
   const enterLoading = (index) => {
     setLoadings((prevLoadings) => {
-      const newLoadings = [...prevLoadings];
-      newLoadings[index] = true;
-      return newLoadings;
-    });
+      const newLoadings = [...prevLoadings]
+      newLoadings[index] = true
+      return newLoadings
+    })
     setTimeout(() => {
       setLoadings((prevLoadings) => {
-        const newLoadings = [...prevLoadings];
-        newLoadings[index] = false;
-        document.location.reload();
-        return newLoadings;
-      });
-    }, 4000);
-  };
+        const newLoadings = [...prevLoadings]
+        newLoadings[index] = false
+        document.location.reload()
+        return newLoadings
+      })
+    }, 4000)
+  }
   return (
     <>
       <Form
@@ -100,7 +98,10 @@ const EditImage: React.FC<props> = ({ id }) => {
             beforeUpload={() => false}
           >
             <div>
-              <PlusOutlined />
+              <PlusOutlined
+                onPointerEnterCapture={undefined}
+                onPointerLeaveCapture={undefined}
+              />
               <div style={{ marginTop: 8 }}>Upload</div>
             </div>
           </Upload>
@@ -121,6 +122,6 @@ const EditImage: React.FC<props> = ({ id }) => {
       </Form>
     </>
   )
-};
+}
 
-export default EditImage;
+export default EditImage

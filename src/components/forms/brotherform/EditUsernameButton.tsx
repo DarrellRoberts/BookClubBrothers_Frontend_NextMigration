@@ -1,5 +1,3 @@
-/* eslint-disable react/react-in-jsx-scope */
-/* eslint-disable react/prop-types */
 "use client"
 
 import { Button, Modal } from "antd"
@@ -32,7 +30,6 @@ const EditUsernameButton: React.FC<Props> = ({ id, inUsername }) => {
     setModalText(<EditUsername id={id} inUsername={inUsername} />)
   }
   const handleCancel = () => {
-    console.log(showUsername)
     dispatch(setShowUsername())
   }
   return (

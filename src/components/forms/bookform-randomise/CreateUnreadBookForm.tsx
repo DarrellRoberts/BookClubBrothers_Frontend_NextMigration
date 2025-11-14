@@ -1,4 +1,3 @@
-/* eslint-disable react/react-in-jsx-scope */
 import { Button, Form, Input, Space, Select } from "antd"
 import useForm from "@/hooks/crud-hooks/useForm"
 import { useAppDispatch, useAppSelector } from "@/store/lib/hooks"

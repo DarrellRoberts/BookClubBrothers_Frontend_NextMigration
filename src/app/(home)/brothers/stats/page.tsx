@@ -1,5 +1,5 @@
-/* eslint-disable react/react-in-jsx-scope */
 "use client"
+
 import PieChart from "@/components/graphs/brothers/PieChart"
 import BrotherTable from "@/components/stats/brother-table/BrotherTable"
 import {

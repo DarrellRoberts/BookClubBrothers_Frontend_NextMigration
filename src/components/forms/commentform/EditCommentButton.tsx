@@ -1,12 +1,10 @@
-/* eslint-disable react/react-in-jsx-scope */
-/* eslint-disable react/prop-types */
 "use client"
 
 import { useState } from "react"
 import { Modal, Button } from "antd"
 import EditCommentForm from "./EditCommentForm"
 
-type Props = {
+interface props {
   setShowEditComment: React.Dispatch<React.SetStateAction<boolean>>
   showEditComment: boolean
   id: string | string[]
@@ -18,11 +16,18 @@ const EditRatingButton = ({
   setShowEditComment,
   id,
   inComment,
-}: Props) => {
+}) => {
+  const [confirmLoading, setConfirmLoading] = useState<boolean>(false)
+
   const showModal = () => {
     setShowEditComment(true)
   }
-
+  const handleOk = () => {
+    setConfirmLoading(true)
+    setTimeout(() => {
+      setShowEditComment(false)
+    }, 4000)
+  }
   const handleCancel = () => {
     setShowEditComment(false)
   }
