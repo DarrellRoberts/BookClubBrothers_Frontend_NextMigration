@@ -9,6 +9,7 @@ import EditImageURLForm from "./imageURL/EditImageURLForm"
 import useForm from "@/hooks/crud-hooks/useForm"
 import { useAppDispatch, useAppSelector } from "@/store/lib/hooks"
 import { setFormData } from "@/store/lib/features/books/bookFormDataSlice"
+import { setShowEdit } from "@/store/lib/features/auth/editButtonsSlice"
 
 type Props = {
   inAuthor: string
@@ -45,6 +46,7 @@ const EditForm: React.FC<Props> = ({
   const handleForm = () => {
     if (inputError) return
     enterLoading()
+    setTimeout(() => dispatch(setShowEdit()), 4000)
   }
   const formData = useAppSelector((state) => state.bookFormData.formData)
   const dispatch = useAppDispatch()

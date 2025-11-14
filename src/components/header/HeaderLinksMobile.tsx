@@ -1,27 +1,26 @@
-/* eslint-disable react/react-in-jsx-scope */
-import Link from "next/link";
-import { useState } from "react";
-import "../../style/header.css";
-import "../../style/headerRes.css";
+import Link from "next/link"
+import { useState } from "react"
+import "../../style/header.css"
+import "../../style/headerRes.css"
 
 const HeaderLinksMobile: React.FC = () => {
-  const [showMenu, setShowMenu] = useState<boolean>(false);
-  const [showBooks, setShowBooks] = useState<boolean>(false);
-  const [showBrothers, setShowBrothers] = useState<boolean>(false);
-  const [showAnimation, setShowAnimation] = useState<boolean>(false);
+  const [showMenu, setShowMenu] = useState<boolean>(false)
+  const [showBooks, setShowBooks] = useState<boolean>(false)
+  const [showBrothers, setShowBrothers] = useState<boolean>(false)
+  const [showAnimation, setShowAnimation] = useState<boolean>(false)
 
   const handleLinkClick = () => {
-    setShowMenu(false);
-    setShowBooks(false);
-    setShowBrothers(false);
-  };
+    setShowMenu(false)
+    setShowBooks(false)
+    setShowBrothers(false)
+  }
 
   return (
     <>
       <span
         onClick={() => {
-          setShowMenu(!showMenu);
-          setShowAnimation(true);
+          setShowMenu(!showMenu)
+          setShowAnimation(true)
         }}
         className="text-4xl"
       >
@@ -32,8 +31,8 @@ const HeaderLinksMobile: React.FC = () => {
           showMenu
             ? "headerLinksMobile"
             : showAnimation
-              ? "noHeaderLinksMobile"
-              : ""
+            ? "noHeaderLinksMobile"
+            : ""
         }
       >
         {showMenu ? (
@@ -42,8 +41,8 @@ const HeaderLinksMobile: React.FC = () => {
               <h2
                 className="underline text-3xl"
                 onClick={() => {
-                  setShowBooks(!showBooks);
-                  setShowBrothers(false);
+                  setShowBooks(!showBooks)
+                  setShowBrothers(false)
                 }}
               >
                 Book
@@ -96,8 +95,8 @@ const HeaderLinksMobile: React.FC = () => {
                 <h2
                   className="underline text-3xl"
                   onClick={() => {
-                    setShowBrothers(!showBrothers);
-                    setShowBooks(false);
+                    setShowBrothers(!showBrothers)
+                    setShowBooks(false)
                   }}
                 >
                   Brothers
@@ -119,7 +118,7 @@ const HeaderLinksMobile: React.FC = () => {
         ) : null}
       </div>
     </>
-  );
-};
+  )
+}
 
-export default HeaderLinksMobile;
+export default HeaderLinksMobile

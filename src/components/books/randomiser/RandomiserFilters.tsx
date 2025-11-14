@@ -1,7 +1,7 @@
 import { Book } from "@/types/BookInterface"
 import { User } from "@/types/UserInterface"
-import React, { useEffect, useState } from "react"
-import { useAppDispatch, useAppSelector } from "@/store/lib/hooks"
+import React, { useCallback, useEffect, useState } from "react"
+import { useAppDispatch } from "@/store/lib/hooks"
 import { setIndex } from "@/store/lib/features/randomise/randomiseSlice"
 import RandomiserSkeletonFilters from "./RandomiserSkeletonFilters"
 
@@ -38,25 +38,31 @@ const RandomiserFilters: React.FC<Props> = ({
     "Non-fiction",
   ]
 
-  const handleNameCheckbox = (value) => {
-    if (nameFilter.includes(value)) {
-      const tempArr = [...nameFilter]
-      setNameFilter(tempArr.filter((item) => item !== value))
-    } else {
-      const tempArr = [...nameFilter]
-      setNameFilter([...tempArr, value])
-    }
-  }
+  const handleNameCheckbox = useCallback(
+    (value) => {
+      if (nameFilter.includes(value)) {
+        const tempArr = [...nameFilter]
+        setNameFilter(tempArr.filter((item) => item !== value))
+      } else {
+        const tempArr = [...nameFilter]
+        setNameFilter([...tempArr, value])
+      }
+    },
+    [nameFilter]
+  )
 
-  const handleGenreCheckbox = (value) => {
-    if (genreFilter.includes(value)) {
-      const tempArr = [...genreFilter]
-      setGenreFilter(tempArr.filter((item) => item !== value))
-    } else {
-      const tempArr = [...genreFilter]
-      setGenreFilter([...tempArr, value])
-    }
-  }
+  const handleGenreCheckbox = useCallback(
+    (value) => {
+      if (genreFilter.includes(value)) {
+        const tempArr = [...genreFilter]
+        setGenreFilter(tempArr.filter((item) => item !== value))
+      } else {
+        const tempArr = [...genreFilter]
+        setGenreFilter([...tempArr, value])
+      }
+    },
+    [genreFilter]
+  )
 
   useEffect(() => {
     if (nameFilter.length === 0 && genreFilter.length === 0) {

@@ -1,28 +1,26 @@
-/* eslint-disable react/react-in-jsx-scope */
-/* eslint-disable react/prop-types */
-"use client";
+"use client"
 
-import { useState } from "react";
-import { Button, Form, Select, Space } from "antd";
-import { useAppSelector } from "@/store/lib/hooks";
+import { useState } from "react"
+import { Button, Form, Select, Space } from "antd"
+import { useAppSelector } from "@/store/lib/hooks"
 
-const { Option } = Select;
+const { Option } = Select
 
 interface props {
-  id: string;
-  inGenre: string[] | null;
+  id: string
+  inGenre: string[] | null
 }
 
 const EditGenre: React.FC<props> = ({ id, inGenre }) => {
-  const [favGenre, setFavGenre] = useState(inGenre?.map((genre) => `${genre}`));
-  const [error, setError] = useState("");
-  const [loadings, setLoadings] = useState([]);
+  const [favGenre, setFavGenre] = useState(inGenre?.map((genre) => `${genre}`))
+  const [error, setError] = useState("")
+  const [loadings, setLoadings] = useState([])
 
-  const token = useAppSelector((state) => state.token.tokenState);
+  const token = useAppSelector((state) => state.token.tokenState)
 
   const handleSubmit = async () => {
     try {
-      setError(null);
+      setError(null)
       const response = await fetch(
         `https://bookclubbrothers-backend.onrender.com/users/${id}`,
         {
@@ -35,37 +33,37 @@ const EditGenre: React.FC<props> = ({ id, inGenre }) => {
             userInfo: { favGenre },
           }),
         }
-      );
-      const data = await response.json();
+      )
+      const data = await response.json()
       if (!response.ok) {
-        setError(data.error);
-        console.log("something has happened");
+        setError(data.error)
+        console.log("something has happened")
       }
 
       if (response.ok) {
-        console.log("SUCCESS!!!");
+        return
       }
     } catch (error) {
-      setError(error);
-      console.log(error);
+      setError(error)
+      console.log(error)
     }
-  };
+  }
 
   const enterLoading = (index) => {
     setLoadings((prevLoadings) => {
-      const newLoadings = [...prevLoadings];
-      newLoadings[index] = true;
-      return newLoadings;
-    });
+      const newLoadings = [...prevLoadings]
+      newLoadings[index] = true
+      return newLoadings
+    })
     setTimeout(() => {
       setLoadings((prevLoadings) => {
-        const newLoadings = [...prevLoadings];
-        newLoadings[index] = false;
-        document.location.reload();
-        return newLoadings;
-      });
-    }, 4000);
-  };
+        const newLoadings = [...prevLoadings]
+        newLoadings[index] = false
+        document.location.reload()
+        return newLoadings
+      })
+    }, 4000)
+  }
   return (
     <>
       <Form
@@ -233,6 +231,6 @@ const EditGenre: React.FC<props> = ({ id, inGenre }) => {
       </Form>
     </>
   )
-};
+}
 
-export default EditGenre;
+export default EditGenre

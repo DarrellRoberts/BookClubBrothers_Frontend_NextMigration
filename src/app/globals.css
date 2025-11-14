@@ -37,6 +37,7 @@ body {
   background-color: var(--main-bg-color);
   color: var(--main-font-color);
   font-family: var(--main);
+  scroll-behavior: smooth;
 }
 
 body:has(#theme:checked) {

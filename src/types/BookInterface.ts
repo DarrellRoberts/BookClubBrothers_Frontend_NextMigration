@@ -1,4 +1,4 @@
-interface Book {
+export interface Book {
   author: string
   commentInfo?: {
     commentId?: string[]
@@ -16,28 +16,26 @@ interface Book {
     rating?: number[] | number
   }
   suggestedBy?: string
-  shortStories: [
-    {
-      scoreRatings?: {
-        raterId?: string[]
-        rating?: number[]
-      }
-      commentInfo?: {
-        commentId?: string[]
-        comments?: string[] | string
-      }
-
-      parentId: string
-      title: string
-      author: string
-      pages: number
-      _id: string
-    }
-  ]
+  shortStories?: ShortBook[]
   title: string
   totalScore?: number
   yearPublished: number
   _id?: string
 }
 
-export type { Book }
+export interface ShortBook {
+  scoreRatings?: {
+    raterId?: string[]
+    rating?: number[]
+  }
+  commentInfo?: {
+    commentId?: string[]
+    comments?: string[] | string
+  }
+
+  parentId: string
+  title: string
+  author: string
+  pages: number
+  _id: string
+}

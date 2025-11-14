@@ -1,5 +1,3 @@
-/* eslint-disable react/react-in-jsx-scope */
-/* eslint-disable react/prop-types */
 "use client"
 
 import { useState } from "react"
@@ -41,7 +39,7 @@ const EditUsername: React.FC<props> = ({ id, inUsername }) => {
       }
 
       if (response.ok) {
-        console.log("SUCCESS!!!")
+        return
       }
     } catch (error) {
       setError(error)

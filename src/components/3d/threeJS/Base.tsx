@@ -6,6 +6,7 @@ import ThreeScene from "./components/ThreeScene"
 import Loader from "@/components/loader/Loader"
 import { Book } from "@/types/BookInterface"
 import { Button } from "antd"
+import { div } from "three/webgpu"
 
 type Props = {
   readBooks: string[]
@@ -20,6 +21,12 @@ export default function Base({ readBooks, readIds, readBooksJson }: Props) {
   const [renderIds, setRenderIds] = useState<string[]>([])
   const [startIndex, setStartIndex] = useState<number>(5)
   const [endIndex, setEndIndex] = useState<number>(11)
+
+  const handleLoadMore = () => {
+    setRenderIds([...renderIds, ...readBooks.slice(startIndex, endIndex)])
+    setStartIndex((prev) => prev + 6)
+    setEndIndex((prev) => prev + 5)
+  }
 
   useEffect(() => {
     setRenderIds([...readIds])
@@ -51,14 +58,9 @@ export default function Base({ readBooks, readIds, readBooksJson }: Props) {
             />
             {readBooks.length - 1 !== renderIds.length ? (
               <Button
-                className="absolute bottom-20"
+                className="absolute bottom-30 max-sm:bottom-50"
                 onClick={() => {
-                  setRenderIds([
-                    ...renderIds,
-                    ...readBooks.slice(startIndex, endIndex),
-                  ])
-                  setStartIndex((prev) => prev + 6)
-                  setEndIndex((prev) => prev + 5)
+                  handleLoadMore()
                 }}
                 size="large"
               >

@@ -1,9 +1,10 @@
-/* eslint-disable react/react-in-jsx-scope */
 import { Button, Form, Input, Space, Select } from "antd"
 import useForm from "@/hooks/crud-hooks/useForm"
 import { useAppDispatch, useAppSelector } from "@/store/lib/hooks"
 import { setFormData } from "@/store/lib/features/books/bookFormDataSlice"
 import { useEffect, useState } from "react"
+import { editBookButtonSlice } from "@/store/lib/features/books/editBookButtonsSlice"
+import { setShowCreate } from "@/store/lib/features/auth/editButtonsSlice"
 
 const { Option } = Select
 
@@ -22,6 +23,11 @@ const CreateBook: React.FC = () => {
   )
   const formData = useAppSelector((state) => state.bookFormData.formData)
   const dispatch = useAppDispatch()
+
+  const handleLoading = () => {
+    enterLoading()
+    setTimeout(() => dispatch(setShowCreate()), 4000)
+  }
 
   useEffect(() => {
     if (Object.values(errorObject).some((value) => value === false)) {
@@ -369,7 +375,7 @@ const CreateBook: React.FC = () => {
             type="primary"
             ghost
             loading={loadings}
-            onClick={() => (error ? null : enterLoading())}
+            onClick={() => (error ? null : handleLoading())}
             htmlType="submit"
             size="large"
           >

@@ -1,12 +1,10 @@
-/* eslint-disable react/react-in-jsx-scope */
-/* eslint-disable react/prop-types */
-import { setShowGenre } from "@/store/lib/features/books/editBookButtonsSlice";
-import { useAppDispatch, useAppSelector } from "@/store/lib/hooks";
-import { Button } from "antd";
+import { setShowGenre } from "@/store/lib/features/books/editBookButtonsSlice"
+import { useAppDispatch, useAppSelector } from "@/store/lib/hooks"
+import { Button } from "antd"
 
 const EditGenreButton = () => {
-  const showGenre = useAppSelector((state) => state.editBookButtons.showGenre);
-  const dispatch = useAppDispatch();
+  const showGenre = useAppSelector((state) => state.editBookButtons.showGenre)
+  const dispatch = useAppDispatch()
   return (
     <>
       <div className="flex items-center">
@@ -30,6 +28,6 @@ const EditGenreButton = () => {
       </div>
     </>
   )
-};
+}
 
-export default EditGenreButton;
+export default EditGenreButton

@@ -1,5 +1,5 @@
 import { Book } from "@/types/BookInterface"
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import BookCover from "../BookCover"
 import { handleHideScores_NoSetter } from "@/utils/time-functions/hideScores"
 import Profile from "@/components/misc/profile/Profile"
@@ -14,18 +14,15 @@ type Props = {
   bookData: Book
 }
 
-const UserViewLeftSide: React.FC<Props> = ({ bookData }) => {
-  const [showLeftNavArrows, setShowLeftNavArrows] = useState<boolean>(true)
-  const [showRightNavArrows, setShowRightNavArrows] = useState<boolean>(true)
-
+const UserViewLeftSide = ({ bookData }: Props) => {
   const { singleUserData, loadingUser } = useSingleUserFetch(
-    `https://bookclubbrothers-backend.onrender.com/users/id/${bookData?.suggestedBy}`
+    `https://bookclubbrothers-backend.onrender.com/users/id/${bookData?.suggestedBy}`,
+    bookData?.suggestedBy
   )
   const isDarkMode = useAppSelector((state) => state.darkMode.darkMode)
 
   return !loadingUser ? (
     <div className="flex flex-col items-center justify-center max-md:flex-col max-md:items-center">
-      {/* <div className="flex items-center justify-end h-[100px] mb-[2rem]"> */}
       <div className="flex flex-col items-center justify-center">
         <h2>Suggested by: </h2>
         <Profile
@@ -36,7 +33,6 @@ const UserViewLeftSide: React.FC<Props> = ({ bookData }) => {
           username={singleUserData?.username}
         />
         <h2 className="p-[0] m-[0]">{singleUserData?.username}</h2>
-        {/* </div> */}
       </div>
       <div>
         {bookData?.reviewImageURL ? (

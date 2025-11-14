@@ -1,5 +1,3 @@
-/* eslint-disable react/react-in-jsx-scope */
-/* eslint-disable react/prop-types */
 "use client"
 
 import { setFormData } from "@/store/lib/features/books/bookFormDataSlice"

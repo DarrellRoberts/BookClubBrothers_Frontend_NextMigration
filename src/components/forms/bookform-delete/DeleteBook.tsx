@@ -1,5 +1,3 @@
-/* eslint-disable react/react-in-jsx-scope */
-/* eslint-disable react/prop-types */
 "use client"
 
 import { Button, Popconfirm } from "antd"
@@ -20,7 +18,8 @@ const DeleteBook: React.FC<Props> = ({ id }) => {
       handleSubmit()
       setTimeout(() => {
         resolve(null)
-        document.location.reload()
+
+        // document.location.reload()
       }, 3000)
     })
   return (

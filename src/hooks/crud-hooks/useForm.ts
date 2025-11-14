@@ -1,15 +1,27 @@
 "use client"
 
-import { useAppSelector } from "@/store/lib/hooks"
+import { useAppDispatch, useAppSelector } from "@/store/lib/hooks"
 import { useState } from "react"
+import { useQueryClient } from "@tanstack/react-query"
+import { setIsRefresh } from "@/store/lib/features/auth/editButtonsSlice"
 
 const useForm = (url: string, reqType: string, customData?: object) => {
   const [loadings, setLoadings] = useState(false)
   const [error, setError] = useState<any>()
 
+  const queryClient = useQueryClient()
+  const dispatch = useAppDispatch()
+
   const token = useAppSelector((state) => state.token.tokenState)
   const formData =
     customData ?? useAppSelector((state) => state.bookFormData.formData)
+
+  const listQueryKeys: string[][] = [
+    ["bookData"],
+    ["singleUserData"],
+    ["userData"],
+    ["unreadBookData"],
+  ]
 
   const handleSubmit = async () => {
     try {
@@ -23,12 +35,17 @@ const useForm = (url: string, reqType: string, customData?: object) => {
         body: reqType === "DELETE" ? null : JSON.stringify(formData),
       })
       const data = await response.json()
+      queryClient.invalidateQueries({
+        queryKey: ["bookData", "singleUserData", "userData", "unreadBookData"],
+      })
       if (!response.ok) {
         setError(data)
-        console.log("something has happened")
       }
 
       if (response.ok) {
+        listQueryKeys.forEach((queryKey) => {
+          queryClient.invalidateQueries({ queryKey: queryKey })
+        })
         return
       }
     } catch (error) {
@@ -39,9 +56,10 @@ const useForm = (url: string, reqType: string, customData?: object) => {
 
   const enterLoading = () => {
     setLoadings(true)
+    dispatch(setIsRefresh(true))
     setTimeout(() => {
       setLoadings(false)
-      document.location.reload()
+      dispatch(setIsRefresh(false))
     }, 4000)
   }
 

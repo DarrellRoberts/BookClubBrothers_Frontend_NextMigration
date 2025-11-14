@@ -1,6 +1,4 @@
-/* eslint-disable react/no-unescaped-entities */
 import React from "react"
-import { Book } from "@/types/BookInterface"
 import { Skeleton } from "antd"
 import { useAppSelector } from "@/store/lib/hooks"
 

@@ -1,4 +1,3 @@
-/* eslint-disable no-unsafe-optional-chaining */
 import React from "react"
 import styles from "./stats.module.css"
 import { Skeleton } from "antd"

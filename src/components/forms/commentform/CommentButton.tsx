@@ -1,5 +1,3 @@
-/* eslint-disable react/react-in-jsx-scope */
-/* eslint-disable react/prop-types */
 "use client"
 
 import { useState } from "react"
@@ -13,18 +11,8 @@ interface props {
 }
 
 const CommentButton: React.FC<props> = ({ setAddComment, addComment, id }) => {
-  const [confirmLoading, setConfirmLoading] = useState<boolean>(false)
-  const [modalText, setModalText] = useState(<CommentForm id={id} />)
-
   const showModal = () => {
     setAddComment(true)
-  }
-  const handleOk = () => {
-    setConfirmLoading(true)
-    setTimeout(() => {
-      setAddComment(false)
-      setModalText(<CommentForm id={id} />)
-    }, 4000)
   }
   const handleCancel = () => {
     setAddComment(false)
@@ -40,12 +28,10 @@ const CommentButton: React.FC<props> = ({ setAddComment, addComment, id }) => {
       <Modal
         title="Add Comment"
         open={addComment}
-        onOk={handleOk}
-        confirmLoading={confirmLoading}
         onCancel={handleCancel}
         footer={null}
       >
-        <p>{modalText}</p>
+        <CommentForm id={id} handleCancel={handleCancel} />
       </Modal>
     </>
   )

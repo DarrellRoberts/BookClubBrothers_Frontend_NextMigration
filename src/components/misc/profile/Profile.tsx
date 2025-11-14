@@ -6,7 +6,6 @@ import Link from "next/link"
 
 type Props = {
   imageURL: string
-  scaleMultiplier?: number
   isLink?: boolean
   username?: string
   width?: number
@@ -15,46 +14,42 @@ type Props = {
 
 const Profile: React.FC<Props> = ({
   imageURL,
-  scaleMultiplier,
   isLink,
   username,
   width,
   height,
 }) => {
-  const [imageSrc, setImageSrc] = useState<string>("")
-
-  useEffect(() => {
-    setImageSrc(imageURL)
-  }, [username])
-  return (
-    <>
-      {isLink ? (
-        <div className={style.profileCon}>
-          <Link
-            href={`/brothers/library/${username}`}
-            // style={{ transform: `scale(${scaleMultiplier})` }}
-          >
-            <Image
-              src={imageURL ? imageSrc : ProfileUnknownUserImage}
-              width={width ?? 200}
-              height={height ?? 300}
-              alt="Profile picture"
-            />
-          </Link>
-        </div>
-      ) : (
-        <div className={style.profileCon}>
-          <Image
-            src={imageURL ? imageSrc : ProfileUnknownUserImage}
-            width={width ?? 200}
-            height={height ?? 300}
-            alt="Profile picture"
-            // style={{ transform: `scale(${scaleMultiplier})` }}
-          />
-        </div>
-      )}
-    </>
+  return isLink && imageURL ? (
+    <div className={style.profileCon}>
+      <Link href={`/brothers/library/${username}`}>
+        <Image
+          src={imageURL}
+          width={width ?? 200}
+          height={height ?? 300}
+          alt="Profile picture"
+          loading="eager"
+        />
+      </Link>
+    </div>
+  ) : imageURL ? (
+    <div className={style.profileCon}>
+      <Image
+        src={imageURL}
+        width={width ?? 200}
+        height={height ?? 300}
+        alt="Profile picture"
+      />
+    </div>
+  ) : (
+    <div className={style.profileCon}>
+      <Image
+        src={ProfileUnknownUserImage.src}
+        width={width ?? 200}
+        height={height ?? 300}
+        alt="Profile picture"
+      />
+    </div>
   )
 }
 
-export default Profile
+export default React.memo(Profile)

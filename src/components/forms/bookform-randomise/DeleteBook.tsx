@@ -1,9 +1,9 @@
-/* eslint-disable react/react-in-jsx-scope */
-/* eslint-disable react/prop-types */
 "use client"
 
 import { Button, Popconfirm } from "antd"
 import useForm from "@/hooks/crud-hooks/useForm"
+import { useAppDispatch } from "@/store/lib/hooks"
+import { setIsRefresh } from "@/store/lib/features/auth/editButtonsSlice"
 
 type Props = {
   id: string
@@ -15,12 +15,16 @@ const DeleteBook: React.FC<Props> = ({ id }) => {
     "DELETE"
   )
 
+  const dispatch = useAppDispatch()
+
   const confirm = () =>
     new Promise((resolve) => {
       handleSubmit()
+      dispatch(setIsRefresh(true))
       setTimeout(() => {
         resolve(null)
-        document.location.reload()
+        dispatch(setIsRefresh(false))
+        // document.location.reload()
       }, 3000)
     })
   return (

@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unescaped-entities */
 import React, { ReactNode } from "react"
 import { Popover } from "antd"
 import "./popover.css"
@@ -21,6 +20,7 @@ const BadgeTemplate: React.FC<Props> = ({
   return (
     <Popover title={title} content={content}>
       <Image
+        data-testid="badge-image"
         className="rounded-full border-1 border-bc-font"
         src={badgeImageURL}
         alt={title}

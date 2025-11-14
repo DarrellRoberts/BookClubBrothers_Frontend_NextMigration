@@ -23,7 +23,8 @@ const AdminViewSingleBook: React.FC<Props> = ({ bookData, bookId }) => {
     (state) => state.editBookButtons
   )
   const { singleUserData } = useSingleUserFetch(
-    `https://bookclubbrothers-backend.onrender.com/users/id/${bookData?.suggestedBy}`
+    `https://bookclubbrothers-backend.onrender.com/users/id/${bookData?.suggestedBy}`,
+    bookData?.suggestedBy
   )
   return (
     <>

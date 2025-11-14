@@ -1,5 +1,3 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable react/react-in-jsx-scope */
 "use client"
 
 import { useState } from "react"
@@ -43,7 +41,7 @@ const EditCityAndCountry: React.FC<props> = ({ id, inCity, inCountry }) => {
       }
 
       if (response.ok) {
-        console.log("SUCCESS!!!")
+        return
       }
     } catch (error) {
       setError(error)
