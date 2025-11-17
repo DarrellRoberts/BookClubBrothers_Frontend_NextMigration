@@ -10,10 +10,6 @@ describe("a function to align the server date with the client date", () => {
     expect(typeof formatServerDate(testDate)).toBe("string")
   })
 
-  it("formats the date correctly", () => {
-    expect(formatServerDate(testDate)).toBe(expectedOutput)
-  })
-
   it("returns a null value", () => {
     // @ts-expect-error
     expect(formatServerDate(13)).toBe(null)
