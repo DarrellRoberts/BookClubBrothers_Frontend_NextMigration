@@ -4,6 +4,7 @@ import React, { useCallback, useEffect, useState } from "react"
 import { useAppDispatch } from "@/store/lib/hooks"
 import { setIndex } from "@/store/lib/features/randomise/randomiseSlice"
 import RandomiserSkeletonFilters from "./RandomiserSkeletonFilters"
+import { Genre } from "@/types/Genre"
 
 type Props = {
   bookData: Book[]
@@ -22,20 +23,20 @@ const RandomiserFilters: React.FC<Props> = ({
   const dispatch = useAppDispatch()
 
   const genreList = [
-    "Horror",
-    "Thriller",
-    "Comedy",
-    "Romance",
-    "Fantasy",
-    "Adventure",
-    "Anti-war",
-    "Drama",
-    "Action",
-    "Science-fiction",
-    "Dystopian",
-    "Postmodern",
-    "Anthology",
-    "Non-fiction",
+    Genre.HORROR,
+    Genre.THRILLER,
+    Genre.COMEDY,
+    Genre.ROMANCE,
+    Genre.FANTASTY,
+    Genre.ADVENTURE,
+    Genre.ANTIWAR,
+    Genre.DRAMA,
+    Genre.ACTION,
+    Genre.SCIFI,
+    Genre.DYSTOPIAN,
+    Genre.POSTMODERN,
+    Genre.ANTHOLOGY,
+    Genre.NONFICT,
   ]
 
   const handleNameCheckbox = useCallback(
