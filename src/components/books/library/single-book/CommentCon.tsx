@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 "use client"
 
-import React from "react"
+import React, { useMemo } from "react"
 import { useState } from "react"
 import CommentButton from "../../../forms/commentform/CommentButton"
 import EditCommentButton from "../../../forms/commentform/EditCommentButton"
@@ -15,7 +15,6 @@ import { findUserByUsername } from "@/utils/find-functions/find"
 import Link from "next/link"
 import ProfileSmall from "@/components/misc/profile/ProfileSmall"
 import useUserFetch from "@/hooks/fetch-hooks/useUserFetch"
-import LoaderNoText from "@/components/loader/LoaderNoText"
 import { useAppSelector } from "@/store/lib/hooks"
 import { Skeleton } from "antd"
 
@@ -39,15 +38,21 @@ const CommentCon: React.FC<Props> = ({ bookData, id, hideScores }) => {
   )
 
   const isDarkMode = useAppSelector((state) => state.darkMode.darkMode)
-  const commentObj: object | string[] = {}
-  findComment(bookData, userData, commentObj)
-  const initialComment = findCommentByUsername(username, bookData, userData)
+
+  const commentArray = useMemo(() => {
+    return findComment(bookData, userData)
+  }, [bookData, userData])
+
+  const initialComment = useMemo(
+    () => findCommentByUsername(username, bookData, userData),
+    [username, bookData, userData]
+  )
 
   return (
     <>
       <div
         className={`border-2 border-[var(--default-border-color)] flex flex-col items-center justify-start lg:w-[600px] ml-8 text-[var(--main-font-color)] font-main max-md:w-full max-md:m-8 max-md:p-4 ${
-          Object.entries(commentObj).length > 0 ? "h-auto" : "h-50"
+          commentArray?.length > 0 ? "h-auto" : "h-50"
         }`}
       >
         <h2 className="text-4xl text-center font-main underline">Comments</h2>
@@ -67,32 +72,38 @@ const CommentCon: React.FC<Props> = ({ bookData, id, hideScores }) => {
             </Skeleton.Node>
           </div>
         ) : (
-          Object.entries(commentObj).map(([name, value], i) => (
-            <div
-              className="flex m-4 mx-8 bg-black text-white justify-around p-4 rounded-2xl  max-md:flex-col"
-              key={i}
-            >
-              <div>
-                <h3 className=" max-lg:text-4xl  max-md:text-center">{name}</h3>
-                <Link href={`/brothers/library/${name}`}>
-                  <ProfileSmall
-                    imageURL={
-                      findUserByUsername(name, userData)?.userInfo?.profileURL
-                    }
-                  />
-                </Link>
-              </div>
-              <li
-                className={`
+          Array.isArray(commentArray) &&
+          commentArray?.map(([name, value], i) => {
+            const foundUser = findUserByUsername(name, userData)
+            const imageURL =
+              typeof foundUser !== "string"
+                ? foundUser?.userInfo?.profileURL
+                : null
+            return (
+              <div
+                className="flex m-4 mx-8 bg-black text-white justify-around p-4 rounded-2xl  max-md:flex-col"
+                key={i}
+              >
+                <div>
+                  <h3 className=" max-lg:text-4xl  max-md:text-center">
+                    {name}
+                  </h3>
+                  <Link href={`/brothers/library/${name}`}>
+                    <ProfileSmall imageURL={imageURL} />
+                  </Link>
+                </div>
+                <li
+                  className={`
                   ${hideScores && username !== name ? "text-3xl" : null} 
                   list-none mb-1 ml-2 flex items-center text-center
                    max-md:m-4  max-md:p-0  max-md:items-center max-md:justify-center
                 `}
-              >
-                {hideScores && username !== name ? "?" : `"${value}"`}
-              </li>
-            </div>
-          ))
+                >
+                  {hideScores && username !== name ? "?" : `"${value}"`}
+                </li>
+              </div>
+            )
+          })
         )}
 
         {decodedToken ? (

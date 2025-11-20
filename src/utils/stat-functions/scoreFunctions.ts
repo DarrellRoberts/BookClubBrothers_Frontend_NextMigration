@@ -86,7 +86,10 @@ export const unreadBookTitles = (bookArr: Book[], userId: string): string[] => {
   return unreadBooks?.map((book) => book.title)
 }
 
-export const userReadBookTitles = (bookArr: Book[], userId: string): string[] | null => {
+export const userReadBookTitles = (
+  bookArr: Book[],
+  userId: string
+): string[] | null => {
   const readBooks = filterUserReadBooks(bookArr, userId)
   return readBooks?.map((book) => book.title)
 }
@@ -109,20 +112,21 @@ export const findWorstBook = (user: User, bookData: Book[]): string | null => {
   }
 }
 
-export const genreAverageScore = (bookData: Book[], genre: string): number | null => {
+export const genreAverageScore = (
+  bookData: Book[],
+  genre: string
+): number | null => {
   if (bookData?.length > 0) {
     const genreJson: Book[] = bookData?.filter((book) =>
       book.genre[0].includes(genre)
     )
     if (genreJson.length > 0) {
-      const totalScoreArray: number[] = genreJson?.map(
-        (book) => book.totalScore
+      return (
+        genreJson
+          ?.map((book) => book.totalScore)
+          .reduce((accum, currentValue) => accum + currentValue) /
+        genreJson.length
       )
-      const totalScoreValue: number = totalScoreArray?.reduce(
-        (accum, currentValue) => accum + currentValue
-      )
-      const averageScore: number = totalScoreValue / genreJson.length
-      return averageScore
     }
   } else {
     return null
@@ -130,11 +134,9 @@ export const genreAverageScore = (bookData: Book[], genre: string): number | nul
 }
 
 export const genreFrequency = (bookData: Book[], genre: string): number => {
-  if (bookData?.length > 0) {
-    const genreJson: Book[] = bookData?.filter((book) =>
-      book.genre[0].includes(genre)
-    )
-    const genreLength: number = genreJson.length
-    return genreLength
+  if (bookData && bookData.length > 0) {
+    return bookData?.filter((book) => book.genre[0].includes(genre)).length
+  } else {
+    return null
   }
 }

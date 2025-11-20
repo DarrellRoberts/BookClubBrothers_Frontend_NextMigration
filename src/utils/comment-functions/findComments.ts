@@ -1,31 +1,39 @@
-import { findUser } from "../find-functions/find";
+import { Book } from "@/types/BookInterface"
+import { findUser } from "../find-functions/find"
+import { User } from "@/types/UserInterface"
 
-export const findComment = (bookData, userData, commentObj) => {
+export const findComment = (
+  bookData: Book,
+  userData: User[]
+): string[][] | null => {
   if (bookData && userData) {
+    let commentObj: object = {}
     const commentArray = bookData?.commentInfo?.commentId?.map((id) =>
       findUser(id, userData)
-    );
+    )
     for (let i = 0; i < commentArray?.length; i++) {
-      commentObj[commentArray[i]] = bookData?.commentInfo?.comments[i];
-      findUser(commentObj[bookData?.commentInfo?.comments[i]], userData);
+      commentObj[commentArray[i]] = bookData?.commentInfo?.comments[i]
     }
-    commentObj = Object.entries(commentObj);
-    return commentObj;
+    return Object.entries(commentObj)
+  } else {
+    return null
   }
-};
+}
 
-export const findCommentByUsername = (username, bookData, userData) => {
+export const findCommentByUsername = (
+  username,
+  bookData,
+  userData
+): string | null => {
   if (bookData && userData) {
-    let commentObj: object | string[] = {};
-    findComment(bookData, userData, commentObj);
-    commentObj = Object.entries(commentObj);
-    const result = Array.isArray(commentObj)
-      ? commentObj?.find((pair) => pair[0] === username)
-      : null;
+    const commentArray = findComment(bookData, userData)
+    const result = commentArray?.find((pair) => pair[0] === username)
     if (result) {
-      return result[1]; // Return the rating if username is found
+      return result[1]
     } else {
-      return false;
+      return null
     }
+  } else {
+    return null
   }
-};
+}
