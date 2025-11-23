@@ -22,7 +22,7 @@ const Booklibrary: React.FC = () => {
   const { limit, handleLimit, setIsLimit, isLimit } = useLimit()
 
   const { bookData, loadingBooks, error } = useBookFetch(
-    `https://bookclubbrothers-backend.onrender.com/books/limit/${limit}`,
+    `https://bookclubbrothers-backend.onrender.com/books`,
     limit
   )
 
@@ -50,6 +50,7 @@ const Booklibrary: React.FC = () => {
     return () => clearTimeout(timer)
   }, [limit, loadingBooks])
 
+  console.log(bookData)
   return (
     <>
       <div className="flex justify-between m-6 max-xs:flex-col-reverse max-xs:items-center ">

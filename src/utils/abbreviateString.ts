@@ -1,10 +1,10 @@
-const abbreviateString = (title: string) => {
-  let abbLabel: string = "";
-  const arr: string[] = title.split(" ");
+const abbreviateString = (title: string): string => {
+  let abbLabel: string = ""
+  const arr: string[] = title.split(" ")
   for (const word of arr) {
-    abbLabel = abbLabel + word[0];
+    abbLabel = abbLabel + word[0]
   }
-  return abbLabel;
-};
+  return abbLabel
+}
 
-export { abbreviateString };
+export { abbreviateString }

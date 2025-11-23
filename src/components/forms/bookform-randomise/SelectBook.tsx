@@ -6,7 +6,7 @@ type Props = {
 }
 
 const SelectBook: React.FC<Props> = ({ bookId }) => {
-  const { handleSubmit, enterLoading, loadings } = useForm(
+  const { handleSubmit, loadings } = useForm(
     `https://bookclubbrothers-backend.onrender.com/books/${bookId}`,
     "PUT",
     {
@@ -18,12 +18,7 @@ const SelectBook: React.FC<Props> = ({ bookId }) => {
   return (
     <>
       <Form onFinish={handleSubmit}>
-        <Button
-          loading={loadings}
-          onClick={() => enterLoading()}
-          htmlType="submit"
-          size="large"
-        >
+        <Button loading={loadings} htmlType="submit" size="large">
           Select
         </Button>
       </Form>

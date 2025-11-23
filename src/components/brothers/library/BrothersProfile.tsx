@@ -152,7 +152,7 @@ const BrothersProfile: React.FC<Props> = ({ user, readBooks, userData }) => {
             {Object.keys(userBookObj).length !== 0 &&
             handleHideScores_NoSetter(
               findDateOfMeeting(
-                userBookObj[userData?.indexOf(user)][1],
+                userBookObj[userData?.indexOf(user)][1] as string,
                 readBooks
               )
             )
