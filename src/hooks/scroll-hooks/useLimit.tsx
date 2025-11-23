@@ -19,7 +19,7 @@ const useLimit = () => {
   const [isLimit, setIsLimit] = useState<boolean>(false)
 
   const handleLimit = () => {
-    if (limit >= 18) return
+    if (limit >= 19) return
     setIsLimit(true)
     const extraBooks =
       limitDefault === limit
