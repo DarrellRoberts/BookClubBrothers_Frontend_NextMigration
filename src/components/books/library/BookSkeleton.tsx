@@ -20,7 +20,7 @@ const BookSkeleton = ({ freq, noTitle }: Props) => {
   }, [freq])
 
   return (
-    <div className="ml-4 flex w-full flex-wrap gap-6">
+    <div className="min-md:ml-4 flex flex-wrap gap-6 max-md:flex-col max-md:items-center">
       {skeletonArray?.map((node) => (
         <div className="flex flex-col items-center gap-1" key={node}>
           {noTitle ? null : (
@@ -33,7 +33,7 @@ const BookSkeleton = ({ freq, noTitle }: Props) => {
             <Skeleton.Node
               active={true}
               style={{
-                width: handleDesktop ? 375 : 300,
+                width: handleDesktop ? 375 : 285,
                 height: 250,
                 filter: isDarkMode ? "invert(1)" : "invert(0)",
               }}

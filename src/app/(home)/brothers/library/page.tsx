@@ -30,7 +30,11 @@ const Brothercat: React.FC = () => {
   return (
     <>
       <div className="m-6">
-        <Search setSearchBar={setSearchBar} filteredUsers={filteredResults} />
+        <Search
+          setSearchBar={setSearchBar}
+          filteredUsers={filteredResults}
+          isDisabled={loadingUsers}
+        />
       </div>
       {loadingUsers && loadingBooks ? (
         <>

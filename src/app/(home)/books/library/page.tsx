@@ -50,11 +50,14 @@ const Booklibrary: React.FC = () => {
     return () => clearTimeout(timer)
   }, [limit, loadingBooks])
 
-  console.log(bookData)
   return (
     <>
       <div className="flex justify-between m-6 max-xs:flex-col-reverse max-xs:items-center ">
-        <Search setSearchBar={setSearchBar} filteredBooks={filteredResults} />
+        <Search
+          setSearchBar={setSearchBar}
+          filteredBooks={filteredResults}
+          isDisabled={books.length === 0}
+        />
         <Link href="/books/library/3d">
           <Button size="large">3D View</Button>
         </Link>
