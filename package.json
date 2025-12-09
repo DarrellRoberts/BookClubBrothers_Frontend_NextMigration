@@ -7,7 +7,10 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "jest test"
+    "test": "jest test",
+    "e2e_test": "npx playwright test",
+    "e2e_report": "npx playwright show-report",
+    "e2e_ui": "npx playwright test --ui"
   },
   "dependencies": {
     "@react-three/drei": "^9.109.5",
@@ -32,6 +35,7 @@
   "devDependencies": {
     "@eslint/compat": "^1.1.0",
     "@eslint/js": "^9.5.0",
+    "@playwright/test": "^1.57.0",
     "@testing-library/dom": "^10.4.1",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.0",
