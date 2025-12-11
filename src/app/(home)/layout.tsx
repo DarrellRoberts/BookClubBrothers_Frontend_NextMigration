@@ -3,13 +3,9 @@ import type { Metadata } from "next"
 import QueryProvider from "@/query/QueryProvider"
 import ScrollToTop from "../../utils/ScrollToTop"
 import "../globals.css"
-import dynamic from "next/dynamic"
 import Footer from "@/components/footer/Footer"
 import StoreProvider from "@/store/StoreProvider"
-
-const NoSSRHeader = dynamic(() => import("../../components/header/HeaderCon"), {
-  ssr: false,
-})
+import HeaderCon from "@/components/header/HeaderCon"
 
 export const metadata: Metadata = {
   title: "Book Club Brothers",
@@ -31,7 +27,7 @@ export default function RootLayout({
             <link rel="icon" href="./icon.svg" type="image/svg+xml" />
           </head>
           <body className="overflow-x-hidden">
-            <NoSSRHeader />
+            <HeaderCon />
             {children}
             <Footer />
           </body>
