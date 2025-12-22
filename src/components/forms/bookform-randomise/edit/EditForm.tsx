@@ -10,6 +10,7 @@ import useForm from "@/hooks/crud-hooks/useForm"
 import { useAppDispatch, useAppSelector } from "@/store/lib/hooks"
 import { setFormData } from "@/store/lib/features/books/bookFormDataSlice"
 import { setShowEdit } from "@/store/lib/features/auth/editButtonsSlice"
+import { config } from "@/configs/config"
 
 type Props = {
   inAuthor: string
@@ -39,7 +40,7 @@ const EditForm: React.FC<Props> = ({
     imageURL: false,
   })
   const { handleSubmit, error, loadings, enterLoading } = useForm(
-    `https://bookclubbrothers-backend.onrender.com/books/${id}`,
+    `${config.API_URL}/books/${id}`,
     "PUT"
   )
 

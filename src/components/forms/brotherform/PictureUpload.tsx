@@ -5,6 +5,7 @@ import axios from "axios"
 import { PlusOutlined } from "@ant-design/icons"
 import { Upload, Form, Button } from "antd"
 import { useAppSelector } from "@/store/lib/hooks"
+import { config } from "@/configs/config"
 
 const normFile = (e) => {
   if (Array.isArray(e)) {
@@ -43,15 +44,11 @@ const PictureUpload: React.FC<props> = ({ id, inImage }) => {
     try {
       const formData = new FormData()
       formData.append("avatar", image, image?.name)
-      await axios.post(
-        `https://bookclubbrothers-backend.onrender.com/users/upload/${id}`,
-        formData,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      )
+      await axios.post(`${config.API_URL}/users/upload/${id}`, formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
     } catch (error) {
       setError(error)
       console.error(error)
@@ -100,16 +97,13 @@ const PictureUpload: React.FC<props> = ({ id, inImage }) => {
       >
         <Upload
           name="picture"
-          action={`https://bookclubbrothers-backend.onrender.com/users/${id}`}
+          action={`${config.API_URL}/users/${id}`}
           listType="picture-card"
           onChange={handleImageChange}
           beforeUpload={() => false}
         >
           <div>
-            <PlusOutlined
-              onPointerEnterCapture={undefined}
-              onPointerLeaveCapture={undefined}
-            />
+            <PlusOutlined />
             <div className="text-white" style={{ marginTop: 8 }}>
               Upload
             </div>

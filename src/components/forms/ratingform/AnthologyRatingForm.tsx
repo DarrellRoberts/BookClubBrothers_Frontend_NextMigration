@@ -5,6 +5,7 @@ import { Book } from "@/types/BookInterface"
 import { useMemo, useState } from "react"
 import { handleMultipleSubmits } from "@/utils/handleMultipleSubmits"
 import { useAppSelector } from "@/store/lib/hooks"
+import { config } from "@/configs/config"
 
 type Props = {
   id: string | string[]
@@ -30,7 +31,7 @@ const AnthologyRatingForm: React.FC<Props> = ({ id, singleBook }) => {
     for (let i = 0; i < singleBook.shortStories.length; i++) {
       promiseArr.push(
         await handleMultipleSubmits(
-          `https://bookclubbrothers-backend.onrender.com/books/${id}/${singleBook?.shortStories[i]._id}`,
+          `${config.API_URL}/books/${id}/${singleBook?.shortStories[i]._id}`,
           { rating: Object.values(raterStoriesObject)[i] },
           "POST",
           token

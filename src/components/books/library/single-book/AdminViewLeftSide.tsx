@@ -12,6 +12,7 @@ import NavigateBook from "./NavigateBook"
 import Profile from "@/components/misc/profile/Profile"
 import useSingleUserFetch from "@/hooks/fetch-hooks/useSingleUserFetch"
 import Image from "next/image"
+import { config } from "@/configs/config"
 
 type Props = {
   bookData: Book
@@ -23,7 +24,7 @@ const AdminViewSingleBook: React.FC<Props> = ({ bookData, bookId }) => {
     (state) => state.editBookButtons
   )
   const { singleUserData } = useSingleUserFetch(
-    `https://bookclubbrothers-backend.onrender.com/users/id/${bookData?.suggestedBy}`,
+    `${config.API_URL}/users/id/${bookData?.suggestedBy}`,
     bookData?.suggestedBy
   )
   return (

@@ -9,6 +9,7 @@ import Image from "next/image"
 import { Skeleton } from "antd"
 import BookSkeleton from "../BookSkeleton"
 import { useAppSelector } from "@/store/lib/hooks"
+import { config } from "@/configs/config"
 
 type Props = {
   bookData: Book
@@ -16,7 +17,7 @@ type Props = {
 
 const UserViewLeftSide = ({ bookData }: Props) => {
   const { singleUserData, loadingUser } = useSingleUserFetch(
-    `https://bookclubbrothers-backend.onrender.com/users/id/${bookData?.suggestedBy}`,
+    `${config.API_URL}/users/id/${bookData?.suggestedBy}`,
     bookData?.suggestedBy
   )
   const isDarkMode = useAppSelector((state) => state.darkMode.darkMode)

@@ -165,11 +165,7 @@ const BrothersProfile: React.FC<Props> = ({ user, readBooks, userData }) => {
           </li>
         </ul>
         <div className="mt-auto mb-5 flex">
-          <DoubleLeftOutlined
-            className="leftArrow text-2xl max-sm:text-base"
-            onPointerEnterCapture={undefined}
-            onPointerLeaveCapture={undefined}
-          />
+          <DoubleLeftOutlined className="leftArrow text-2xl max-sm:text-base" />
           <span className="pr-5 text-center max-sm:pr-[5px] max-sm:text-[0.80rem] max-xs:text-[0.55rem]">
             Click the photo on the left to view more details
           </span>
