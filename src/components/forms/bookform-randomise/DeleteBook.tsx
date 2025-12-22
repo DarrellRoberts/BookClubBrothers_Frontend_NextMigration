@@ -4,6 +4,7 @@ import { Button, Popconfirm } from "antd"
 import useForm from "@/hooks/crud-hooks/useForm"
 import { useAppDispatch } from "@/store/lib/hooks"
 import { setIsRefresh } from "@/store/lib/features/auth/editButtonsSlice"
+import { config } from "@/configs/config"
 
 type Props = {
   id: string
@@ -11,7 +12,7 @@ type Props = {
 
 const DeleteBook: React.FC<Props> = ({ id }) => {
   const { handleSubmit, error } = useForm(
-    `https://bookclubbrothers-backend.onrender.com/books/${id}`,
+    `${config.API_URL}/books/${id}`,
     "DELETE"
   )
 

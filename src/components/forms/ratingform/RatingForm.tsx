@@ -7,6 +7,7 @@ import { setFormData } from "@/store/lib/features/books/bookFormDataSlice"
 import { User } from "@/types/UserInterface"
 import ScorePreview from "./ScorePreview"
 import { useEffect } from "react"
+import { config } from "@/configs/config"
 
 type Props = {
   id: string | string[]
@@ -28,7 +29,7 @@ const RatingForm: React.FC<Props> = ({
   const dispatch = useAppDispatch()
 
   const { handleSubmit, error, enterLoading, loadings } = useForm(
-    `https://bookclubbrothers-backend.onrender.com/books/rating/${id}`,
+    `${config.API_URL}/books/rating/${id}`,
     "POST",
     { rating }
   )

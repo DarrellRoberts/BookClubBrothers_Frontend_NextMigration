@@ -15,6 +15,7 @@ import AdminViewRightSide from "@/components/books/library/single-book/AdminView
 import UserViewRightSide from "@/components/books/library/single-book/UserViewRightSide"
 import { useState } from "react"
 import NavigateBook from "@/components/books/library/single-book/NavigateBook"
+import { config } from "@/configs/config"
 
 const SingleBook: React.FC = () => {
   const [showLeftNavArrows, setShowLeftNavArrows] = useState<boolean>(true)
@@ -25,7 +26,7 @@ const SingleBook: React.FC = () => {
   const { decodedToken } = useAuth()
 
   const { bookData, loadingBooks, error } = useBookFetch(
-    `https://bookclubbrothers-backend.onrender.com/books/${id}`,
+    `${config.API_URL}/books/${id}`,
     id
   )
 

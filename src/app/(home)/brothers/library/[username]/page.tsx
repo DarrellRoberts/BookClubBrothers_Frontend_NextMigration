@@ -11,15 +11,16 @@ import BrotherBooksScored from "@/components/brothers/dashboard/BrotherBooksScor
 import BrotherLoadingBanner from "@/components/brothers/dashboard/BrotherLoadingBanner"
 import BrotherLoadingBooksScored from "@/components/brothers/dashboard/BrotherLoadingBooksScored"
 import BrotherLoadingCommentCon from "@/components/brothers/dashboard/BrotherLoadingCommentCon"
+import { config } from "@/configs/config"
 
 const Dashboard: React.FC = () => {
   const { userData, loadingUsers } = useUserFetch(
-    `https://bookclubbrothers-backend.onrender.com/users`,
+    `${config.API_URL}/users`,
     null
   )
 
   const { bookData, loadingBooks } = useBookFetch(
-    "https://bookclubbrothers-backend.onrender.com/books",
+    `${config.API_URL}/books`,
     null
   )
 

@@ -8,6 +8,7 @@ import RandomSectionRight from "@/components/books/randomiser/RandomSectionRight
 import RandomiserFilters from "@/components/books/randomiser/RandomiserFilters"
 import { useEffect, useState } from "react"
 import { useAppSelector } from "@/store/lib/hooks"
+import { config } from "@/configs/config"
 
 const RandomiserHomepage: React.FC = () => {
   const [randomiserBooks, setRandomiserBooks] = useState([])
@@ -15,11 +16,11 @@ const RandomiserHomepage: React.FC = () => {
   const isRefresh = useAppSelector((state) => state.editButtons.isRefresh)
 
   const { bookData, loadingBooks, error } = useBookFetch(
-    "https://bookclubbrothers-backend.onrender.com/books/unread/all",
+    `${config.API_URL}/books/unread/all`,
     null
   )
   const { userData, loadingUsers } = useUserFetch(
-    "https://bookclubbrothers-backend.onrender.com/users",
+    `${config.API_URL}/users`,
     null
   )
 

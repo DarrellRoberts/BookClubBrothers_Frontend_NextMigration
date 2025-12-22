@@ -1,5 +1,6 @@
 "use client"
 
+import { config } from "@/configs/config"
 import useForm from "@/hooks/crud-hooks/useForm"
 import { setFormData } from "@/store/lib/features/books/bookFormDataSlice"
 import { useAppDispatch, useAppSelector } from "@/store/lib/hooks"
@@ -16,7 +17,7 @@ const EditBookAuthor: React.FC<Props> = ({ id, inAuthor }) => {
   const dispatch = useAppDispatch()
 
   const { handleSubmit, error, enterLoading, loadings } = useForm(
-    `https://bookclubbrothers-backend.onrender.com/books/${id}`,
+    `${config.API_URL}/books/${id}`,
     "PUT",
     { author }
   )

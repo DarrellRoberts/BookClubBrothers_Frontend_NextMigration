@@ -4,6 +4,7 @@ import Link from "next/link"
 import useBookFetch from "@/hooks/fetch-hooks/useReadBookFetch"
 import { useAppSelector } from "@/store/lib/hooks"
 import { useParams } from "next/navigation"
+import { config } from "@/configs/config"
 
 type Props = {
   isLeft?: boolean
@@ -23,7 +24,7 @@ const NavigateBook = ({
   const isDarkMode = useAppSelector((state) => state.darkMode.darkMode)
 
   const { bookData, loadingBooks } = useBookFetch(
-    `https://bookclubbrothers-backend.onrender.com/books`,
+    `${config.API_URL}/books`,
     null
   )
 

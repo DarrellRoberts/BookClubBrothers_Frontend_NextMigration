@@ -3,6 +3,7 @@
 import { useState } from "react"
 import { Button, Form, Input } from "antd"
 import { useAppSelector } from "@/store/lib/hooks"
+import { config } from "@/configs/config"
 
 interface props {
   id: string
@@ -21,19 +22,16 @@ const EditCityAndCountry: React.FC<props> = ({ id, inCity, inCountry }) => {
   const handleSubmit = async () => {
     try {
       setError(null)
-      const response = await fetch(
-        `https://bookclubbrothers-backend.onrender.com/users/${id}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({
-            userInfo: { residence: { country, city } },
-          }),
-        }
-      )
+      const response = await fetch(`${config.API_URL}/users/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          userInfo: { residence: { country, city } },
+        }),
+      })
       const data = await response.json()
       if (!response.ok) {
         setError(data.error)

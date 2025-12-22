@@ -15,15 +15,16 @@ import { Skeleton } from "antd"
 import { useAppSelector } from "@/store/lib/hooks"
 import BrotherLoadingBooksScored from "@/components/brothers/dashboard/BrotherLoadingBooksScored"
 import { useMediaQuery } from "react-responsive"
+import { config } from "@/configs/config"
 
 const BrothersStats: React.FC = () => {
   const { userData, loadingUsers } = useUserFetch(
-    "https://bookclubbrothers-backend.onrender.com/users",
+    `${config.API_URL}/users`,
     null
   )
 
   const { bookData, loadingBooks } = useBookFetch(
-    "https://bookclubbrothers-backend.onrender.com/books",
+    `${config.API_URL}/books`,
     null
   )
   const isDarkMode = useAppSelector((state) => state.darkMode.darkMode)

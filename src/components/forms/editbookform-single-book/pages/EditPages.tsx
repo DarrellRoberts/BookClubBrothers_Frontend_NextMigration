@@ -4,6 +4,7 @@ import { Button, Form, Input } from "antd"
 import useForm from "@/hooks/crud-hooks/useForm"
 import { useAppDispatch, useAppSelector } from "@/store/lib/hooks"
 import { setFormData } from "@/store/lib/features/books/bookFormDataSlice"
+import { config } from "@/configs/config"
 
 type Props = {
   id: string | string[]
@@ -16,7 +17,7 @@ const EditPages: React.FC<Props> = ({ id, inPages }) => {
   const dispatch = useAppDispatch()
 
   const { handleSubmit, error, enterLoading, loadings } = useForm(
-    `https://bookclubbrothers-backend.onrender.com/books/${id}`,
+    `${config.API_URL}/books/${id}`,
     "PUT",
     { pages }
   )
