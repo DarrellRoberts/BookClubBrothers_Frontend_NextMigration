@@ -1,10 +1,12 @@
 "use client"
 
-import { Button, Modal } from "antd"
+import { Modal } from "antd"
 import { useState } from "react"
 import PictureUpload from "./PictureUpload"
 import { useAppDispatch, useAppSelector } from "@/store/lib/hooks"
 import { setShowImage } from "@/store/lib/features/auth/editButtonsSlice"
+import { UiButton } from "@/components/ui/button/UiButton"
+import { UiModal } from "@/components/ui/modal/UiModal"
 
 type Props = {
   id: string
@@ -36,20 +38,17 @@ const PictureUploadButton: React.FC<Props> = ({ id, inImage }) => {
   return (
     <>
       <div className="flex items-center">
-        <Button className="" onClick={showModal} size="large">
-          Change image
-        </Button>
+        <UiButton clickHandler={() => showModal()} textContent="Change Image" />
       </div>
-      <Modal
-        title="Change your profile picture"
+      <UiModal
+        title={"Change your profile picture"}
         open={showImage}
-        onOk={handleOk}
+        handleCancel={handleCancel}
+        handleOk={handleOk}
         confirmLoading={confirmLoading}
-        onCancel={handleCancel}
-        footer={null}
       >
-        <p>{modalText}</p>
-      </Modal>
+        {modalText}
+      </UiModal>
     </>
   )
 }

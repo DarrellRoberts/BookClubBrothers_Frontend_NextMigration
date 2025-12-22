@@ -1,5 +1,6 @@
 import { Button, Form } from "antd"
 import useForm from "@/hooks/crud-hooks/useForm"
+import { UiButton } from "@/components/ui/button/UiButton"
 
 type Props = {
   bookId: string
@@ -18,9 +19,12 @@ const SelectBook: React.FC<Props> = ({ bookId }) => {
   return (
     <>
       <Form onFinish={handleSubmit}>
-        <Button loading={loadings} htmlType="submit" size="large">
-          Select
-        </Button>
+        <UiButton
+          type="primary"
+          textContent="Select"
+          htmlType="submit"
+          loading={loadings}
+        />
       </Form>
     </>
   )

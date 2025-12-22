@@ -1,10 +1,12 @@
 "use client"
 
-import { Modal, Button } from "antd"
+import { Modal } from "antd"
 import { useState } from "react"
 import EditCityAndCountry from "./EditCityAndCountry"
 import { useAppDispatch, useAppSelector } from "@/store/lib/hooks"
 import { setShowCountry } from "@/store/lib/features/auth/editButtonsSlice"
+import { UiButton } from "@/components/ui/button/UiButton"
+import { UiModal } from "@/components/ui/modal/UiModal"
 
 type Props = {
   id: string
@@ -41,19 +43,16 @@ const EditCityAndCountryButton: React.FC<Props> = ({
   }
   return (
     <>
-      <Button className="" onClick={showModal} size="large">
-        Edit
-      </Button>
-      <Modal
-        title="Change your Country and City"
+      <UiButton clickHandler={() => showModal()} textContent="Edit" />
+      <UiModal
+        title={"Change your Country and City"}
         open={showCountry}
-        onOk={handleOk}
+        handleCancel={handleCancel}
+        handleOk={handleOk}
         confirmLoading={confirmLoading}
-        onCancel={handleCancel}
-        footer={null}
       >
-        <p>{modalText}</p>
-      </Modal>
+        {modalText}
+      </UiModal>
     </>
   )
 }

@@ -3,6 +3,7 @@ import { Popover } from "antd"
 import "./popover.css"
 import "./icon-number.css"
 import Image from "next/image"
+import { UiPopover } from "@/components/ui/popover/UiPopover"
 
 type Props = {
   badgeImageURL: string
@@ -18,7 +19,7 @@ const BadgeTemplate: React.FC<Props> = ({
   isVertical,
 }) => {
   return (
-    <Popover title={title} content={content}>
+    <UiPopover popContent={title} popTitle={content}>
       <Image
         data-testid="badge-image"
         className="rounded-full border-1 border-bc-font"
@@ -27,7 +28,7 @@ const BadgeTemplate: React.FC<Props> = ({
         width={isVertical ? 100 : 55}
         height={isVertical ? 100 : 55}
       />
-    </Popover>
+    </UiPopover>
   )
 }
 

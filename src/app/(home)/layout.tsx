@@ -6,6 +6,8 @@ import "../globals.css"
 import Footer from "@/components/footer/Footer"
 import StoreProvider from "@/store/StoreProvider"
 import HeaderCon from "@/components/header/HeaderCon"
+import { ConfigProvider } from "antd"
+import theme from "@/theme/theme.config"
 
 export const metadata: Metadata = {
   title: "Book Club Brothers",
@@ -20,19 +22,21 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <QueryProvider>
-        <StoreProvider>
-          <ScrollToTop />
-          <head>
-            <link rel="icon" href="./icon.svg" type="image/svg+xml" />
-          </head>
-          <body className="overflow-x-hidden">
-            <HeaderCon />
-            {children}
-            <Footer />
-          </body>
-        </StoreProvider>
-      </QueryProvider>
+      <ConfigProvider theme={theme}>
+        <QueryProvider>
+          <StoreProvider>
+            <ScrollToTop />
+            <head>
+              <link rel="icon" href="./icon.svg" type="image/svg+xml" />
+            </head>
+            <body className="overflow-x-hidden">
+              <HeaderCon />
+              {children}
+              <Footer />
+            </body>
+          </StoreProvider>
+        </QueryProvider>
+      </ConfigProvider>
     </html>
   )
 }

@@ -4,6 +4,7 @@ import { Button, Form, Input } from "antd"
 import useForm from "@/hooks/crud-hooks/useForm"
 import { useAppDispatch, useAppSelector } from "@/store/lib/hooks"
 import { setFormData } from "@/store/lib/features/books/bookFormDataSlice"
+import { UiButton } from "@/components/ui/button/UiButton"
 
 type Props = {
   id: string | string[]
@@ -72,15 +73,12 @@ const EditPublished: React.FC<Props> = ({ id, inPublish }) => {
             span: 16,
           }}
         >
-          <Button
-            className="loginButtons"
-            loading={loadings}
-            onClick={() => enterLoading()}
+          <UiButton
+            textContent="Submit"
+            clickHandler={() => enterLoading()}
             htmlType="submit"
-            size="large"
-          >
-            Submit
-          </Button>
+            loading={loadings}
+          />
           {error ? <h4 className="errorH">{error}</h4> : null}
         </Form.Item>
       </Form>

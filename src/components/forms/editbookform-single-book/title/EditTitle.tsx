@@ -1,5 +1,6 @@
 "use client"
 
+import { UiButton } from "@/components/ui/button/UiButton"
 import useForm from "@/hooks/crud-hooks/useForm"
 import { setFormData } from "@/store/lib/features/books/bookFormDataSlice"
 import { useAppDispatch, useAppSelector } from "@/store/lib/hooks"
@@ -65,15 +66,12 @@ const EditTitle: React.FC<Props> = ({ id, inTitle }) => {
             span: 16,
           }}
         >
-          <Button
-            className="loginButtons"
-            loading={loadings}
-            onClick={() => enterLoading()}
+          <UiButton
+            textContent="Submit"
+            clickHandler={() => enterLoading()}
             htmlType="submit"
-            size="large"
-          >
-            Submit
-          </Button>
+            loading={loadings}
+          />
           {error ? <h4 className="errorH">{error}</h4> : null}
         </Form.Item>
       </Form>

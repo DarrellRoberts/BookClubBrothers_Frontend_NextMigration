@@ -5,6 +5,7 @@ import { setFormData } from "@/store/lib/features/books/bookFormDataSlice"
 import { useEffect, useState } from "react"
 import { editBookButtonSlice } from "@/store/lib/features/books/editBookButtonsSlice"
 import { setShowCreate } from "@/store/lib/features/auth/editButtonsSlice"
+import { UiInput } from "@/components/ui/input/UiInput"
 
 const { Option } = Select
 
@@ -75,12 +76,12 @@ const CreateBook: React.FC = () => {
             },
           ]}
         >
-          <Input
-            type="text"
-            onChange={(e) =>
+          <UiInput
+            handleChange={(e) =>
               dispatch(setFormData({ ...formData, title: e.target.value }))
             }
             value={formData["title"]}
+            type="text"
           />
         </Form.Item>
 
@@ -109,12 +110,12 @@ const CreateBook: React.FC = () => {
             },
           ]}
         >
-          <Input
-            type="text"
-            onChange={(e) =>
+          <UiInput
+            handleChange={(e) =>
               dispatch(setFormData({ ...formData, author: e.target.value }))
             }
             value={formData["author"]}
+            type="text"
           />
         </Form.Item>
 
@@ -137,7 +138,7 @@ const CreateBook: React.FC = () => {
             },
           ]}
         >
-          <Input
+          {/* <Input
             type="number"
             onChange={(e) =>
               dispatch(
@@ -145,6 +146,15 @@ const CreateBook: React.FC = () => {
               )
             }
             value={formData["pages"]}
+          /> */}
+          <UiInput
+            handleChange={(e) =>
+              dispatch(
+                setFormData({ ...formData, pages: Number(e.target.value) })
+              )
+            }
+            value={formData["pages"]}
+            type="number"
           />
         </Form.Item>
 
@@ -168,7 +178,7 @@ const CreateBook: React.FC = () => {
             },
           ]}
         >
-          <Input
+          {/* <Input
             type="number"
             onChange={(e) =>
               dispatch(
@@ -179,6 +189,18 @@ const CreateBook: React.FC = () => {
               )
             }
             value={formData["yearPublished"]}
+          /> */}
+          <UiInput
+            handleChange={(e) =>
+              dispatch(
+                setFormData({
+                  ...formData,
+                  yearPublished: Number(e.target.value),
+                })
+              )
+            }
+            value={formData["yearPublished"]}
+            type="number"
           />
         </Form.Item>
 
@@ -355,12 +377,19 @@ const CreateBook: React.FC = () => {
             },
           ]}
         >
-          <Input
+          {/* <Input
             type="text"
             onChange={(e) =>
               dispatch(setFormData({ ...formData, imageURL: e.target.value }))
             }
             value={formData["imageURL"]}
+          /> */}
+          <UiInput
+            handleChange={(e) =>
+              dispatch(setFormData({ ...formData, imageURL: e.target.value }))
+            }
+            value={formData["imageURL"]}
+            type="text"
           />
         </Form.Item>
 
@@ -372,7 +401,6 @@ const CreateBook: React.FC = () => {
           }}
         >
           <Button
-            type="primary"
             ghost
             loading={loadings}
             onClick={() => (error ? null : handleLoading())}

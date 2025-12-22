@@ -5,6 +5,7 @@ import { Book } from "@/types/BookInterface"
 import { useEffect, useMemo, useState } from "react"
 import { handleMultipleSubmits } from "@/utils/handleMultipleSubmits"
 import { useAppSelector } from "@/store/lib/hooks"
+import { UiButton } from "@/components/ui/button/UiButton"
 
 type Props = {
   id: string | string[]
@@ -119,17 +120,13 @@ const EditAnthologyRatingForm: React.FC<Props> = ({
             span: 16,
           }}
         >
-          <Button
-            type="primary"
-            ghost
-            className="loginButtons"
+          <UiButton
+            textContent="Submit"
             loading={loadings}
-            onClick={() => enterLoading()}
+            clickHandler={() => enterLoading()}
             htmlType="submit"
-            size="large"
-          >
-            Submit
-          </Button>
+            ghost
+          />
           {/* {error ? <h4 className="errorH">{error}</h4> : null} */}
         </Form.Item>
       </Form>

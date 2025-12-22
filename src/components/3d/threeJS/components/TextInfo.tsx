@@ -2,6 +2,7 @@ import React from "react"
 import Link from "next/link"
 import { Button } from "antd"
 import { Book } from "@/types/BookInterface"
+import { UiButton } from "@/components/ui/button/UiButton"
 
 type Props = {
   readBooksJson: Book[]
@@ -26,9 +27,13 @@ export default function TextInfo({ clickId, readBooksJson }: Props) {
           Score: {bookInfo?.totalScore}
         </li>
       </ul>
-      <Link href={`/books/library/${bookInfo._id}`} className="z-[11]">
-        <Button>More Info</Button>
-      </Link>
+      <div className="z-11">
+        <UiButton
+          textContent="More Info"
+          isLink
+          href={`/books/library/${bookInfo._id}`}
+        />
+      </div>
     </div>
   )
 }

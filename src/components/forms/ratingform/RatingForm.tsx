@@ -7,6 +7,7 @@ import { setFormData } from "@/store/lib/features/books/bookFormDataSlice"
 import { User } from "@/types/UserInterface"
 import ScorePreview from "./ScorePreview"
 import { useEffect } from "react"
+import { UiButton } from "@/components/ui/button/UiButton"
 
 type Props = {
   id: string | string[]
@@ -102,17 +103,12 @@ const RatingForm: React.FC<Props> = ({
             span: 16,
           }}
         >
-          <Button
-            type="primary"
-            ghost
-            className="loginButtons"
+          <UiButton
+            textContent="Submit"
             loading={loadings}
-            onClick={() => handleLoading()}
+            clickHandler={() => handleLoading()}
             htmlType="submit"
-            size="large"
-          >
-            Submit
-          </Button>
+          />
           {error ? <h4 className="errorH">{error}</h4> : null}
         </Form.Item>
       </Form>

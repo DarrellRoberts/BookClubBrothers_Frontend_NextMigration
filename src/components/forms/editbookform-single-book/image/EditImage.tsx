@@ -5,6 +5,7 @@ import axios from "axios"
 import { Button, Form, Upload } from "antd"
 import { PlusOutlined } from "@ant-design/icons"
 import { useAppSelector } from "@/store/lib/hooks"
+import { UiButton } from "@/components/ui/button/UiButton"
 
 const normFile = (e) => {
   if (Array.isArray(e)) {
@@ -98,25 +99,18 @@ const EditImage: React.FC<props> = ({ id }) => {
             beforeUpload={() => false}
           >
             <div>
-              <PlusOutlined
-                onPointerEnterCapture={undefined}
-                onPointerLeaveCapture={undefined}
-              />
+              <PlusOutlined />
               <div style={{ marginTop: 8 }}>Upload</div>
             </div>
           </Upload>
         </Form.Item>
 
-        <Button
-          type="primary"
-          className="bg-black"
+        <UiButton
+          textContent="Submit"
+          clickHandler={() => enterLoading(0)}
           htmlType="submit"
           loading={loadings[0]}
-          onClick={() => enterLoading(0)}
-          size="large"
-        >
-          Submit
-        </Button>
+        />
 
         {error ? <p>{error}</p> : null}
       </Form>

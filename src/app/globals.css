@@ -61,7 +61,7 @@ body:has(#theme:checked) {
   border-color: var(--tertiaryColor);
 }
 
-:where(.css-dev-only-do-not-override-1rqnfsa).ant-btn-default,
+/* :where(.css-dev-only-do-not-override-1rqnfsa).ant-btn-default,
 :where(
     .css-dev-only-do-not-override-1rqnfsa
   ).ant-btn-color-dangerous.ant-btn-variant-outlined,
@@ -177,7 +177,7 @@ body:has(#theme:checked) {
 }
 
 /* button */
-:where(.css-dev-only-do-not-override-1rqnfsa).ant-btn-default {
+/* :where(.css-dev-only-do-not-override-1rqnfsa).ant-btn-default {
   background-color: black;
   color: white;
 }
@@ -277,10 +277,10 @@ body:has(#theme:checked) {
 :where(.css-dev-only-do-not-override-1rqnfsa).ant-form-item
   .ant-form-item-control-input-content {
   color: white;
-}
+} */
 
 /* deployed version */
-:where(.css-1rqnfsa).ant-modal .ant-modal-content {
+/* :where(.css-1rqnfsa).ant-modal .ant-modal-content {
   background-color: var(--tertiaryColor);
 }
 
@@ -320,4 +320,4 @@ body:has(#theme:checked) {
 
 :where(.css-1rqnfsa).ant-radio-wrapper span.ant-radio + * {
   color: white;
-}
+}  */

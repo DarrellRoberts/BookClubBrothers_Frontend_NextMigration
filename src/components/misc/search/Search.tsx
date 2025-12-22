@@ -102,25 +102,19 @@ const SearchBar: React.FC<Props> = ({
   })
 
   return (
-    <>
-      <Space direction="vertical">
-        <AutoComplete
-          onSelect={onSelect}
-          options={options}
-          disabled={isDisabled}
-        >
-          <Search
-            placeholder="Search by book title"
-            value={inputValue}
-            enterButton="Search"
-            size="large"
-            onChange={handleInputChange}
-            onSearch={onSearch}
-            allowClear
-          />
-        </AutoComplete>
-      </Space>
-    </>
+    <Space orientation="vertical">
+      <AutoComplete onSelect={onSelect} options={options} disabled={isDisabled}>
+        <Search
+          placeholder="Search by book title"
+          value={inputValue}
+          enterButton="Search"
+          size="large"
+          onChange={handleInputChange}
+          onSearch={onSearch}
+          allowClear
+        />
+      </AutoComplete>
+    </Space>
   )
 }
 

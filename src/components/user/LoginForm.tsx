@@ -3,6 +3,7 @@
 import { Button, Form, Input } from "antd"
 import { useState } from "react"
 import { useAuth } from "@/hooks/auth-hooks/useAuth"
+import { UiButton } from "../ui/button/UiButton"
 
 interface Login {
   setLoginOpen: React.Dispatch<React.SetStateAction<React.ReactNode>>
@@ -117,15 +118,12 @@ const LoginForm: React.FC<Login> = ({ setLoginOpen }) => {
               span: 16,
             }}
           >
-            <Button
-              type="primary"
-              ghost
-              className="loginButtons"
+            <UiButton
+              textContent={"Submit"}
               htmlType="submit"
+              ghost
               loading={loadings[0]}
-            >
-              Submit
-            </Button>
+            />
           </Form.Item>
         </Form>
       </div>

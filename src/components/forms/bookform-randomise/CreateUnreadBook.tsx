@@ -1,8 +1,10 @@
 import { useState } from "react"
-import { Modal, Button } from "antd"
+import { Modal, Button, ConfigProvider } from "antd"
 import CreateBookForm from "./CreateUnreadBookForm"
 import { useAppDispatch, useAppSelector } from "@/store/lib/hooks"
 import { setShowCreate } from "@/store/lib/features/auth/editButtonsSlice"
+import { UiButton } from "@/components/ui/button/UiButton"
+import { UiModal } from "@/components/ui/modal/UiModal"
 
 const CreateBook = () => {
   const [modalText, setModalText] = useState(<CreateBookForm />)
@@ -26,21 +28,28 @@ const CreateBook = () => {
   }
   return (
     <>
-      <div className="flex items-center">
-        <Button className="m-5" onClick={showModal} size="large">
-          Add book
-        </Button>
+      <div className="flex items-center mt-5">
+        <UiButton clickHandler={showModal} textContent="Add book" />
       </div>
-      <Modal
-        title="Add a book"
-        open={showCreateBook}
-        onOk={handleOk}
-        confirmLoading={confirmLoading}
-        onCancel={handleCancel}
-        footer={null}
+      <ConfigProvider
+        modal={{
+          styles: {
+            container: {
+              background: "#095d09",
+            },
+          },
+        }}
       >
-        <p>{modalText}</p>
-      </Modal>
+        <UiModal
+          title={"Add a book"}
+          open={showCreateBook}
+          handleOk={handleOk}
+          confirmLoading={confirmLoading}
+          handleCancel={handleCancel}
+        >
+          <div>{modalText}</div>
+        </UiModal>
+      </ConfigProvider>
     </>
   )
 }

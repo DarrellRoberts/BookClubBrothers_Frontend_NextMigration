@@ -4,6 +4,7 @@ import { Button, Form, Input } from "antd"
 import useForm from "@/hooks/crud-hooks/useForm"
 import { useAppDispatch, useAppSelector } from "@/store/lib/hooks"
 import { setFormData } from "@/store/lib/features/books/bookFormDataSlice"
+import { UiButton } from "@/components/ui/button/UiButton"
 
 const { TextArea } = Input
 
@@ -75,17 +76,13 @@ const EditCommentForm: React.FC<Props> = ({ id, inComment, handleCancel }) => {
             span: 16,
           }}
         >
-          <Button
-            type="primary"
+          <UiButton
+            textContent="Submit"
             ghost
-            className="loginButtons"
             loading={loadings}
-            onClick={() => handleLoadings()}
+            clickHandler={() => handleLoadings()}
             htmlType="submit"
-            size="large"
-          >
-            Submit
-          </Button>
+          />
           {error ? <h4 className="errorH">{error}</h4> : null}
         </Form.Item>
       </Form>

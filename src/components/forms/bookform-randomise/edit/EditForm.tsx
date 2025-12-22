@@ -10,6 +10,7 @@ import useForm from "@/hooks/crud-hooks/useForm"
 import { useAppDispatch, useAppSelector } from "@/store/lib/hooks"
 import { setFormData } from "@/store/lib/features/books/bookFormDataSlice"
 import { setShowEdit } from "@/store/lib/features/auth/editButtonsSlice"
+import { UiButton } from "@/components/ui/button/UiButton"
 
 type Props = {
   inAuthor: string
@@ -129,15 +130,13 @@ const EditForm: React.FC<Props> = ({
           span: 16,
         }}
       >
-        <Button
-          className="loginButtons"
-          loading={loadings}
-          onClick={() => handleForm()}
+        <UiButton
+          textContent={"Submit"}
           htmlType="submit"
-          size="large"
-        >
-          Submit
-        </Button>
+          clickHandler={() => handleForm()}
+          loading={loadings}
+          ghost
+        />
         {inputError ? <h4 className="errorH">{inputError}</h4> : null}
       </Form.Item>
     </Form>

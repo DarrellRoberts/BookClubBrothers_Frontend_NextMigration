@@ -1,21 +1,31 @@
-/* eslint-disable react/react-in-jsx-scope */
-import Link from "next/link"
-import { Button } from "antd"
+import React from "react"
+import { UiButton } from "@/components/ui/button/UiButton"
 
 const ClubHomepage: React.FC = () => {
+  const dashboardLinks = [
+    {
+      text: "About Us",
+      link: "/club/about",
+    },
+    {
+      text: "Badges",
+      link: "/club/badges",
+    },
+  ]
   return (
     <div className="h-[calc(85vh-100px)] max-xs:h-[calc(85vh-75px)]">
       <h1 className="text-8xl m-5 max-lg:text-6xl max-lg:text-center">
         The Club
       </h1>
       <div className="flex justify-evenly w-full">
-        <Link href="/club/about">
-          <Button size="large">About Us</Button>
-        </Link>
-
-        <Link href="/club/badges">
-          <Button size="large">Badges</Button>
-        </Link>
+        {dashboardLinks.map((btn) => (
+          <UiButton
+            isLink
+            href={btn.link}
+            textContent={btn.text}
+            key={btn.text}
+          />
+        ))}
       </div>
       <div
         className="flex justify-center mt-5 h-2/3"

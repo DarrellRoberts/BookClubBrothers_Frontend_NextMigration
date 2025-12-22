@@ -3,6 +3,8 @@
 import { useState } from "react"
 import { Button, Form, Input } from "antd"
 import { useAppSelector } from "@/store/lib/hooks"
+import { UiButton } from "@/components/ui/button/UiButton"
+import { UiInput } from "@/components/ui/input/UiInput"
 
 interface props {
   id: string
@@ -91,11 +93,11 @@ const EditUsername: React.FC<props> = ({ id, inUsername }) => {
             },
           ]}
         >
-          <Input
-            type="text"
-            onChange={(e) => setUsername(e.target.value)}
+          <UiInput
+            handleChange={(e) => setUsername(e.target.value)}
             defaultValue={username}
             value={username}
+            type="text"
           />
         </Form.Item>
 
@@ -106,15 +108,13 @@ const EditUsername: React.FC<props> = ({ id, inUsername }) => {
             span: 16,
           }}
         >
-          <Button
-            className="loginButtons"
+          <UiButton
+            textContent="Submit"
             loading={loadings[0]}
-            onClick={() => enterLoading(0)}
+            clickHandler={() => enterLoading(0)}
             htmlType="submit"
-            size="large"
-          >
-            Submit
-          </Button>
+            ghost
+          />
           {error ? <h4 className="errorH">{error}</h4> : null}
         </Form.Item>
       </Form>

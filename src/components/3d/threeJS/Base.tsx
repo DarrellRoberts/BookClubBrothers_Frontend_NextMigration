@@ -7,6 +7,7 @@ import Loader from "@/components/loader/Loader"
 import { Book } from "@/types/BookInterface"
 import { Button } from "antd"
 import { div } from "three/webgpu"
+import { UiButton } from "@/components/ui/button/UiButton"
 
 type Props = {
   readBooks: string[]
@@ -57,15 +58,12 @@ export default function Base({ readBooks, readIds, readBooksJson }: Props) {
               token={token}
             />
             {readBooks.length - 1 !== renderIds.length ? (
-              <Button
-                className="absolute bottom-30 max-sm:bottom-50"
-                onClick={() => {
-                  handleLoadMore()
-                }}
-                size="large"
-              >
-                Load more
-              </Button>
+              <div className="absolute bottom-30 max-sm:bottom-50">
+                <UiButton
+                  clickHandler={handleLoadMore}
+                  textContent="Load more"
+                />
+              </div>
             ) : null}
           </div>
         )}
