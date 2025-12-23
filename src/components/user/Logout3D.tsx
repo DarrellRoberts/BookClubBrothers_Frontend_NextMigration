@@ -1,7 +1,7 @@
 "use client"
 
-import { Button } from "antd"
 import { useState } from "react"
+import { UiButton } from "../ui/button/UiButton"
 
 const Logout3D: React.FC = () => {
   const [loadings, setLoadings] = useState([])
@@ -16,17 +16,14 @@ const Logout3D: React.FC = () => {
   }
   return (
     <>
-      <div className="flex items-center">
-        <Button
-          className="m-5"
-          type="primary"
+      <div className="flex items-center m-5">
+        <UiButton
           ghost
-          htmlType="submit"
+          clickHandler={handleClick}
           loading={loadings[0]}
-          onClick={handleClick}
-        >
-          Logout
-        </Button>
+          textContent={"Logout"}
+          htmlType="submit"
+        />
       </div>
     </>
   )

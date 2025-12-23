@@ -3,6 +3,7 @@
 import { Button, Popconfirm } from "antd"
 import useForm from "@/hooks/crud-hooks/useForm"
 import { config } from "@/configs/config"
+import { UiButton } from "@/components/ui/button/UiButton"
 
 type Props = {
   id: string | string[]
@@ -24,23 +25,25 @@ const DeleteBook: React.FC<Props> = ({ id }) => {
       }, 3000)
     })
   return (
-    <>
+    <div className="m-5">
       <Popconfirm
         className="deleteProfile"
         title="WARNING"
         description="Are you sure you want to delete this book?"
         onConfirm={confirm}
       >
-        <Button className="deleteButton" size="large" danger>
-          Delete Book
-        </Button>
+        <UiButton
+          textContent="Delete Book"
+          bgColor="darkred"
+          hoverBgColor="red"
+        />
       </Popconfirm>
       {error ? (
         <div className="authorisationMessage">
           <h2>{error}</h2>
         </div>
       ) : null}
-    </>
+    </div>
   )
 }
 

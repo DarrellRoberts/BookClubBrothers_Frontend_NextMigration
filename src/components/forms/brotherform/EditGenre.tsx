@@ -1,9 +1,10 @@
 "use client"
 
 import { useState } from "react"
-import { Button, Form, Select, Space } from "antd"
+import { Form, Select, Space } from "antd"
 import { useAppSelector } from "@/store/lib/hooks"
 import { config } from "@/configs/config"
+import { UiButton } from "@/components/ui/button/UiButton"
 
 const { Option } = Select
 
@@ -215,15 +216,13 @@ const EditGenre: React.FC<props> = ({ id, inGenre }) => {
             span: 16,
           }}
         >
-          <Button
-            className="loginButtons"
+          <UiButton
+            textContent="Submit"
             loading={loadings[0]}
-            onClick={() => enterLoading(0)}
+            clickHandler={() => enterLoading(0)}
             htmlType="submit"
-            size="large"
-          >
-            Submit
-          </Button>
+            ghost
+          />
           {error ? <h4 className="errorH">{error}</h4> : null}
         </Form.Item>
       </Form>

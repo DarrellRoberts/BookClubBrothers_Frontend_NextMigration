@@ -1,10 +1,11 @@
 "use client"
 
-import { Button, Popconfirm } from "antd"
+import { ConfigProvider, Popconfirm } from "antd"
 import useForm from "@/hooks/crud-hooks/useForm"
 import { useAppDispatch } from "@/store/lib/hooks"
 import { setIsRefresh } from "@/store/lib/features/auth/editButtonsSlice"
 import { config } from "@/configs/config"
+import { UiButton } from "@/components/ui/button/UiButton"
 
 type Props = {
   id: string
@@ -25,27 +26,39 @@ const DeleteBook: React.FC<Props> = ({ id }) => {
       setTimeout(() => {
         resolve(null)
         dispatch(setIsRefresh(false))
-        // document.location.reload()
       }, 3000)
     })
+
+  const popTheme = {
+    components: {
+      Popconfirm: {
+        colorText: "black",
+        colorTextHeading: "black",
+        colorBg: "black",
+      },
+    },
+  }
   return (
-    <>
+    <ConfigProvider theme={popTheme}>
       <Popconfirm
-        className="deleteProfile"
         title="WARNING"
         description="Are you sure you want to delete this book?"
         onConfirm={confirm}
       >
-        <Button className="deleteUnreadButton" danger size="large">
-          Delete Book
-        </Button>
+        <div>
+          <UiButton
+            bgColor="darkred"
+            hoverBgColor="red"
+            textContent="Delete Book"
+          />
+        </div>
       </Popconfirm>
       {error ? (
         <div className="authorisationMessage">
           <h2>{error}</h2>
         </div>
       ) : null}
-    </>
+    </ConfigProvider>
   )
 }
 

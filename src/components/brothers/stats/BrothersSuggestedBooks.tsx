@@ -38,7 +38,7 @@ const BrothersSuggestedBooks: React.FC<Props> = ({ userData, bookData }) => {
   createSuggestedTitlesMap()
   return (
     <>
-      {bookData?.length <= 0 ? (
+      {bookData?.length === 0 ? (
         <LoaderNoText />
       ) : (
         <>

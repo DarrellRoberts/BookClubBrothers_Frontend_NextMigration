@@ -1,9 +1,11 @@
 "use client"
 
 import { useState } from "react"
-import { Button, Form, Input } from "antd"
+import { Form, Input } from "antd"
 import { useAppSelector } from "@/store/lib/hooks"
 import { config } from "@/configs/config"
+import { UiButton } from "@/components/ui/button/UiButton"
+import { UiInput } from "@/components/ui/input/UiInput"
 
 interface props {
   id: string
@@ -90,11 +92,11 @@ const EditCityAndCountry: React.FC<props> = ({ id, inCity, inCountry }) => {
             },
           ]}
         >
-          <Input
-            type="text"
-            onChange={(e) => setCountry(e.target.value)}
+          <UiInput
+            handleChange={(e) => setCountry(e.target.value)}
             defaultValue={country}
             value={country}
+            type="text"
           />
         </Form.Item>
 
@@ -108,11 +110,11 @@ const EditCityAndCountry: React.FC<props> = ({ id, inCity, inCountry }) => {
             },
           ]}
         >
-          <Input
-            type="text"
-            onChange={(e) => setCity(e.target.value)}
+          <UiInput
+            handleChange={(e) => setCity(e.target.value)}
             defaultValue={city}
             value={city}
+            type="text"
           />
         </Form.Item>
 
@@ -123,15 +125,13 @@ const EditCityAndCountry: React.FC<props> = ({ id, inCity, inCountry }) => {
             span: 16,
           }}
         >
-          <Button
-            className="loginButtons"
+          <UiButton
+            textContent="Submit"
             loading={loadings[0]}
-            onClick={() => enterLoading(0)}
+            clickHandler={() => enterLoading(0)}
             htmlType="submit"
-            size="large"
-          >
-            Submit
-          </Button>
+            ghost
+          />
           {error ? <h4 className="errorH">{error}</h4> : null}
         </Form.Item>
       </Form>

@@ -1,10 +1,12 @@
 "use client"
 
-import { Button, Modal } from "antd"
+import { Modal } from "antd"
 import { useState } from "react"
 import EditUsername from "./EditUsername"
 import { useAppDispatch, useAppSelector } from "@/store/lib/hooks"
 import { setShowUsername } from "@/store/lib/features/auth/editButtonsSlice"
+import { UiButton } from "@/components/ui/button/UiButton"
+import { UiModal } from "@/components/ui/modal/UiModal"
 
 type Props = {
   id: string
@@ -36,21 +38,18 @@ const EditUsernameButton: React.FC<Props> = ({ id, inUsername }) => {
     <>
       <div className="flex items-center">
         {showUsername ? null : (
-          <Button className="" onClick={showModal} size="large">
-            Edit
-          </Button>
+          <UiButton clickHandler={() => showModal()} textContent="Edit" />
         )}
       </div>
-      <Modal
-        title="Change your Username"
+      <UiModal
+        title={"Change your Username"}
         open={showUsername}
-        onOk={handleOk}
+        handleCancel={handleCancel}
+        handleOk={handleOk}
         confirmLoading={confirmLoading}
-        onCancel={handleCancel}
-        footer={null}
       >
-        <p>{modalText}</p>
-      </Modal>
+        {modalText}
+      </UiModal>
     </>
   )
 }

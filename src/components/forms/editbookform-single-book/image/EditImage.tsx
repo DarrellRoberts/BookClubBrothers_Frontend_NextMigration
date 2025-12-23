@@ -6,6 +6,8 @@ import { Button, Form, Upload } from "antd"
 import { PlusOutlined } from "@ant-design/icons"
 import { useAppSelector } from "@/store/lib/hooks"
 import { config } from "@/configs/config"
+import { UiButton } from "@/components/ui/button/UiButton"
+import { InputConfigWrapper } from "../../InputConfigWrapper"
 
 const normFile = (e) => {
   if (Array.isArray(e)) {
@@ -43,15 +45,11 @@ const EditImage: React.FC<props> = ({ id }) => {
     try {
       const formData = new FormData()
       formData.append("picture", image, image?.name)
-      await axios.post(
-        `${config.API_URL}/books/${id}`,
-        formData,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      )
+      await axios.post(`${config.API_URL}/books/${id}`, formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
     } catch (error) {
       setError(error)
       console.error(error)
@@ -104,17 +102,33 @@ const EditImage: React.FC<props> = ({ id }) => {
             </div>
           </Upload>
         </Form.Item>
+        <InputConfigWrapper>
+          <Form.Item
+            name="fileList"
+            valuePropName="fileList"
+            getValueFromEvent={normFile}
+          >
+            <Upload
+              name="picture"
+              action={`https://bookclubbrothers-backend.onrender.com/users/${id}`}
+              listType="picture-card"
+              onChange={handleImageChange}
+              beforeUpload={() => false}
+            >
+              <div>
+                <PlusOutlined />
+                <div style={{ marginTop: 8 }}>Upload</div>
+              </div>
+            </Upload>
+          </Form.Item>
+        </InputConfigWrapper>
 
-        <Button
-          type="primary"
-          className="bg-black"
+        <UiButton
+          textContent="Submit"
+          clickHandler={() => enterLoading(0)}
           htmlType="submit"
           loading={loadings[0]}
-          onClick={() => enterLoading(0)}
-          size="large"
-        >
-          Submit
-        </Button>
+        />
 
         {error ? <p>{error}</p> : null}
       </Form>

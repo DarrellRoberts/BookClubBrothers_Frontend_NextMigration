@@ -7,6 +7,8 @@ import { Book } from "@/types/BookInterface"
 import AnthologyRatingForm from "./AnthologyRatingForm"
 import { User } from "@/types/UserInterface"
 import { useRouter } from "next/navigation"
+import { UiButton } from "@/components/ui/button/UiButton"
+import { UiModal } from "@/components/ui/modal/UiModal"
 
 type Props = {
   setShowRating: React.Dispatch<React.SetStateAction<boolean>>
@@ -51,16 +53,16 @@ const RatingButton: React.FC<Props> = ({
   }, [])
   return (
     <>
-      <div className="flex items-center">
-        <Button className="m-5" onClick={() => showModal()} size="large">
-          Submit rating
-        </Button>
+      <div className="flex items-center m-5">
+        <UiButton
+          clickHandler={() => showModal()}
+          textContent="Submit rating"
+        />
       </div>
-      <Modal
-        title="Submit Rating"
+      <UiModal
+        title={"Submit Rating"}
         open={showRating}
-        onCancel={handleCancel}
-        footer={null}
+        handleCancel={handleCancel}
       >
         {isAnthology ? (
           <AnthologyRatingForm singleBook={singleBook} id={id} />
@@ -72,7 +74,7 @@ const RatingButton: React.FC<Props> = ({
             handleCancel={handleCancel}
           />
         )}
-      </Modal>
+      </UiModal>
     </>
   )
 }

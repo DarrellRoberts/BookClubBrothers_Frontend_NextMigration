@@ -1,3 +1,4 @@
+import { UiButton } from "@/components/ui/button/UiButton"
 import { setShowTitle } from "@/store/lib/features/books/editBookButtonsSlice"
 import { useAppDispatch, useAppSelector } from "@/store/lib/hooks"
 import { Button } from "antd"
@@ -8,23 +9,10 @@ const EditTitleButton = () => {
   return (
     <>
       <div className="flex items-center">
-        {showTitle ? (
-          <Button
-            className="ml-5"
-            onClick={() => dispatch(setShowTitle())}
-            size="large"
-          >
-            X
-          </Button>
-        ) : (
-          <Button
-            className="ml-5"
-            onClick={() => dispatch(setShowTitle())}
-            size="large"
-          >
-            Edit Title
-          </Button>
-        )}
+        <UiButton
+          textContent={showTitle ? "X" : "Edit Title"}
+          clickHandler={() => dispatch(setShowTitle())}
+        />
       </div>
     </>
   )

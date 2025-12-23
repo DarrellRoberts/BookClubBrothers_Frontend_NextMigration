@@ -1,10 +1,12 @@
 "use client"
 
 import { config } from "@/configs/config"
+import { UiButton } from "@/components/ui/button/UiButton"
 import useForm from "@/hooks/crud-hooks/useForm"
 import { setFormData } from "@/store/lib/features/books/bookFormDataSlice"
 import { useAppDispatch, useAppSelector } from "@/store/lib/hooks"
 import { Button, Form, Input } from "antd"
+import { InputConfigWrapper } from "../../InputConfigWrapper"
 
 type Props = {
   id: string | string[]
@@ -40,24 +42,26 @@ const EditTitle: React.FC<Props> = ({ id, inTitle }) => {
         }}
       >
         {/* Title */}
-        <Form.Item
-          label="Title"
-          name="title"
-          rules={[
-            {
-              required: true,
-              message: "Please write the title of the book!",
-            },
-          ]}
-        >
-          <Input
-            //   type="text"
-            onChange={(e) =>
-              dispatch(setFormData({ ...formData, title: e.target.value }))
-            }
-            value={title}
-          />
-        </Form.Item>
+        <InputConfigWrapper>
+          <Form.Item
+            label="Title"
+            name="title"
+            rules={[
+              {
+                required: true,
+                message: "Please write the title of the book!",
+              },
+            ]}
+          >
+            <Input
+              //   type="text"
+              onChange={(e) =>
+                dispatch(setFormData({ ...formData, title: e.target.value }))
+              }
+              value={title}
+            />
+          </Form.Item>
+        </InputConfigWrapper>
 
         {/* Submission */}
         <Form.Item
@@ -66,15 +70,12 @@ const EditTitle: React.FC<Props> = ({ id, inTitle }) => {
             span: 16,
           }}
         >
-          <Button
-            className="loginButtons"
-            loading={loadings}
-            onClick={() => enterLoading()}
+          <UiButton
+            textContent="Submit"
+            clickHandler={() => enterLoading()}
             htmlType="submit"
-            size="large"
-          >
-            Submit
-          </Button>
+            loading={loadings}
+          />
           {error ? <h4 className="errorH">{error}</h4> : null}
         </Form.Item>
       </Form>

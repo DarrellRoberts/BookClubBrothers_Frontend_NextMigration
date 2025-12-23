@@ -3,6 +3,8 @@
 import { useState } from "react"
 import { Button, Modal } from "antd"
 import CommentForm from "./CommentForm"
+import { UiButton } from "@/components/ui/button/UiButton"
+import { UiModal } from "@/components/ui/modal/UiModal"
 
 interface props {
   setAddComment: React.Dispatch<React.SetStateAction<boolean>>
@@ -20,19 +22,16 @@ const CommentButton: React.FC<props> = ({ setAddComment, addComment, id }) => {
 
   return (
     <>
-      <div className="flex items-center">
-        <Button className="m-5" onClick={showModal} size="large">
-          Add Comment
-        </Button>
+      <div className="flex items-center m-5">
+        <UiButton clickHandler={() => showModal()} textContent="Add comment" />
       </div>
-      <Modal
-        title="Add Comment"
+      <UiModal
+        title={"Add Comment"}
         open={addComment}
-        onCancel={handleCancel}
-        footer={null}
+        handleCancel={handleCancel}
       >
         <CommentForm id={id} handleCancel={handleCancel} />
-      </Modal>
+      </UiModal>
     </>
   )
 }

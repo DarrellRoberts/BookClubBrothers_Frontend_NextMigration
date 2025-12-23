@@ -6,6 +6,7 @@ import { PlusOutlined } from "@ant-design/icons"
 import { Upload, Form, Button } from "antd"
 import { useAppSelector } from "@/store/lib/hooks"
 import { config } from "@/configs/config"
+import { UiButton } from "@/components/ui/button/UiButton"
 
 const normFile = (e) => {
   if (Array.isArray(e)) {
@@ -104,24 +105,20 @@ const PictureUpload: React.FC<props> = ({ id, inImage }) => {
         >
           <div>
             <PlusOutlined />
+            <PlusOutlined />
             <div className="text-white" style={{ marginTop: 8 }}>
               Upload
             </div>
           </div>
         </Upload>
       </Form.Item>
-
-      <Button
-        type="primary"
-        className="bg-black"
-        htmlType="submit"
+      <UiButton
+        textContent="Submit"
         loading={loadings[0]}
-        onClick={() => enterLoading(0)}
-        size="large"
-      >
-        Submit
-      </Button>
-
+        clickHandler={() => enterLoading(0)}
+        htmlType="submit"
+        ghost
+      />
       {error ? <p>{error}</p> : null}
     </Form>
   )

@@ -2,26 +2,15 @@ import React from "react"
 import { Skeleton } from "antd"
 import { useAppSelector } from "@/store/lib/hooks"
 import { useMediaQuery } from "react-responsive"
+import { UiSkeletonTitle } from "@/components/ui/skeleton/UiSkeletonTitle"
+import { UiSkeletonImage } from "@/components/ui/skeleton/UiSkeletonImage"
 
 const BrothersLoadingProfile: React.FC = () => {
-  const isDarkMode = useAppSelector((state) => state.darkMode.darkMode)
-  const handleDesktop = useMediaQuery({ query: "(min-device-width: 640px)" })
   return (
     <div className="mx-5 my-5 flex h-[500px] w-[700px] max-md:w-[500px] border-4 border-solid border-[var(--default-border-color)] bg-[var(--user-background-color)] max-sm:h-[400px] max-sm:w-[250px] max-xs:h-[300px]">
-      <div className="flex min-sm:w-1/2 flex-col items-center justify-evenly">
-        <Skeleton.Input
-          active={true}
-          size={handleDesktop ? "large" : "small"}
-          style={{ filter: isDarkMode ? "invert(1)" : "invert(0)" }}
-        />
-        <Skeleton.Image
-          active={true}
-          style={{
-            width: handleDesktop ? 200 : 100,
-            height: handleDesktop ? 350 : 300,
-            filter: isDarkMode ? "invert(1)" : "invert(0)",
-          }}
-        />
+      <div className="flex min-sm:w-1/2 flex-col items-center justify-evenly w-50">
+        <UiSkeletonTitle height={3} width={75} />
+        <UiSkeletonImage width={75} />
       </div>
 
       <div className="flex min-sm:w-1/2 flex-col min-sm:pl-10 pt-5 max-sm:pt-0">
@@ -29,25 +18,17 @@ const BrothersLoadingProfile: React.FC = () => {
           <li className="underline pt-5 text-xl max-sm:pt-[15px] max-sm:text-base ">
             Location
           </li>
-          <div className="flex">
+          <div>
             <li className="">
-              City:{" "}
-              <Skeleton.Input
-                active={true}
-                size="small"
-                style={{ filter: isDarkMode ? "invert(1)" : "invert(0)" }}
-              />
+              City:
+              <UiSkeletonTitle height={1.5} width={50} />
             </li>
           </div>
 
-          <div className="flex">
+          <div>
             <li>
-              Country:{" "}
-              <Skeleton.Input
-                active={true}
-                size="small"
-                style={{ filter: isDarkMode ? "invert(1)" : "invert(0)" }}
-              />
+              Country:
+              <UiSkeletonTitle height={1.5} width={50} />
             </li>
           </div>
 
@@ -56,31 +37,15 @@ const BrothersLoadingProfile: React.FC = () => {
               Favourite Genres
             </li>
           </div>
-          <div>
-            <Skeleton.Input
-              active={true}
-              size="small"
-              style={{ filter: isDarkMode ? "invert(1)" : "invert(0)" }}
-            />
-          </div>
+          <UiSkeletonTitle height={1.5} width={50} />
           <li className="underline pt-5 text-xl max-sm:pt-[15px] max-sm:text-base ">
             Last rating given
           </li>
           <li>
-            Book:{" "}
-            <Skeleton.Input
-              active={true}
-              size="small"
-              style={{ filter: isDarkMode ? "invert(1)" : "invert(0)" }}
-            />
+            Book: <UiSkeletonTitle height={1.5} width={50} />
           </li>
           <li>
-            Score:{" "}
-            <Skeleton.Input
-              active={true}
-              size="small"
-              style={{ filter: isDarkMode ? "invert(1)" : "invert(0)" }}
-            />
+            Score: <UiSkeletonTitle height={1.5} width={50} />
           </li>
         </ul>
       </div>

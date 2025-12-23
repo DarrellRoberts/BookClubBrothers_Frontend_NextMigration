@@ -1,3 +1,4 @@
+import { UiButton } from "@/components/ui/button/UiButton"
 import { setShowAuthor } from "@/store/lib/features/books/editBookButtonsSlice"
 import { useAppDispatch, useAppSelector } from "@/store/lib/hooks"
 import { Button } from "antd"
@@ -6,27 +7,12 @@ const EditAuthorButton = () => {
   const showAuthor = useAppSelector((state) => state.editBookButtons.showAuthor)
   const dispatch = useAppDispatch()
   return (
-    <>
-      <div className="flex items-center">
-        {showAuthor ? (
-          <Button
-            className="mb-5"
-            onClick={() => dispatch(setShowAuthor())}
-            size="large"
-          >
-            X
-          </Button>
-        ) : (
-          <Button
-            className="mb-5"
-            onClick={() => dispatch(setShowAuthor())}
-            size="large"
-          >
-            Edit Author
-          </Button>
-        )}
-      </div>
-    </>
+    <div className="flex items-center mb-5">
+      <UiButton
+        textContent={showAuthor ? "X" : "Edit Author"}
+        clickHandler={() => dispatch(setShowAuthor())}
+      />
+    </div>
   )
 }
 

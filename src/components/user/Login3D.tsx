@@ -1,8 +1,9 @@
 "use client"
 
-import { Button, Modal, Form } from "antd"
 import { useState } from "react"
 import LoginForm3D from "./LoginForm3D"
+import { UiButton } from "../ui/button/UiButton"
+import { UiModal } from "../ui/modal/UiModal"
 
 const Login: React.FC = () => {
   const [loginOpen, setLoginOpen] = useState<boolean>(false)
@@ -28,31 +29,18 @@ const Login: React.FC = () => {
   }
   return (
     <>
-      <div className="flex items-center">
-        <Button className="m-5" ghost type="primary" onClick={showModal}>
-          Login
-        </Button>
+      <div className="flex items-center m-5">
+        <UiButton ghost clickHandler={showModal} textContent={"Login"} />
       </div>
-      <Modal
-        title="Login"
+      <UiModal
+        title={"Login"}
         open={loginOpen}
-        onOk={handleOk}
+        handleOk={handleOk}
+        handleCancel={handleCancel}
         confirmLoading={confirmLoading}
-        onCancel={handleCancel}
-        footer={null}
       >
-        <p>{modalText}</p>
-        <Form.Item>
-          {/* Or
-          <Link
-            onClick={() => {
-              setLoginOpen(false);
-            }}
-          > */}
-          {/* <Signup /> */}
-          {/* </Link> */}
-        </Form.Item>
-      </Modal>
+        <div>{modalText}</div>
+      </UiModal>
     </>
   )
 }

@@ -5,6 +5,8 @@ import EditRatingForm from "./EditRatingForm"
 import EditAnthologyRatingForm from "./EditAnthologyRatingForm"
 import { Book } from "@/types/BookInterface"
 import { User } from "@/types/UserInterface"
+import { UiButton } from "@/components/ui/button/UiButton"
+import { UiModal } from "@/components/ui/modal/UiModal"
 
 type Props = {
   setShowEditRating: React.Dispatch<React.SetStateAction<boolean>>
@@ -36,16 +38,16 @@ const EditRatingButton: React.FC<Props> = ({
 
   return (
     <>
-      <div className="flex items-center">
-        <Button className="m-5" onClick={() => showModal()} size="large">
-          Change rating
-        </Button>
+      <div className="flex items-center m-5">
+        <UiButton
+          clickHandler={() => showModal()}
+          textContent="Change rating"
+        />
       </div>
-      <Modal
-        title="Change Rating"
+      <UiModal
+        title={"Change Rating"}
         open={showEditRating}
-        onCancel={handleCancel}
-        footer={null}
+        handleCancel={handleCancel}
       >
         {showEditRating && !isAnthology && (
           <EditRatingForm
@@ -63,7 +65,7 @@ const EditRatingButton: React.FC<Props> = ({
             singleBook={singleBook}
           />
         )}
-      </Modal>
+      </UiModal>
     </>
   )
 }

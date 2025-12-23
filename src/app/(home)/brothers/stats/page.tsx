@@ -10,12 +10,13 @@ import useBookFetch from "@/hooks/fetch-hooks/useReadBookFetch"
 import useUserFetch from "@/hooks/fetch-hooks/useUserFetch"
 import BrothersScores from "@/components/brothers/stats/BrothersScores"
 import BrothersSuggestedBooks from "@/components/brothers/stats/BrothersSuggestedBooks"
-import React, { useEffect } from "react"
-import { Skeleton } from "antd"
+import React from "react"
 import { useAppSelector } from "@/store/lib/hooks"
 import BrotherLoadingBooksScored from "@/components/brothers/dashboard/BrotherLoadingBooksScored"
 import { useMediaQuery } from "react-responsive"
 import { config } from "@/configs/config"
+import { UiSkeletonTitle } from "@/components/ui/skeleton/UiSkeletonTitle"
+import { UiSkeletonCircle } from "@/components/ui/skeleton/UiSkeletonCircle"
 
 const BrothersStats: React.FC = () => {
   const { userData, loadingUsers } = useUserFetch(
@@ -54,90 +55,13 @@ max-[450px]:text-center max-[450px]:ml-0 max-[450px]:my-8"
         </h2>
         {!readBooks ? (
           <>
-            <div
-              className="grid grid-cols-[repeat(auto-fill,minmax(250px,1fr))] gap-8
-max-[600px]:grid-cols-[repeat(auto-fill,minmax(150px,1fr))] "
-            >
-              <div className="flex flex-col items-center gap-2">
-                <Skeleton.Input
-                  active={true}
-                  style={{ filter: isDarkMode ? "invert(1)" : "invert(0)" }}
-                />
-                <Skeleton.Avatar
-                  active={true}
-                  shape="circle"
-                  size="large"
-                  style={{
-                    filter: isDarkMode ? "invert(1)" : "invert(0)",
-                    width: handleDesktop ? 275 : 190,
-                    height: handleDesktop ? 275 : 190,
-                  }}
-                />
-              </div>
-              <div className="flex flex-col items-center gap-2">
-                <Skeleton.Input
-                  active={true}
-                  style={{ filter: isDarkMode ? "invert(1)" : "invert(0)" }}
-                />
-                <Skeleton.Avatar
-                  active={true}
-                  shape="circle"
-                  size="large"
-                  style={{
-                    filter: isDarkMode ? "invert(1)" : "invert(0)",
-                    width: handleDesktop ? 275 : 190,
-                    height: handleDesktop ? 275 : 190,
-                  }}
-                />
-              </div>
-              <div className="flex flex-col items-center gap-2">
-                <Skeleton.Input
-                  active={true}
-                  style={{ filter: isDarkMode ? "invert(1)" : "invert(0)" }}
-                />
-                <Skeleton.Avatar
-                  active={true}
-                  shape="circle"
-                  size="large"
-                  style={{
-                    filter: isDarkMode ? "invert(1)" : "invert(0)",
-                    width: handleDesktop ? 275 : 190,
-                    height: handleDesktop ? 275 : 190,
-                  }}
-                />
-              </div>
-              <div className="flex flex-col items-center gap-2">
-                <Skeleton.Input
-                  active={true}
-                  style={{ filter: isDarkMode ? "invert(1)" : "invert(0)" }}
-                />
-                <Skeleton.Avatar
-                  active={true}
-                  shape="circle"
-                  size="large"
-                  style={{
-                    filter: isDarkMode ? "invert(1)" : "invert(0)",
-                    width: handleDesktop ? 275 : 190,
-                    height: handleDesktop ? 275 : 190,
-                  }}
-                />
-              </div>
-              <div className="flex flex-col items-center gap-2">
-                <Skeleton.Input
-                  active={true}
-                  style={{ filter: isDarkMode ? "invert(1)" : "invert(0)" }}
-                />
-                <Skeleton.Avatar
-                  active={true}
-                  shape="circle"
-                  size="large"
-                  style={{
-                    filter: isDarkMode ? "invert(1)" : "invert(0)",
-                    width: handleDesktop ? 275 : 190,
-                    height: handleDesktop ? 275 : 190,
-                  }}
-                />
-              </div>
+            <div className="flex justify-evenly flex-wrap gap-5">
+              {Array.from({ length: 5 }).map((_, index) => (
+                <div className="flex flex-col items-center gap-2" key={index}>
+                  <UiSkeletonTitle height={2} width={75} />
+                  <UiSkeletonCircle radius={17} />
+                </div>
+              ))}
             </div>
             <div>
               <h2 className="text-[2.5rem] underline my-8 ml-12 max-[450px]:text-center max-[450px]:ml-0 max-[450px]:my-8">

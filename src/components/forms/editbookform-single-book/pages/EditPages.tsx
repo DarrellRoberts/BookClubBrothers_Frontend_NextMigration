@@ -5,6 +5,8 @@ import useForm from "@/hooks/crud-hooks/useForm"
 import { useAppDispatch, useAppSelector } from "@/store/lib/hooks"
 import { setFormData } from "@/store/lib/features/books/bookFormDataSlice"
 import { config } from "@/configs/config"
+import { UiButton } from "@/components/ui/button/UiButton"
+import { InputConfigWrapper } from "../../InputConfigWrapper"
 
 type Props = {
   id: string | string[]
@@ -40,26 +42,28 @@ const EditPages: React.FC<Props> = ({ id, inPages }) => {
         }}
       >
         {/* Pages */}
-        <Form.Item
-          label="Pages"
-          name="pages"
-          rules={[
-            {
-              required: true,
-              message: "Please write the number of pages!",
-            },
-          ]}
-        >
-          <Input
-            type="number"
-            onChange={(e) =>
-              dispatch(
-                setFormData({ ...formData, pages: Number(e.target.value) })
-              )
-            }
-            value={pages}
-          />
-        </Form.Item>
+        <InputConfigWrapper>
+          <Form.Item
+            label="Pages"
+            name="pages"
+            rules={[
+              {
+                required: true,
+                message: "Please write the number of pages!",
+              },
+            ]}
+          >
+            <Input
+              type="number"
+              onChange={(e) =>
+                dispatch(
+                  setFormData({ ...formData, pages: Number(e.target.value) })
+                )
+              }
+              value={pages}
+            />
+          </Form.Item>
+        </InputConfigWrapper>
 
         {/* Submission */}
         <Form.Item
@@ -68,15 +72,12 @@ const EditPages: React.FC<Props> = ({ id, inPages }) => {
             span: 16,
           }}
         >
-          <Button
-            className="loginButtons"
-            loading={loadings}
-            onClick={() => enterLoading()}
+          <UiButton
+            textContent="Submit"
+            clickHandler={() => enterLoading()}
             htmlType="submit"
-            size="large"
-          >
-            Submit
-          </Button>
+            loading={loadings}
+          />
           {error ? <h4 className="errorH">{error}</h4> : null}
         </Form.Item>
       </Form>

@@ -1,10 +1,12 @@
 "use client"
 
 import { config } from "@/configs/config"
+import { UiButton } from "@/components/ui/button/UiButton"
 import useForm from "@/hooks/crud-hooks/useForm"
 import { setFormData } from "@/store/lib/features/books/bookFormDataSlice"
 import { useAppDispatch, useAppSelector } from "@/store/lib/hooks"
 import { Button, Form, DatePicker } from "antd"
+import { InputConfigWrapper } from "../../InputConfigWrapper"
 
 type Props = {
   id: string | string[]
@@ -41,15 +43,16 @@ const EditDate: React.FC<Props> = ({ id }) => {
         }}
       >
         {/* Date of Meeting */}
-        <Form.Item label="Date of Meeting" name="Date of Meeting">
-          <DatePicker
-            onChange={(e) =>
-              dispatch(setFormData({ ...formData, dateOfMeeting: e["$d"] }))
-            }
-            value={dateOfMeeting}
-          />
-        </Form.Item>
-
+        <InputConfigWrapper>
+          <Form.Item label="Date of Meeting" name="Date of Meeting">
+            <DatePicker
+              onChange={(e) =>
+                dispatch(setFormData({ ...formData, dateOfMeeting: e["$d"] }))
+              }
+              value={dateOfMeeting}
+            />
+          </Form.Item>
+        </InputConfigWrapper>
         {/* Submission */}
         <Form.Item
           wrapperCol={{
@@ -57,15 +60,12 @@ const EditDate: React.FC<Props> = ({ id }) => {
             span: 16,
           }}
         >
-          <Button
-            className="loginButtons"
-            loading={loadings}
-            onClick={() => enterLoading()}
+          <UiButton
+            textContent="Submit"
+            clickHandler={() => enterLoading()}
             htmlType="submit"
-            size="large"
-          >
-            Submit
-          </Button>
+            loading={loadings}
+          />
           {error ? <h4 className="errorH">{error}</h4> : null}
         </Form.Item>
       </Form>

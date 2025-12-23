@@ -2,6 +2,8 @@ import { Modal, Button } from "antd"
 import EditForm from "./EditForm"
 import { useAppDispatch, useAppSelector } from "@/store/lib/hooks"
 import { setShowEdit } from "@/store/lib/features/auth/editButtonsSlice"
+import { UiButton } from "@/components/ui/button/UiButton"
+import { UiModal } from "@/components/ui/modal/UiModal"
 
 type Props = {
   id: string
@@ -33,16 +35,13 @@ const EditUnreadBook: React.FC<Props> = ({
   }
   return (
     <>
-      <div className="flex items-center">
-        <Button className="m-5" onClick={showModal} size="large">
-          Edit book
-        </Button>
+      <div className="flex items-center m-5">
+        <UiButton clickHandler={showModal} textContent="Edit Book" />
       </div>
-      <Modal
-        title="Edit book"
+      <UiModal
+        title={"Edit book"}
         open={showEditBook}
-        onCancel={handleCancel}
-        footer={null}
+        handleCancel={handleCancel}
       >
         <EditForm
           key={id}
@@ -54,7 +53,7 @@ const EditUnreadBook: React.FC<Props> = ({
           inGenre={inGenre}
           inImageURL={inImageURL}
         />
-      </Modal>
+      </UiModal>
     </>
   )
 }

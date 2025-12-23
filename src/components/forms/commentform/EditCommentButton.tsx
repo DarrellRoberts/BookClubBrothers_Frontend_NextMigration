@@ -3,6 +3,8 @@
 import { useState } from "react"
 import { Modal, Button } from "antd"
 import EditCommentForm from "./EditCommentForm"
+import { UiButton } from "@/components/ui/button/UiButton"
+import { UiModal } from "@/components/ui/modal/UiModal"
 
 interface props {
   setShowEditComment: React.Dispatch<React.SetStateAction<boolean>>
@@ -33,23 +35,20 @@ const EditRatingButton = ({
   }
   return (
     <>
-      <div className="flex items-center">
-        <Button className="m-5" onClick={showModal} size="large">
-          Edit comment
-        </Button>
+      <div className="flex items-center m-5">
+        <UiButton clickHandler={() => showModal()} textContent="Edit comment" />
       </div>
-      <Modal
-        title="Change Comment"
+      <UiModal
+        title={"Change Comment"}
         open={showEditComment}
-        onCancel={handleCancel}
-        footer={null}
+        handleCancel={handleCancel}
       >
         <EditCommentForm
           id={id}
           inComment={inComment}
           handleCancel={handleCancel}
         />
-      </Modal>
+      </UiModal>
     </>
   )
 }

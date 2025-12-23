@@ -1,3 +1,4 @@
+import { UiButton } from "@/components/ui/button/UiButton"
 import { setShowPublish } from "@/store/lib/features/books/editBookButtonsSlice"
 import { useAppDispatch, useAppSelector } from "@/store/lib/hooks"
 import { Button } from "antd"
@@ -8,27 +9,12 @@ const EditPublishButton = () => {
   )
   const dispatch = useAppDispatch()
   return (
-    <>
-      <div className="flex items-center">
-        {showPublish ? (
-          <Button
-            className="mb-5"
-            onClick={() => dispatch(setShowPublish())}
-            size="large"
-          >
-            X
-          </Button>
-        ) : (
-          <Button
-            className="mb-5"
-            onClick={() => dispatch(setShowPublish())}
-            size="large"
-          >
-            Edit Year
-          </Button>
-        )}
-      </div>
-    </>
+    <div className="flex items-center mb-5">
+      <UiButton
+        textContent={showPublish ? "X" : "Edit Year"}
+        clickHandler={() => dispatch(setShowPublish())}
+      />
+    </div>
   )
 }
 

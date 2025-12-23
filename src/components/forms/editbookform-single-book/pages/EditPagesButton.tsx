@@ -1,3 +1,4 @@
+import { UiButton } from "@/components/ui/button/UiButton"
 import { setShowPage } from "@/store/lib/features/books/editBookButtonsSlice"
 import { useAppDispatch, useAppSelector } from "@/store/lib/hooks"
 import { Button } from "antd"
@@ -6,27 +7,12 @@ const EditPagesButton = () => {
   const showPage = useAppSelector((state) => state.editBookButtons.showPage)
   const dispatch = useAppDispatch()
   return (
-    <>
-      <div className="flex items-center">
-        {showPage ? (
-          <Button
-            className="mb-5"
-            onClick={() => dispatch(setShowPage())}
-            size="large"
-          >
-            X
-          </Button>
-        ) : (
-          <Button
-            className="mb-5"
-            onClick={() => dispatch(setShowPage())}
-            size="large"
-          >
-            Edit Pages
-          </Button>
-        )}
-      </div>
-    </>
+    <div className="flex items-center mb-5">
+      <UiButton
+        textContent={showPage ? "X" : "Edit Pages"}
+        clickHandler={() => dispatch(setShowPage())}
+      />
+    </div>
   )
 }
 
