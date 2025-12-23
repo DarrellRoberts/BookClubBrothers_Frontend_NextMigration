@@ -8,6 +8,7 @@ import { User } from "@/types/UserInterface"
 import ScorePreview from "./ScorePreview"
 import { useEffect } from "react"
 import { UiButton } from "@/components/ui/button/UiButton"
+import { InputConfigWrapper } from "../InputConfigWrapper"
 
 type Props = {
   id: string | string[]
@@ -65,36 +66,38 @@ const RatingForm: React.FC<Props> = ({
           maxWidth: 600,
         }}
       >
-        {/* rating */}
-        <Form.Item
-          label="Rating"
-          name="rating"
-          rules={[
-            {
-              required: true,
-              message: "Please rate the book with a score between 0 to 10",
-            },
-          ]}
-        >
-          <Input
-            min={0}
-            max={10}
-            type="number"
-            step="0.25"
-            onChange={(e) => {
-              if (Number(e.target.value) > 10 || Number(e.target.value) < 0) {
-                return
-              }
-              dispatch(
-                setFormData({
-                  ...formData,
-                  scoreRatings: { rating: Number(e.target.value) },
-                })
-              )
-            }}
-            value={Number(rating)}
-          />
-        </Form.Item>
+        <InputConfigWrapper>
+          {/* rating */}
+          <Form.Item
+            label="Rating"
+            name="rating"
+            rules={[
+              {
+                required: true,
+                message: "Please rate the book with a score between 0 to 10",
+              },
+            ]}
+          >
+            <Input
+              min={0}
+              max={10}
+              type="number"
+              step="0.25"
+              onChange={(e) => {
+                if (Number(e.target.value) > 10 || Number(e.target.value) < 0) {
+                  return
+                }
+                dispatch(
+                  setFormData({
+                    ...formData,
+                    scoreRatings: { rating: Number(e.target.value) },
+                  })
+                )
+              }}
+              value={Number(rating)}
+            />
+          </Form.Item>
+        </InputConfigWrapper>
         <ScorePreview users={users} rating={rating} bookTitle={bookTitle} />
         {/* Submission */}
         <Form.Item

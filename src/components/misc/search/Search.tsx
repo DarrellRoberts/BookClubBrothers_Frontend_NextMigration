@@ -2,7 +2,7 @@
 
 import { Book } from "@/types/BookInterface"
 import { User } from "@/types/UserInterface"
-import { AutoComplete, Input, Space } from "antd"
+import { AutoComplete, ConfigProvider, Input, Space } from "antd"
 import { useState } from "react"
 import { formatServerDate } from "@/utils/time-functions/formatServerDate"
 import style from "./search.module.css"
@@ -101,20 +101,33 @@ const SearchBar: React.FC<Props> = ({
     ),
   })
 
+  const searchTheme = {
+    components: {
+      Input: {
+        colorText: "black",
+      },
+    },
+  }
   return (
-    <Space orientation="vertical">
-      <AutoComplete onSelect={onSelect} options={options} disabled={isDisabled}>
-        <Search
-          placeholder="Search by book title"
-          value={inputValue}
-          enterButton="Search"
-          size="large"
-          onChange={handleInputChange}
-          onSearch={onSearch}
-          allowClear
-        />
-      </AutoComplete>
-    </Space>
+    <ConfigProvider theme={searchTheme}>
+      <Space orientation="vertical">
+        <AutoComplete
+          onSelect={onSelect}
+          options={options}
+          disabled={isDisabled}
+        >
+          <Search
+            placeholder="Search by book title"
+            value={inputValue}
+            enterButton="Search"
+            size="large"
+            onChange={handleInputChange}
+            onSearch={onSearch}
+            allowClear
+          />
+        </AutoComplete>
+      </Space>
+    </ConfigProvider>
   )
 }
 

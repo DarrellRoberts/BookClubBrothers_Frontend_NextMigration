@@ -1,6 +1,6 @@
 "use client"
 
-import { Button, Form, Input } from "antd"
+import { Button, ConfigProvider, Form, Input } from "antd"
 import { useState } from "react"
 
 interface Login {
@@ -47,6 +47,13 @@ const LoginForm3D: React.FC<Login> = ({ setLoginOpen }) => {
     }
   }
 
+  const inputTheme = {
+    components: {
+      Input: {
+        colorText: "black",
+      },
+    },
+  }
   return (
     <>
       <div>
@@ -67,41 +74,45 @@ const LoginForm3D: React.FC<Login> = ({ setLoginOpen }) => {
           }}
           autoComplete="off"
         >
-          <Form.Item
-            label="Username"
-            name="username"
-            rules={[
-              {
-                required: true,
-                message: "There is a box with no username. Fill it out!",
-              },
-            ]}
-          >
-            <Input
-              type="username"
-              onChange={(e) => {
-                setUsername(e.target.value)
-              }}
-              value={username}
-            />
-          </Form.Item>
+          <ConfigProvider theme={inputTheme}>
+            <Form.Item
+              label="Username"
+              name="username"
+              rules={[
+                {
+                  required: true,
+                  message: "There is a box with no username. Fill it out!",
+                },
+              ]}
+            >
+              <Input
+                type="username"
+                onChange={(e) => {
+                  setUsername(e.target.value)
+                }}
+                value={username}
+              />
+            </Form.Item>
+          </ConfigProvider>
 
-          <Form.Item
-            label="Password"
-            name="password"
-            rules={[
-              {
-                required: true,
-                message: "Stop messing around. Enter your password!",
-              },
-            ]}
-          >
-            <Input.Password
-              type="password"
-              onChange={(e) => setPassword(e.target.value)}
-              value={password}
-            />
-          </Form.Item>
+          <ConfigProvider theme={inputTheme}>
+            <Form.Item
+              label="Password"
+              name="password"
+              rules={[
+                {
+                  required: true,
+                  message: "Stop messing around. Enter your password!",
+                },
+              ]}
+            >
+              <Input.Password
+                type="password"
+                onChange={(e) => setPassword(e.target.value)}
+                value={password}
+              />
+            </Form.Item>
+          </ConfigProvider>
           {error ? (
             <h4 className="bg-black mb-4 p-4 font-bold text-red-500 text-center">
               {error}

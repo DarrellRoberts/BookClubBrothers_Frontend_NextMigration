@@ -3,6 +3,7 @@
 import { setFormData } from "@/store/lib/features/books/bookFormDataSlice"
 import { useAppDispatch, useAppSelector } from "@/store/lib/hooks"
 import { Form, Input } from "antd"
+import { InputConfigWrapper } from "../../../InputConfigWrapper"
 
 const EditImageURLForm = ({ errorObject, setErrorObject }) => {
   const formData = useAppSelector((state) => state.bookFormData.formData)
@@ -11,34 +12,37 @@ const EditImageURLForm = ({ errorObject, setErrorObject }) => {
   )
   const dispatch = useAppDispatch()
   return (
-    <Form.Item
-      label="Image URL"
-      name="imageURL"
-      rules={[
-        {
-          validator(_, value) {
-            const imageRegex = /\.(jpg|jpeg|png|svg|webp)$/i
-            if (!imageRegex.test(value)) {
-              setErrorObject({ ...errorObject, imageURL: false })
-              return Promise.reject()
-            }
-            if (imageRegex.test(value) || !value) {
-              setErrorObject({ ...errorObject, imageURL: true })
-              return Promise.resolve()
-            }
+    <InputConfigWrapper>
+      <Form.Item
+        label="Image URL"
+        name="imageURL"
+        rules={[
+          {
+            validator(_, value) {
+              const imageRegex = /\.(jpg|jpeg|png|svg|webp)$/i
+              if (!imageRegex.test(value)) {
+                setErrorObject({ ...errorObject, imageURL: false })
+                return Promise.reject()
+              }
+              if (imageRegex.test(value) || !value) {
+                setErrorObject({ ...errorObject, imageURL: true })
+                return Promise.resolve()
+              }
+            },
+            message:
+              "URLs must end in either .jpg, .jpeg, .png, .svg, or .webp",
           },
-          message: "URLs must end in either .jpg, .jpeg, .png, .svg, or .webp",
-        },
-      ]}
-    >
-      <Input
-        type="text"
-        onChange={(e) =>
-          dispatch(setFormData({ ...formData, imageURL: e.target.value }))
-        }
-        value={imageURL}
-      />
-    </Form.Item>
+        ]}
+      >
+        <Input
+          type="text"
+          onChange={(e) =>
+            dispatch(setFormData({ ...formData, imageURL: e.target.value }))
+          }
+          value={imageURL}
+        />
+      </Form.Item>
+    </InputConfigWrapper>
   )
 }
 

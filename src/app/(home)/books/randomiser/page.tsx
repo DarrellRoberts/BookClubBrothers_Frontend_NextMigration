@@ -8,7 +8,6 @@ import RandomSectionRight from "@/components/books/randomiser/RandomSectionRight
 import RandomiserFilters from "@/components/books/randomiser/RandomiserFilters"
 import { useEffect, useState } from "react"
 import { useAppSelector } from "@/store/lib/hooks"
-import { UiModal } from "@/components/ui/modal/UiModal"
 
 const RandomiserHomepage: React.FC = () => {
   const [randomiserBooks, setRandomiserBooks] = useState([])

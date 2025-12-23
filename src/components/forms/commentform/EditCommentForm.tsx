@@ -5,6 +5,7 @@ import useForm from "@/hooks/crud-hooks/useForm"
 import { useAppDispatch, useAppSelector } from "@/store/lib/hooks"
 import { setFormData } from "@/store/lib/features/books/bookFormDataSlice"
 import { UiButton } from "@/components/ui/button/UiButton"
+import { InputConfigWrapper } from "../InputConfigWrapper"
 
 const { TextArea } = Input
 
@@ -53,21 +54,23 @@ const EditCommentForm: React.FC<Props> = ({ id, inComment, handleCancel }) => {
         }}
       >
         {/* comment */}
-        <Form.Item label="Comment" name="comments">
-          <TextArea
-            rows={8}
-            placeholder="Say a few words about the book"
-            onChange={(e) =>
-              dispatch(
-                setFormData({
-                  ...formData,
-                  commentInfo: { comments: e.target.value },
-                })
-              )
-            }
-            value={comments}
-          />
-        </Form.Item>
+        <InputConfigWrapper>
+          <Form.Item label="Comment" name="comments">
+            <TextArea
+              rows={8}
+              placeholder="Say a few words about the book"
+              onChange={(e) =>
+                dispatch(
+                  setFormData({
+                    ...formData,
+                    commentInfo: { comments: e.target.value },
+                  })
+                )
+              }
+              value={comments}
+            />
+          </Form.Item>
+        </InputConfigWrapper>
 
         {/* Submission */}
         <Form.Item

@@ -6,6 +6,7 @@ import { Button, Form, Upload } from "antd"
 import { PlusOutlined } from "@ant-design/icons"
 import { useAppSelector } from "@/store/lib/hooks"
 import { UiButton } from "@/components/ui/button/UiButton"
+import { InputConfigWrapper } from "../../InputConfigWrapper"
 
 const normFile = (e) => {
   if (Array.isArray(e)) {
@@ -86,24 +87,26 @@ const EditImage: React.FC<props> = ({ id }) => {
         name="picture_upload_form"
         initialValues={{ fileList: [] }}
       >
-        <Form.Item
-          name="fileList"
-          valuePropName="fileList"
-          getValueFromEvent={normFile}
-        >
-          <Upload
-            name="picture"
-            action={`https://bookclubbrothers-backend.onrender.com/users/${id}`}
-            listType="picture-card"
-            onChange={handleImageChange}
-            beforeUpload={() => false}
+        <InputConfigWrapper>
+          <Form.Item
+            name="fileList"
+            valuePropName="fileList"
+            getValueFromEvent={normFile}
           >
-            <div>
-              <PlusOutlined />
-              <div style={{ marginTop: 8 }}>Upload</div>
-            </div>
-          </Upload>
-        </Form.Item>
+            <Upload
+              name="picture"
+              action={`https://bookclubbrothers-backend.onrender.com/users/${id}`}
+              listType="picture-card"
+              onChange={handleImageChange}
+              beforeUpload={() => false}
+            >
+              <div>
+                <PlusOutlined />
+                <div style={{ marginTop: 8 }}>Upload</div>
+              </div>
+            </Upload>
+          </Form.Item>
+        </InputConfigWrapper>
 
         <UiButton
           textContent="Submit"

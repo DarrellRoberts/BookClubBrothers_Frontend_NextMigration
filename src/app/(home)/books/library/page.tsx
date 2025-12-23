@@ -57,7 +57,7 @@ const Booklibrary: React.FC = () => {
         <Search
           setSearchBar={setSearchBar}
           filteredBooks={filteredResults}
-          isDisabled={books.length === 0}
+          isDisabled={loadingBooks}
         />
         <UiButton isLink href="/books/library/3d" textContent="3D View" />
       </div>

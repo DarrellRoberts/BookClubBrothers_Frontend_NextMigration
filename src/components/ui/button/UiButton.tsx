@@ -47,27 +47,18 @@ export const UiButton = ({
     },
   }
   return ghost ? (
-    <Button
-      ghost
-      size="large"
-      onClick={clickHandler}
-      loading={loading}
-      htmlType={htmlType}
-    >
+    <Button ghost onClick={clickHandler} loading={loading} htmlType={htmlType}>
       {textContent}
     </Button>
   ) : isLink ? (
     <Link href={href}>
       <ConfigProvider theme={buttonTheme}>
-        <Button size="large" type={buttonType}>
-          {textContent}
-        </Button>
+        <Button type={buttonType}>{textContent}</Button>
       </ConfigProvider>
     </Link>
   ) : (
     <ConfigProvider theme={buttonTheme}>
       <Button
-        size="large"
         type={buttonType}
         onClick={clickHandler}
         loading={loading}

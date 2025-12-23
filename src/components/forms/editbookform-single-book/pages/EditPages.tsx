@@ -5,6 +5,7 @@ import useForm from "@/hooks/crud-hooks/useForm"
 import { useAppDispatch, useAppSelector } from "@/store/lib/hooks"
 import { setFormData } from "@/store/lib/features/books/bookFormDataSlice"
 import { UiButton } from "@/components/ui/button/UiButton"
+import { InputConfigWrapper } from "../../InputConfigWrapper"
 
 type Props = {
   id: string | string[]
@@ -40,26 +41,28 @@ const EditPages: React.FC<Props> = ({ id, inPages }) => {
         }}
       >
         {/* Pages */}
-        <Form.Item
-          label="Pages"
-          name="pages"
-          rules={[
-            {
-              required: true,
-              message: "Please write the number of pages!",
-            },
-          ]}
-        >
-          <Input
-            type="number"
-            onChange={(e) =>
-              dispatch(
-                setFormData({ ...formData, pages: Number(e.target.value) })
-              )
-            }
-            value={pages}
-          />
-        </Form.Item>
+        <InputConfigWrapper>
+          <Form.Item
+            label="Pages"
+            name="pages"
+            rules={[
+              {
+                required: true,
+                message: "Please write the number of pages!",
+              },
+            ]}
+          >
+            <Input
+              type="number"
+              onChange={(e) =>
+                dispatch(
+                  setFormData({ ...formData, pages: Number(e.target.value) })
+                )
+              }
+              value={pages}
+            />
+          </Form.Item>
+        </InputConfigWrapper>
 
         {/* Submission */}
         <Form.Item

@@ -5,6 +5,7 @@ import useForm from "@/hooks/crud-hooks/useForm"
 import { setFormData } from "@/store/lib/features/books/bookFormDataSlice"
 import { useAppDispatch, useAppSelector } from "@/store/lib/hooks"
 import { Button, Form, Input } from "antd"
+import { InputConfigWrapper } from "../../InputConfigWrapper"
 
 type Props = {
   id: string | string[]
@@ -39,23 +40,25 @@ const EditBookAuthor: React.FC<Props> = ({ id, inAuthor }) => {
           author: inAuthor,
         }}
       >
-        <Form.Item
-          label="Author"
-          name="author"
-          rules={[
-            {
-              required: true,
-              message: "Please write the name of the author!",
-            },
-          ]}
-        >
-          <Input
-            onChange={(e) =>
-              dispatch(setFormData({ ...formData, author: e.target.value }))
-            }
-            value={author}
-          />
-        </Form.Item>
+        <InputConfigWrapper>
+          <Form.Item
+            label="Author"
+            name="author"
+            rules={[
+              {
+                required: true,
+                message: "Please write the name of the author!",
+              },
+            ]}
+          >
+            <Input
+              onChange={(e) =>
+                dispatch(setFormData({ ...formData, author: e.target.value }))
+              }
+              value={author}
+            />
+          </Form.Item>
+        </InputConfigWrapper>
 
         <Form.Item
           wrapperCol={{
