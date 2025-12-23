@@ -46,7 +46,6 @@
   width: 250px;
   position: absolute;
   top: 370px;
-  transform: translateX(-50%);
   animation: appear 2s linear 0s 1;
 }
 
@@ -63,7 +62,6 @@
   width: 200px;
   position: absolute;
   top: 450px;
-  transform: translateX(-50%);
   animation: appear 3s linear 0s 1;
 }
 

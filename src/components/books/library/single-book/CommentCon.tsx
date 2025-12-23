@@ -17,6 +17,7 @@ import ProfileSmall from "@/components/misc/profile/ProfileSmall"
 import useUserFetch from "@/hooks/fetch-hooks/useUserFetch"
 import { useAppSelector } from "@/store/lib/hooks"
 import { Skeleton } from "antd"
+import { config } from "@/configs/config"
 
 type Props = {
   bookData: Book
@@ -33,7 +34,7 @@ const CommentCon: React.FC<Props> = ({ bookData, id, hideScores }) => {
     useJwt(token)
   const username = decodedToken?.username
   const { userData, loadingUsers, error } = useUserFetch(
-    `https://bookclubbrothers-backend.onrender.com/users`,
+    `${config.API_URL}/users`,
     null
   )
 

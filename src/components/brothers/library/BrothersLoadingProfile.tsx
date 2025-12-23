@@ -1,88 +1,51 @@
 import React from "react"
 import { Skeleton } from "antd"
 import { useAppSelector } from "@/store/lib/hooks"
+import { useMediaQuery } from "react-responsive"
+import { UiSkeletonTitle } from "@/components/ui/skeleton/UiSkeletonTitle"
+import { UiSkeletonImage } from "@/components/ui/skeleton/UiSkeletonImage"
 
 const BrothersLoadingProfile: React.FC = () => {
-  const isDarkMode = useAppSelector((state) => state.darkMode.darkMode)
   return (
-    <div className="mx-5 my-5 flex h-[500px] w-[700px] border-4 border-solid border-[var(--default-border-color)] bg-[var(--user-background-color)] max-sm:h-[400px] max-sm:w-[350px] sm:bg-[rgba(244,236,8,0.087)] max-xs:h-[300px] max-xs:w-[250px]">
-      <div className="flex w-1/2 flex-col items-center justify-evenly">
-        <Skeleton.Input
-          active={true}
-          style={{ filter: isDarkMode ? "invert(1)" : "invert(0)" }}
-        />
-        <Skeleton.Image
-          active={true}
-          style={{
-            width: 200,
-            height: 350,
-            filter: isDarkMode ? "invert(1)" : "invert(0)",
-          }}
-        />
+    <div className="mx-5 my-5 flex h-[500px] w-[700px] max-md:w-[500px] border-4 border-solid border-[var(--default-border-color)] bg-[var(--user-background-color)] max-sm:h-[400px] max-sm:w-[250px] max-xs:h-[300px]">
+      <div className="flex min-sm:w-1/2 flex-col items-center justify-evenly w-50">
+        <UiSkeletonTitle height={3} width={75} />
+        <UiSkeletonImage width={75} />
       </div>
 
-      <div className="flex w-1/2 flex-col pl-10 pt-5 max-sm:pl-[25px] max-sm:pt-0">
+      <div className="flex min-sm:w-1/2 flex-col min-sm:pl-10 pt-5 max-sm:pt-0">
         <ul>
-          <li className="underline pt-5 text-xl max-sm:pt-[15px] max-sm:text-base max-xs:text-[0.75rem]">
+          <li className="underline pt-5 text-xl max-sm:pt-[15px] max-sm:text-base ">
             Location
           </li>
-          <div className="flex">
-            <li className="max-xs:text-[0.75rem]">
-              City:{" "}
-              <Skeleton.Input
-                active={true}
-                size="small"
-                style={{ filter: isDarkMode ? "invert(1)" : "invert(0)" }}
-              />
+          <div>
+            <li className="">
+              City:
+              <UiSkeletonTitle height={1.5} width={50} />
             </li>
           </div>
 
-          <div className="flex">
-            <li className="max-xs:text-[0.75rem]">
-              Country:{" "}
-              <Skeleton.Input
-                active={true}
-                size="small"
-                style={{ filter: isDarkMode ? "invert(1)" : "invert(0)" }}
-              />
+          <div>
+            <li>
+              Country:
+              <UiSkeletonTitle height={1.5} width={50} />
             </li>
           </div>
 
-          <div className="flex">
-            <li className="underline pt-5 text-xl max-sm:pt-[15px] max-sm:text-base max-xs:text-[0.75rem]">
+          <div>
+            <li className="underline pt-5 text-xl max-sm:pt-[15px] max-sm:text-base ">
               Favourite Genres
             </li>
           </div>
-          <div className="flex gap-2">
-            <Skeleton.Avatar
-              active={true}
-              size="small"
-              style={{ filter: isDarkMode ? "invert(1)" : "invert(0)" }}
-            />
-            <Skeleton.Input
-              active={true}
-              size="small"
-              style={{ filter: isDarkMode ? "invert(1)" : "invert(0)" }}
-            />
-          </div>
-          <li className="underline pt-5 text-xl max-sm:pt-[15px] max-sm:text-base max-xs:text-[0.75rem]">
+          <UiSkeletonTitle height={1.5} width={50} />
+          <li className="underline pt-5 text-xl max-sm:pt-[15px] max-sm:text-base ">
             Last rating given
           </li>
-          <li className="max-xs:text-[0.75rem]">
-            Book:{" "}
-            <Skeleton.Input
-              active={true}
-              size="small"
-              style={{ filter: isDarkMode ? "invert(1)" : "invert(0)" }}
-            />
+          <li>
+            Book: <UiSkeletonTitle height={1.5} width={50} />
           </li>
-          <li className="max-xs:text-[0.75rem]">
-            Score:{" "}
-            <Skeleton.Input
-              active={true}
-              size="small"
-              style={{ filter: isDarkMode ? "invert(1)" : "invert(0)" }}
-            />
+          <li>
+            Score: <UiSkeletonTitle height={1.5} width={50} />
           </li>
         </ul>
       </div>

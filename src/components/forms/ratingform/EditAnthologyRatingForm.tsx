@@ -5,6 +5,9 @@ import { Book } from "@/types/BookInterface"
 import { useEffect, useMemo, useState } from "react"
 import { handleMultipleSubmits } from "@/utils/handleMultipleSubmits"
 import { useAppSelector } from "@/store/lib/hooks"
+import { config } from "@/configs/config"
+import { UiButton } from "@/components/ui/button/UiButton"
+import { InputConfigWrapper } from "../InputConfigWrapper"
 
 type Props = {
   id: string | string[]
@@ -35,7 +38,7 @@ const EditAnthologyRatingForm: React.FC<Props> = ({
     for (let i = 0; i < singleBook.shortStories.length; i++) {
       promiseArr.push(
         await handleMultipleSubmits(
-          `https://bookclubbrothers-backend.onrender.com/books/${id}/${singleBook?.shortStories[i]._id}`,
+          `${config.API_URL}/books/${id}/${singleBook?.shortStories[i]._id}`,
           { rating: Object.values(raterStoriesObject)[i] },
           "PUT",
           token
@@ -54,7 +57,6 @@ const EditAnthologyRatingForm: React.FC<Props> = ({
   }
 
   const handleTotalRating = useMemo(() => {
-    // if (!singleBook?.shortStories) return null
     if (Object.values(raterStoriesObject).length === 0) return null
     const total: number = Object.values(raterStoriesObject).reduce(
       (prev: number, curr: number) => prev + curr,
@@ -96,17 +98,19 @@ const EditAnthologyRatingForm: React.FC<Props> = ({
           Reset
         </Button>
         {singleBook.shortStories?.map((story) => (
-          <Form.Item key={story._id} label={story.title}>
-            <InputNumber
-              className="ml-6"
-              min={0}
-              max={10}
-              onChange={(e) => {
-                handleTotalRatingArr(Number(e), story.title)
-              }}
-              value={raterStoriesObject[story.title]}
-            />
-          </Form.Item>
+          <InputConfigWrapper>
+            <Form.Item key={story._id} label={story.title}>
+              <InputNumber
+                className="ml-6"
+                min={0}
+                max={10}
+                onChange={(e) => {
+                  handleTotalRatingArr(Number(e), story.title)
+                }}
+                value={raterStoriesObject[story.title]}
+              />
+            </Form.Item>
+          </InputConfigWrapper>
         ))}
         <h3 className="text-white font-bold text-xl text-center mb-5">
           Your rating: {handleTotalRating?.toFixed(2)}
@@ -119,17 +123,13 @@ const EditAnthologyRatingForm: React.FC<Props> = ({
             span: 16,
           }}
         >
-          <Button
-            type="primary"
-            ghost
-            className="loginButtons"
+          <UiButton
+            textContent="Submit"
             loading={loadings}
-            onClick={() => enterLoading()}
+            clickHandler={() => enterLoading()}
             htmlType="submit"
-            size="large"
-          >
-            Submit
-          </Button>
+            ghost
+          />
           {/* {error ? <h4 className="errorH">{error}</h4> : null} */}
         </Form.Item>
       </Form>

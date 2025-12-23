@@ -1,5 +1,4 @@
 import Graph from "@/components/graphs/brothers/Graph"
-import LoaderNoText from "@/components/loader/LoaderNoText"
 import { genreAverageScore } from "@/utils/stat-functions/scoreFunctions"
 import { Book } from "@/types/BookInterface"
 import React from "react"

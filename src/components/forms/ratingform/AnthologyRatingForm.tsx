@@ -5,6 +5,8 @@ import { Book } from "@/types/BookInterface"
 import { useMemo, useState } from "react"
 import { handleMultipleSubmits } from "@/utils/handleMultipleSubmits"
 import { useAppSelector } from "@/store/lib/hooks"
+import { config } from "@/configs/config"
+import { InputConfigWrapper } from "../InputConfigWrapper"
 
 type Props = {
   id: string | string[]
@@ -30,7 +32,7 @@ const AnthologyRatingForm: React.FC<Props> = ({ id, singleBook }) => {
     for (let i = 0; i < singleBook.shortStories.length; i++) {
       promiseArr.push(
         await handleMultipleSubmits(
-          `https://bookclubbrothers-backend.onrender.com/books/${id}/${singleBook?.shortStories[i]._id}`,
+          `${config.API_URL}/books/${id}/${singleBook?.shortStories[i]._id}`,
           { rating: Object.values(raterStoriesObject)[i] },
           "POST",
           token
@@ -88,17 +90,19 @@ const AnthologyRatingForm: React.FC<Props> = ({ id, singleBook }) => {
           Reset
         </Button>
         {singleBook.shortStories?.map((story) => (
-          <Form.Item key={story._id} label={story.title}>
-            <InputNumber
-              className="ml-2"
-              min={0}
-              max={10}
-              onChange={(e) => {
-                handleTotalRatingArr(Number(e), story.title)
-              }}
-              value={raterStoriesObject[story.title]}
-            />
-          </Form.Item>
+          <InputConfigWrapper>
+            <Form.Item key={story._id} label={story.title}>
+              <InputNumber
+                className="ml-2"
+                min={0}
+                max={10}
+                onChange={(e) => {
+                  handleTotalRatingArr(Number(e), story.title)
+                }}
+                value={raterStoriesObject[story.title]}
+              />
+            </Form.Item>
+          </InputConfigWrapper>
         ))}
         <h3 className="text-white font-bold text-xl text-center mb-5">
           Your rating: {handleTotalRating?.toFixed(2)}

@@ -5,6 +5,8 @@ import axios from "axios"
 import { PlusOutlined } from "@ant-design/icons"
 import { Upload, Form, Button } from "antd"
 import { useAppSelector } from "@/store/lib/hooks"
+import { config } from "@/configs/config"
+import { UiButton } from "@/components/ui/button/UiButton"
 
 const normFile = (e) => {
   if (Array.isArray(e)) {
@@ -43,15 +45,11 @@ const PictureUpload: React.FC<props> = ({ id, inImage }) => {
     try {
       const formData = new FormData()
       formData.append("avatar", image, image?.name)
-      await axios.post(
-        `https://bookclubbrothers-backend.onrender.com/users/upload/${id}`,
-        formData,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      )
+      await axios.post(`${config.API_URL}/users/upload/${id}`, formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
     } catch (error) {
       setError(error)
       console.error(error)
@@ -100,34 +98,27 @@ const PictureUpload: React.FC<props> = ({ id, inImage }) => {
       >
         <Upload
           name="picture"
-          action={`https://bookclubbrothers-backend.onrender.com/users/${id}`}
+          action={`${config.API_URL}/users/${id}`}
           listType="picture-card"
           onChange={handleImageChange}
           beforeUpload={() => false}
         >
           <div>
-            <PlusOutlined
-              onPointerEnterCapture={undefined}
-              onPointerLeaveCapture={undefined}
-            />
+            <PlusOutlined />
+            <PlusOutlined />
             <div className="text-white" style={{ marginTop: 8 }}>
               Upload
             </div>
           </div>
         </Upload>
       </Form.Item>
-
-      <Button
-        type="primary"
-        className="bg-black"
-        htmlType="submit"
+      <UiButton
+        textContent="Submit"
         loading={loadings[0]}
-        onClick={() => enterLoading(0)}
-        size="large"
-      >
-        Submit
-      </Button>
-
+        clickHandler={() => enterLoading(0)}
+        htmlType="submit"
+        ghost
+      />
       {error ? <p>{error}</p> : null}
     </Form>
   )

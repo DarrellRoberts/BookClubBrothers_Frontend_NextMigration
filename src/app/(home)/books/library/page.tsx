@@ -6,7 +6,7 @@ import Loader from "@/components/loader/Loader"
 import BookCover from "@/components/books/library/BookCover"
 import Link from "next/link"
 import Search from "@/components/misc/search/Search"
-import { Button } from "antd"
+import { Button, ConfigProvider } from "antd"
 import BookImageCover from "@/components/books/library/BookImageCover"
 import { handleHideScores_NoSetter } from "@/utils/time-functions/hideScores"
 import useBookFetch from "@/hooks/fetch-hooks/useReadBookFetch"
@@ -14,6 +14,8 @@ import { Book } from "@/types/BookInterface"
 import useScrollRef from "@/hooks/scroll-hooks/useScrollRef"
 import useLimit from "@/hooks/scroll-hooks/useLimit"
 import BookSkeleton from "@/components/books/library/BookSkeleton"
+import { config } from "@/configs/config"
+import { UiButton } from "@/components/ui/button/UiButton"
 
 const Booklibrary: React.FC = () => {
   const [searchBar, setSearchBar] = useState<string>("")
@@ -22,7 +24,7 @@ const Booklibrary: React.FC = () => {
   const { limit, handleLimit, setIsLimit, isLimit } = useLimit()
 
   const { bookData, loadingBooks, error } = useBookFetch(
-    `https://bookclubbrothers-backend.onrender.com/books`,
+    `${config.API_URL}/books`,
     limit
   )
 
@@ -50,14 +52,15 @@ const Booklibrary: React.FC = () => {
     return () => clearTimeout(timer)
   }, [limit, loadingBooks])
 
-  console.log(bookData)
   return (
     <>
       <div className="flex justify-between m-6 max-xs:flex-col-reverse max-xs:items-center ">
-        <Search setSearchBar={setSearchBar} filteredBooks={filteredResults} />
-        <Link href="/books/library/3d">
-          <Button size="large">3D View</Button>
-        </Link>
+        <Search
+          setSearchBar={setSearchBar}
+          filteredBooks={filteredResults}
+          isDisabled={loadingBooks}
+        />
+        <UiButton isLink href="/books/library/3d" textContent="3D View" />
       </div>
       <h1 className="text-8xl m-5 max-lg:text-6xl max-lg:text-center">
         Book Library

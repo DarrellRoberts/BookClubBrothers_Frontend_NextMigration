@@ -7,6 +7,7 @@ import {
 } from "@/store/lib/features/randomise/randomiseSlice"
 import { useAuth } from "@/hooks/auth-hooks/useAuth"
 import { useCallback } from "react"
+import { UiButton } from "@/components/ui/button/UiButton"
 
 type Props = {
   bookLength: number
@@ -34,9 +35,11 @@ const Randomiser: React.FC<Props> = ({ bookLength, bookId }) => {
     <div className="flex justify-evenly items-center max-md:flex-col">
       {showRandom ? (
         <>
-          <Button onClick={handleRandomise} size="large">
-            Randomise
-          </Button>
+          <UiButton
+            clickHandler={handleRandomise}
+            type="primary"
+            textContent="Randomise"
+          />
           {adminId === decodedToken?._id ? (
             <SelectBook bookId={bookId} />
           ) : null}

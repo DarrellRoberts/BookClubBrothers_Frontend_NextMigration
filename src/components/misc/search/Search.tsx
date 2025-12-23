@@ -2,7 +2,7 @@
 
 import { Book } from "@/types/BookInterface"
 import { User } from "@/types/UserInterface"
-import { AutoComplete, Input, Space } from "antd"
+import { AutoComplete, ConfigProvider, Input, Space } from "antd"
 import { useState } from "react"
 import { formatServerDate } from "@/utils/time-functions/formatServerDate"
 import style from "./search.module.css"
@@ -13,12 +13,14 @@ interface Props {
   setSearchBar: React.Dispatch<React.SetStateAction<string>>
   filteredBooks?: Book[]
   filteredUsers?: User[]
+  isDisabled: boolean
 }
 
 const SearchBar: React.FC<Props> = ({
   setSearchBar,
   filteredBooks,
   filteredUsers,
+  isDisabled,
 }) => {
   const [inputValue, setValue] = useState("")
   const { Search } = Input
@@ -99,10 +101,21 @@ const SearchBar: React.FC<Props> = ({
     ),
   })
 
+  const searchTheme = {
+    components: {
+      Input: {
+        colorText: "black",
+      },
+    },
+  }
   return (
-    <>
-      <Space direction="vertical">
-        <AutoComplete onSelect={onSelect} options={options}>
+    <ConfigProvider theme={searchTheme}>
+      <Space orientation="vertical">
+        <AutoComplete
+          onSelect={onSelect}
+          options={options}
+          disabled={isDisabled}
+        >
           <Search
             placeholder="Search by book title"
             value={inputValue}
@@ -114,7 +127,7 @@ const SearchBar: React.FC<Props> = ({
           />
         </AutoComplete>
       </Space>
-    </>
+    </ConfigProvider>
   )
 }
 

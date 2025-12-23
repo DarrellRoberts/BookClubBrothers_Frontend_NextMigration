@@ -1,10 +1,12 @@
 "use client"
 
-import { Button, Modal } from "antd"
+import { Modal } from "antd"
 import { useState } from "react"
 import EditGenre from "./EditGenre"
 import { useAppDispatch, useAppSelector } from "@/store/lib/hooks"
 import { setShowGenre } from "@/store/lib/features/auth/editButtonsSlice"
+import { UiButton } from "@/components/ui/button/UiButton"
+import { UiModal } from "@/components/ui/modal/UiModal"
 
 type Props = {
   id: string
@@ -36,21 +38,18 @@ const EditGenreButton: React.FC<Props> = ({ id, inGenre }) => {
     <>
       <div className="flex items-center">
         {showGenre ? null : (
-          <Button className="" onClick={showModal} size="large">
-            Edit
-          </Button>
+          <UiButton clickHandler={() => showModal()} textContent="Edit" />
         )}
       </div>
-      <Modal
-        title="Add your favourite Genres"
+      <UiModal
+        title={"Add your favourite Genres"}
         open={showGenre}
-        onOk={handleOk}
+        handleCancel={handleCancel}
+        handleOk={handleOk}
         confirmLoading={confirmLoading}
-        onCancel={handleCancel}
-        footer={null}
       >
-        <p>{modalText}</p>
-      </Modal>
+        {modalText}
+      </UiModal>
     </>
   )
 }

@@ -1,5 +1,4 @@
 import React from "react"
-import LoaderNoText from "@/components/loader/LoaderNoText"
 import CreateUnreadBook from "@/components/forms/bookform-randomise/CreateUnreadBook"
 import { Book } from "@/types/BookInterface"
 import { User } from "@/types/UserInterface"
@@ -7,6 +6,7 @@ import { useAuth } from "@/hooks/auth-hooks/useAuth"
 import { useAppDispatch, useAppSelector } from "@/store/lib/hooks"
 import { setIndex } from "@/store/lib/features/randomise/randomiseSlice"
 import { Skeleton } from "antd"
+import { UiSkeletonImage } from "@/components/ui/skeleton/UiSkeletonImage"
 
 type Props = {
   loadingBooks: boolean
@@ -34,18 +34,9 @@ const RandomSectionLeft: React.FC<Props> = ({
     <div className="flex flex-col items-center">
       <div className="border-[var(--default-border-color)] border-5 border-solid flex flex-col items-center h-[25vh] overflow-y-scroll max-md:h-[20vh] [&::-webkit-scrollbar]:w-[20px] [&::-webkit-scrollbar-track]:bg-gray-200 [&::-webkit-scrollbar-track]:rounded-lg [&::-webkit-scrollbar-thumb]:bg-gray-400 [&::-webkit-scrollbar-thumb]:rounded-lg [&::-webkit-scrollbar-thumb:hover]:bg-gray-600">
         {loadingBooks && loadingUsers ? (
-          <Skeleton.Node
-            active={true}
-            style={{
-              width: 200,
-              height: 100,
-              filter: isDarkMode ? "invert(1)" : "invert(0)",
-            }}
-            className="flex flex-col items-center mt-1 h-full mx-2"
-          >
-            <Skeleton.Input className="mt-10" />
-            <Skeleton.Input size="small" />
-          </Skeleton.Node>
+          <div className="w-50 px-5 py-10">
+            <UiSkeletonImage width={100} />
+          </div>
         ) : (
           bookData?.map((book) => (
             <div

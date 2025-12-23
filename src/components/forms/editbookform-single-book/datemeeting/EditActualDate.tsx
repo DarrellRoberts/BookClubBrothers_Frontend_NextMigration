@@ -1,9 +1,12 @@
 "use client"
 
+import { config } from "@/configs/config"
+import { UiButton } from "@/components/ui/button/UiButton"
 import useForm from "@/hooks/crud-hooks/useForm"
 import { setFormData } from "@/store/lib/features/books/bookFormDataSlice"
 import { useAppDispatch, useAppSelector } from "@/store/lib/hooks"
 import { Button, Form, DatePicker } from "antd"
+import { InputConfigWrapper } from "../../InputConfigWrapper"
 
 type Props = {
   id: string | string[]
@@ -17,7 +20,7 @@ const EditActualDate: React.FC<Props> = ({ id }) => {
   const dispatch = useAppDispatch()
 
   const { handleSubmit, error, enterLoading, loadings } = useForm(
-    `https://bookclubbrothers-backend.onrender.com/books/${id}`,
+    `${config.API_URL}/books/${id}`,
     "PUT",
     { actualDateOfMeeting }
   )
@@ -40,16 +43,18 @@ const EditActualDate: React.FC<Props> = ({ id }) => {
         }}
       >
         {/* Date of Meeting */}
-        <Form.Item label="Date of Meeting" name="Date of Meeting">
-          <DatePicker
-            onChange={(e) =>
-              dispatch(
-                setFormData({ ...formData, actualDateOfMeeting: e["$d"] })
-              )
-            }
-            value={actualDateOfMeeting}
-          />
-        </Form.Item>
+        <InputConfigWrapper>
+          <Form.Item label="Date of Meeting" name="Date of Meeting">
+            <DatePicker
+              onChange={(e) =>
+                dispatch(
+                  setFormData({ ...formData, actualDateOfMeeting: e["$d"] })
+                )
+              }
+              value={actualDateOfMeeting}
+            />
+          </Form.Item>
+        </InputConfigWrapper>
 
         {/* Submission */}
         <Form.Item
@@ -58,15 +63,12 @@ const EditActualDate: React.FC<Props> = ({ id }) => {
             span: 16,
           }}
         >
-          <Button
-            className="loginButtons"
-            loading={loadings}
-            onClick={() => enterLoading()}
+          <UiButton
+            textContent="Submit"
+            clickHandler={() => enterLoading()}
             htmlType="submit"
-            size="large"
-          >
-            Submit
-          </Button>
+            loading={loadings}
+          />
           {error ? <h4 className="errorH">{error}</h4> : null}
         </Form.Item>
       </Form>

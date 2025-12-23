@@ -1,5 +1,7 @@
 import { Button, Form } from "antd"
 import useForm from "@/hooks/crud-hooks/useForm"
+import { config } from "@/configs/config"
+import { UiButton } from "@/components/ui/button/UiButton"
 
 type Props = {
   bookId: string
@@ -7,7 +9,7 @@ type Props = {
 
 const SelectBook: React.FC<Props> = ({ bookId }) => {
   const { handleSubmit, loadings } = useForm(
-    `https://bookclubbrothers-backend.onrender.com/books/${bookId}`,
+    `${config.API_URL}/books/${bookId}`,
     "PUT",
     {
       read: true,
@@ -18,9 +20,12 @@ const SelectBook: React.FC<Props> = ({ bookId }) => {
   return (
     <>
       <Form onFinish={handleSubmit}>
-        <Button loading={loadings} htmlType="submit" size="large">
-          Select
-        </Button>
+        <UiButton
+          type="primary"
+          textContent="Select"
+          htmlType="submit"
+          loading={loadings}
+        />
       </Form>
     </>
   )

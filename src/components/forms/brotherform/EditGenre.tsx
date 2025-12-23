@@ -1,8 +1,10 @@
 "use client"
 
 import { useState } from "react"
-import { Button, Form, Select, Space } from "antd"
+import { Form, Select, Space } from "antd"
 import { useAppSelector } from "@/store/lib/hooks"
+import { config } from "@/configs/config"
+import { UiButton } from "@/components/ui/button/UiButton"
 
 const { Option } = Select
 
@@ -21,19 +23,16 @@ const EditGenre: React.FC<props> = ({ id, inGenre }) => {
   const handleSubmit = async () => {
     try {
       setError(null)
-      const response = await fetch(
-        `https://bookclubbrothers-backend.onrender.com/users/${id}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({
-            userInfo: { favGenre },
-          }),
-        }
-      )
+      const response = await fetch(`${config.API_URL}/users/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          userInfo: { favGenre },
+        }),
+      })
       const data = await response.json()
       if (!response.ok) {
         setError(data.error)
@@ -217,15 +216,13 @@ const EditGenre: React.FC<props> = ({ id, inGenre }) => {
             span: 16,
           }}
         >
-          <Button
-            className="loginButtons"
+          <UiButton
+            textContent="Submit"
             loading={loadings[0]}
-            onClick={() => enterLoading(0)}
+            clickHandler={() => enterLoading(0)}
             htmlType="submit"
-            size="large"
-          >
-            Submit
-          </Button>
+            ghost
+          />
           {error ? <h4 className="errorH">{error}</h4> : null}
         </Form.Item>
       </Form>

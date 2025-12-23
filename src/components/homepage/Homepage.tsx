@@ -10,22 +10,28 @@ const Homepage: React.FC = () => {
 
       <div className={style.brothersCon}>
         <div className={style.book}>
-          <Link href="/books">
-            <div className={style.bookEgg}>
-              <h2 className="mt-5 text-4xl">Book</h2>
-            </div>
+          <Link
+            href="/books"
+            className={style.bookEgg}
+            data-testid="book-egg-link"
+          >
+            <h2 className="mt-5 text-4xl">Book</h2>
           </Link>
 
-          <Link href="/club">
-            <div className={style.clubEgg}>
-              <h2 className="mt-5 text-4xl">Club</h2>
-            </div>
+          <Link
+            href="/club"
+            className={style.clubEgg}
+            data-testid="club-egg-link"
+          >
+            <h2 className="mt-5 text-4xl">Club</h2>
           </Link>
 
-          <Link href="/brothers">
-            <div className={style.brothersEgg}>
-              <h2 className="mt-10 text-4xl">Brothers</h2>
-            </div>
+          <Link
+            href="/brothers"
+            className={style.brothersEgg}
+            data-testid="brothers-egg-link"
+          >
+            <h2 className="mt-10 text-4xl">Brothers</h2>
           </Link>
         </div>
       </div>

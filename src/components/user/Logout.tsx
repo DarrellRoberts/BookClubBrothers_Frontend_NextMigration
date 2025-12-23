@@ -1,8 +1,8 @@
 "use client"
 
-import { Button } from "antd"
 import { useState } from "react"
 import { useAuth } from "@/hooks/auth-hooks/useAuth"
+import { UiButton } from "../ui/button/UiButton"
 
 const Logout: React.FC = () => {
   const [loadings, setLoadings] = useState([])
@@ -18,20 +18,15 @@ const Logout: React.FC = () => {
     }, 3000)
   }
   return (
-    <>
-      <div className="flex items-center">
-        <Button
-          className="m-5"
-          type="primary"
-          ghost
-          htmlType="submit"
-          loading={loadings[0]}
-          onClick={handleClick}
-        >
-          Logout
-        </Button>
-      </div>
-    </>
+    <div className="flex items-center m-5">
+      <UiButton
+        ghost
+        clickHandler={handleClick}
+        loading={loadings[0]}
+        textContent={"Logout"}
+        htmlType="submit"
+      />
+    </div>
   )
 }
 

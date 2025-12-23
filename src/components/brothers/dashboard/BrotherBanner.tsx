@@ -20,6 +20,7 @@ import {
 } from "@/utils/stat-functions/scoreFunctions"
 import { useAuth } from "@/hooks/auth-hooks/useAuth"
 import { Button } from "antd"
+import { UiButton } from "@/components/ui/button/UiButton"
 
 type Props = {
   user: User
@@ -139,12 +140,8 @@ const BrotherBanner: React.FC<Props> = ({ user, readBooks }) => {
       </div>
 
       <div className="flex justify-evenly w-full">
-        <Button href="/books" color="primary" size="large">
-          Books
-        </Button>
-        <Button href="/brothers" color="default" size="large">
-          Brothers
-        </Button>
+        <UiButton isLink href="/books" textContent="Books" />
+        <UiButton isLink href="/books" textContent="Brothers" />
       </div>
     </>
   )

@@ -6,7 +6,7 @@ import HeaderLinksMobile from "./HeaderLinksMobile"
 import { useRef, useEffect } from "react"
 import { getTime } from "../../utils/time-functions/getTime"
 import Link from "next/link"
-import { useMediaQuery } from "react-responsive"
+// import { useMediaQuery } from "react-responsive"
 import Logo from "../misc/Logo"
 import Logout from "../user/Logout"
 import { useAppSelector } from "@/store/lib/hooks"
@@ -23,7 +23,7 @@ const HeaderCon: React.FC<Props> = ({ propsToken }) => {
 
   const { decodedToken } = useAuth()
 
-  const handleDesktop = useMediaQuery({ query: "(min-device-width: 801px)" })
+  // const handleDesktop = useMediaQuery({ query: "(min-device-width: 801px)" })
   const headerCon = useRef<HTMLElement>(null)
 
   const headerMessage = getTime()
@@ -48,15 +48,12 @@ const HeaderCon: React.FC<Props> = ({ propsToken }) => {
       {token || propsToken ? (
         <>
           <Logout />
-          {handleDesktop ? (
-            <div className="flex justify-evenly w-1/2 text-2xl text-white">
-              <HeaderLinks />
-            </div>
-          ) : (
-            <div className="flex justify-center text-white">
-              <HeaderLinksMobile />
-            </div>
-          )}
+          <div className="hidden md:flex justify-evenly w-1/2 text-2xl text-white">
+            <HeaderLinks />
+          </div>
+          <div className="md:hidden flex justify-center text-white">
+            <HeaderLinksMobile />
+          </div>
 
           <div className="flex items-center justify-end">
             <Link href="/">
@@ -74,15 +71,12 @@ const HeaderCon: React.FC<Props> = ({ propsToken }) => {
         <>
           <Login />
 
-          {handleDesktop ? (
-            <div className="flex justify-evenly w-1/2 font-[var(--main)] text-2xl text-white">
-              <HeaderLinks />
-            </div>
-          ) : (
-            <div className="flex justify-center text-white">
-              <HeaderLinksMobile />
-            </div>
-          )}
+          <div className="hidden md:flex justify-evenly w-1/2 font-[var(--main)] text-2xl text-white">
+            <HeaderLinks />
+          </div>
+          <div className="flex justify-center text-white md:hidden">
+            <HeaderLinksMobile />
+          </div>
           <Logo />
         </>
       )}

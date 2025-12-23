@@ -7,7 +7,10 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "jest test"
+    "test": "jest test",
+    "e2e_test": "npx playwright test",
+    "e2e_report": "npx playwright show-report",
+    "e2e_ui": "npx playwright test --ui"
   },
   "dependencies": {
     "@react-three/drei": "^9.109.5",
@@ -15,7 +18,7 @@
     "@reduxjs/toolkit": "^2.5.1",
     "@tailwindcss/postcss": "^4.1.11",
     "@tanstack/react-query": "^5.61.4",
-    "antd": "^5.14.0",
+    "antd": "^6.0.0",
     "axios": "^1.6.7",
     "chart.js": "^4.4.4",
     "gsap": "^3.12.5",
@@ -32,6 +35,7 @@
   "devDependencies": {
     "@eslint/compat": "^1.1.0",
     "@eslint/js": "^9.5.0",
+    "@playwright/test": "^1.57.0",
     "@testing-library/dom": "^10.4.1",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.0",

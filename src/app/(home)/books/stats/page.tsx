@@ -7,10 +7,11 @@ import BookStatsGenre from "@/components/books/stats/BookStatsGenre"
 import BookStatsPages from "@/components/books/stats/BookStatsPages"
 import BookStatsYrPublished from "@/components/books/stats/BookStatsYrPublished"
 import BookStatsMeetingDate from "@/components/books/stats/BookStatsMeetingDate"
+import { config } from "@/configs/config"
 
 const BookStats = () => {
   const { bookData, loadingBooks } = useBookFetch(
-    "https://bookclubbrothers-backend.onrender.com/books",
+    `${config.API_URL}/books`,
     null
   )
 
