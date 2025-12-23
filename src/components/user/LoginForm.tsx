@@ -1,6 +1,6 @@
 "use client"
 
-import { Button, ConfigProvider, Form, Input } from "antd"
+import { ConfigProvider, Form, Input } from "antd"
 import { useState } from "react"
 import { useAuth } from "@/hooks/auth-hooks/useAuth"
 import { config } from "@/configs/config"

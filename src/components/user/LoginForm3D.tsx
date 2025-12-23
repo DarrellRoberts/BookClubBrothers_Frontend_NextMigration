@@ -1,7 +1,6 @@
 "use client"
 
 import { config } from "@/configs/config"
-import { Button, Form, Input } from "antd"
 import { Button, ConfigProvider, Form, Input } from "antd"
 import { useState } from "react"
 
