@@ -3,6 +3,7 @@
 import { useJwt } from "react-jwt"
 import useUserFetch from "@/hooks/fetch-hooks/useUserFetch"
 import { useAppSelector } from "@/store/lib/hooks"
+import { config } from "@/configs/config"
 
 type Props = {
   title: string
@@ -27,7 +28,7 @@ const BookCover: React.FC<Props> = ({
   const username = decodedToken?.username
 
   const { userData, loadingUsers, error } = useUserFetch(
-    `https://bookclubbrothers-backend.onrender.com/users`,
+    `${config.API_URL}/users`,
     null
   )
 

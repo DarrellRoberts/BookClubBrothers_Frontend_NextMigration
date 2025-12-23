@@ -3,6 +3,7 @@
 import { Button, ConfigProvider, Form, Input } from "antd"
 import { useState } from "react"
 import { useAuth } from "@/hooks/auth-hooks/useAuth"
+import { config } from "@/configs/config"
 import { UiButton } from "../ui/button/UiButton"
 
 interface Login {
@@ -21,14 +22,11 @@ const LoginForm: React.FC<Login> = ({ setLoginOpen }) => {
     try {
       setError(null)
       setLoadings([true])
-      const response = await fetch(
-        "https://bookclubbrothers-backend.onrender.com/users/login",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ username, password }),
-        }
-      )
+      const response = await fetch(`${config.API_URL}/users/login`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, password }),
+      })
 
       const data = await response.json()
 

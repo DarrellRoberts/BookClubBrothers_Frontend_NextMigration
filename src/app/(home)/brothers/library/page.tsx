@@ -6,17 +6,18 @@ import useBookFetch from "@/hooks/fetch-hooks/useReadBookFetch"
 import useUserFetch from "@/hooks/fetch-hooks/useUserFetch"
 import BrothersProfile from "@/components/brothers/library/BrothersProfile"
 import BrothersLoadingProfile from "@/components/brothers/library/BrothersLoadingProfile"
+import { config } from "@/configs/config"
 
 const Brothercat: React.FC = () => {
   const [searchBar, setSearchBar] = useState("")
 
   const { userData, loadingUsers } = useUserFetch(
-    `https://bookclubbrothers-backend.onrender.com/users`,
+    `${config.API_URL}/users`,
     null
   )
 
   const { bookData, loadingBooks } = useBookFetch(
-    "https://bookclubbrothers-backend.onrender.com/books",
+    `${config.API_URL}/books`,
     null
   )
 

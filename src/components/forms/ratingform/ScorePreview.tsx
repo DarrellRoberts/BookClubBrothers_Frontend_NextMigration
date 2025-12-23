@@ -1,3 +1,4 @@
+import { config } from "@/configs/config"
 import useBookFetch from "@/hooks/fetch-hooks/useReadBookFetch"
 import { setFormData } from "@/store/lib/features/books/bookFormDataSlice"
 import { useAppDispatch, useAppSelector } from "@/store/lib/hooks"
@@ -15,10 +16,7 @@ type Props = {
 }
 
 const ScorePreview = ({ users, rating, bookTitle, initialRating }: Props) => {
-  const { bookData } = useBookFetch(
-    "https://bookclubbrothers-backend.onrender.com/books",
-    null
-  )
+  const { bookData } = useBookFetch(`${config.API_URL}/books`, null)
   const token = useAppSelector((state) => state.token.tokenState)
   const { decodedToken }: { decodedToken?: { username: string; _id: string } } =
     useJwt(token)

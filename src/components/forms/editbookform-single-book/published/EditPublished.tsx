@@ -4,6 +4,7 @@ import { Button, Form, Input } from "antd"
 import useForm from "@/hooks/crud-hooks/useForm"
 import { useAppDispatch, useAppSelector } from "@/store/lib/hooks"
 import { setFormData } from "@/store/lib/features/books/bookFormDataSlice"
+import { config } from "@/configs/config"
 import { UiButton } from "@/components/ui/button/UiButton"
 import { InputConfigWrapper } from "../../InputConfigWrapper"
 
@@ -20,7 +21,7 @@ const EditPublished: React.FC<Props> = ({ id, inPublish }) => {
   const dispatch = useAppDispatch()
 
   const { handleSubmit, error, enterLoading, loadings } = useForm(
-    `https://bookclubbrothers-backend.onrender.com/books/${id}`,
+    `${config.API_URL}/books/${id}`,
     "PUT",
     { yearPublished }
   )

@@ -14,6 +14,7 @@ import { Book } from "@/types/BookInterface"
 import useScrollRef from "@/hooks/scroll-hooks/useScrollRef"
 import useLimit from "@/hooks/scroll-hooks/useLimit"
 import BookSkeleton from "@/components/books/library/BookSkeleton"
+import { config } from "@/configs/config"
 import { UiButton } from "@/components/ui/button/UiButton"
 
 const Booklibrary: React.FC = () => {
@@ -23,7 +24,7 @@ const Booklibrary: React.FC = () => {
   const { limit, handleLimit, setIsLimit, isLimit } = useLimit()
 
   const { bookData, loadingBooks, error } = useBookFetch(
-    `https://bookclubbrothers-backend.onrender.com/books`,
+    `${config.API_URL}/books`,
     limit
   )
 

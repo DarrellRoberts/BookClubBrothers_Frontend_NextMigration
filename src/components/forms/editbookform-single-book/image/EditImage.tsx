@@ -5,6 +5,7 @@ import axios from "axios"
 import { Button, Form, Upload } from "antd"
 import { PlusOutlined } from "@ant-design/icons"
 import { useAppSelector } from "@/store/lib/hooks"
+import { config } from "@/configs/config"
 import { UiButton } from "@/components/ui/button/UiButton"
 import { InputConfigWrapper } from "../../InputConfigWrapper"
 
@@ -44,15 +45,11 @@ const EditImage: React.FC<props> = ({ id }) => {
     try {
       const formData = new FormData()
       formData.append("picture", image, image?.name)
-      await axios.post(
-        `https://bookclubbrothers-backend.onrender.com/books/${id}`,
-        formData,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      )
+      await axios.post(`${config.API_URL}/books/${id}`, formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
     } catch (error) {
       setError(error)
       console.error(error)
@@ -87,6 +84,24 @@ const EditImage: React.FC<props> = ({ id }) => {
         name="picture_upload_form"
         initialValues={{ fileList: [] }}
       >
+        <Form.Item
+          name="fileList"
+          valuePropName="fileList"
+          getValueFromEvent={normFile}
+        >
+          <Upload
+            name="picture"
+            action={`${config.API_URL}/users/${id}`}
+            listType="picture-card"
+            onChange={handleImageChange}
+            beforeUpload={() => false}
+          >
+            <div>
+              <PlusOutlined />
+              <div style={{ marginTop: 8 }}>Upload</div>
+            </div>
+          </Upload>
+        </Form.Item>
         <InputConfigWrapper>
           <Form.Item
             name="fileList"

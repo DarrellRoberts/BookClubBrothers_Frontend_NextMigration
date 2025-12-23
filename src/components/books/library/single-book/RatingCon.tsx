@@ -7,6 +7,7 @@ import { useJwt } from "react-jwt"
 import { Book } from "@/types/BookInterface"
 import { useAppSelector } from "@/store/lib/hooks"
 import { Skeleton } from "antd"
+import { config } from "@/configs/config"
 
 type Props = {
   singleBook: Book
@@ -35,9 +36,7 @@ const RatingCon: React.FC<Props> = ({
 
   const getData = async () => {
     try {
-      const data = await fetch(
-        `https://bookclubbrothers-backend.onrender.com/users`
-      )
+      const data = await fetch(`${config.API_URL}/users`)
       const user = await data.json()
       setUserData(user)
     } catch (err) {

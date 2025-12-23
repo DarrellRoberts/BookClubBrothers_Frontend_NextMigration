@@ -1,5 +1,7 @@
 "use client"
 
+import { config } from "@/configs/config"
+import { Button, Form, Input } from "antd"
 import { Button, ConfigProvider, Form, Input } from "antd"
 import { useState } from "react"
 
@@ -16,14 +18,11 @@ const LoginForm3D: React.FC<Login> = ({ setLoginOpen }) => {
   const handleSubmit = async () => {
     try {
       setError(null)
-      const response = await fetch(
-        "https://bookclubbrothers-backend.onrender.com/users/login",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ username, password }),
-        }
-      )
+      const response = await fetch(`${config.API_URL}/users/login`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, password }),
+      })
 
       const data = await response.json()
 

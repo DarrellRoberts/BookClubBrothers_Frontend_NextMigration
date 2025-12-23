@@ -3,6 +3,7 @@
 import { useState } from "react"
 import { Button, Form, Input } from "antd"
 import { useAppSelector } from "@/store/lib/hooks"
+import { config } from "@/configs/config"
 import { UiButton } from "@/components/ui/button/UiButton"
 import { UiInput } from "@/components/ui/input/UiInput"
 
@@ -21,19 +22,16 @@ const EditUsername: React.FC<props> = ({ id, inUsername }) => {
   const handleSubmit = async () => {
     try {
       setError(null)
-      const response = await fetch(
-        `https://bookclubbrothers-backend.onrender.com/users/username/${id}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({
-            username,
-          }),
-        }
-      )
+      const response = await fetch(`${config.API_URL}/users/username/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          username,
+        }),
+      })
       const data = await response.json()
       if (!response.ok) {
         setError(data.error)

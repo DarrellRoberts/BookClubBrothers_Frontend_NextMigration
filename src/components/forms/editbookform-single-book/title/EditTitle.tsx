@@ -1,5 +1,6 @@
 "use client"
 
+import { config } from "@/configs/config"
 import { UiButton } from "@/components/ui/button/UiButton"
 import useForm from "@/hooks/crud-hooks/useForm"
 import { setFormData } from "@/store/lib/features/books/bookFormDataSlice"
@@ -18,7 +19,7 @@ const EditTitle: React.FC<Props> = ({ id, inTitle }) => {
   const dispatch = useAppDispatch()
 
   const { handleSubmit, error, enterLoading, loadings } = useForm(
-    `https://bookclubbrothers-backend.onrender.com/books/${id}`,
+    `${config.API_URL}/books/${id}`,
     "PUT",
     { title }
   )

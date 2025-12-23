@@ -7,6 +7,7 @@ import { setFormData } from "@/store/lib/features/books/bookFormDataSlice"
 import { useEffect } from "react"
 import { User } from "@/types/UserInterface"
 import ScorePreview from "./ScorePreview"
+import { config } from "@/configs/config"
 import { UiButton } from "@/components/ui/button/UiButton"
 import { InputConfigWrapper } from "../InputConfigWrapper"
 
@@ -32,7 +33,7 @@ const EditRatingForm: React.FC<Props> = ({
   const dispatch = useAppDispatch()
 
   const { handleSubmit, error, loadings, enterLoading } = useForm(
-    `https://bookclubbrothers-backend.onrender.com/books/rating/edit/${id}`,
+    `${config.API_URL}/books/rating/edit/${id}`,
     "PUT",
     { rating }
   )
