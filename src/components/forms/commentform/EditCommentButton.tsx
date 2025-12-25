@@ -28,7 +28,7 @@ const EditRatingButton = ({
     setConfirmLoading(true)
     setTimeout(() => {
       setShowEditComment(false)
-    }, 4000)
+    }, 1250)
   }
   const handleCancel = () => {
     setShowEditComment(false)

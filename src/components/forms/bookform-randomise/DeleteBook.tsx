@@ -26,7 +26,7 @@ const DeleteBook: React.FC<Props> = ({ id }) => {
       setTimeout(() => {
         resolve(null)
         dispatch(setIsRefresh(false))
-      }, 3000)
+      }, 1250)
     })
 
   const popTheme = {

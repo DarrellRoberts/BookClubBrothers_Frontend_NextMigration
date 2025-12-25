@@ -42,7 +42,7 @@ const EditRatingForm: React.FC<Props> = ({
     enterLoading()
     setTimeout(() => {
       handleCancel()
-    }, 4000)
+    }, 1250)
   }
 
   useEffect(() => {

@@ -62,7 +62,7 @@ const EditCityAndCountry: React.FC<props> = ({ id, inCity, inCountry }) => {
         document.location.reload()
         return newLoadings
       })
-    }, 4000)
+    }, 500)
   }
   return (
     <>

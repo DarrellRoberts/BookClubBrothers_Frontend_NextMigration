@@ -20,7 +20,7 @@ const CreateBook = () => {
     setConfirmLoading(true)
     setTimeout(() => {
       dispatch(setShowCreate())
-    }, 4000)
+    }, 1250)
     setModalText(<CreateBookForm />)
   }
   const handleCancel = () => {

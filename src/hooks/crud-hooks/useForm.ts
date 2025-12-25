@@ -60,7 +60,7 @@ const useForm = (url: string, reqType: string, customData?: object) => {
     setTimeout(() => {
       setLoadings(false)
       dispatch(setIsRefresh(false))
-    }, 4000)
+    }, 1000)
   }
 
   return { handleSubmit, error, enterLoading, loadings, setError }

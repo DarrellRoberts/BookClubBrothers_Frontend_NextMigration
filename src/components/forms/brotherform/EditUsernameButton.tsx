@@ -28,7 +28,7 @@ const EditUsernameButton: React.FC<Props> = ({ id, inUsername }) => {
     setConfirmLoading(true)
     setTimeout(() => {
       dispatch(setShowUsername())
-    }, 4000)
+    }, 500)
     setModalText(<EditUsername id={id} inUsername={inUsername} />)
   }
   const handleCancel = () => {
