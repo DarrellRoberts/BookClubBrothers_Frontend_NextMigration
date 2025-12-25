@@ -41,7 +41,7 @@ const LoginForm: React.FC<Login> = ({ setLoginOpen }) => {
           login(data.token)
           setLoadings([false])
           setLoginOpen(false)
-        }, 5000)
+        }, 1000)
       }
     } catch (err) {
       setError(err)
@@ -53,6 +53,9 @@ const LoginForm: React.FC<Login> = ({ setLoginOpen }) => {
     components: {
       Input: {
         colorText: "black",
+        icons: {
+          color: "red",
+        },
       },
     },
   }
@@ -113,6 +116,13 @@ const LoginForm: React.FC<Login> = ({ setLoginOpen }) => {
                 type="password"
                 onChange={(e) => setPassword(e.target.value)}
                 value={password}
+                styles={{
+                  suffix: {
+                    background: "#095d09",
+                    borderRadius: "20px",
+                    padding: "0.25rem",
+                  },
+                }}
               />
             </Form.Item>
           </ConfigProvider>

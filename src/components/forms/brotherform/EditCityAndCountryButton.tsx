@@ -33,7 +33,7 @@ const EditCityAndCountryButton: React.FC<Props> = ({
     setConfirmLoading(true)
     setTimeout(() => {
       dispatch(setShowCountry())
-    }, 4000)
+    }, 500)
     setModalText(
       <EditCityAndCountry id={id} inCountry={inCountry} inCity={inCity} />
     )

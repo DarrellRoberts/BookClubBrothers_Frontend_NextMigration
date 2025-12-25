@@ -73,7 +73,7 @@ const PictureUpload: React.FC<props> = ({ id, inImage }) => {
         document.location.reload()
         return newLoadings
       })
-    }, 4000)
+    }, 500)
   }
 
   return (

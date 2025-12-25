@@ -48,7 +48,7 @@ const EditForm: React.FC<Props> = ({
   const handleForm = () => {
     if (inputError) return
     enterLoading()
-    setTimeout(() => dispatch(setShowEdit()), 4000)
+    setTimeout(() => dispatch(setShowEdit()), 1250)
   }
   const formData = useAppSelector((state) => state.bookFormData.formData)
   const dispatch = useAppDispatch()

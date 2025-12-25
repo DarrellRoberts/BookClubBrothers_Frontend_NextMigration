@@ -60,7 +60,7 @@ const EditUsername: React.FC<props> = ({ id, inUsername }) => {
         document.location.reload()
         return newLoadings
       })
-    }, 4000)
+    }, 500)
   }
   return (
     <>

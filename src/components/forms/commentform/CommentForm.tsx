@@ -32,7 +32,7 @@ const CommentForm = ({ id, handleCancel }: Props) => {
     enterLoading()
     setTimeout(() => {
       handleCancel()
-    }, 4000)
+    }, 1250)
   }
 
   return (

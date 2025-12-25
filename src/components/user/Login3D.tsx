@@ -20,7 +20,7 @@ const Login: React.FC = () => {
     setTimeout(() => {
       setLoginOpen(false)
       setConfirmLoading(false)
-    }, 2000)
+    }, 1000)
     setModalText(<LoginForm3D setLoginOpen={setLoginOpen} />)
   }
   const handleCancel = () => {

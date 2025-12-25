@@ -28,7 +28,7 @@ const EditGenreButton: React.FC<Props> = ({ id, inGenre }) => {
     setConfirmLoading(true)
     setTimeout(() => {
       dispatch(setShowGenre())
-    }, 4000)
+    }, 500)
     setModalText(<EditGenre id={id} inGenre={inGenre} />)
   }
   const handleCancel = () => {

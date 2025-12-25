@@ -33,7 +33,7 @@ const EditCommentForm: React.FC<Props> = ({ id, inComment, handleCancel }) => {
     enterLoading()
     setTimeout(() => {
       handleCancel()
-    }, 4000)
+    }, 1250)
   }
 
   return (

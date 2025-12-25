@@ -29,7 +29,7 @@ const EditAnthologyRatingForm: React.FC<Props> = ({
     setTimeout(() => {
       setLoadings(false)
       document.location.reload()
-    }, 4000)
+    }, 1250)
   }
 
   const handleSubmit2 = async () => {

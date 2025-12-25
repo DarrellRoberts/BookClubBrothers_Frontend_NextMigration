@@ -30,7 +30,7 @@ const CreateBook: React.FC = () => {
 
   const handleLoading = () => {
     enterLoading()
-    setTimeout(() => dispatch(setShowCreate()), 4000)
+    setTimeout(() => dispatch(setShowCreate()), 1250)
   }
 
   useEffect(() => {
