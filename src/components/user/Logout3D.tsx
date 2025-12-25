@@ -12,7 +12,7 @@ const Logout3D: React.FC = () => {
       localStorage.removeItem("username")
       localStorage.removeItem("token")
       setLoadings([false])
-    }, 3000)
+    }, 1000)
   }
   return (
     <>

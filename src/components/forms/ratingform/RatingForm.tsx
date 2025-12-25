@@ -40,7 +40,7 @@ const RatingForm: React.FC<Props> = ({
     enterLoading()
     setTimeout(() => {
       handleCancel()
-    }, 4000)
+    }, 1250)
   }
 
   useEffect(() => {

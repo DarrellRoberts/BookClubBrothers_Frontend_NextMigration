@@ -15,7 +15,7 @@ const Logout: React.FC = () => {
       localStorage.removeItem("username")
       setLoadings([false])
       logout()
-    }, 3000)
+    }, 1000)
   }
   return (
     <div className="flex items-center m-5">

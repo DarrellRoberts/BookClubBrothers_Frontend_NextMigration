@@ -20,9 +20,7 @@ const DeleteBook: React.FC<Props> = ({ id }) => {
       handleSubmit()
       setTimeout(() => {
         resolve(null)
-
-        // document.location.reload()
-      }, 3000)
+      }, 1250)
     })
   return (
     <div className="m-5">

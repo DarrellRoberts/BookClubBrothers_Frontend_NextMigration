@@ -37,7 +37,7 @@ const LoginForm3D: React.FC<Login> = ({ setLoginOpen }) => {
           localStorage.setItem("token", data.token)
           setLoadings([false])
           setLoginOpen(false)
-        }, 5000)
+        }, 1000)
       }
     } catch (err) {
       setError(err)
@@ -108,6 +108,13 @@ const LoginForm3D: React.FC<Login> = ({ setLoginOpen }) => {
                 type="password"
                 onChange={(e) => setPassword(e.target.value)}
                 value={password}
+                styles={{
+                  suffix: {
+                    background: "#095d09",
+                    borderRadius: "20px",
+                    padding: "0.25rem",
+                  },
+                }}
               />
             </Form.Item>
           </ConfigProvider>

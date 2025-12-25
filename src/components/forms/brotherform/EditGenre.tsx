@@ -61,7 +61,7 @@ const EditGenre: React.FC<props> = ({ id, inGenre }) => {
         document.location.reload()
         return newLoadings
       })
-    }, 4000)
+    }, 500)
   }
   return (
     <>

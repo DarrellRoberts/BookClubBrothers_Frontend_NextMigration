@@ -29,7 +29,7 @@ const PictureUploadButton: React.FC<Props> = ({ id, inImage }) => {
     setConfirmLoading(true)
     setTimeout(() => {
       dispatch(setShowImage())
-    }, 4000)
+    }, 500)
     setModalText(<PictureUpload id={id} inImage={inImage} />)
   }
   const handleCancel = () => {
