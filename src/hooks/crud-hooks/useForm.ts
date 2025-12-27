@@ -5,7 +5,13 @@ import { useState } from "react"
 import { useQueryClient } from "@tanstack/react-query"
 import { setIsRefresh } from "@/store/lib/features/auth/editButtonsSlice"
 
-const useForm = (url: string, reqType: string, customData?: object) => {
+type Props = {
+  url: string,
+  reqType: string,
+  customData?: object
+}
+
+const useForm = ({url, reqType, customData}: Props) => {
   const [loadings, setLoadings] = useState(false)
   const [error, setError] = useState<any>()
 

@@ -47,7 +47,13 @@ export const UiButton = ({
     },
   }
   return ghost ? (
-    <Button ghost onClick={clickHandler} loading={loading} htmlType={htmlType}>
+    <Button
+      ghost
+      onClick={clickHandler}
+      loading={loading}
+      htmlType={htmlType}
+      style={{ background: htmlType === "submit" && "black" }}
+    >
       {textContent}
     </Button>
   ) : isLink ? (

@@ -1,6 +1,7 @@
 "use client"
 
-import { config } from "@/configs/config"
+import { useAuth } from "@/hooks/auth-hooks/useAuth"
+import { useLogin } from "@/hooks/crud-hooks/useLogin"
 import { Button, ConfigProvider, Form, Input } from "antd"
 import { useState } from "react"
 
@@ -9,40 +10,24 @@ interface Login {
 }
 
 const LoginForm3D: React.FC<Login> = ({ setLoginOpen }) => {
-  const [username, setUsername] = useState("")
-  const [password, setPassword] = useState("")
-  const [error, setError] = useState(null)
-  const [loadings, setLoadings] = useState([false])
+  const [username, setUsername] = useState<string>("")
+  const [password, setPassword] = useState<string>("")
+  const [loadings, setLoadings] = useState<boolean>(false)
+
+  const { error, loginUser } = useLogin({ setLoginOpen, username, password })
+  const { login } = useAuth()
 
   const handleSubmit = async () => {
-    try {
-      setError(null)
-      const response = await fetch(`${config.API_URL}/users/login`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, password }),
-      })
-
-      const data = await response.json()
-
-      if (!response.ok) {
-        setError(data.error)
-        setLoadings([false])
-      }
-
-      if (response.ok) {
-        setLoadings([true])
-        setTimeout(() => {
-          localStorage.setItem("username", username)
-          localStorage.setItem("token", data.token)
-          setLoadings([false])
-          setLoginOpen(false)
-        }, 1000)
-      }
-    } catch (err) {
-      setError(err)
-      console.log(error)
+    setLoadings(true)
+    const [data] = await Promise.all([
+      loginUser(),
+      new Promise((res) => setTimeout(res, 1250)),
+    ])
+    if (data && data.token) {
+      localStorage.setItem("username", username)
+      login(data.token)
     }
+    setLoadings(false)
   }
 
   const inputTheme = {
