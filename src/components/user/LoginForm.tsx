@@ -3,50 +3,32 @@
 import { ConfigProvider, Form, Input } from "antd"
 import { useState } from "react"
 import { useAuth } from "@/hooks/auth-hooks/useAuth"
-import { config } from "@/configs/config"
 import { UiButton } from "../ui/button/UiButton"
+import { useLogin } from "@/hooks/crud-hooks/useLogin"
 
-interface Login {
-  setLoginOpen: React.Dispatch<React.SetStateAction<React.ReactNode>>
+type Props = {
+  setLoginOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const LoginForm: React.FC<Login> = ({ setLoginOpen }) => {
-  const [username, setUsername] = useState("")
-  const [password, setPassword] = useState("")
-  const [error, setError] = useState(null)
-  const [loadings, setLoadings] = useState([false])
+const LoginForm = ({ setLoginOpen }: Props) => {
+  const [username, setUsername] = useState<string>("")
+  const [password, setPassword] = useState<string>("")
+  const [loadings, setLoadings] = useState<boolean>(false)
 
+  const { error, loginUser } = useLogin({ setLoginOpen, username, password })
   const { login } = useAuth()
 
   const handleSubmit = async () => {
-    try {
-      setError(null)
-      setLoadings([true])
-      const response = await fetch(`${config.API_URL}/users/login`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, password }),
-      })
-
-      const data = await response.json()
-
-      if (!response.ok) {
-        setError(data.error)
-        setLoadings([false])
-      }
-
-      if (response.ok) {
-        setTimeout(() => {
-          localStorage.setItem("username", username)
-          login(data.token)
-          setLoadings([false])
-          setLoginOpen(false)
-        }, 1000)
-      }
-    } catch (err) {
-      setError(err)
-      console.log(error)
+    setLoadings(true)
+    const [data] = await Promise.all([
+      loginUser(),
+      new Promise((res) => setTimeout(res, 1250)),
+    ])
+    if (data && data.token) {
+      localStorage.setItem("username", username)
+      login(data.token)
     }
+    setLoadings(false)
   }
 
   const inputTheme = {
@@ -142,7 +124,7 @@ const LoginForm: React.FC<Login> = ({ setLoginOpen }) => {
               textContent={"Submit"}
               htmlType="submit"
               ghost
-              loading={loadings[0]}
+              loading={loadings}
             />
           </Form.Item>
         </Form>
