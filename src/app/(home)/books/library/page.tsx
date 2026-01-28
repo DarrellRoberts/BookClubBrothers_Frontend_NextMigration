@@ -25,7 +25,7 @@ const Booklibrary: React.FC = () => {
 
   const { bookData, loadingBooks, error } = useBookFetch(
     `${config.API_URL}/books`,
-    limit
+    limit,
   )
 
   const readBooks = bookData?.filter((book) => book.read === true)
@@ -34,7 +34,7 @@ const Booklibrary: React.FC = () => {
 
   const filteredResults = Array.isArray(readBooks)
     ? readBooks?.filter((book) =>
-        book.title.toLowerCase().includes(searchBar.toLowerCase())
+        book.title.toLowerCase().includes(searchBar.toLowerCase()),
       )
     : ["No results"]
 
@@ -100,8 +100,9 @@ const Booklibrary: React.FC = () => {
                       totalScore={book?.totalScore}
                       ratingArr={book?.scoreRatings?.rating}
                       raterArr={book?.scoreRatings?.raterId}
+                      imageURL={book?.imageURL}
                       hideScores={handleHideScores_NoSetter(
-                        book?.actualDateOfMeeting
+                        book?.actualDateOfMeeting,
                       )}
                     />
                   </Link>
