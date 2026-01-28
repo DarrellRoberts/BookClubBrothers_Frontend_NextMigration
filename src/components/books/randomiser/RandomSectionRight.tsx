@@ -28,9 +28,9 @@ const RandomSectionRight: React.FC<Props> = ({ bookData, error, userData }) => {
 
   return (
     <div className="grid grid-rows-2 border-[var(--default-border-color)] border-5 border-solid p-2 max-md:flex max-md:flex-col max-md:p-0 max-md:border-0 relative">
-      {bookData ? (
+      {bookData && bookData[index] ? (
         <Image
-          key={bookData[index]._id}
+          key={bookData[index]?._id}
           src={bookData[index]?.imageURL}
           width={500}
           height={500}
