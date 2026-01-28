@@ -4,6 +4,7 @@ import { useJwt } from "react-jwt"
 import useUserFetch from "@/hooks/fetch-hooks/useUserFetch"
 import { useAppSelector } from "@/store/lib/hooks"
 import { config } from "@/configs/config"
+import Image from "next/image"
 
 type Props = {
   title: string
@@ -12,6 +13,7 @@ type Props = {
   raterArr: string[]
   hideScores: boolean
   isSingleBook?: boolean
+  imageURL: string
 }
 
 const BookCover: React.FC<Props> = ({
@@ -21,6 +23,7 @@ const BookCover: React.FC<Props> = ({
   raterArr,
   hideScores,
   isSingleBook,
+  imageURL,
 }) => {
   const token = useAppSelector((state) => state.token.tokenState)
   const { decodedToken }: { decodedToken?: { username: string; _id: string } } =
@@ -29,7 +32,7 @@ const BookCover: React.FC<Props> = ({
 
   const { userData, loadingUsers, error } = useUserFetch(
     `${config.API_URL}/users`,
-    null
+    null,
   )
 
   const findUser = (id) => {
@@ -51,7 +54,6 @@ const BookCover: React.FC<Props> = ({
     }
   }
   findBookScore()
-
   return (
     <>
       <div
@@ -62,12 +64,25 @@ const BookCover: React.FC<Props> = ({
         }
       >
         <div className="flex h-full w-full">
-          <div className="leftcover flex w-[45%] flex-col items-center justify-center bg-black text-white">
-            <h2 className="font-main text-2xl max-md:text-base">{title}</h2>
-            <h2 className="font-main text-2xl max-md:text-base">
-              (Image pending)
-            </h2>
-          </div>
+          {imageURL.length ? (
+            <div className="leftcover w-[45%] max-sm:w-[60%]">
+              <Image
+                key={imageURL}
+                src={imageURL}
+                width={500}
+                height={500}
+                alt={title}
+                className="w-fit h-full"
+              />
+            </div>
+          ) : (
+            <div className="leftcover flex w-[45%] flex-col items-center justify-center bg-black text-white">
+              <h2 className="font-main text-2xl max-md:text-base">{title}</h2>
+              <h2 className="font-main text-2xl max-md:text-base">
+                (Image pending)
+              </h2>
+            </div>
+          )}
           <div className="flex flex-col items-start font-main text-xl ml-2 max-md:text-base">
             <h2 className="underline mb-5">Book Club Brothers</h2>
 

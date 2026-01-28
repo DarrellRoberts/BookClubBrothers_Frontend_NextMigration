@@ -1,14 +1,13 @@
-import { Button, Form, Input, Space, Select } from "antd"
+import { Form, Input, Space, Select } from "antd"
 import useForm from "@/hooks/crud-hooks/useForm"
 import { useAppDispatch, useAppSelector } from "@/store/lib/hooks"
 import { setFormData } from "@/store/lib/features/books/bookFormDataSlice"
 import { useEffect, useState } from "react"
-import { editBookButtonSlice } from "@/store/lib/features/books/editBookButtonsSlice"
 import { setShowCreate } from "@/store/lib/features/auth/editButtonsSlice"
 import { config } from "@/configs/config"
-import { UiInput } from "@/components/ui/input/UiInput"
 import { InputConfigWrapper } from "../InputConfigWrapper"
 import { UiButton } from "@/components/ui/button/UiButton"
+import useBookImage from "@/hooks/book-hooks/useBookImage"
 
 const { Option } = Select
 
@@ -18,19 +17,26 @@ const CreateBook: React.FC = () => {
     author: false,
     yearPublished: false,
     pages: false,
-    imageURL: false,
   })
-  const [noImageMessage, setNoImageMessage] = useState<any>()
   const { handleSubmit, error, enterLoading, loadings, setError } = useForm(
     `${config.API_URL}/books/unread/create`,
-    "POST"
+    "POST",
   )
   const formData = useAppSelector((state) => state.bookFormData.formData)
   const dispatch = useAppDispatch()
+  const fetchCoverId = useBookImage()
 
   const handleLoading = () => {
     enterLoading()
     setTimeout(() => dispatch(setShowCreate()), 1250)
+  }
+
+  const handleSubmitSuggestion = async () => {
+    if (!formData.title) return
+    const coverUrl = await fetchCoverId(formData.title)
+    if (!coverUrl) return
+    const finalSubmissionData = { ...formData, imageURL: coverUrl }
+    dispatch(setFormData(finalSubmissionData))
   }
 
   useEffect(() => {
@@ -82,6 +88,7 @@ const CreateBook: React.FC = () => {
           >
             <Input
               type="text"
+              onBlur={() => handleSubmitSuggestion()}
               onChange={(e) =>
                 dispatch(setFormData({ ...formData, title: e.target.value }))
               }
@@ -146,7 +153,7 @@ const CreateBook: React.FC = () => {
               type="number"
               onChange={(e) =>
                 dispatch(
-                  setFormData({ ...formData, pages: Number(e.target.value) })
+                  setFormData({ ...formData, pages: Number(e.target.value) }),
                 )
               }
               value={formData["pages"]}
@@ -180,7 +187,7 @@ const CreateBook: React.FC = () => {
                   setFormData({
                     ...formData,
                     yearPublished: Number(e.target.value),
-                  })
+                  }),
                 )
               }
               value={formData["yearPublished"]}
@@ -318,56 +325,6 @@ const CreateBook: React.FC = () => {
               </Option>
             </Select>
           </Form.Item>
-
-          {/* ImageURL */}
-          <Form.Item
-            label="Image URL"
-            name="image"
-            required={true}
-            rules={[
-              {
-                validator(_, value) {
-                  const imageRegex = /\.(jpg|jpeg|png|svg|webp)$/i
-                  if (!value) {
-                    setErrorObject({ ...errorObject, imageURL: false })
-                    setNoImageMessage(
-                      <>
-                        No image URL?? Let me help with that. Click{" "}
-                        <a
-                          className="underline font-bold"
-                          href={`https://www.google.com/search?q=${formData["title"]}+book+cover&tbm=isch`}
-                          target="_blank"
-                        >
-                          here
-                        </a>{" "}
-                        you lazy bastard, find one you like, right-click and
-                        copy the image URL and paste it in the above field
-                      </>
-                    )
-                    return Promise.reject()
-                  }
-                  if (imageRegex.test(value)) {
-                    setErrorObject({ ...errorObject, imageURL: true })
-                    setNoImageMessage("")
-                    return Promise.resolve()
-                  } else if (value && !imageRegex.test(value)) {
-                    setErrorObject({ ...errorObject, imageURL: false })
-                    return Promise.reject()
-                  }
-                },
-                message:
-                  "URLs must end in either .jpg, .jpeg, .png, .svg, or .webp",
-              },
-            ]}
-          >
-            <Input
-              type="text"
-              onChange={(e) =>
-                dispatch(setFormData({ ...formData, imageURL: e.target.value }))
-              }
-              value={formData["imageURL"]}
-            />
-          </Form.Item>
         </InputConfigWrapper>
 
         {/* Submission */}
@@ -389,11 +346,6 @@ const CreateBook: React.FC = () => {
           {error ? (
             <h4 className="bg-black text-red-500 p-[0.5rem] rounded">
               {error}
-            </h4>
-          ) : null}
-          {noImageMessage ? (
-            <h4 className="bg-black text-red-500 p-[0.5rem] rounded">
-              {noImageMessage}
             </h4>
           ) : null}
         </div>

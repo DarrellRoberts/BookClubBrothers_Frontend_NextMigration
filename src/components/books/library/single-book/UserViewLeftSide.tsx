@@ -18,7 +18,7 @@ type Props = {
 const UserViewLeftSide = ({ bookData }: Props) => {
   const { singleUserData, loadingUser } = useSingleUserFetch(
     `${config.API_URL}/users/id/${bookData?.suggestedBy}`,
-    bookData?.suggestedBy
+    bookData?.suggestedBy,
   )
   const isDarkMode = useAppSelector((state) => state.darkMode.darkMode)
 
@@ -50,8 +50,9 @@ const UserViewLeftSide = ({ bookData }: Props) => {
             totalScore={bookData?.totalScore}
             ratingArr={bookData?.scoreRatings?.rating}
             raterArr={bookData?.scoreRatings?.raterId}
+            imageURL={bookData?.imageURL}
             hideScores={handleHideScores_NoSetter(
-              bookData?.actualDateOfMeeting
+              bookData?.actualDateOfMeeting,
             )}
             isSingleBook={true}
           />

@@ -85,8 +85,9 @@ const BrotherBanner: React.FC<Props> = ({ user, readBooks }) => {
                   totalScore={findMinBook?.totalScore}
                   ratingArr={findMinBook?.scoreRatings?.rating}
                   raterArr={findMinBook?.scoreRatings?.raterId}
+                  imageURL={findMinBook?.imageURL}
                   hideScores={handleHideScores_NoSetter(
-                    findMinBook?.actualDateOfMeeting
+                    findMinBook?.actualDateOfMeeting,
                   )}
                 />
               )}
@@ -106,8 +107,9 @@ const BrotherBanner: React.FC<Props> = ({ user, readBooks }) => {
                   totalScore={findMaxBook?.totalScore}
                   ratingArr={findMaxBook?.scoreRatings?.rating}
                   raterArr={findMaxBook?.scoreRatings?.raterId}
+                  imageURL={findMaxBook?.imageURL}
                   hideScores={handleHideScores_NoSetter(
-                    findMaxBook?.actualDateOfMeeting
+                    findMaxBook?.actualDateOfMeeting,
                   )}
                 />
               )}
