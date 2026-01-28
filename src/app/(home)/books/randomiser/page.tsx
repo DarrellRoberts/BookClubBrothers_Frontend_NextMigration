@@ -17,16 +17,16 @@ const RandomiserHomepage: React.FC = () => {
 
   const { bookData, loadingBooks, error } = useBookFetch(
     `${config.API_URL}/books/unread/all`,
-    null
+    null,
   )
   const { userData, loadingUsers } = useUserFetch(
     `${config.API_URL}/users`,
-    null
+    null,
   )
 
   useEffect(() => {
     setRandomiserBooks(bookData)
-  }, [loadingBooks, isRefresh])
+  }, [bookData, loadingBooks, isRefresh])
 
   return (
     <div>

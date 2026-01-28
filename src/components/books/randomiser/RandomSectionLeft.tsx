@@ -23,7 +23,6 @@ const RandomSectionLeft: React.FC<Props> = ({
 }) => {
   const { decodedToken } = useAuth()
   const dispatch = useAppDispatch()
-  const isDarkMode = useAppSelector((state) => state.darkMode.darkMode)
 
   const findUser = (id) => {
     const user = userData?.find((user) => user._id === id)
