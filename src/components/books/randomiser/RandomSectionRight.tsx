@@ -6,7 +6,7 @@ import { Book } from "@/types/BookInterface"
 import { useAppSelector } from "@/store/lib/hooks"
 import { User } from "@/types/UserInterface"
 import { useAuth } from "@/hooks/auth-hooks/useAuth"
-import { useMediaQuery } from "react-responsive"
+import Image from "next/image"
 import { UiSkeletonTitle } from "@/components/ui/skeleton/UiSkeletonTitle"
 
 type Props = {
@@ -27,17 +27,17 @@ const RandomSectionRight: React.FC<Props> = ({ bookData, error, userData }) => {
   }
 
   return (
-    <div
-      className="grid grid-rows-2 border-[var(--default-border-color)] border-5 border-solid p-2 max-md:flex max-md:flex-col max-md:p-0 max-md:border-0"
-      style={{
-        backgroundImage: bookData
-          ? `URL(${bookData[index]?.imageURL})`
-          : "black",
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-      }}
-    >
+    <div className="grid grid-rows-2 border-[var(--default-border-color)] border-5 border-solid p-2 max-md:flex max-md:flex-col max-md:p-0 max-md:border-0 relative">
+      {bookData ? (
+        <Image
+          key={bookData[index]._id}
+          src={bookData[index]?.imageURL}
+          width={500}
+          height={500}
+          alt={bookData[index]?.title}
+          className="w-full h-full absolute z-0"
+        />
+      ) : null}
       {!bookData ? (
         <>
           <div className="bg-[var(--main-bg-color)] font-main flex flex-col justify-center items-center border-[var(--default-border-color)] border-5 border-solid h-[400px] max-md:justify-start max-md:h-[300px] max-md:m-8 gap-5">
@@ -63,7 +63,7 @@ const RandomSectionRight: React.FC<Props> = ({ bookData, error, userData }) => {
           </div>
         </>
       ) : (
-        <div className="bg-[var(--main-bg-color)] font-main flex flex-col justify-center items-center border-[var(--default-border-color)] border-5 border-solid h-[400px] max-md:justify-start max-md:h-[300px] max-md:m-8">
+        <div className="bg-[var(--main-bg-color)] font-main flex flex-col justify-center items-center border-[var(--default-border-color)] border-5 border-solid h-[400px] max-md:justify-start max-md:h-[300px] max-md:m-8 z-1">
           {error ? (
             <h2 className="text-red-500 bg-black">{error.message}</h2>
           ) : !bookData[index] ? (

@@ -1,14 +1,13 @@
 import DeleteBook from "@/components/forms/bookform-delete/DeleteBook"
 import EditTitleButton from "@/components/forms/editbookform-single-book/title/EditTitleButton"
 import { Book } from "@/types/BookInterface"
-import React, { useState } from "react"
+import React from "react"
 import BookCover from "../BookCover"
 import { handleHideScores_NoSetter } from "@/utils/time-functions/hideScores"
 import EditImageButton from "@/components/forms/editbookform-single-book/image/EditImageButton"
 import EditTitle from "@/components/forms/editbookform-single-book/title/EditTitle"
 import EditImage from "@/components/forms/editbookform-single-book/image/EditImage"
 import { useAppSelector } from "@/store/lib/hooks"
-import NavigateBook from "./NavigateBook"
 import Profile from "@/components/misc/profile/Profile"
 import useSingleUserFetch from "@/hooks/fetch-hooks/useSingleUserFetch"
 import Image from "next/image"
@@ -21,11 +20,11 @@ type Props = {
 
 const AdminViewSingleBook: React.FC<Props> = ({ bookData, bookId }) => {
   const { showTitle, showBookImage } = useAppSelector(
-    (state) => state.editBookButtons
+    (state) => state.editBookButtons,
   )
   const { singleUserData } = useSingleUserFetch(
     `${config.API_URL}/users/id/${bookData?.suggestedBy}`,
-    bookData?.suggestedBy
+    bookData?.suggestedBy,
   )
   return (
     <>
@@ -63,8 +62,9 @@ const AdminViewSingleBook: React.FC<Props> = ({ bookData, bookId }) => {
               totalScore={bookData?.totalScore}
               ratingArr={bookData?.scoreRatings?.rating}
               raterArr={bookData?.scoreRatings?.raterId}
+              imageURL={bookData?.imageURL}
               hideScores={handleHideScores_NoSetter(
-                bookData?.actualDateOfMeeting
+                bookData?.actualDateOfMeeting,
               )}
               isSingleBook={true}
             />

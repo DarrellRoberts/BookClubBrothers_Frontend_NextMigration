@@ -4,9 +4,7 @@ import { useJwt } from "react-jwt"
 import useUserFetch from "@/hooks/fetch-hooks/useUserFetch"
 import { useAppSelector } from "@/store/lib/hooks"
 import { config } from "@/configs/config"
-import useBookImage from "@/hooks/book-hooks/useBookImage"
 import Image from "next/image"
-import BookImageCover from "./BookImageCover"
 
 type Props = {
   title: string
@@ -15,6 +13,7 @@ type Props = {
   raterArr: string[]
   hideScores: boolean
   isSingleBook?: boolean
+  imageURL: string
 }
 
 const BookCover: React.FC<Props> = ({
@@ -24,6 +23,7 @@ const BookCover: React.FC<Props> = ({
   raterArr,
   hideScores,
   isSingleBook,
+  imageURL,
 }) => {
   const token = useAppSelector((state) => state.token.tokenState)
   const { decodedToken }: { decodedToken?: { username: string; _id: string } } =
@@ -34,8 +34,6 @@ const BookCover: React.FC<Props> = ({
     `${config.API_URL}/users`,
     null,
   )
-
-  const { coverUrl, fetchData } = useBookImage(title)
 
   const findUser = (id) => {
     const user = userData?.find((user) => user._id === id)
@@ -56,8 +54,6 @@ const BookCover: React.FC<Props> = ({
     }
   }
   findBookScore()
-  // console.log(coverUrl)
-  // console.log(fetchData)
   return (
     <>
       <div
@@ -68,12 +64,13 @@ const BookCover: React.FC<Props> = ({
         }
       >
         <div className="flex h-full w-full">
-          {coverUrl.length ? (
+          {imageURL.length ? (
             <div className="leftcover w-[45%] max-sm:w-[60%]">
               <Image
-                src={coverUrl}
-                width={100}
-                height={100}
+                key={imageURL}
+                src={imageURL}
+                width={500}
+                height={500}
                 alt={title}
                 className="w-fit h-full"
               />
