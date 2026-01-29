@@ -5,6 +5,7 @@ import useUserFetch from "@/hooks/fetch-hooks/useUserFetch"
 import { useAppSelector } from "@/store/lib/hooks"
 import { config } from "@/configs/config"
 import Image from "next/image"
+import { useState } from "react"
 
 type Props = {
   title: string
@@ -25,6 +26,7 @@ const BookCover: React.FC<Props> = ({
   isSingleBook,
   imageURL,
 }) => {
+  const [isLoading, setIsLoading] = useState<boolean>(true)
   const token = useAppSelector((state) => state.token.tokenState)
   const { decodedToken }: { decodedToken?: { username: string; _id: string } } =
     useJwt(token)
@@ -64,7 +66,15 @@ const BookCover: React.FC<Props> = ({
         }
       >
         <div className="flex h-full w-full">
-          {imageURL.length ? (
+          {isLoading && (
+            <div className="leftcover flex w-[45%] flex-col items-center justify-center bg-black text-white">
+              <h2 className="font-main text-2xl max-md:text-base">{title}</h2>
+              <h2 className="font-main text-2xl max-md:text-base">
+                (Image pending)
+              </h2>
+            </div>
+          )}
+          {imageURL && (
             <div className="leftcover w-[45%] max-sm:w-[60%]">
               <Image
                 key={imageURL}
@@ -73,14 +83,9 @@ const BookCover: React.FC<Props> = ({
                 height={500}
                 alt={title}
                 className="w-fit h-full"
+                style={{ display: isLoading ? "hidden" : "block" }}
+                onLoad={() => setIsLoading(false)}
               />
-            </div>
-          ) : (
-            <div className="leftcover flex w-[45%] flex-col items-center justify-center bg-black text-white">
-              <h2 className="font-main text-2xl max-md:text-base">{title}</h2>
-              <h2 className="font-main text-2xl max-md:text-base">
-                (Image pending)
-              </h2>
             </div>
           )}
           <div className="flex flex-col items-start font-main text-xl ml-2 max-md:text-base">

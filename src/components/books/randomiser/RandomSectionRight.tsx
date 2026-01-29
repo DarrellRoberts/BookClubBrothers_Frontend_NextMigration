@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import Randomiser from "./Randomiser"
 import EditUnreadBook from "@/components/forms/bookform-randomise/edit/EditUnreadBook"
 import DeleteBook from "@/components/forms/bookform-randomise/DeleteBook"
@@ -16,6 +16,7 @@ type Props = {
 }
 
 const RandomSectionRight: React.FC<Props> = ({ bookData, error, userData }) => {
+  const [isLoading, setIsLoading] = useState<boolean>(true)
   const index = useAppSelector((state) => state.randomise.index)
   const showRandom = useAppSelector((state) => state.randomise.showRandom)
   const { decodedToken } = useAuth()
@@ -28,16 +29,21 @@ const RandomSectionRight: React.FC<Props> = ({ bookData, error, userData }) => {
 
   return (
     <div className="grid grid-rows-2 border-[var(--default-border-color)] border-5 border-solid p-2 max-md:flex max-md:flex-col max-md:p-0 max-md:border-0 relative">
-      {bookData && bookData[index] ? (
-        <Image
-          key={bookData[index]?._id}
-          src={bookData[index]?.imageURL}
-          width={500}
-          height={500}
-          alt={bookData[index]?.title}
-          className="w-full h-full absolute z-0"
-        />
-      ) : null}
+      {bookData && bookData[index] && (
+        <>
+          <Image
+            key={bookData[index]?._id}
+            src={bookData[index]?.imageURL}
+            width={500}
+            height={500}
+            alt={bookData[index]?.title}
+            className="w-full h-full absolute z-0"
+            style={{ display: isLoading ? "hidden" : "block" }}
+            onLoad={() => setIsLoading(false)}
+          />
+          <div className="w-full h-full absolute z-[-1] bg-[var(--tertiaryColor)]" />
+        </>
+      )}
       {!bookData ? (
         <>
           <div className="bg-[var(--main-bg-color)] font-main flex flex-col justify-center items-center border-[var(--default-border-color)] border-5 border-solid h-[400px] max-md:justify-start max-md:h-[300px] max-md:m-8 gap-5">
