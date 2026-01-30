@@ -45,7 +45,7 @@ const EditImage: React.FC<props> = ({ id }) => {
     try {
       const formData = new FormData()
       formData.append("picture", image, image?.name)
-      await axios.post(`${config.API_URL}/books/${id}`, formData, {
+      await axios.post(`${config.API_URL}books/${id}`, formData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -71,7 +71,7 @@ const EditImage: React.FC<props> = ({ id }) => {
       setLoadings((prevLoadings) => {
         const newLoadings = [...prevLoadings]
         newLoadings[index] = false
-        document.location.reload()
+        // document.location.reload()
         return newLoadings
       })
     }, 4000)
@@ -84,6 +84,7 @@ const EditImage: React.FC<props> = ({ id }) => {
         name="picture_upload_form"
         initialValues={{ fileList: [] }}
       >
+        {/* <InputConfigWrapper> */}
         <Form.Item
           name="fileList"
           valuePropName="fileList"
@@ -102,26 +103,7 @@ const EditImage: React.FC<props> = ({ id }) => {
             </div>
           </Upload>
         </Form.Item>
-        <InputConfigWrapper>
-          <Form.Item
-            name="fileList"
-            valuePropName="fileList"
-            getValueFromEvent={normFile}
-          >
-            <Upload
-              name="picture"
-              action={`https://bookclubbrothers-backend.onrender.com/users/${id}`}
-              listType="picture-card"
-              onChange={handleImageChange}
-              beforeUpload={() => false}
-            >
-              <div>
-                <PlusOutlined />
-                <div style={{ marginTop: 8 }}>Upload</div>
-              </div>
-            </Upload>
-          </Form.Item>
-        </InputConfigWrapper>
+        {/* </InputConfigWrapper> */}
 
         <UiButton
           textContent="Submit"
