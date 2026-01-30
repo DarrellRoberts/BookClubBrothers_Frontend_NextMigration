@@ -78,7 +78,15 @@ const BrotherBanner: React.FC<Props> = ({ user, readBooks }) => {
           <div className="w-96 max-sm:w-75 max-xs:w-70">
             <Link href={`/books/library/${findMinBook?._id}`}>
               {findMinBook?.reviewImageURL ? (
-                <BookImageCover imageURL={findMinBook?.reviewImageURL} />
+                <BookImageCover
+                  imageURL={findMinBook?.reviewImageURL}
+                  totalScore={findMinBook?.totalScore}
+                  ratingArr={findMinBook?.scoreRatings?.rating}
+                  raterArr={findMinBook?.scoreRatings?.raterId}
+                  hideScores={handleHideScores_NoSetter(
+                    findMinBook?.actualDateOfMeeting,
+                  )}
+                />
               ) : (
                 <BookCover
                   title={findMinBook?.title}
@@ -100,7 +108,15 @@ const BrotherBanner: React.FC<Props> = ({ user, readBooks }) => {
           <div className="w-96 max-sm:w-75 max-xs:w-70">
             <Link href={`/books/library/${findMaxBook?._id}`}>
               {findMaxBook?.reviewImageURL ? (
-                <BookImageCover imageURL={findMaxBook?.reviewImageURL} />
+                <BookImageCover
+                  imageURL={findMaxBook?.reviewImageURL}
+                  totalScore={findMaxBook?.totalScore}
+                  ratingArr={findMaxBook?.scoreRatings?.rating}
+                  raterArr={findMaxBook?.scoreRatings?.raterId}
+                  hideScores={handleHideScores_NoSetter(
+                    findMaxBook?.actualDateOfMeeting,
+                  )}
+                />
               ) : (
                 <BookCover
                   title={findMaxBook?.title}
