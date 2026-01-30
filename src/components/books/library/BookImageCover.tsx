@@ -8,7 +8,7 @@ type Props = {
   ratingArr: number[] | number
   raterArr: string[]
   hideScores: boolean
-  isSingleBook: boolean
+  isSingleBook?: boolean
 }
 
 const BookImageCover: React.FC<Props> = ({
