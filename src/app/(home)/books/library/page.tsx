@@ -84,6 +84,12 @@ const Booklibrary: React.FC = () => {
                     <BookImageCover
                       title={book?.title}
                       imageURL={book?.reviewImageURL}
+                      totalScore={book?.totalScore}
+                      ratingArr={book?.scoreRatings?.rating}
+                      raterArr={book?.scoreRatings?.raterId}
+                      hideScores={handleHideScores_NoSetter(
+                        book?.actualDateOfMeeting,
+                      )}
                     />
                   </Link>
                 ) : (

@@ -1,10 +1,8 @@
 "use client"
 
-import { useJwt } from "react-jwt"
-import useUserFetch from "@/hooks/fetch-hooks/useUserFetch"
-import { useAppSelector } from "@/store/lib/hooks"
-import { config } from "@/configs/config"
 import Image from "next/image"
+import { useState } from "react"
+import BookRatingsBox from "./BookRatingsBox"
 
 type Props = {
   title: string
@@ -25,57 +23,19 @@ const BookCover: React.FC<Props> = ({
   isSingleBook,
   imageURL,
 }) => {
-  const token = useAppSelector((state) => state.token.tokenState)
-  const { decodedToken }: { decodedToken?: { username: string; _id: string } } =
-    useJwt(token)
-  const username = decodedToken?.username
+  const [isLoading, setIsLoading] = useState<boolean>(true)
 
-  const { userData, loadingUsers, error } = useUserFetch(
-    `${config.API_URL}/users`,
-    null,
-  )
-
-  const findUser = (id) => {
-    const user = userData?.find((user) => user._id === id)
-    return user ? user.username : "user not found"
-  }
-
-  const raterArr2 = raterArr?.map((id) => findUser(id))
-
-  let raterObj: object = {}
-  const findBookScore = () => {
-    if (raterArr2) {
-      for (let i = 0; i < raterArr2.length; i++) {
-        raterObj[raterArr2[i]] = ratingArr[i]
-        findUser(raterObj[raterArr[i]])
-      }
-      raterObj = Object.entries(raterObj)
-      return raterObj
-    }
-  }
-  findBookScore()
   return (
     <>
       <div
         className={
           isSingleBook
-            ? "w-[600px] h-[400px] border-2 border-[var(--default-border-color)] flex justify-center text-center items-center border-solid m-5 max-md:w-[275px] max-md:h-[350px]"
+            ? "w-[600px] h-[400px] border-2 border-[var(--default-border-color)] flex justify-center text-center items-center border-solid m-5 max-md:mx-0 max-sm:h-full max-sm:w-full"
             : "flex justify-center items-center text-center border-5 border-solid border-[var(--default-border-color)] h-63 aspect-[1.55/1] max-xs:w-75"
         }
       >
         <div className="flex h-full w-full">
-          {imageURL.length ? (
-            <div className="leftcover w-[45%] max-sm:w-[60%]">
-              <Image
-                key={imageURL}
-                src={imageURL}
-                width={500}
-                height={500}
-                alt={title}
-                className="w-fit h-full"
-              />
-            </div>
-          ) : (
+          {isLoading && (
             <div className="leftcover flex w-[45%] flex-col items-center justify-center bg-black text-white">
               <h2 className="font-main text-2xl max-md:text-base">{title}</h2>
               <h2 className="font-main text-2xl max-md:text-base">
@@ -83,31 +43,30 @@ const BookCover: React.FC<Props> = ({
               </h2>
             </div>
           )}
-          <div className="flex flex-col items-start font-main text-xl ml-2 max-md:text-base">
-            <h2 className="underline mb-5">Book Club Brothers</h2>
-
-            {Array.isArray(raterObj) && !loadingUsers ? (
-              raterObj.map(([name, value]) => (
-                <li className="list-none mb-1 ml-2" key={name}>
-                  {name}:{" "}
-                  {hideScores && username !== name ? "?" : value.toFixed(2)}
-                </li>
-              ))
-            ) : error ? (
-              <li>{error?.message}</li>
-            ) : (
-              <li className="list-none mb-1 ml-2">Score Pending...</li>
-            )}
-
-            <li className="list-none mt-auto font-bold">
-              Group Rating:{" "}
-              {totalScore
-                ? hideScores
-                  ? "?"
-                  : Math.floor(totalScore * 100) / 100
-                : "Pending..."}
-            </li>
-          </div>
+          {imageURL && (
+            <div className="w-[45%] max-sm:w-[60%]">
+              <Image
+                key={imageURL}
+                src={imageURL}
+                width={500}
+                height={500}
+                alt={title}
+                className={
+                  isSingleBook
+                    ? "w-full h-100 max-sm:h-65"
+                    : "h-60 w-50 max-sm:w-fit"
+                }
+                style={{ display: isLoading ? "hidden" : "block" }}
+                onLoad={() => setIsLoading(false)}
+              />
+            </div>
+          )}
+          <BookRatingsBox
+            totalScore={totalScore}
+            ratingArr={ratingArr}
+            raterArr={raterArr}
+            hideScores={hideScores}
+          />
         </div>
       </div>
     </>

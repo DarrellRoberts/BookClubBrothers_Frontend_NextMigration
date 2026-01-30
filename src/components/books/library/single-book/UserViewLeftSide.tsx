@@ -10,6 +10,7 @@ import { Skeleton } from "antd"
 import BookSkeleton from "../BookSkeleton"
 import { useAppSelector } from "@/store/lib/hooks"
 import { config } from "@/configs/config"
+import BookImageCover from "../BookImageCover"
 
 type Props = {
   bookData: Book
@@ -37,12 +38,16 @@ const UserViewLeftSide = ({ bookData }: Props) => {
       </div>
       <div>
         {bookData?.reviewImageURL ? (
-          <Image
-            src={bookData?.reviewImageURL}
-            alt="book_review_image"
-            width={600}
-            height={400}
-            className="w-[600px] h-[400px] border-2 border-solid border-[var(--default-border-color)] m-5 max-md:w-[350px] max-md:h-[275px] max-sm:w-[275px] max-sm:h-[225px]"
+          <BookImageCover
+            title={bookData?.title}
+            imageURL={bookData?.reviewImageURL}
+            totalScore={bookData?.totalScore}
+            ratingArr={bookData?.scoreRatings?.rating}
+            raterArr={bookData?.scoreRatings?.raterId}
+            hideScores={handleHideScores_NoSetter(
+              bookData?.actualDateOfMeeting,
+            )}
+            isSingleBook={true}
           />
         ) : (
           <BookCover
