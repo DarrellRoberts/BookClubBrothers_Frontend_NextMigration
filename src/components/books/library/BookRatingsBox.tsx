@@ -44,7 +44,7 @@ const BookRatingsBox = ({
     }))
   }, [userData, raterArr, ratingArr])
   return (
-    <div className="flex flex-col items-start font-main text-xl ml-2 max-md:text-base max-sm:h-65">
+    <div className="flex flex-col items-start font-main text-xl ml-2 max-md:text-base">
       <h2 className="underline mb-5">Book Club Brothers</h2>
 
       {!loadingUsers && formattedRatings.length > 0 ? (

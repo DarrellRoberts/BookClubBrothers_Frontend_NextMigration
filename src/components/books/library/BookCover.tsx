@@ -31,7 +31,7 @@ const BookCover: React.FC<Props> = ({
         className={
           isSingleBook
             ? "w-[600px] h-[400px] border-2 border-[var(--default-border-color)] flex justify-center text-center items-center border-solid m-5 max-md:mx-0 max-sm:h-full max-sm:w-full"
-            : "flex justify-center items-center text-center border-5 border-solid border-[var(--default-border-color)] h-63 aspect-[1.55/1] max-xs:w-75"
+            : "flex justify-center items-center text-center border-5 border-solid border-[var(--default-border-color)] h-63 max-md:w-75 w-90"
         }
       >
         <div className="flex h-full w-full">
@@ -44,7 +44,7 @@ const BookCover: React.FC<Props> = ({
             </div>
           )}
           {imageURL && (
-            <div className="w-[45%] max-sm:w-[60%]">
+            <div className="w-[45%] max-sm:w-[50%]">
               <Image
                 key={imageURL}
                 src={imageURL}

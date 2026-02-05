@@ -6,7 +6,6 @@ import Loader from "@/components/loader/Loader"
 import BookCover from "@/components/books/library/BookCover"
 import Link from "next/link"
 import Search from "@/components/misc/search/Search"
-import { Button, ConfigProvider } from "antd"
 import BookImageCover from "@/components/books/library/BookImageCover"
 import { handleHideScores_NoSetter } from "@/utils/time-functions/hideScores"
 import useBookFetch from "@/hooks/fetch-hooks/useReadBookFetch"
@@ -62,7 +61,7 @@ const Booklibrary: React.FC = () => {
         />
         <UiButton isLink href="/books/library/3d" textContent="3D View" />
       </div>
-      <h1 className="text-8xl m-5 max-lg:text-6xl max-lg:text-center">
+      <h1 className="text-8xl m-5 max-lg:text-6xl max-lg:text-center max-lg:mb-20">
         Book Library
       </h1>
       {loadingBooks && books.length === 0 ? (
@@ -70,7 +69,7 @@ const Booklibrary: React.FC = () => {
       ) : error ? (
         <h2> {error?.message}</h2>
       ) : (
-        <div className="flex flex-wrap gap-6 mx-4 max-lg:flex-col max-lg:items-center">
+        <div className="flex flex-wrap gap-10 mx-4 max-lg:flex-col max-lg:items-center max-lg:gap-20">
           {books?.length > 0 ? (
             books?.map((book) => (
               <div key={book._id}>
