@@ -15,6 +15,7 @@ import useLimit from "@/hooks/scroll-hooks/useLimit"
 import BookSkeleton from "@/components/books/library/BookSkeleton"
 import { config } from "@/configs/config"
 import { UiButton } from "@/components/ui/button/UiButton"
+import BookCard from "@/components/books/library/BookCard"
 
 const Booklibrary: React.FC = () => {
   const [searchBar, setSearchBar] = useState<string>("")
@@ -69,49 +70,30 @@ const Booklibrary: React.FC = () => {
       ) : error ? (
         <h2> {error?.message}</h2>
       ) : (
-        <div className="flex flex-wrap gap-10 mx-4 max-lg:flex-col max-lg:items-center max-lg:gap-20">
+        <div className="flex flex-wrap gap-10 mx-4 max-sm:justify-center">
           {books?.length > 0 ? (
             books?.map((book) => (
               <div key={book._id}>
-                {book.reviewImageURL ? (
-                  <Link href={`/books/library/${book._id}`}>
+                <Link href={`/books/library/${book._id}`}>
+                  <div className="flex justify-center w-full">
                     <div className="flex justify-center">
                       <h2 className="text-3xl sm:text-1.75xl font-bold text-center underline overflow-hidden whitespace-nowrap text-ellipsis max-w-[275px] mb-2">
                         {book.title}
                       </h2>
                     </div>
-                    <BookImageCover
-                      title={book?.title}
-                      imageURL={book?.reviewImageURL}
-                      totalScore={book?.totalScore}
-                      ratingArr={book?.scoreRatings?.rating}
-                      raterArr={book?.scoreRatings?.raterId}
-                      hideScores={handleHideScores_NoSetter(
-                        book?.actualDateOfMeeting,
-                      )}
-                    />
-                  </Link>
-                ) : (
-                  <Link href={`/books/library/${book._id}`}>
-                    <div className="flex justify-center w-full">
-                      <div className="flex justify-center">
-                        <h2 className="text-3xl sm:text-1.75xl font-bold text-center underline overflow-hidden whitespace-nowrap text-ellipsis max-w-[275px] mb-2">
-                          {book.title}
-                        </h2>
-                      </div>
-                    </div>
-                    <BookCover
-                      title={book?.title}
-                      totalScore={book?.totalScore}
-                      ratingArr={book?.scoreRatings?.rating}
-                      raterArr={book?.scoreRatings?.raterId}
-                      imageURL={book?.imageURL}
-                      hideScores={handleHideScores_NoSetter(
-                        book?.actualDateOfMeeting,
-                      )}
-                    />
-                  </Link>
-                )}
+                  </div>
+                  <BookCard
+                    key={book._id}
+                    title={book.title}
+                    imageURL={
+                      book.reviewImageURL ? book.reviewImageURL : book?.imageURL
+                    }
+                    totalScore={book?.totalScore.toFixed(2)}
+                    hideScores={handleHideScores_NoSetter(
+                      book?.actualDateOfMeeting,
+                    )}
+                  />
+                </Link>
               </div>
             ))
           ) : (
