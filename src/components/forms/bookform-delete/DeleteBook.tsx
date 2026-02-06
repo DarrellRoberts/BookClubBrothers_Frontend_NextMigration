@@ -10,9 +10,21 @@ type Props = {
 }
 
 const DeleteBook: React.FC<Props> = ({ id }) => {
+  const toastObject = {
+    success: {
+      title: "Book successfully deleted",
+      description: "Bon voyage to whatever book you deleted",
+    },
+    error: {
+      title: "Error occurred",
+      description: "Book unable to delete. Please contact me",
+    },
+  }
+
   const { handleSubmit, error } = useForm(
     `${config.API_URL}/books/${id}`,
-    "DELETE"
+    "DELETE",
+    toastObject,
   )
 
   const confirm = () =>
