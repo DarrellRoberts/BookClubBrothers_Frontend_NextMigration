@@ -115,7 +115,6 @@ const RandomSectionRight: React.FC<Props> = ({ bookData, error, userData }) => {
                       inPublished={bookData[index]?.yearPublished}
                       inPages={bookData[index]?.pages}
                       inGenre={bookData[index]?.genre}
-                      inImageURL={bookData[index]?.imageURL}
                     />
                     <DeleteBook id={bookData[index]?._id} />
                   </>
