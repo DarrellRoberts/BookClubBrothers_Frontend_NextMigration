@@ -77,7 +77,7 @@ const Booklibrary: React.FC = () => {
                 <Link href={`/books/library/${book._id}`}>
                   <div className="flex justify-center w-full">
                     <div className="flex justify-center">
-                      <h2 className="text-3xl sm:text-1.75xl font-bold text-center underline overflow-hidden whitespace-nowrap text-ellipsis max-w-[275px] mb-2">
+                      <h2 className="text-3xl sm:text-1.75xl font-bold text-center underline overflow-hidden whitespace-nowrap text-ellipsis max-w-[250px] mb-2">
                         {book.title}
                       </h2>
                     </div>
@@ -88,7 +88,7 @@ const Booklibrary: React.FC = () => {
                     imageURL={
                       book.reviewImageURL ? book.reviewImageURL : book?.imageURL
                     }
-                    totalScore={book?.totalScore.toFixed(2)}
+                    totalScore={book?.totalScore}
                     hideScores={handleHideScores_NoSetter(
                       book?.actualDateOfMeeting,
                     )}
