@@ -14,15 +14,27 @@ type Props = {
 
 const EditDate: React.FC<Props> = ({ id }) => {
   const dateOfMeeting = useAppSelector(
-    (state) => state.bookFormData.formData.dateOfMeeting
+    (state) => state.bookFormData.formData.dateOfMeeting,
   )
   const formData = useAppSelector((state) => state.bookFormData.formData)
   const dispatch = useAppDispatch()
 
+  const toastObject = {
+    success: {
+      title: "Date successfully edited",
+      description: "Date has been changed",
+    },
+    error: {
+      title: "Error occurred",
+      description: "Date not edited. Please contact me",
+    },
+  }
+
   const { handleSubmit, error, enterLoading, loadings } = useForm(
     `${config.API_URL}/books/${id}`,
     "PUT",
-    { dateOfMeeting }
+    toastObject,
+    { dateOfMeeting },
   )
   return (
     <>

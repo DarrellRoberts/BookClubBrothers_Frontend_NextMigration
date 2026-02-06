@@ -5,7 +5,6 @@ import EditTitleForm from "./title/EditTitleForm"
 import EditPublishedForm from "./published/EditPublishedForm"
 import EditPagesForm from "./pages/EditPagesForm"
 import EditGenreForm from "./genre/EditGenreForm"
-import EditImageURLForm from "./imageURL/EditImageURLForm"
 import useForm from "@/hooks/crud-hooks/useForm"
 import { useAppDispatch, useAppSelector } from "@/store/lib/hooks"
 import { setFormData } from "@/store/lib/features/books/bookFormDataSlice"
@@ -18,7 +17,6 @@ type Props = {
   inTitle: string
   inPublished: number
   inPages: number
-  inImageURL: string
   inGenre: string[]
   id: string
 }
@@ -29,7 +27,6 @@ const EditForm: React.FC<Props> = ({
   inPublished,
   inPages,
   inGenre,
-  inImageURL,
   id,
 }) => {
   const [inputError, setInputError] = useState(null)
@@ -38,11 +35,23 @@ const EditForm: React.FC<Props> = ({
     author: false,
     yearPublished: false,
     pages: false,
-    imageURL: false,
   })
+
+  const toastObject = {
+    success: {
+      title: "Book successfully edited",
+      description: "The book is now updated",
+    },
+    error: {
+      title: "Error occurred",
+      description: "Book not successfully edited. Please contact me",
+    },
+  }
+
   const { handleSubmit, error, loadings, enterLoading } = useForm(
     `${config.API_URL}/books/${id}`,
-    "PUT"
+    "PUT",
+    toastObject,
   )
 
   const handleForm = () => {
@@ -62,8 +71,7 @@ const EditForm: React.FC<Props> = ({
         yearPublished: inPublished,
         pages: inPages,
         genre: inGenre[0],
-        imageURL: inImageURL,
-      })
+      }),
     )
     setErrorObject({
       ...errorObject,
@@ -71,7 +79,6 @@ const EditForm: React.FC<Props> = ({
       author: true,
       yearPublished: true,
       pages: true,
-      imageURL: true,
     })
   }, [])
 
@@ -101,7 +108,6 @@ const EditForm: React.FC<Props> = ({
         yearPublished: inPublished,
         pages: inPages,
         genre: inGenre,
-        imageURL: inImageURL,
       }}
     >
       <EditTitleForm
@@ -121,10 +127,6 @@ const EditForm: React.FC<Props> = ({
         setErrorObject={setErrorObject}
       />
       <EditGenreForm />
-      <EditImageURLForm
-        errorObject={errorObject}
-        setErrorObject={setErrorObject}
-      />
       <Form.Item
         wrapperCol={{
           offset: 8,

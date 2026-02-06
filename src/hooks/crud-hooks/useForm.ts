@@ -4,10 +4,17 @@ import { useAppDispatch, useAppSelector } from "@/store/lib/hooks"
 import { useState } from "react"
 import { useQueryClient } from "@tanstack/react-query"
 import { setIsRefresh } from "@/store/lib/features/auth/editButtonsSlice"
+import { useNotification } from "@/context/NotificationProvider"
 
-const useForm = (url: string, reqType: string, customData?: object) => {
+const useForm = (
+  url: string,
+  reqType: string,
+  toastObject: ToastObject,
+  customData?: object,
+) => {
   const [loadings, setLoadings] = useState(false)
   const [error, setError] = useState<any>()
+  const toast = useNotification()
 
   const queryClient = useQueryClient()
   const dispatch = useAppDispatch()
@@ -39,10 +46,12 @@ const useForm = (url: string, reqType: string, customData?: object) => {
         queryKey: ["bookData", "singleUserData", "userData", "unreadBookData"],
       })
       if (!response.ok) {
+        toast("error", toastObject)
         setError(data)
       }
 
       if (response.ok) {
+        toast("success", toastObject)
         listQueryKeys.forEach((queryKey) => {
           queryClient.invalidateQueries({ queryKey: queryKey })
         })

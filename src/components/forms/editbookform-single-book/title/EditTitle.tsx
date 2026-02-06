@@ -18,10 +18,22 @@ const EditTitle: React.FC<Props> = ({ id, inTitle }) => {
   const formData = useAppSelector((state) => state.bookFormData.formData)
   const dispatch = useAppDispatch()
 
+  const toastObject = {
+    success: {
+      title: "Title successfully edited",
+      description: "Title has been changed",
+    },
+    error: {
+      title: "Error occurred",
+      description: "Title not edited. Please contact me",
+    },
+  }
+
   const { handleSubmit, error, enterLoading, loadings } = useForm(
     `${config.API_URL}/books/${id}`,
     "PUT",
-    { title }
+    toastObject,
+    { title },
   )
   return (
     <>

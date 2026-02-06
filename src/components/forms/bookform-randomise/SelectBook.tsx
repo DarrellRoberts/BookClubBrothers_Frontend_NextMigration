@@ -8,13 +8,25 @@ type Props = {
 }
 
 const SelectBook: React.FC<Props> = ({ bookId }) => {
+  const toastObject = {
+    success: {
+      title: "Book successfully added to book library",
+      description: "Get reading",
+    },
+    error: {
+      title: "Error occurred",
+      description: "Book not selected. Please contact me",
+    },
+  }
+
   const { handleSubmit, loadings } = useForm(
     `${config.API_URL}/books/${bookId}`,
     "PUT",
+    toastObject,
     {
       read: true,
       dateOfMeeting: Date.now(),
-    }
+    },
   )
 
   return (

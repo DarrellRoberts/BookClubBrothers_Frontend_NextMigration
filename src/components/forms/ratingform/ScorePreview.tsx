@@ -1,7 +1,6 @@
 import { config } from "@/configs/config"
 import useBookFetch from "@/hooks/fetch-hooks/useReadBookFetch"
-import { setFormData } from "@/store/lib/features/books/bookFormDataSlice"
-import { useAppDispatch, useAppSelector } from "@/store/lib/hooks"
+import { useAppSelector } from "@/store/lib/hooks"
 import { User } from "@/types/UserInterface"
 import { findBook } from "@/utils/find-functions/find"
 import { useRouter } from "next/navigation"

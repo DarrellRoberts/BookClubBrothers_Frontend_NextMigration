@@ -18,9 +18,22 @@ const CreateBook: React.FC = () => {
     yearPublished: false,
     pages: false,
   })
+
+  const toastObject = {
+    success: {
+      title: "Book successfully added",
+      description: "Thank you for your service",
+    },
+    error: {
+      title: "Error occurred",
+      description: "Book not added. Please contact me",
+    },
+  }
+
   const { handleSubmit, error, enterLoading, loadings, setError } = useForm(
     `${config.API_URL}/books/unread/create`,
     "POST",
+    toastObject,
   )
   const formData = useAppSelector((state) => state.bookFormData.formData)
   const dispatch = useAppDispatch()

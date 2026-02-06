@@ -17,15 +17,27 @@ type Props = {
 
 const CommentForm = ({ id, handleCancel }: Props) => {
   const comments = useAppSelector(
-    (state) => state.bookFormData.formData.commentInfo.comments
+    (state) => state.bookFormData.formData.commentInfo.comments,
   )
   const formData = useAppSelector((state) => state.bookFormData.formData)
   const dispatch = useAppDispatch()
 
+  const toastObject = {
+    success: {
+      title: "Comment successfully submitted",
+      description: "Thank you for your comment. You have made history",
+    },
+    error: {
+      title: "Error occurred",
+      description: "Comment not added. Please contact me",
+    },
+  }
+
   const { handleSubmit, error, enterLoading, loadings } = useForm(
     `${config.API_URL}/books/comment/${id}`,
     "POST",
-    { comments }
+    toastObject,
+    { comments },
   )
 
   const handleLoading = () => {
@@ -61,7 +73,7 @@ const CommentForm = ({ id, handleCancel }: Props) => {
                   setFormData({
                     ...formData,
                     commentInfo: { comments: e.target.value },
-                  })
+                  }),
                 )
               }
               value={comments}

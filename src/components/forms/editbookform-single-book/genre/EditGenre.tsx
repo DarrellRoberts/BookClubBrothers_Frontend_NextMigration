@@ -20,10 +20,22 @@ const EditGenre: React.FC<Props> = ({ id, inGenre }) => {
   const formData = useAppSelector((state) => state.bookFormData.formData)
   const dispatch = useAppDispatch()
 
+  const toastObject = {
+    success: {
+      title: "Genre successfully edited",
+      description: "Genre has been changed",
+    },
+    error: {
+      title: "Error occurred",
+      description: "Genre not edited. Please contact me",
+    },
+  }
+
   const { handleSubmit, error, enterLoading, loadings } = useForm(
     `${config.API_URL}/books/${id}`,
     "PUT",
-    { genre }
+    toastObject,
+    { genre },
   )
   return (
     <>

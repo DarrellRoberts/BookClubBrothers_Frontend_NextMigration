@@ -18,15 +18,27 @@ type Props = {
 
 const EditCommentForm: React.FC<Props> = ({ id, inComment, handleCancel }) => {
   const comments = useAppSelector(
-    (state) => state.bookFormData.formData.commentInfo.comments
+    (state) => state.bookFormData.formData.commentInfo.comments,
   )
   const formData = useAppSelector((state) => state.bookFormData.formData)
   const dispatch = useAppDispatch()
 
+  const toastObject = {
+    success: {
+      title: "Comment successfully edited",
+      description: "Comment has been changed",
+    },
+    error: {
+      title: "Error occurred",
+      description: "Comment not edited. Please contact me",
+    },
+  }
+
   const { handleSubmit, error, enterLoading, loadings } = useForm(
     `${config.API_URL}/books/comment/edit/${id}`,
     "PUT",
-    { comments }
+    toastObject,
+    { comments },
   )
 
   const handleLoadings = () => {
@@ -65,7 +77,7 @@ const EditCommentForm: React.FC<Props> = ({ id, inComment, handleCancel }) => {
                   setFormData({
                     ...formData,
                     commentInfo: { comments: e.target.value },
-                  })
+                  }),
                 )
               }
               value={comments}
