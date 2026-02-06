@@ -27,15 +27,27 @@ const EditRatingForm: React.FC<Props> = ({
   handleCancel,
 }) => {
   const rating = useAppSelector(
-    (state) => state.bookFormData.formData.scoreRatings.rating
+    (state) => state.bookFormData.formData.scoreRatings.rating,
   )
   const formData = useAppSelector((state) => state.bookFormData.formData)
   const dispatch = useAppDispatch()
 
+  const toastObject = {
+    success: {
+      title: "Rating successfully edited",
+      description: "Rating has been changed",
+    },
+    error: {
+      title: "Error occurred",
+      description: "Rating not edited. Please contact me",
+    },
+  }
+
   const { handleSubmit, error, loadings, enterLoading } = useForm(
     `${config.API_URL}/books/rating/edit/${id}`,
     "PUT",
-    { rating }
+    toastObject,
+    { rating },
   )
 
   const handleLoading = () => {
@@ -50,7 +62,7 @@ const EditRatingForm: React.FC<Props> = ({
       setFormData({
         ...formData,
         scoreRatings: { rating: initialRating },
-      })
+      }),
     )
   }, [id])
   return (
@@ -96,7 +108,7 @@ const EditRatingForm: React.FC<Props> = ({
                   setFormData({
                     ...formData,
                     scoreRatings: { rating: Number(e.target.value) },
-                  })
+                  }),
                 )
               }}
               value={Number(rating)}

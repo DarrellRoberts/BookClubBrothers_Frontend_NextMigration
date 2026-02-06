@@ -18,10 +18,22 @@ const EditPages: React.FC<Props> = ({ id, inPages }) => {
   const formData = useAppSelector((state) => state.bookFormData.formData)
   const dispatch = useAppDispatch()
 
+  const toastObject = {
+    success: {
+      title: "Pages successfully edited",
+      description: "Pages has been changed",
+    },
+    error: {
+      title: "Error occurred",
+      description: "Pages not edited. Please contact me",
+    },
+  }
+
   const { handleSubmit, error, enterLoading, loadings } = useForm(
     `${config.API_URL}/books/${id}`,
     "PUT",
-    { pages }
+    toastObject,
+    { pages },
   )
   return (
     <>
@@ -57,7 +69,7 @@ const EditPages: React.FC<Props> = ({ id, inPages }) => {
               type="number"
               onChange={(e) =>
                 dispatch(
-                  setFormData({ ...formData, pages: Number(e.target.value) })
+                  setFormData({ ...formData, pages: Number(e.target.value) }),
                 )
               }
               value={pages}

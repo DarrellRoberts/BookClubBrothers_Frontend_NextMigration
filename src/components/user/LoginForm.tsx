@@ -1,10 +1,11 @@
 "use client"
 
-import { ConfigProvider, Form, Input } from "antd"
+import { ConfigProvider, Form, Input, notification } from "antd"
 import { useState } from "react"
 import { useAuth } from "@/hooks/auth-hooks/useAuth"
 import { UiButton } from "../ui/button/UiButton"
 import { useLogin } from "@/hooks/crud-hooks/useLogin"
+import { useNotification } from "@/context/NotificationProvider"
 
 type Props = {
   setLoginOpen: React.Dispatch<React.SetStateAction<boolean>>
@@ -17,16 +18,30 @@ const LoginForm = ({ setLoginOpen }: Props) => {
 
   const { error, loginUser } = useLogin({ setLoginOpen, username, password })
   const { login } = useAuth()
+  const toast = useNotification()
 
   const handleSubmit = async () => {
     setLoadings(true)
+    const toastObject = {
+      success: {
+        title: "Login successful",
+        description: "Have fun!",
+      },
+      error: {
+        title: "Login unsuccessful",
+        description: "Check the errors in the login form",
+      },
+    }
     const [data] = await Promise.all([
       loginUser(),
       new Promise((res) => setTimeout(res, 1250)),
     ])
     if (data && data.token) {
+      toast("success", toastObject)
       localStorage.setItem("username", username)
       login(data.token)
+    } else {
+      toast("error", toastObject)
     }
     setLoadings(false)
   }

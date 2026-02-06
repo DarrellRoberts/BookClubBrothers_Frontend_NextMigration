@@ -14,15 +14,27 @@ type Props = {
 
 const EditActualDate: React.FC<Props> = ({ id }) => {
   const actualDateOfMeeting = useAppSelector(
-    (state) => state.bookFormData.formData.actualDateOfMeeting
+    (state) => state.bookFormData.formData.actualDateOfMeeting,
   )
   const formData = useAppSelector((state) => state.bookFormData.formData)
   const dispatch = useAppDispatch()
 
+  const toastObject = {
+    success: {
+      title: "Date successfully edited",
+      description: "Date has been changed",
+    },
+    error: {
+      title: "Error occurred",
+      description: "Date not edited. Please contact me",
+    },
+  }
+
   const { handleSubmit, error, enterLoading, loadings } = useForm(
     `${config.API_URL}/books/${id}`,
     "PUT",
-    { actualDateOfMeeting }
+    toastObject,
+    { actualDateOfMeeting },
   )
   return (
     <>
@@ -48,7 +60,7 @@ const EditActualDate: React.FC<Props> = ({ id }) => {
             <DatePicker
               onChange={(e) =>
                 dispatch(
-                  setFormData({ ...formData, actualDateOfMeeting: e["$d"] })
+                  setFormData({ ...formData, actualDateOfMeeting: e["$d"] }),
                 )
               }
               value={actualDateOfMeeting}

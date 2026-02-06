@@ -39,7 +39,7 @@ const EditImage: React.FC<props> = ({ id }) => {
   const [loadings, setLoadings] = useState([])
   const token = useAppSelector((state) => state.token.tokenState)
 
-  const [form] = Form.useForm() // Create a form instance
+  const [form] = Form.useForm()
 
   const handleSubmit = async () => {
     try {

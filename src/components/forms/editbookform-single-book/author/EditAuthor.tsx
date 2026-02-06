@@ -18,10 +18,22 @@ const EditBookAuthor: React.FC<Props> = ({ id, inAuthor }) => {
   const formData = useAppSelector((state) => state.bookFormData.formData)
   const dispatch = useAppDispatch()
 
+  const toastObject = {
+    success: {
+      title: "Author successfully edited",
+      description: "Author has been changed",
+    },
+    error: {
+      title: "Error occurred",
+      description: "Author not edited. Please contact me",
+    },
+  }
+
   const { handleSubmit, error, enterLoading, loadings } = useForm(
     `${config.API_URL}/books/${id}`,
     "PUT",
-    { author }
+    toastObject,
+    { author },
   )
   return (
     <>

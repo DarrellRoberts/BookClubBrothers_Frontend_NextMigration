@@ -25,15 +25,27 @@ const RatingForm: React.FC<Props> = ({
   handleCancel,
 }) => {
   const rating = useAppSelector(
-    (state) => state.bookFormData.formData.scoreRatings.rating
+    (state) => state.bookFormData.formData.scoreRatings.rating,
   ) as number
   const formData = useAppSelector((state) => state.bookFormData.formData)
   const dispatch = useAppDispatch()
 
+  const toastObject = {
+    success: {
+      title: "Rating successfully submitted",
+      description: "Thank you for your rating. The club lives on",
+    },
+    error: {
+      title: "Error occurred",
+      description: "Rating not submitted. Please contact me",
+    },
+  }
+
   const { handleSubmit, error, enterLoading, loadings } = useForm(
     `${config.API_URL}/books/rating/${id}`,
     "POST",
-    { rating }
+    toastObject,
+    { rating },
   )
 
   const handleLoading = () => {
@@ -48,7 +60,7 @@ const RatingForm: React.FC<Props> = ({
       setFormData({
         ...formData,
         scoreRatings: { rating: 0 },
-      })
+      }),
     )
   }, [id])
 
@@ -92,7 +104,7 @@ const RatingForm: React.FC<Props> = ({
                   setFormData({
                     ...formData,
                     scoreRatings: { rating: Number(e.target.value) },
-                  })
+                  }),
                 )
               }}
               value={Number(rating)}

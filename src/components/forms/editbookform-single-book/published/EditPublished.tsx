@@ -15,15 +15,27 @@ type Props = {
 
 const EditPublished: React.FC<Props> = ({ id, inPublish }) => {
   const yearPublished = useAppSelector(
-    (state) => state.bookFormData.formData.yearPublished
+    (state) => state.bookFormData.formData.yearPublished,
   )
   const formData = useAppSelector((state) => state.bookFormData.formData)
   const dispatch = useAppDispatch()
 
+  const toastObject = {
+    success: {
+      title: "Year successfully edited",
+      description: "Year has been changed",
+    },
+    error: {
+      title: "Error occurred",
+      description: "Year not edited. Please contact me",
+    },
+  }
+
   const { handleSubmit, error, enterLoading, loadings } = useForm(
     `${config.API_URL}/books/${id}`,
     "PUT",
-    { yearPublished }
+    toastObject,
+    { yearPublished },
   )
   return (
     <>
@@ -62,7 +74,7 @@ const EditPublished: React.FC<Props> = ({ id, inPublish }) => {
                   setFormData({
                     ...formData,
                     yearPublished: Number(e.target.value),
-                  })
+                  }),
                 )
               }
               value={yearPublished}
