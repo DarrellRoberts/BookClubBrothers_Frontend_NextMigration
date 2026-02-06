@@ -4,14 +4,12 @@ import React, { useMemo } from "react"
 type Props = {
   title: string
   totalScore: number
-  ratingArr: number[] | number
-  raterArr: string[]
   hideScores: boolean
   isSingleBook?: boolean
   imageURL: string
 }
 
-const BookCard = ({ title, totalScore, hideScores, imageURL }) => {
+const BookCard = ({ title, totalScore, hideScores, imageURL }: Props) => {
   const calcTotalPercentage = useMemo(() => {
     return Math.floor(totalScore * 10)
   }, [totalScore])

@@ -1,4 +1,5 @@
 import { Card, ConfigProvider } from "antd"
+import Image from "next/image"
 import React from "react"
 
 type Props = {
@@ -25,19 +26,21 @@ const UiCard = ({
   return (
     <ConfigProvider theme={cardTheme}>
       <Card
-        style={{ width: 275, border: "2px solid black" }}
+        style={{ width: 250, border: "2px solid black" }}
         cover={
-          <img
+          <Image
             draggable={false}
             alt={`${bookTitle} book cover`}
             src={`${bookCoverImage}`}
-            className="p-5 rounded-lg bg-white h-85 hover:shadow-bc-green hover:shadow-2xl"
+            className="p-2 rounded-lg bg-white h-75 hover:shadow-bc-green hover:shadow-2xl"
+            width={500}
+            height={500}
           />
         }
       >
         <div className="flex w-full items-center justify-around h-full">
           <div className="w-25">
-            <img
+            <Image
               key={bookTitle}
               alt="Worm badge certification"
               src={
@@ -45,11 +48,25 @@ const UiCard = ({
                   ? "/book-library/book-card-cert-fresh.webp"
                   : "/book-library/book-card-cert-rotten.webp"
               }
-              width="700"
+              width={100}
+              height={100}
               className="w-full"
             />
           </div>
-          <span className="text-2xl font-(family-name:--main) font-bold">{`${hideScores ? "?" : calcTotalPercentage + "%"}`}</span>
+          <div className="flex flex-col items-center">
+            <span
+              className="text-2xl font-(family-name:--main) font-bold"
+              style={{
+                color: calcTotalPercentage < 50 ? "#F77A7D" : "#FFDC73",
+              }}
+            >{`${hideScores ? "?" : calcTotalPercentage + "%"}`}</span>
+            <span
+              className="text-xl font-(family-name:--main) font-bold"
+              style={{
+                color: calcTotalPercentage < 50 ? "#F77A7D" : "#FFDC73",
+              }}
+            >{`${calcTotalPercentage >= 50 ? "Fresh" : "Rotten"}`}</span>
+          </div>
         </div>
       </Card>
     </ConfigProvider>
