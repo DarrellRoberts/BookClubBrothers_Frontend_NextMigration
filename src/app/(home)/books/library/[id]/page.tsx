@@ -16,6 +16,7 @@ import UserViewRightSide from "@/components/books/library/single-book/UserViewRi
 import { useState } from "react"
 import NavigateBook from "@/components/books/library/single-book/NavigateBook"
 import { config } from "@/configs/config"
+import SuggestedByIcon from "@/components/books/library/single-book/SuggestedByIcon"
 
 const SingleBook: React.FC = () => {
   const [showLeftNavArrows, setShowLeftNavArrows] = useState<boolean>(true)
@@ -27,7 +28,7 @@ const SingleBook: React.FC = () => {
 
   const { bookData, loadingBooks, error } = useBookFetch(
     `${config.API_URL}/books/${id}`,
-    id
+    id,
   )
 
   const showDelete = useAppSelector((state) => state.editBookButtons.showDelete)
@@ -44,6 +45,7 @@ const SingleBook: React.FC = () => {
       <h1 className="text-7xl max-lg:text-5xl m-0 text-center mt-8">
         {bookData?.title}
       </h1>
+      <SuggestedByIcon bookData={bookData} />
       <div className="flex w-full justify-around items-center my-8">
         {showLeftNavArrows && (
           <NavigateBook
@@ -59,7 +61,7 @@ const SingleBook: React.FC = () => {
           />
         )}
       </div>
-      <div className="flex justify-around w-full max-lg:flex-col">
+      <div className="flex justify-around w-full max-lg:flex-col max-lg:gap-5">
         {decodedToken?._id === adminId ? (
           <AdminViewLeftSide bookData={bookData} bookId={bookData._id} />
         ) : (

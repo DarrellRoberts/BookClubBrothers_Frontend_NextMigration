@@ -5,11 +5,11 @@ type Props = {
   title: string
   totalScore: number
   hideScores: boolean
-  isSingleBook?: boolean
   imageURL: string
+  isSingleBook?: boolean
 }
 
-const BookCard = ({ title, totalScore, hideScores, imageURL }: Props) => {
+const BookCard = ({ title, totalScore, hideScores, imageURL, isSingleBook }: Props) => {
   const calcTotalPercentage = useMemo(() => {
     return Math.floor(totalScore * 10)
   }, [totalScore])
@@ -19,6 +19,7 @@ const BookCard = ({ title, totalScore, hideScores, imageURL }: Props) => {
       bookCoverImage={imageURL}
       calcTotalPercentage={calcTotalPercentage}
       hideScores={hideScores}
+      isSingleBook={isSingleBook}
     />
   )
 }
