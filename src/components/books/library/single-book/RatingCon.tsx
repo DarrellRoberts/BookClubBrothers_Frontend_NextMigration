@@ -102,7 +102,7 @@ const RatingCon: React.FC<Props> = ({
   }, [loading, isRefresh])
 
   return (
-    <div className="border-2 border-[var(--default-border-color)] flex flex-col w-[600px] max-md:w-full ml-4 max-md:m-0">
+    <div className="border-2 border-[var(--default-border-color)] flex flex-col h-fit w-[600px] max-md:w-full ml-4 max-md:m-0">
       <h2 className="text-4xl text-center font-main underline">Ratings</h2>
       {!singleBook ? (
         <div className="flex flex-col gap-4 mt-4">
@@ -217,7 +217,7 @@ const RatingCon: React.FC<Props> = ({
                           : title + ": " + value.toFixed(2)}
                       </span>
                     </h2>
-                  )
+                  ),
                 )}
             </div>
           </div>
@@ -229,15 +229,14 @@ const RatingCon: React.FC<Props> = ({
           </li>
         ))
       )}
-
-      <li className="list-none mt-auto font-bold">
+      <h2 className="text-6xl text-center max-sm:text-4xl font-bold my-5">
         Group Rating:{" "}
         {singleBook?.totalScore
           ? hideScores
             ? "?"
             : Math.floor(singleBook?.totalScore * 100) / 100
           : "Pending..."}
-      </li>
+      </h2>
       {decodedToken ? (
         <div className="flex justify-center">
           {initialRating ? (

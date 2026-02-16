@@ -7,6 +7,7 @@ type Props = {
   bookCoverImage: string
   calcTotalPercentage: number
   hideScores: boolean
+  isSingleBook?: boolean
 }
 
 const UiCard = ({
@@ -14,6 +15,7 @@ const UiCard = ({
   bookCoverImage,
   calcTotalPercentage,
   hideScores,
+  isSingleBook,
 }: Props) => {
   const cardTheme = {
     components: {
@@ -26,13 +28,20 @@ const UiCard = ({
   return (
     <ConfigProvider theme={cardTheme}>
       <Card
-        style={{ width: 250, border: "2px solid black" }}
+        style={{
+          border: "2px solid black",
+        }}
+        className={isSingleBook ? "w-100 max-sm:w-63" : "w-63"}
         cover={
           <Image
             draggable={false}
             alt={`${bookTitle} book cover`}
             src={`${bookCoverImage}`}
-            className="p-2 rounded-lg bg-white h-75 hover:shadow-bc-green hover:shadow-2xl"
+            className={
+              isSingleBook
+                ? "h-125 max-sm:h-70"
+                : "p-2 rounded-lg bg-white h-75 hover:shadow-bc-green hover:shadow-2xl"
+            }
             width={500}
             height={500}
           />
@@ -58,6 +67,7 @@ const UiCard = ({
               className="text-2xl font-(family-name:--main) font-bold"
               style={{
                 color: calcTotalPercentage < 50 ? "#F77A7D" : "#FFDC73",
+                fontSize: isSingleBook ? "3rem" : "1.5rem",
               }}
             >{`${hideScores ? "?" : calcTotalPercentage + "%"}`}</span>
             <span
