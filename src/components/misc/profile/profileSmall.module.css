@@ -1,12 +1,12 @@
 .profileCon {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .profileCon img {
-    border-radius: 20px;
-    width: 100px;
-    height: 150px;
-    max-width: 100px;
+  border-radius: 20px;
+  width: 100px;
+  height: 150px;
+  max-width: 100px;
 }

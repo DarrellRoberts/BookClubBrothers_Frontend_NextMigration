@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React from "react"
 import style from "./Profile.module.css"
 import Image from "next/image"
 import ProfileUnknownUserImage from "@/assets/Profile.unknown-profile-image.jpg"
@@ -32,7 +32,7 @@ const Profile: React.FC<Props> = ({
       </Link>
     </div>
   ) : imageURL ? (
-    <div className={style.profileCon}>
+    <div className={style.profileConHome}>
       <Image
         src={imageURL}
         width={width ?? 200}

@@ -39,7 +39,7 @@ const UiCard = ({
             src={`${bookCoverImage}`}
             className={
               isSingleBook
-                ? "h-125 max-sm:h-70"
+                ? "h-125 max-sm:h-70 p-2 rounded-lg bg-white"
                 : "p-2 rounded-lg bg-white h-75 hover:shadow-bc-green hover:shadow-2xl"
             }
             width={500}

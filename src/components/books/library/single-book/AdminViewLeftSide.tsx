@@ -35,7 +35,7 @@ const AdminViewSingleBook: React.FC<Props> = ({ bookData, bookId }) => {
             hideScores={handleHideScores_NoSetter(
               bookData?.actualDateOfMeeting,
             )}
-            imageURL={bookData?.imageURL}
+            imageURL={bookData?.imageURL || bookData?.reviewImageURL}
             isSingleBook={true}
           />
         </div>
