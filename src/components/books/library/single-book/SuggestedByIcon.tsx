@@ -22,8 +22,8 @@ const SuggestedByIcon = ({ bookData }: Props) => {
       <h2>Suggested by: </h2>
       <Profile
         imageURL={singleUserData?.userInfo?.profileURL}
-        width={75}
-        height={100}
+        width={100}
+        height={200}
         isLink={singleUserData?.username?.length > 0}
         username={singleUserData?.username}
       />

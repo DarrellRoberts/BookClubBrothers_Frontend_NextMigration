@@ -42,7 +42,7 @@ const SingleBook: React.FC = () => {
     <Loader />
   ) : (
     <div className="gap-6 flex flex-col items-center">
-      <h1 className="text-7xl max-lg:text-5xl m-0 text-center mt-8">
+      <h1 className="text-7xl max-lg:text-5xl m-0 text-center mt-8 max-lg:h-45">
         {bookData?.title}
       </h1>
       <SuggestedByIcon bookData={bookData} />
