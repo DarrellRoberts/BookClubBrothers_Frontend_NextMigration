@@ -1,23 +1,25 @@
 /* eslint-disable react/react-in-jsx-scope */
 "use client"
 import { handleHideScores_NoSetter } from "@/utils/time-functions/hideScores"
-import useBookFetch from "@/hooks/fetch-hooks/useReadBookFetch"
 import BookStatsTotalScores from "@/components/books/stats/BookStatsTotalScores"
 import BookStatsGenre from "@/components/books/stats/BookStatsGenre"
 import BookStatsPages from "@/components/books/stats/BookStatsPages"
 import BookStatsYrPublished from "@/components/books/stats/BookStatsYrPublished"
 import BookStatsMeetingDate from "@/components/books/stats/BookStatsMeetingDate"
-import { config } from "@/configs/config"
+import { API_BOOKS, config } from "@/configs/config"
+import { useGetQuery } from "@/hooks/fetch-hooks/useGetQuery"
+import { Book } from "@/types/BookInterface"
 
 const BookStats = () => {
-  const { bookData, loadingBooks } = useBookFetch(
-    `${config.API_URL}/books`,
-    null
-  )
+  const { data: bookData, isLoading } = useGetQuery<Book[]>({
+    queryKey: ["books"],
+    apiPath: API_BOOKS,
+  })
 
   const readBooks = bookData?.filter(
     (book) =>
-      book.read === true && !handleHideScores_NoSetter(book.actualDateOfMeeting)
+      book.read === true &&
+      !handleHideScores_NoSetter(book.actualDateOfMeeting),
   )
 
   return (
@@ -30,24 +32,21 @@ const BookStats = () => {
           <h2 className="font-main text-[2.5rem] underline my-8 ml-12 text-left max-sm:text-center max-sm:my-8 max-sm:ml-0">
             Total Scores
           </h2>
-          <BookStatsTotalScores
-            bookData={bookData}
-            loadingBooks={loadingBooks}
-          />
+          <BookStatsTotalScores bookData={bookData} loadingBooks={isLoading} />
         </div>
 
         <div className="flex flex-col justify-self-center">
           <h2 className="font-main text-[2.5rem] underline my-8 ml-12 text-left max-sm:text-center max-sm:my-8 max-sm:ml-0">
             By Genre
           </h2>
-          <BookStatsGenre readBooks={readBooks} loadingBooks={loadingBooks} />
+          <BookStatsGenre readBooks={readBooks} loadingBooks={isLoading} />
         </div>
 
         <div className="flex flex-col justify-self-center">
           <h2 className="font-main text-[2.5rem] underline my-8 ml-12 text-left max-sm:text-center max-sm:my-8 max-sm:ml-0">
             By Number of Pages
           </h2>
-          <BookStatsPages readBooks={readBooks} loadingBooks={loadingBooks} />
+          <BookStatsPages readBooks={readBooks} loadingBooks={isLoading} />
         </div>
 
         <div className="flex flex-col justify-self-center">
@@ -56,7 +55,7 @@ const BookStats = () => {
           </h2>
           <BookStatsYrPublished
             readBooks={readBooks}
-            loadingBooks={loadingBooks}
+            loadingBooks={isLoading}
           />
         </div>
       </div>
@@ -65,10 +64,7 @@ const BookStats = () => {
         <h2 className="font-main text-[2.5rem] underline my-8 ml-12 text-left max-sm:text-center max-sm:my-8 max-sm:ml-0">
           By Meeting Date
         </h2>
-        <BookStatsMeetingDate
-          readBooks={readBooks}
-          loadingBooks={loadingBooks}
-        />
+        <BookStatsMeetingDate readBooks={readBooks} loadingBooks={isLoading} />
       </div>
     </div>
   )

@@ -1,5 +1,3 @@
-import BookCover from "@/components/books/library/BookCover"
-import BookImageCover from "@/components/books/library/BookImageCover"
 import PictureUploadButton from "@/components/forms/brotherform/PictureUploadButton"
 import PieChart from "@/components/graphs/brothers/PieChart"
 import Badges from "@/components/misc/badges/Badges"
@@ -19,7 +17,6 @@ import {
   userReadBookTitles,
 } from "@/utils/stat-functions/scoreFunctions"
 import { useAuth } from "@/hooks/auth-hooks/useAuth"
-import { Button } from "antd"
 import { UiButton } from "@/components/ui/button/UiButton"
 import BookCard from "@/components/books/library/BookCard"
 

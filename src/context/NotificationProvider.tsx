@@ -38,10 +38,10 @@ export const useNotification = () => {
     const isError = type === "error"
 
     context[type]({
-      title: isError ? toastObject.error.title : toastObject.success.title,
+      title: isError ? toastObject.error?.title : toastObject.success?.title,
       description: isError
-        ? toastObject.error.description
-        : toastObject.success.description,
+        ? toastObject.error?.description
+        : toastObject.success?.description,
       style: {
         background: isError ? "#B01419" : "var(--tertiaryColor)",
         fontWeight: 600,

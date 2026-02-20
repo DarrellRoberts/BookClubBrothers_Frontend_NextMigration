@@ -12,10 +12,16 @@ import { UiSkeletonTitle } from "@/components/ui/skeleton/UiSkeletonTitle"
 type Props = {
   bookData: Book[]
   error: Error
+  isError: boolean
   userData: User[]
 }
 
-const RandomSectionRight: React.FC<Props> = ({ bookData, error, userData }) => {
+const RandomSectionRight: React.FC<Props> = ({
+  bookData,
+  error,
+  isError,
+  userData,
+}) => {
   const [isLoading, setIsLoading] = useState<boolean>(true)
   const index = useAppSelector((state) => state.randomise.index)
   const showRandom = useAppSelector((state) => state.randomise.showRandom)
@@ -70,7 +76,7 @@ const RandomSectionRight: React.FC<Props> = ({ bookData, error, userData }) => {
         </>
       ) : (
         <div className="bg-[var(--main-bg-color)] font-main flex flex-col justify-center items-center border-[var(--default-border-color)] border-5 border-solid h-[400px] max-md:justify-start max-md:h-[300px] max-md:m-8 z-1">
-          {error ? (
+          {isError ? (
             <h2 className="text-red-500 bg-black">{error.message}</h2>
           ) : !bookData[index] ? (
             <h2>No results found</h2>

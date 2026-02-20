@@ -2,30 +2,31 @@
 
 import { useState } from "react"
 import Search from "@/components/misc/search/Search"
-import useBookFetch from "@/hooks/fetch-hooks/useReadBookFetch"
-import useUserFetch from "@/hooks/fetch-hooks/useUserFetch"
 import BrothersProfile from "@/components/brothers/library/BrothersProfile"
 import BrothersLoadingProfile from "@/components/brothers/library/BrothersLoadingProfile"
-import { config } from "@/configs/config"
+import { API_BOOKS, API_USERS, config } from "@/configs/config"
+import { User } from "@/types/UserInterface"
+import { useGetQuery } from "@/hooks/fetch-hooks/useGetQuery"
+import { Book } from "@/types/BookInterface"
 
 const Brothercat: React.FC = () => {
   const [searchBar, setSearchBar] = useState("")
 
-  const { userData, loadingUsers } = useUserFetch(
-    `${config.API_URL}/users`,
-    null
-  )
+  const { data: userData, isLoading: isLoadingUsers } = useGetQuery<User[]>({
+    queryKey: ["users"],
+    apiPath: API_USERS,
+  })
 
-  const { bookData, loadingBooks } = useBookFetch(
-    `${config.API_URL}/books`,
-    null
-  )
+  const { data: bookData, isLoading: isLoadingBooks } = useGetQuery<Book[]>({
+    queryKey: ["books"],
+    apiPath: API_BOOKS,
+  })
 
   const readBooks = bookData?.filter((book) => book.read === true)
 
   const filteredResults = Array.isArray(userData)
     ? userData?.filter((user) =>
-        user?.username?.toLowerCase().includes(searchBar.toLowerCase())
+        user?.username?.toLowerCase().includes(searchBar.toLowerCase()),
       )
     : ["No results"]
   return (
@@ -34,10 +35,10 @@ const Brothercat: React.FC = () => {
         <Search
           setSearchBar={setSearchBar}
           filteredUsers={filteredResults}
-          isDisabled={loadingUsers}
+          isDisabled={isLoadingUsers}
         />
       </div>
-      {loadingUsers && loadingBooks ? (
+      {isLoadingUsers && isLoadingBooks ? (
         <>
           <h1 className="text-8xl m-5 max-lg:text-6xl max-lg:text-center">
             Brothers Library

@@ -14,10 +14,11 @@ import {
 import { findUserByUsername } from "@/utils/find-functions/find"
 import Link from "next/link"
 import ProfileSmall from "@/components/misc/profile/ProfileSmall"
-import useUserFetch from "@/hooks/fetch-hooks/useUserFetch"
 import { useAppSelector } from "@/store/lib/hooks"
 import { Skeleton } from "antd"
-import { config } from "@/configs/config"
+import { API_USERS } from "@/configs/config"
+import { useGetQuery } from "@/hooks/fetch-hooks/useGetQuery"
+import { User } from "@/types/UserInterface"
 
 type Props = {
   bookData: Book
@@ -33,10 +34,16 @@ const CommentCon: React.FC<Props> = ({ bookData, id, hideScores }) => {
   const { decodedToken }: { decodedToken?: { username: string } } =
     useJwt(token)
   const username = decodedToken?.username
-  const { userData, loadingUsers, error } = useUserFetch(
-    `${config.API_URL}/users`,
-    null,
-  )
+
+  const {
+    data: userData,
+    isLoading,
+    error,
+    isError,
+  } = useGetQuery<User[]>({
+    queryKey: ["users"],
+    apiPath: API_USERS,
+  })
 
   const isDarkMode = useAppSelector((state) => state.darkMode.darkMode)
 
@@ -56,9 +63,9 @@ const CommentCon: React.FC<Props> = ({ bookData, id, hideScores }) => {
       }`}
     >
       <h2 className="text-4xl text-center font-main underline">Comments</h2>
-      {error ? (
+      {isError ? (
         <h2>{error.message}</h2>
-      ) : loadingUsers ? (
+      ) : isLoading ? (
         <div className="flex flex-col items-center my-2">
           <Skeleton.Node
             active={true}
