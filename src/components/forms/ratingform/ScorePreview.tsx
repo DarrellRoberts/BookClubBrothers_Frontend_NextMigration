@@ -1,6 +1,7 @@
-import { config } from "@/configs/config"
-import useBookFetch from "@/hooks/fetch-hooks/useReadBookFetch"
+import { API_BOOKS } from "@/configs/config"
+import { useGetQuery } from "@/hooks/fetch-hooks/useGetQuery"
 import { useAppSelector } from "@/store/lib/hooks"
+import { Book } from "@/types/BookInterface"
 import { User } from "@/types/UserInterface"
 import { findBook } from "@/utils/find-functions/find"
 import { useRouter } from "next/navigation"
@@ -15,7 +16,11 @@ type Props = {
 }
 
 const ScorePreview = ({ users, rating, bookTitle, initialRating }: Props) => {
-  const { bookData } = useBookFetch(`${config.API_URL}/books`, null)
+  const { data: bookData } = useGetQuery<Book[]>({
+    queryKey: ["books"],
+    apiPath: API_BOOKS,
+  })
+
   const token = useAppSelector((state) => state.token.tokenState)
   const { decodedToken }: { decodedToken?: { username: string; _id: string } } =
     useJwt(token)

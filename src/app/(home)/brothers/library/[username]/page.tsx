@@ -25,7 +25,9 @@ const Dashboard: React.FC = () => {
     apiPath: API_BOOKS,
   })
 
-  const readBooks = bookData?.filter((book) => book.read === true)
+  const readBooks = bookData?.length
+    ? bookData?.filter((book) => book.read === true)
+    : []
 
   const token = useAppSelector((state) => state.token.tokenState)
 

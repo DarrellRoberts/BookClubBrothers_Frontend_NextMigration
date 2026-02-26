@@ -7,9 +7,10 @@ import { setFormData } from "@/store/lib/features/books/bookFormDataSlice"
 import { useEffect } from "react"
 import { User } from "@/types/UserInterface"
 import ScorePreview from "./ScorePreview"
-import { config } from "@/configs/config"
+import { API_EDIT_RATING, config } from "@/configs/config"
 import { UiButton } from "@/components/ui/button/UiButton"
 import { InputConfigWrapper } from "../InputConfigWrapper"
+import useMutationQuery from "@/hooks/crud-hooks/useMutationQuery"
 
 type Props = {
   id: string | string[]
@@ -29,6 +30,9 @@ const EditRatingForm: React.FC<Props> = ({
   const rating = useAppSelector(
     (state) => state.bookFormData.formData.scoreRatings.rating,
   )
+  const scoreRatings = useAppSelector(
+    (state) => state.bookFormData.formData.scoreRatings,
+  )
   const formData = useAppSelector((state) => state.bookFormData.formData)
   const dispatch = useAppDispatch()
 
@@ -42,6 +46,23 @@ const EditRatingForm: React.FC<Props> = ({
       description: "Rating not edited. Please contact me",
     },
   }
+
+  // const { mutate, isPending, isError, error } = useMutationQuery<
+  //   EditCommentPayload,
+  //   Book
+  // >({
+  //   apiPath: `${API_EDIT_RATING}${id}`,
+  //   method: "put",
+  //   toastObject: toastObject,
+  //   queryKeyToInvalidate: ["books", id],
+  //   onSuccessCallback: () => {
+  //     handleCancel()
+  //   },
+  // })
+
+  // const onSubmit = () => {
+  //   mutate(scoreRatings)
+  // }
 
   const { handleSubmit, error, loadings, enterLoading } = useForm(
     `${config.API_URL}/books/rating/edit/${id}`,

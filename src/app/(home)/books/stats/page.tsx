@@ -16,11 +16,13 @@ const BookStats = () => {
     apiPath: API_BOOKS,
   })
 
-  const readBooks = bookData?.filter(
-    (book) =>
-      book.read === true &&
-      !handleHideScores_NoSetter(book.actualDateOfMeeting),
-  )
+  const readBooks = bookData?.length
+    ? bookData?.filter(
+        (book) =>
+          book.read === true &&
+          !handleHideScores_NoSetter(book.actualDateOfMeeting),
+      )
+    : []
 
   return (
     <div>

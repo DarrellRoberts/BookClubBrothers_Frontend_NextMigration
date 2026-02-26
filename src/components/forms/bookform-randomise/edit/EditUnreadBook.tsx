@@ -12,6 +12,7 @@ type Props = {
   inPublished: number
   inPages: number
   inGenre: string[]
+  inImage: string
 }
 
 const EditUnreadBook: React.FC<Props> = ({
@@ -21,6 +22,7 @@ const EditUnreadBook: React.FC<Props> = ({
   inPublished,
   inPages,
   inGenre,
+  inImage,
 }) => {
   const showEditBook = useAppSelector((state) => state.editButtons.showEdit)
   const dispatch = useAppDispatch()
@@ -49,6 +51,7 @@ const EditUnreadBook: React.FC<Props> = ({
           inPublished={inPublished}
           inPages={inPages}
           inGenre={inGenre}
+          inImage={inImage}
         />
       </UiModal>
     </>

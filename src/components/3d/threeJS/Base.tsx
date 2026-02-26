@@ -43,7 +43,7 @@ export default function Base({ readBooks, readIds, readBooksJson }: Props) {
         <TextInfo clickId={clickId} readBooksJson={readBooksJson} />
       ) : null}
       <div className="flex justify-center align-center h-[106vh]">
-        {readBooks.length < 0 ? (
+        {!readBooks?.length ? (
           <Loader />
         ) : (
           <div className="flex flex-col w-full items-center overflow-hidden">

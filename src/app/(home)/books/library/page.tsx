@@ -33,7 +33,9 @@ const Booklibrary: React.FC = () => {
     staleTime: TIME_MILLISECONDS.ONE_MONTH,
   })
 
-  const readBooks = bookData?.filter((book) => book.read === true)
+  const readBooks = bookData?.length
+    ? bookData.filter((book) => book.read === true)
+    : []
 
   const lastItemRef = useScrollRef(isLoading, limit, handleLimit)
 

@@ -4,14 +4,18 @@ import { useAppDispatch, useAppSelector } from "@/store/lib/hooks"
 import { setFormData } from "@/store/lib/features/books/bookFormDataSlice"
 import { useEffect, useState } from "react"
 import { setShowCreate } from "@/store/lib/features/auth/editButtonsSlice"
-import { config } from "@/configs/config"
+import { API_CREATE_UNREAD, config } from "@/configs/config"
 import { InputConfigWrapper } from "../InputConfigWrapper"
 import { UiButton } from "@/components/ui/button/UiButton"
 import useBookImage from "@/hooks/book-hooks/useBookImage"
+import useMutationQuery from "@/hooks/crud-hooks/useMutationQuery"
+import { CreateBookPayload } from "@/types/Api"
+import { Book } from "@/types/BookInterface"
 
 const { Option } = Select
 
 const CreateBook: React.FC = () => {
+  const [error, setError] = useState<string>("")
   const [errorObject, setErrorObject] = useState({
     title: false,
     author: false,
@@ -30,19 +34,26 @@ const CreateBook: React.FC = () => {
     },
   }
 
-  const { handleSubmit, error, enterLoading, loadings, setError } = useForm(
-    `${config.API_URL}/books/unread/create`,
-    "POST",
-    toastObject,
-  )
+  const { mutate, isPending, isError } = useMutationQuery<
+    CreateBookPayload,
+    Book
+  >({
+    apiPath: API_CREATE_UNREAD,
+    method: "post",
+    toastObject: toastObject,
+    queryKeyToInvalidate: ["unread books"],
+    onSuccessCallback: () => {
+      dispatch(setShowCreate())
+    },
+  })
+
+  const onSubmit = () => {
+    mutate(formData)
+  }
+
   const formData = useAppSelector((state) => state.bookFormData.formData)
   const dispatch = useAppDispatch()
   const fetchCoverId = useBookImage()
-
-  const handleLoading = () => {
-    enterLoading()
-    setTimeout(() => dispatch(setShowCreate()), 1250)
-  }
 
   const handleSubmitSuggestion = async () => {
     if (!formData.title) return
@@ -62,7 +73,7 @@ const CreateBook: React.FC = () => {
   return (
     <>
       <Form
-        onFinish={handleSubmit}
+        onFinish={onSubmit}
         name="basic"
         labelCol={{
           span: 8,
@@ -175,7 +186,7 @@ const CreateBook: React.FC = () => {
 
           <Form.Item
             label="Year Published"
-            name="year"
+            name="yearPublished"
             rules={[
               {
                 required: true,
@@ -211,7 +222,7 @@ const CreateBook: React.FC = () => {
           <Form.Item
             label="Genres"
             htmlFor="genre"
-            name="Genres"
+            name="genre"
             rules={[{ required: true }]}
           >
             <Select
@@ -349,14 +360,14 @@ const CreateBook: React.FC = () => {
         >
           <UiButton
             textContent="Submit"
-            loading={loadings}
+            loading={isPending}
             htmlType="submit"
-            clickHandler={() => (error ? null : handleLoading())}
+            disabled={isError}
             ghost
           />
         </Form.Item>
         <div className="flex flex-col justify-center items-center w-full">
-          {error ? (
+          {isError ? (
             <h4 className="bg-black text-red-500 p-[0.5rem] rounded">
               {error}
             </h4>

@@ -22,7 +22,9 @@ const Brothercat: React.FC = () => {
     apiPath: API_BOOKS,
   })
 
-  const readBooks = bookData?.filter((book) => book.read === true)
+  const readBooks = bookData?.length
+    ? bookData?.filter((book) => book.read === true)
+    : []
 
   const filteredResults = Array.isArray(userData)
     ? userData?.filter((user) =>

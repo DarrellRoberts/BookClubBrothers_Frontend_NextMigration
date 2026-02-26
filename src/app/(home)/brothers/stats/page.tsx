@@ -27,7 +27,9 @@ const BrothersStats: React.FC = () => {
     queryKey: ["books"],
     apiPath: API_BOOKS,
   })
-  const readBooks = bookData?.filter((book) => book.read === true)
+  const readBooks = bookData?.length
+    ? bookData?.filter((book) => book.read === true)
+    : []
 
   let newArr = new Array()
   newArr.length = 5

@@ -57,12 +57,20 @@ const BrotherBanner: React.FC<Props> = ({ user, readBooks }) => {
 
         <div className="flex flex-col-reverse sm:flex-row items-center mr-0 md:mr-8 max-md:mr-0">
           <div className="flex flex-col items-center">
-            <Profile imageURL={user?.userInfo?.profileURL} />
+            <Profile
+              imageURL={
+                user?.userInfo?.profileURL ??
+                "/Profile.unknown-profile-image.jpg"
+              }
+            />
             {decodedToken?._id === user?._id ? (
               <div className="flex justify-center mt-2">
                 <PictureUploadButton
                   id={user?._id}
-                  inImage={user?.userInfo?.profileURL}
+                  inImage={
+                    user?.userInfo?.profileURL ??
+                    "/Profile.unknown-profile-image.jpg"
+                  }
                 />
               </div>
             ) : null}
@@ -80,7 +88,10 @@ const BrotherBanner: React.FC<Props> = ({ user, readBooks }) => {
               hideScores={handleHideScores_NoSetter(
                 findMinBook?.actualDateOfMeeting,
               )}
-              imageURL={findMinBook?.reviewImageURL}
+              imageURL={
+                findMinBook?.reviewImageURL ??
+                "/Profile.unknown-profile-image.jpg"
+              }
             />
           </Link>
         </div>
@@ -94,7 +105,10 @@ const BrotherBanner: React.FC<Props> = ({ user, readBooks }) => {
               hideScores={handleHideScores_NoSetter(
                 findMaxBook?.actualDateOfMeeting,
               )}
-              imageURL={findMaxBook?.reviewImageURL}
+              imageURL={
+                findMaxBook?.reviewImageURL ??
+                "/Profile.unknown-profile-image.jpg"
+              }
             />
           </Link>
         </div>
