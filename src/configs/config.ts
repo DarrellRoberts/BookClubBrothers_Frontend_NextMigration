@@ -16,6 +16,7 @@ export const API_UNREAD_BOOKS = `${API_BOOKS}/unread/all`
 // POST
 export const API_CREATE_UNREAD = `${API_BOOKS}/unread/create`
 export const API_CREATE_COMMENT = `${API_BOOKS}/comment/`
+export const API_CREATE_RATING = `${API_BOOKS}/rating/`
 // DELETE
 export const API_BOOK_DELETE = `${API_URL}/books/`
 // PUT

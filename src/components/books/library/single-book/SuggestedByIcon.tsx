@@ -24,7 +24,10 @@ const SuggestedByIcon = ({ bookData }: Props) => {
     <div className="flex flex-col items-center justify-center">
       <h2>Suggested by: </h2>
       <Profile
-        imageURL={singleUserData?.userInfo?.profileURL}
+        imageURL={
+          singleUserData?.userInfo?.profileURL ||
+          "/Profile.unknown-profile-image.jpg"
+        }
         width={100}
         height={200}
         isLink={singleUserData?.username?.length > 0}

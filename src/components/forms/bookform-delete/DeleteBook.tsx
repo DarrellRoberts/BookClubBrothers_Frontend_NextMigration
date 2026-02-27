@@ -25,7 +25,7 @@ const DeleteBook: React.FC<Props> = ({ id }) => {
     apiPath: `${API_BOOK_DELETE}/${id}`,
     method: "delete",
     toastObject: toastObject,
-    queryKeyToInvalidate: ["unread books"],
+    queryKeyToInvalidate: ["books"],
     onSuccessCallback: () => null,
   })
 

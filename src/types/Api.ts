@@ -16,6 +16,8 @@ export type EditBookPayload = {
   yearPublished: number
   genre: any
   imageURL?: string
+  actualDateOfMeeting?: string
+  dateOfMeeting?: string
 }
 
 export type EditCommentPayload = {
@@ -31,4 +33,14 @@ export type SelectBookPayload = {
 export type CreateCommentPayload = {
   commentId?: string[]
   comments?: string | string[]
+}
+
+export type CreateRatingPayload = {
+  raterId?: string[]
+  rating?: number | number[]
+}
+
+export type EditRatingPayload = {
+  raterId?: string[]
+  rating?: number | number[]
 }

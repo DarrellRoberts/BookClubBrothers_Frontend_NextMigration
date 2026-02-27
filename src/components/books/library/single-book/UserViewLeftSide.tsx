@@ -20,7 +20,11 @@ const UserViewLeftSide = ({ bookData }: Props) => {
           title={bookData?.title}
           totalScore={bookData?.totalScore}
           hideScores={handleHideScores_NoSetter(bookData?.actualDateOfMeeting)}
-          imageURL={bookData?.imageURL || bookData?.reviewImageURL}
+          imageURL={
+            bookData?.imageURL ||
+            bookData?.reviewImageURL ||
+            "/Profile.unknown-profile-image.jpg"
+          }
           isSingleBook={true}
         />
       </div>

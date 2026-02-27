@@ -11,7 +11,7 @@ const Profile: React.FC<Props> = ({ imageURL }) => {
   return (
     <div className={style.profileCon}>
       <Image
-        src={imageURL ? imageURL : ProfileUnknownUserImage.src}
+        src={imageURL ? imageURL : "/Profile.unknown-profile-image.jpg"}
         width={100}
         height={150}
         alt="Profile picture"

@@ -52,17 +52,6 @@ const EditForm: React.FC<Props> = ({
     },
   }
 
-  // const { handleSubmit, error, loadings, enterLoading } = useForm(
-  //   `${API_EDIT_BOOK}/${id}`,
-  //   "PUT",
-  //   toastObject,
-  // )
-
-  // const handleForm = () => {
-  //   if (inputError) return
-  //   enterLoading()
-  //   setTimeout(() => dispatch(setShowEdit()), 1250)
-  // }
   const formData = useAppSelector((state) => state.bookFormData.formData)
   const dispatch = useAppDispatch()
 

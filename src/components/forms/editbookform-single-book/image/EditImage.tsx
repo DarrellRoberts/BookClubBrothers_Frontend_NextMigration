@@ -5,7 +5,7 @@ import axios from "axios"
 import { Button, Form, Upload } from "antd"
 import { PlusOutlined } from "@ant-design/icons"
 import { useAppSelector } from "@/store/lib/hooks"
-import { config } from "@/configs/config"
+import { API_EDIT_BOOK, config } from "@/configs/config"
 import { UiButton } from "@/components/ui/button/UiButton"
 import { InputConfigWrapper } from "../../InputConfigWrapper"
 
@@ -34,25 +34,32 @@ interface imageInt {
 }
 
 const EditImage: React.FC<props> = ({ id }) => {
-  const [image, setImage] = useState<imageInt>()
+  const [image, setImage] = useState<Blob>()
   const [error, setError] = useState("")
-  const [loadings, setLoadings] = useState([])
+  const [loadings, setLoadings] = useState(false)
   const token = useAppSelector((state) => state.token.tokenState)
 
   const [form] = Form.useForm()
 
   const handleSubmit = async () => {
+    setLoadings(true)
     try {
       const formData = new FormData()
-      formData.append("picture", image, image?.name)
-      await axios.post(`${config.API_URL}books/${id}`, formData, {
+      formData.append("picture", image)
+      await axios.post(`${API_EDIT_BOOK}${id}`, formData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
     } catch (error) {
-      setError(error)
+      setError(
+        error.response?.data?.message ||
+          error.message ||
+          "Something went wrong",
+      )
       console.error(error)
+    } finally {
+      setLoadings(false)
     }
   }
 
@@ -61,21 +68,6 @@ const EditImage: React.FC<props> = ({ id }) => {
     console.log(info)
   }
 
-  const enterLoading = (index) => {
-    setLoadings((prevLoadings) => {
-      const newLoadings = [...prevLoadings]
-      newLoadings[index] = true
-      return newLoadings
-    })
-    setTimeout(() => {
-      setLoadings((prevLoadings) => {
-        const newLoadings = [...prevLoadings]
-        newLoadings[index] = false
-        // document.location.reload()
-        return newLoadings
-      })
-    }, 4000)
-  }
   return (
     <>
       <Form
@@ -97,20 +89,17 @@ const EditImage: React.FC<props> = ({ id }) => {
             onChange={handleImageChange}
             beforeUpload={() => false}
           >
-            <div>
-              <PlusOutlined />
-              <div style={{ marginTop: 8 }}>Upload</div>
-            </div>
+            {!image && (
+              <div>
+                <PlusOutlined />
+                <div style={{ marginTop: 8 }}>Upload</div>
+              </div>
+            )}
           </Upload>
         </Form.Item>
         {/* </InputConfigWrapper> */}
 
-        <UiButton
-          textContent="Submit"
-          clickHandler={() => enterLoading(0)}
-          htmlType="submit"
-          loading={loadings[0]}
-        />
+        <UiButton textContent="Submit" htmlType="submit" loading={loadings} />
 
         {error ? <p>{error}</p> : null}
       </Form>

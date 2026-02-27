@@ -96,7 +96,11 @@ const Booklibrary: React.FC = () => {
                     key={book._id}
                     title={book.title}
                     imageURL={
-                      book.reviewImageURL ? book.reviewImageURL : book?.imageURL
+                      book.reviewImageURL
+                        ? book.reviewImageURL
+                        : book?.imageURL
+                          ? book?.imageURL
+                          : "/Profile.unknown-profile-image.jpg"
                     }
                     totalScore={book?.totalScore}
                     hideScores={handleHideScores_NoSetter(

@@ -11,6 +11,8 @@ import { API_EDIT_RATING, config } from "@/configs/config"
 import { UiButton } from "@/components/ui/button/UiButton"
 import { InputConfigWrapper } from "../InputConfigWrapper"
 import useMutationQuery from "@/hooks/crud-hooks/useMutationQuery"
+import { EditRatingPayload } from "@/types/Api"
+import { Book } from "@/types/BookInterface"
 
 type Props = {
   id: string | string[]
@@ -47,35 +49,21 @@ const EditRatingForm: React.FC<Props> = ({
     },
   }
 
-  // const { mutate, isPending, isError, error } = useMutationQuery<
-  //   EditCommentPayload,
-  //   Book
-  // >({
-  //   apiPath: `${API_EDIT_RATING}${id}`,
-  //   method: "put",
-  //   toastObject: toastObject,
-  //   queryKeyToInvalidate: ["books", id],
-  //   onSuccessCallback: () => {
-  //     handleCancel()
-  //   },
-  // })
-
-  // const onSubmit = () => {
-  //   mutate(scoreRatings)
-  // }
-
-  const { handleSubmit, error, loadings, enterLoading } = useForm(
-    `${config.API_URL}/books/rating/edit/${id}`,
-    "PUT",
-    toastObject,
-    { rating },
-  )
-
-  const handleLoading = () => {
-    enterLoading()
-    setTimeout(() => {
+  const { mutate, isPending, isError, error } = useMutationQuery<
+    EditRatingPayload,
+    Book
+  >({
+    apiPath: `${API_EDIT_RATING}${id}`,
+    method: "put",
+    toastObject: toastObject,
+    queryKeyToInvalidate: ["books", id as string],
+    onSuccessCallback: () => {
       handleCancel()
-    }, 1250)
+    },
+  })
+
+  const onSubmit = () => {
+    mutate(scoreRatings)
   }
 
   useEffect(() => {
@@ -89,7 +77,7 @@ const EditRatingForm: React.FC<Props> = ({
   return (
     <>
       <Form
-        onFinish={handleSubmit}
+        onFinish={onSubmit}
         name="basic"
         labelCol={{
           span: 8,
@@ -151,12 +139,11 @@ const EditRatingForm: React.FC<Props> = ({
         >
           <UiButton
             textContent="Submit"
-            loading={loadings}
-            clickHandler={() => handleLoading()}
+            loading={isPending}
             htmlType="submit"
             ghost
           />
-          {error ? <h4 className="errorH">{error}</h4> : null}
+          {isError ? <h4 className="errorH">{error.message}</h4> : null}
         </Form.Item>
       </Form>
     </>

@@ -4,9 +4,12 @@ import { Button, Form, Select, Space } from "antd"
 import useForm from "@/hooks/crud-hooks/useForm"
 import { useAppDispatch, useAppSelector } from "@/store/lib/hooks"
 import { setFormData } from "@/store/lib/features/books/bookFormDataSlice"
-import { config } from "@/configs/config"
+import { API_EDIT_BOOK, config } from "@/configs/config"
 import { UiButton } from "@/components/ui/button/UiButton"
 import { InputConfigWrapper } from "../../InputConfigWrapper"
+import useMutationQuery from "@/hooks/crud-hooks/useMutationQuery"
+import { EditBookPayload } from "@/types/Api"
+import { Book } from "@/types/BookInterface"
 
 const { Option } = Select
 
@@ -31,16 +34,24 @@ const EditGenre: React.FC<Props> = ({ id, inGenre }) => {
     },
   }
 
-  const { handleSubmit, error, enterLoading, loadings } = useForm(
-    `${config.API_URL}/books/${id}`,
-    "PUT",
-    toastObject,
-    { genre },
-  )
+  const { mutate, isPending, isError, error } = useMutationQuery<
+    Pick<EditBookPayload, "genre">,
+    Book
+  >({
+    apiPath: `${API_EDIT_BOOK}${id}`,
+    method: "put",
+    toastObject: toastObject,
+    queryKeyToInvalidate: ["books", id as string],
+    onSuccessCallback: () => null,
+  })
+
+  const onSubmit = () => {
+    mutate({ genre })
+  }
   return (
     <>
       <Form
-        onFinish={handleSubmit}
+        onFinish={onSubmit}
         name="basic"
         labelCol={{
           span: 8,
@@ -193,11 +204,10 @@ const EditGenre: React.FC<Props> = ({ id, inGenre }) => {
         >
           <UiButton
             textContent="Submit"
-            clickHandler={() => enterLoading()}
             htmlType="submit"
-            loading={loadings}
+            loading={isPending}
           />
-          {error ? <h4 className="errorH">{error}</h4> : null}
+          {isError ? <h4 className="errorH">{error.message}</h4> : null}
         </Form.Item>
       </Form>
     </>
