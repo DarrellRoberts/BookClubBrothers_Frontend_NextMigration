@@ -64,7 +64,7 @@ const EditPages: React.FC<Props> = ({ id, inPages }) => {
         }}
       >
         {/* Pages */}
-        <InputConfigWrapper>
+        <InputConfigWrapper labelColor="#000000">
           <Form.Item
             label="Pages"
             name="pages"

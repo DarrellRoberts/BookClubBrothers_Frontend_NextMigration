@@ -44,3 +44,17 @@ export type EditRatingPayload = {
   raterId?: string[]
   rating?: number | number[]
 }
+
+export type EditUserPayload = {
+  userInfo: {
+    favGenre?: string[]
+    residence?: {
+      city: string
+      country: string
+    }
+  }
+}
+
+export type EditUsernamePayload = {
+  username: string
+}

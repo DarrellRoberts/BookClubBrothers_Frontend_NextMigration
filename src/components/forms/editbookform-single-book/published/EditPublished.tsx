@@ -66,7 +66,7 @@ const EditPublished: React.FC<Props> = ({ id, inPublish }) => {
         }}
       >
         {/* Year Published */}
-        <InputConfigWrapper>
+        <InputConfigWrapper labelColor="#000000">
           <Form.Item
             label="yearPublished"
             name="yearPublished"

@@ -64,7 +64,7 @@ const EditTitle: React.FC<Props> = ({ id, inTitle }) => {
         }}
       >
         {/* Title */}
-        <InputConfigWrapper>
+        <InputConfigWrapper labelColor="#000000">
           <Form.Item
             label="Title"
             name="title"

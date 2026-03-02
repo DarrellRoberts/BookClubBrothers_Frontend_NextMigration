@@ -29,6 +29,14 @@ export const API_EDIT_RATING = `${API_BOOKS}/rating/edit/`
 // GET
 export const API_USERS = `${API_URL}/users`
 export const API_SINGLE_USER = `${API_USERS}/id/`
+// PUT
+export const API_EDIT_USER = `${API_USERS}/`
+export const API_EDIT_USERNAME = `${API_USERS}/username/`
 
 export const IA_API_URL = "https://openlibrary.org/search.json?title="
 export const OL_BOOK_COVER_URL = "https://covers.openlibrary.org/b/id/"
+
+// Public Images
+export const UNKNOWN_IMAGE = "/Profile.unknown-profile-image.jpg"
+export const F_WORM_IMAGE = "/book-library/book-card-cert-fresh.webp"
+export const R_WORM_IMAGE = "/book-library/book-card-cert-rotten.webp"

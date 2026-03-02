@@ -65,7 +65,7 @@ const EditActualDate: React.FC<Props> = ({ id }) => {
         }}
       >
         {/* Date of Meeting */}
-        <InputConfigWrapper>
+        <InputConfigWrapper labelColor="#000000">
           <Form.Item label="Date of Meeting" name="Date of Meeting">
             <DatePicker
               onChange={(e) =>

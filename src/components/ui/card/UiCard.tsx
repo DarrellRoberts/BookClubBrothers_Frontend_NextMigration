@@ -1,6 +1,7 @@
+import { F_WORM_IMAGE, R_WORM_IMAGE, UNKNOWN_IMAGE } from "@/configs/config"
 import { Card, ConfigProvider } from "antd"
 import Image from "next/image"
-import React from "react"
+import React, { useMemo } from "react"
 
 type Props = {
   bookTitle: string
@@ -17,6 +18,17 @@ const UiCard = ({
   hideScores,
   isSingleBook,
 }: Props) => {
+  const imageObject = useMemo(() => {
+    if (hideScores) {
+      return { src: UNKNOWN_IMAGE, textColor: "#FFFFFF", text: "" }
+    }
+    if (calcTotalPercentage >= 50) {
+      return { src: F_WORM_IMAGE, textColor: "#FFDC73", text: "Fresh" }
+    } else {
+      return { src: R_WORM_IMAGE, textColor: "#F77A7D", text: "Rotten" }
+    }
+  }, [hideScores, calcTotalPercentage])
+
   const cardTheme = {
     components: {
       Card: {
@@ -48,34 +60,32 @@ const UiCard = ({
         }
       >
         <div className="flex w-full items-center justify-around h-full">
-          <div className="w-25">
+          <div className="w-25 h-23">
             <Image
               key={bookTitle}
               alt="Worm badge certification"
-              src={
-                calcTotalPercentage >= 50
-                  ? "/book-library/book-card-cert-fresh.webp"
-                  : "/book-library/book-card-cert-rotten.webp"
-              }
+              src={imageObject.src}
               width={100}
               height={100}
-              className="w-full"
+              className="w-full rounded-4xl"
             />
           </div>
           <div className="flex flex-col items-center">
             <span
               className="text-2xl font-(family-name:--main) font-bold"
               style={{
-                color: calcTotalPercentage < 50 ? "#F77A7D" : "#FFDC73",
+                color: imageObject.textColor,
                 fontSize: isSingleBook ? "3rem" : "1.5rem",
               }}
             >{`${hideScores ? "?" : calcTotalPercentage + "%"}`}</span>
             <span
               className="text-xl font-(family-name:--main) font-bold"
               style={{
-                color: calcTotalPercentage < 50 ? "#F77A7D" : "#FFDC73",
+                color: imageObject.textColor,
               }}
-            >{`${calcTotalPercentage >= 50 ? "Fresh" : "Rotten"}`}</span>
+            >
+              {imageObject.text}
+            </span>
           </div>
         </div>
       </Card>

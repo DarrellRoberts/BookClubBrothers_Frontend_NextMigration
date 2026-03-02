@@ -63,7 +63,7 @@ const EditBookAuthor: React.FC<Props> = ({ id, inAuthor }) => {
           author: inAuthor,
         }}
       >
-        <InputConfigWrapper>
+        <InputConfigWrapper labelColor="#000000">
           <Form.Item
             label="Author"
             name="author"
