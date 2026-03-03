@@ -5,12 +5,14 @@ import EditTitleForm from "./title/EditTitleForm"
 import EditPublishedForm from "./published/EditPublishedForm"
 import EditPagesForm from "./pages/EditPagesForm"
 import EditGenreForm from "./genre/EditGenreForm"
-import useForm from "@/hooks/crud-hooks/useForm"
 import { useAppDispatch, useAppSelector } from "@/store/lib/hooks"
 import { setFormData } from "@/store/lib/features/books/bookFormDataSlice"
 import { setShowEdit } from "@/store/lib/features/auth/editButtonsSlice"
-import { config } from "@/configs/config"
+import { API_EDIT_BOOK, config } from "@/configs/config"
 import { UiButton } from "@/components/ui/button/UiButton"
+import useMutationQuery from "@/hooks/crud-hooks/useMutationQuery"
+import { Book } from "@/types/BookInterface"
+import { EditBookPayload } from "@/types/Api"
 
 type Props = {
   inAuthor: string
@@ -18,6 +20,7 @@ type Props = {
   inPublished: number
   inPages: number
   inGenre: string[]
+  inImage: string
   id: string
 }
 
@@ -27,6 +30,7 @@ const EditForm: React.FC<Props> = ({
   inPublished,
   inPages,
   inGenre,
+  inImage,
   id,
 }) => {
   const [inputError, setInputError] = useState(null)
@@ -48,19 +52,25 @@ const EditForm: React.FC<Props> = ({
     },
   }
 
-  const { handleSubmit, error, loadings, enterLoading } = useForm(
-    `${config.API_URL}/books/${id}`,
-    "PUT",
-    toastObject,
-  )
-
-  const handleForm = () => {
-    if (inputError) return
-    enterLoading()
-    setTimeout(() => dispatch(setShowEdit()), 1250)
-  }
   const formData = useAppSelector((state) => state.bookFormData.formData)
   const dispatch = useAppDispatch()
+
+  const { mutate, isPending, isError, error } = useMutationQuery<
+    EditBookPayload,
+    Book
+  >({
+    apiPath: `${API_EDIT_BOOK}/${id}`,
+    method: "put",
+    toastObject: toastObject,
+    queryKeyToInvalidate: ["unread books"],
+    onSuccessCallback: () => {
+      dispatch(setShowEdit())
+    },
+  })
+
+  const onSubmit = () => {
+    mutate(formData)
+  }
 
   useEffect(() => {
     dispatch(
@@ -71,6 +81,7 @@ const EditForm: React.FC<Props> = ({
         yearPublished: inPublished,
         pages: inPages,
         genre: inGenre[0],
+        imageURL: inImage,
       }),
     )
     setErrorObject({
@@ -91,7 +102,7 @@ const EditForm: React.FC<Props> = ({
   }, [errorObject])
   return (
     <Form
-      onFinish={handleSubmit}
+      onFinish={onSubmit}
       name="basic"
       labelCol={{
         span: 8,
@@ -136,8 +147,8 @@ const EditForm: React.FC<Props> = ({
         <UiButton
           textContent={"Submit"}
           htmlType="submit"
-          clickHandler={() => handleForm()}
-          loading={loadings}
+          disabled={isError}
+          loading={isPending}
           ghost
         />
         {inputError ? <h4 className="errorH">{inputError}</h4> : null}

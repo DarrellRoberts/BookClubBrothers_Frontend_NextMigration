@@ -1,7 +1,5 @@
 /* eslint-disable react/react-in-jsx-scope */
 import { UiButton } from "@/components/ui/button/UiButton"
-import { Button } from "antd"
-import Link from "next/link"
 
 const BrothersHomepage: React.FC = () => {
   const dashboardLinks = [
@@ -29,17 +27,6 @@ const BrothersHomepage: React.FC = () => {
               key={btn.text}
             />
           ))}
-          {/* <Link href="/brothers/library">
-            <Button size="large" type="primary">
-              Brothers Library
-            </Button>
-          </Link>
-
-          <Link href="/brothers/stats">
-            <Button size="large" type="primary">
-              Brothers Stats
-            </Button>
-          </Link> */}
         </div>
       </div>
       <div

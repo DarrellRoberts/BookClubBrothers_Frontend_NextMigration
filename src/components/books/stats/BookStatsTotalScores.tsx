@@ -14,10 +14,13 @@ type Props = {
 const BookStatsTotalScores: React.FC<Props> = ({ bookData, loadingBooks }) => {
   const [fetchedData, setFetchedData] = useState<Book[]>()
 
-  const readBooks = bookData?.filter(
-    (book) =>
-      book.read === true && !handleHideScores_NoSetter(book.actualDateOfMeeting)
-  )
+  const readBooks = bookData?.length
+    ? bookData?.filter(
+        (book) =>
+          book.read === true &&
+          !handleHideScores_NoSetter(book.actualDateOfMeeting),
+      )
+    : []
 
   const sortBooksLowest = () => {
     setFetchedData(readBooks?.sort((a, b) => a.totalScore - b.totalScore))
@@ -25,7 +28,7 @@ const BookStatsTotalScores: React.FC<Props> = ({ bookData, loadingBooks }) => {
 
   const sortBooksHighest = () => {
     setFetchedData(
-      readBooks?.sort((a, b) => a.totalScore - b.totalScore).reverse()
+      readBooks?.sort((a, b) => a.totalScore - b.totalScore).reverse(),
     )
   }
 
@@ -34,8 +37,8 @@ const BookStatsTotalScores: React.FC<Props> = ({ bookData, loadingBooks }) => {
       readBooks?.sort(
         (a, b) =>
           new Date(b.dateOfMeeting).getTime() -
-          new Date(a.dateOfMeeting).getTime()
-      )
+          new Date(a.dateOfMeeting).getTime(),
+      ),
     )
   }
 
@@ -44,8 +47,8 @@ const BookStatsTotalScores: React.FC<Props> = ({ bookData, loadingBooks }) => {
       readBooks?.sort(
         (a, b) =>
           new Date(a.dateOfMeeting).getTime() -
-          new Date(b.dateOfMeeting).getTime()
-      )
+          new Date(b.dateOfMeeting).getTime(),
+      ),
     )
   }
 

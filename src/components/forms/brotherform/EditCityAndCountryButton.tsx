@@ -20,7 +20,7 @@ const EditCityAndCountryButton: React.FC<Props> = ({
   inCity,
 }) => {
   const [modalText, setModalText] = useState(
-    <EditCityAndCountry id={id} inCountry={inCountry} inCity={inCity} />
+    <EditCityAndCountry id={id} inCountry={inCountry} inCity={inCity} />,
   )
   const [confirmLoading, setConfirmLoading] = useState<boolean>(false)
   const showCountry = useAppSelector((state) => state.editButtons.showCountry)
@@ -35,7 +35,7 @@ const EditCityAndCountryButton: React.FC<Props> = ({
       dispatch(setShowCountry())
     }, 500)
     setModalText(
-      <EditCityAndCountry id={id} inCountry={inCountry} inCity={inCity} />
+      <EditCityAndCountry id={id} inCountry={inCountry} inCity={inCity} />,
     )
   }
   const handleCancel = () => {

@@ -3,10 +3,14 @@ import { config } from "@/configs/config"
 import Base from "./threeJS/Base"
 
 async function getBookData() {
-  const response = await fetch(`${config.API_URL}/books`, {
-    next: { revalidate: 5 },
-  })
-  return response.json()
+  try {
+    const response = await fetch(`${config.API_URL}/books`, {
+      next: { revalidate: 5 },
+    })
+    return response.json()
+  } catch (err) {
+    console.error(err)
+  }
 }
 
 const Homepage: React.FC = async () => {
@@ -18,7 +22,7 @@ const Homepage: React.FC = async () => {
     .map((book) => book._id)
     .reverse()
   // eslint-disable-next-line prefer-const
-  let readIds = [...readBooks]
+  let readIds = readBooks?.length ? [...readBooks] : []
   readIds.length = 5
   return (
     <Base

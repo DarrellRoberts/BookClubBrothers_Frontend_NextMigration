@@ -6,7 +6,6 @@ import Loader from "@/components/loader/Loader"
 import RatingCon from "../../../../../components/books/library/single-book/RatingCon"
 import CommentCon from "../../../../../components/books/library/single-book/CommentCon"
 import { handleHideScores_NoSetter } from "@/utils/time-functions/hideScores"
-import useBookFetch from "@/hooks/fetch-hooks/useReadBookFetch"
 import { useAppSelector } from "@/store/lib/hooks"
 import { useAuth } from "@/hooks/auth-hooks/useAuth"
 import UserViewLeftSide from "@/components/books/library/single-book/UserViewLeftSide"
@@ -15,8 +14,11 @@ import AdminViewRightSide from "@/components/books/library/single-book/AdminView
 import UserViewRightSide from "@/components/books/library/single-book/UserViewRightSide"
 import { useState } from "react"
 import NavigateBook from "@/components/books/library/single-book/NavigateBook"
-import { config } from "@/configs/config"
+import { API_SINGLE_BOOK, config } from "@/configs/config"
 import SuggestedByIcon from "@/components/books/library/single-book/SuggestedByIcon"
+import { Book } from "@/types/BookInterface"
+import { useGetQuery } from "@/hooks/fetch-hooks/useGetQuery"
+import { TIME_MILLISECONDS } from "@/hooks/timeVars"
 
 const SingleBook: React.FC = () => {
   const [showLeftNavArrows, setShowLeftNavArrows] = useState<boolean>(true)
@@ -26,19 +28,24 @@ const SingleBook: React.FC = () => {
   const adminId = process.env.NEXT_PUBLIC_ADMIN_ID
   const { decodedToken } = useAuth()
 
-  const { bookData, loadingBooks, error } = useBookFetch(
-    `${config.API_URL}/books/${id}`,
-    id,
-  )
+  const {
+    data: bookData,
+    isLoading,
+    isError,
+    error,
+  } = useGetQuery<Book>({
+    queryKey: ["books", id],
+    apiPath: `${API_SINGLE_BOOK}${id}`,
+  })
 
   const showDelete = useAppSelector((state) => state.editBookButtons.showDelete)
   return showDelete ? (
     <h1 className="font-main text-[5rem] m-4 pb-[5rem] md:text-[3.5rem] md:mt-8 md:text-center sm:text-[2.5rem]">
       Book is deleted
     </h1>
-  ) : error ? (
+  ) : isError ? (
     <h1>{error.message}</h1>
-  ) : loadingBooks && !bookData ? (
+  ) : isLoading && !bookData ? (
     <Loader />
   ) : (
     <div className="gap-6 flex flex-col items-center">
@@ -80,7 +87,7 @@ const SingleBook: React.FC = () => {
         <RatingCon
           singleBook={bookData}
           id={id}
-          loading={loadingBooks}
+          loading={isLoading}
           hideScores={handleHideScores_NoSetter(bookData?.actualDateOfMeeting)}
         />{" "}
         <CommentCon

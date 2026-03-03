@@ -1,11 +1,9 @@
 "use client"
 
 import { ConfigProvider, Popconfirm } from "antd"
-import useForm from "@/hooks/crud-hooks/useForm"
-import { useAppDispatch } from "@/store/lib/hooks"
-import { setIsRefresh } from "@/store/lib/features/auth/editButtonsSlice"
-import { config } from "@/configs/config"
+import { API_BOOK_DELETE } from "@/configs/config"
 import { UiButton } from "@/components/ui/button/UiButton"
+import useMutationQuery from "@/hooks/crud-hooks/useMutationQuery"
 
 type Props = {
   id: string
@@ -23,22 +21,24 @@ const DeleteBook: React.FC<Props> = ({ id }) => {
     },
   }
 
-  const { handleSubmit, error } = useForm(
-    `${config.API_URL}/books/${id}`,
-    "DELETE",
-    toastObject,
-  )
+  const { mutate, isPending, isError, error } = useMutationQuery<void, any>({
+    apiPath: `${API_BOOK_DELETE}/${id}`,
+    method: "delete",
+    toastObject: toastObject,
+    queryKeyToInvalidate: ["unread books"],
+    onSuccessCallback: () => null,
+  })
 
-  const dispatch = useAppDispatch()
+  const onSubmit = () => {
+    mutate()
+  }
 
   const confirm = () =>
     new Promise((resolve) => {
-      handleSubmit()
-      dispatch(setIsRefresh(true))
       setTimeout(() => {
         resolve(null)
-        dispatch(setIsRefresh(false))
-      }, 1250)
+        onSubmit()
+      }, 1000)
     })
 
   const popTheme = {
@@ -56,18 +56,20 @@ const DeleteBook: React.FC<Props> = ({ id }) => {
         title="WARNING"
         description="Are you sure you want to delete this book?"
         onConfirm={confirm}
+        disabled={isError}
       >
         <div>
           <UiButton
             bgColor="darkred"
             hoverBgColor="red"
             textContent="Delete Book"
+            loading={isPending}
           />
         </div>
       </Popconfirm>
-      {error ? (
+      {isError ? (
         <div className="authorisationMessage">
-          <h2>{error}</h2>
+          <h2>{error.message}</h2>
         </div>
       ) : null}
     </ConfigProvider>

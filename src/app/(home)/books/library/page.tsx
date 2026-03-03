@@ -3,34 +3,41 @@
 
 import { useState, useEffect } from "react"
 import Loader from "@/components/loader/Loader"
-import BookCover from "@/components/books/library/BookCover"
 import Link from "next/link"
 import Search from "@/components/misc/search/Search"
-import BookImageCover from "@/components/books/library/BookImageCover"
 import { handleHideScores_NoSetter } from "@/utils/time-functions/hideScores"
-import useBookFetch from "@/hooks/fetch-hooks/useReadBookFetch"
 import { Book } from "@/types/BookInterface"
 import useScrollRef from "@/hooks/scroll-hooks/useScrollRef"
 import useLimit from "@/hooks/scroll-hooks/useLimit"
 import BookSkeleton from "@/components/books/library/BookSkeleton"
-import { config } from "@/configs/config"
+import { API_BOOKS, config } from "@/configs/config"
 import { UiButton } from "@/components/ui/button/UiButton"
 import BookCard from "@/components/books/library/BookCard"
+import { useGetQuery } from "@/hooks/fetch-hooks/useGetQuery"
+import { TIME_MILLISECONDS } from "@/hooks/timeVars"
 
 const Booklibrary: React.FC = () => {
   const [searchBar, setSearchBar] = useState<string>("")
-  const [books, setBooks] = useState<Book[]>([])
+  const [books, setBooks] = useState<Book[] | string[]>([])
 
   const { limit, handleLimit, setIsLimit, isLimit } = useLimit()
 
-  const { bookData, loadingBooks, error } = useBookFetch(
-    `${config.API_URL}/books`,
-    limit,
-  )
+  const {
+    data: bookData,
+    isLoading,
+    isError,
+    error,
+  } = useGetQuery<Book[]>({
+    queryKey: ["books"],
+    apiPath: API_BOOKS,
+    staleTime: TIME_MILLISECONDS.ONE_MONTH,
+  })
 
-  const readBooks = bookData?.filter((book) => book.read === true)
+  const readBooks = bookData?.length
+    ? bookData.filter((book) => book.read === true)
+    : []
 
-  const lastItemRef = useScrollRef(loadingBooks, limit, handleLimit)
+  const lastItemRef = useScrollRef(isLoading, limit, handleLimit)
 
   const filteredResults = Array.isArray(readBooks)
     ? readBooks?.filter((book) =>
@@ -39,18 +46,21 @@ const Booklibrary: React.FC = () => {
     : ["No results"]
 
   useEffect(() => {
-    if (!loadingBooks) setBooks(filteredResults)
+    if (!isLoading) setBooks(filteredResults)
   }, [searchBar])
 
   useEffect(() => {
-    if (books.length === 0 && !loadingBooks) setBooks(filteredResults)
-    setBooks((prevItems) => [
-      ...prevItems,
-      ...filteredResults.slice(prevItems.length + 1, limit),
-    ])
+    if (books.length === 0 && !isLoading) setBooks(filteredResults)
+    setBooks(
+      (prevItems) =>
+        [
+          ...prevItems,
+          ...filteredResults.slice(prevItems.length + 1, limit),
+        ] as Book[],
+    )
     const timer = setTimeout(() => setIsLimit(false), 500)
     return () => clearTimeout(timer)
-  }, [limit, loadingBooks])
+  }, [limit, isLoading])
 
   return (
     <>
@@ -58,16 +68,16 @@ const Booklibrary: React.FC = () => {
         <Search
           setSearchBar={setSearchBar}
           filteredBooks={filteredResults}
-          isDisabled={loadingBooks}
+          isDisabled={isLoading}
         />
         <UiButton isLink href="/books/library/3d" textContent="3D View" />
       </div>
       <h1 className="text-8xl m-5 max-lg:text-6xl max-lg:text-center max-lg:mb-20">
         Book Library
       </h1>
-      {loadingBooks && books.length === 0 ? (
+      {isLoading && books.length === 0 ? (
         <BookSkeleton freq={8} />
-      ) : error ? (
+      ) : isError ? (
         <h2> {error?.message}</h2>
       ) : (
         <div className="flex flex-wrap gap-10 mx-4 max-sm:justify-center">
@@ -86,7 +96,11 @@ const Booklibrary: React.FC = () => {
                     key={book._id}
                     title={book.title}
                     imageURL={
-                      book.reviewImageURL ? book.reviewImageURL : book?.imageURL
+                      book.reviewImageURL
+                        ? book.reviewImageURL
+                        : book?.imageURL
+                          ? book?.imageURL
+                          : "/Profile.unknown-profile-image.jpg"
                     }
                     totalScore={book?.totalScore}
                     hideScores={handleHideScores_NoSetter(

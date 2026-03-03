@@ -1,32 +1,39 @@
 /* eslint-disable react/react-in-jsx-scope */
 "use client"
 
-import useBookFetch from "@/hooks/fetch-hooks/useUnreadBookFetch"
-import useUserFetch from "@/hooks/fetch-hooks/useUserFetch"
 import RandomSectionLeft from "@/components/books/randomiser/RandomSectionLeft"
 import RandomSectionRight from "@/components/books/randomiser/RandomSectionRight"
 import RandomiserFilters from "@/components/books/randomiser/RandomiserFilters"
 import { useEffect, useState } from "react"
 import { useAppSelector } from "@/store/lib/hooks"
-import { config } from "@/configs/config"
+import { API_UNREAD_BOOKS, API_USERS } from "@/configs/config"
+import { useGetQuery } from "@/hooks/fetch-hooks/useGetQuery"
+import { Book } from "@/types/BookInterface"
+import { User } from "@/types/UserInterface"
 
 const RandomiserHomepage: React.FC = () => {
   const [randomiserBooks, setRandomiserBooks] = useState([])
 
   const isRefresh = useAppSelector((state) => state.editButtons.isRefresh)
 
-  const { bookData, loadingBooks, error } = useBookFetch(
-    `${config.API_URL}/books/unread/all`,
-    null,
-  )
-  const { userData, loadingUsers } = useUserFetch(
-    `${config.API_URL}/users`,
-    null,
-  )
+  const {
+    data: bookData,
+    isLoading,
+    isError,
+    error,
+  } = useGetQuery<Book[]>({
+    queryKey: ["unread books"],
+    apiPath: API_UNREAD_BOOKS,
+  })
+
+  const { data: userData, isLoading: isLoadingUsers } = useGetQuery<User[]>({
+    queryKey: ["users"],
+    apiPath: API_USERS,
+  })
 
   useEffect(() => {
     setRandomiserBooks(bookData)
-  }, [bookData, loadingBooks, isRefresh])
+  }, [bookData, isLoading, isRefresh])
 
   return (
     <div>
@@ -55,13 +62,14 @@ const RandomiserHomepage: React.FC = () => {
             <RandomSectionLeft
               bookData={randomiserBooks}
               userData={userData}
-              loadingBooks={loadingBooks}
-              loadingUsers={loadingUsers}
+              loadingBooks={isLoading}
+              loadingUsers={isLoadingUsers}
             />
             <RandomSectionRight
               bookData={randomiserBooks}
               userData={userData}
               error={error}
+              isError={isError}
             />
           </div>
         )}

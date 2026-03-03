@@ -27,7 +27,7 @@ const RandomiserFilters: React.FC<Props> = ({
     Genre.THRILLER,
     Genre.COMEDY,
     Genre.ROMANCE,
-    Genre.FANTASTY,
+    Genre.FANTASY,
     Genre.ADVENTURE,
     Genre.ANTIWAR,
     Genre.DRAMA,
@@ -49,7 +49,7 @@ const RandomiserFilters: React.FC<Props> = ({
         setNameFilter([...tempArr, value])
       }
     },
-    [nameFilter]
+    [nameFilter],
   )
 
   const handleGenreCheckbox = useCallback(
@@ -62,7 +62,7 @@ const RandomiserFilters: React.FC<Props> = ({
         setGenreFilter([...tempArr, value])
       }
     },
-    [genreFilter]
+    [genreFilter],
   )
 
   useEffect(() => {
@@ -71,24 +71,24 @@ const RandomiserFilters: React.FC<Props> = ({
       dispatch(setIndex(0))
     } else if (nameFilter.length === 0 && genreFilter.length > 0) {
       const tempArray = bookData?.filter((book) =>
-        book.genre[0].some((genre) => genre.includes(genreFilter))
+        book.genre[0].some((genre) => genre.includes(genreFilter)),
       )
       setBookData(tempArray)
       dispatch(setIndex(0))
     } else if (nameFilter.length > 0 && genreFilter.length === 0) {
       const tempArray = bookData?.filter((book) =>
-        nameFilter?.includes(book.suggestedBy)
+        nameFilter?.includes(book.suggestedBy),
       )
       setBookData(tempArray)
       dispatch(setIndex(0))
     } else if (nameFilter.length > 0 && genreFilter.length > 0) {
       let tempArray = bookData?.filter((book) =>
-        nameFilter?.includes(book.suggestedBy)
+        nameFilter?.includes(book.suggestedBy),
       )
       tempArray = tempArray?.filter((book) =>
         genreFilter.every((selectedGenre) =>
-          book.genre[0].includes(selectedGenre)
-        )
+          book.genre[0].includes(selectedGenre),
+        ),
       )
       setBookData(tempArray)
       dispatch(setIndex(0))
