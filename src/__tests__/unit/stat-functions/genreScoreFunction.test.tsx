@@ -8,22 +8,22 @@ describe("functions that return the book scores by genre", () => {
   const mockBookArray = [
     {
       id: 1,
-      genre: [["Horror"]],
+      genre: ["Horror"],
       totalScore: 8,
     },
     {
       id: 2,
-      genre: [["Thriller"]],
+      genre: ["Thriller"],
       totalScore: 5,
     },
     {
       id: 3,
-      genre: [["Comedy"]],
+      genre: ["Comedy"],
       totalScore: 4,
     },
     {
       id: 4,
-      genre: [["Horror"]],
+      genre: ["Horror"],
       totalScore: 3,
     },
   ] as unknown as Book[]
