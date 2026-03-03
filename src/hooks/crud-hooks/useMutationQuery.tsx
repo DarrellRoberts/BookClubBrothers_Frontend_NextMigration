@@ -42,7 +42,10 @@ const mutateData = async <TData, TResponse>(
 export const useMutationQuery = <
   TData,
   TResponse,
-  TError = AxiosError<{ message?: string }>,
+  TError = AxiosError<{
+    error: string
+    message?: string
+  }>,
 >({
   apiPath,
   method = "post",
@@ -75,18 +78,10 @@ export const useMutationQuery = <
     },
 
     onError: (error) => {
-      let errorMessage
       if (axios.isAxiosError(error)) {
         console.error(error)
-        const errorData = error.response?.data as { message: string }
-        if (typeof errorData === "string") {
-          errorMessage = errorData
-        } else if (errorData?.message) {
-          errorMessage = errorData.message
-        }
-        console.error(error)
-        toast("error", toastObject)
       }
+      toast("error", toastObject)
     },
   })
 }

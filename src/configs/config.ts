@@ -32,6 +32,9 @@ export const API_SINGLE_USER = `${API_USERS}/id/`
 // PUT
 export const API_EDIT_USER = `${API_USERS}/`
 export const API_EDIT_USERNAME = `${API_USERS}/username/`
+export const API_EDIT_AVATAR = `${API_USERS}/upload/`
+// POST
+export const API_LOGIN_USER = `${API_USERS}/login`
 
 export const IA_API_URL = "https://openlibrary.org/search.json?title="
 export const OL_BOOK_COVER_URL = "https://covers.openlibrary.org/b/id/"

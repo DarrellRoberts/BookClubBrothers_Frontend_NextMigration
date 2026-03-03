@@ -28,7 +28,7 @@ const SelectBook: React.FC<Props> = ({ bookId }) => {
     apiPath: `${API_SELECT_BOOK}${bookId}`,
     method: "put",
     toastObject: toastObject,
-    queryKeyToInvalidate: ["unread books"],
+    queryKeyToInvalidate: ["unread books", "books"],
     onSuccessCallback: () => null,
   })
 

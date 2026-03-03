@@ -15,7 +15,7 @@ type Props = {
   bookTitle: string
 }
 
-const ScorePreview = ({ users, rating, bookTitle, initialRating }: Props) => {
+const ScorePreview = ({ users, rating, bookTitle }: Props) => {
   const { data: bookData } = useGetQuery<Book[]>({
     queryKey: ["books"],
     apiPath: API_BOOKS,
@@ -48,7 +48,6 @@ const ScorePreview = ({ users, rating, bookTitle, initialRating }: Props) => {
         arr.sort((a, b) => a.score - b.score)
         currentIndex = arr.findIndex((book) => book.title === bookTitle)
         arr[currentIndex].title = `#${arr.length - currentIndex} ` + bookTitle
-        // router.push("#currentBook")
         return arr
       } else {
         return null

@@ -1,7 +1,6 @@
 "use client"
 
-import { Button, Form, Input } from "antd"
-import useForm from "@/hooks/crud-hooks/useForm"
+import { Form, Input } from "antd"
 import { useAppDispatch, useAppSelector } from "@/store/lib/hooks"
 import { setFormData } from "@/store/lib/features/books/bookFormDataSlice"
 import { useEffect } from "react"
@@ -56,7 +55,7 @@ const EditRatingForm: React.FC<Props> = ({
     apiPath: `${API_EDIT_RATING}${id}`,
     method: "put",
     toastObject: toastObject,
-    queryKeyToInvalidate: ["books", id as string],
+    queryKeyToInvalidate: ["books"],
     onSuccessCallback: () => {
       handleCancel()
     },

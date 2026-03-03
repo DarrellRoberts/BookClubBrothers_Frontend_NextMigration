@@ -50,55 +50,6 @@ const EditUsername: React.FC<props> = ({ id, inUsername }) => {
   const onSubmit = () => {
     mutate({ username })
   }
-
-  // const [error, setError] = useState("")
-  // const [loadings, setLoadings] = useState([])
-
-  // const token = useAppSelector((state) => state.token.tokenState)
-
-  // const handleSubmit = async () => {
-  //   try {
-  //     setError(null)
-  //     const response = await fetch(`${config.API_URL}/users/username/${id}`, {
-  //       method: "PUT",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         Authorization: `Bearer ${token}`,
-  //       },
-  //       body: JSON.stringify({
-  //         username,
-  //       }),
-  //     })
-  //     const data = await response.json()
-  //     if (!response.ok) {
-  //       setError(data.error)
-  //       console.log("something has happened")
-  //     }
-
-  //     if (response.ok) {
-  //       return
-  //     }
-  //   } catch (error) {
-  //     setError(error)
-  //     console.log(error)
-  //   }
-  // }
-
-  // const enterLoading = (index) => {
-  //   setLoadings((prevLoadings) => {
-  //     const newLoadings = [...prevLoadings]
-  //     newLoadings[index] = true
-  //     return newLoadings
-  //   })
-  //   setTimeout(() => {
-  //     setLoadings((prevLoadings) => {
-  //       const newLoadings = [...prevLoadings]
-  //       newLoadings[index] = false
-  //       document.location.reload()
-  //       return newLoadings
-  //     })
-  //   }, 500)
-  // }
   return (
     <>
       <Form

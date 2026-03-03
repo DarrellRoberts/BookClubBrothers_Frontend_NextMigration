@@ -1,13 +1,12 @@
 "use client"
 
-import { Button, Form, Input } from "antd"
-import useForm from "@/hooks/crud-hooks/useForm"
+import { Form, Input } from "antd"
 import { useAppDispatch, useAppSelector } from "@/store/lib/hooks"
 import { setFormData } from "@/store/lib/features/books/bookFormDataSlice"
 import { User } from "@/types/UserInterface"
 import ScorePreview from "./ScorePreview"
 import { useEffect } from "react"
-import { API_CREATE_RATING, config } from "@/configs/config"
+import { API_CREATE_RATING } from "@/configs/config"
 import { UiButton } from "@/components/ui/button/UiButton"
 import { InputConfigWrapper } from "../InputConfigWrapper"
 import { CreateRatingPayload } from "@/types/Api"
@@ -54,7 +53,7 @@ const RatingForm: React.FC<Props> = ({
     apiPath: `${API_CREATE_RATING}${id}`,
     method: "post",
     toastObject: toastObject,
-    queryKeyToInvalidate: ["books", id as string],
+    queryKeyToInvalidate: ["books"],
     onSuccessCallback: () => {
       handleCancel()
     },

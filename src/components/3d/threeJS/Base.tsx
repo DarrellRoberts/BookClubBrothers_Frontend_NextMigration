@@ -58,7 +58,7 @@ export default function Base({ readBooks, readIds, readBooksJson }: Props) {
               token={token}
             />
             {readBooks.length - 1 !== renderIds.length ? (
-              <div className="absolute bottom-30 max-sm:bottom-50">
+              <div className="absolute bottom-30 max-sm:bottom-0">
                 <UiButton
                   clickHandler={handleLoadMore}
                   textContent="Load more"

@@ -52,9 +52,15 @@ export type EditUserPayload = {
       city: string
       country: string
     }
+    profileURL?: string
   }
 }
 
 export type EditUsernamePayload = {
   username: string
+}
+
+export type LoginUserPayload = {
+  username: string
+  password: string
 }

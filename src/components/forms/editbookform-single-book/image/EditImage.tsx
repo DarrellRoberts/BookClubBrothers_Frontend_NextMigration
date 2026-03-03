@@ -1,13 +1,14 @@
 "use client"
 
 import { useState } from "react"
-import axios from "axios"
-import { Button, Form, Upload } from "antd"
+import { Form, Upload } from "antd"
 import { PlusOutlined } from "@ant-design/icons"
-import { useAppSelector } from "@/store/lib/hooks"
+import { useAppDispatch } from "@/store/lib/hooks"
 import { API_EDIT_BOOK, config } from "@/configs/config"
 import { UiButton } from "@/components/ui/button/UiButton"
-import { InputConfigWrapper } from "../../InputConfigWrapper"
+import { setShowBookImage } from "@/store/lib/features/books/editBookButtonsSlice"
+import useMutationQuery from "@/hooks/crud-hooks/useMutationQuery"
+import { Book } from "@/types/BookInterface"
 
 const normFile = (e) => {
   if (Array.isArray(e)) {
@@ -16,67 +17,61 @@ const normFile = (e) => {
   return e && e.fileList
 }
 
-interface props {
+type Props = {
   id: string | string[]
 }
 
-interface imageInt {
-  image: string
-  name?: string
-  size: number
-  type: string
-  text: () => Promise<string>
-  arrayBuffer: () => Promise<ArrayBuffer>
-  slice: {
-    (start?: number, end?: number, contentType?: string)
-  }
-  stream: () => ReadableStream<Uint8Array>
-}
+const EditImage = ({ id }: Props) => {
+  const [form] = Form.useForm() // Create a form instance
+  const [image, setImage] = useState<File | null>()
 
-const EditImage: React.FC<props> = ({ id }) => {
-  const [image, setImage] = useState<Blob>()
-  const [error, setError] = useState("")
-  const [loadings, setLoadings] = useState(false)
-  const token = useAppSelector((state) => state.token.tokenState)
+  const dispatch = useAppDispatch()
 
-  const [form] = Form.useForm()
-
-  const handleSubmit = async () => {
-    setLoadings(true)
-    try {
-      const formData = new FormData()
-      formData.append("picture", image)
-      await axios.post(`${API_EDIT_BOOK}${id}`, formData, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-    } catch (error) {
-      setError(
-        error.response?.data?.message ||
-          error.message ||
-          "Something went wrong",
-      )
-      console.error(error)
-    } finally {
-      setLoadings(false)
-    }
+  const handleCancel = () => {
+    dispatch(setShowBookImage())
   }
 
-  const handleImageChange = (info) => {
+  const toastObject = {
+    success: {
+      title: "Image successfully uploaded",
+      description: "Image has been changed",
+    },
+    error: {
+      title: "Error occurred",
+      description: "Image not uploaded. Please contact me",
+    },
+  }
+
+  const { mutate, isPending, isError, error } = useMutationQuery<
+    FormData,
+    Book
+  >({
+    apiPath: `${API_EDIT_BOOK}${id}`,
+    method: "post",
+    toastObject: toastObject,
+    queryKeyToInvalidate: ["books"],
+    onSuccessCallback: () => handleCancel(),
+  })
+
+  const onSubmit = () => {
+    if (!image) return
+    const formData = new FormData()
+    formData.append("picture", image, image?.name)
+    mutate(formData)
+  }
+
+  const handleImageChange = (info: any) => {
     setImage(info.file)
-    console.log(info)
   }
 
   return (
     <>
       <Form
         form={form}
-        onFinish={handleSubmit}
+        onFinish={onSubmit}
         name="picture_upload_form"
         initialValues={{ fileList: [] }}
       >
-        {/* <InputConfigWrapper> */}
         <Form.Item
           name="fileList"
           valuePropName="fileList"
@@ -97,11 +92,10 @@ const EditImage: React.FC<props> = ({ id }) => {
             )}
           </Upload>
         </Form.Item>
-        {/* </InputConfigWrapper> */}
 
-        <UiButton textContent="Submit" htmlType="submit" loading={loadings} />
+        <UiButton textContent="Submit" htmlType="submit" loading={isPending} />
 
-        {error ? <p>{error}</p> : null}
+        {isError ? <p>{error.message}</p> : null}
       </Form>
     </>
   )

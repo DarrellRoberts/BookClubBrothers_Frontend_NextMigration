@@ -1,7 +1,5 @@
 "use client"
 
-import { useState } from "react"
-import { Button, Modal } from "antd"
 import CommentForm from "./CommentForm"
 import { UiButton } from "@/components/ui/button/UiButton"
 import { UiModal } from "@/components/ui/modal/UiModal"
@@ -9,7 +7,7 @@ import { UiModal } from "@/components/ui/modal/UiModal"
 interface props {
   setAddComment: React.Dispatch<React.SetStateAction<boolean>>
   addComment: boolean
-  id: string | string[]
+  id: string
 }
 
 const CommentButton: React.FC<props> = ({ setAddComment, addComment, id }) => {
