@@ -2,10 +2,14 @@
 
 import { useState } from "react"
 import { Form, Input } from "antd"
-import { useAppSelector } from "@/store/lib/hooks"
-import { config } from "@/configs/config"
+import { useAppDispatch, useAppSelector } from "@/store/lib/hooks"
+import { API_EDIT_USER, config } from "@/configs/config"
 import { UiButton } from "@/components/ui/button/UiButton"
 import { UiInput } from "@/components/ui/input/UiInput"
+import { EditUserPayload } from "@/types/Api"
+import { User } from "@/types/UserInterface"
+import useMutationQuery from "@/hooks/crud-hooks/useMutationQuery"
+import { setShowCountry } from "@/store/lib/features/auth/editButtonsSlice"
 
 interface props {
   id: string
@@ -16,58 +20,43 @@ interface props {
 const EditCityAndCountry: React.FC<props> = ({ id, inCity, inCountry }) => {
   const [country, setCountry] = useState(inCountry)
   const [city, setCity] = useState(inCity)
-  const [error, setError] = useState("")
-  const [loadings, setLoadings] = useState([])
 
-  const token = useAppSelector((state) => state.token.tokenState)
+  const dispatch = useAppDispatch()
 
-  const handleSubmit = async () => {
-    try {
-      setError(null)
-      const response = await fetch(`${config.API_URL}/users/${id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          userInfo: { residence: { country, city } },
-        }),
-      })
-      const data = await response.json()
-      if (!response.ok) {
-        setError(data.error)
-        console.log("something has happened")
-      }
-
-      if (response.ok) {
-        return
-      }
-    } catch (error) {
-      setError(error)
-      console.log(error)
-    }
+  const handleCancel = () => {
+    dispatch(setShowCountry())
   }
 
-  const enterLoading = (index) => {
-    setLoadings((prevLoadings) => {
-      const newLoadings = [...prevLoadings]
-      newLoadings[index] = true
-      return newLoadings
-    })
-    setTimeout(() => {
-      setLoadings((prevLoadings) => {
-        const newLoadings = [...prevLoadings]
-        newLoadings[index] = false
-        document.location.reload()
-        return newLoadings
-      })
-    }, 500)
+  const toastObject = {
+    success: {
+      title: "Residence successfully edited",
+      description: "Residence has been changed",
+    },
+    error: {
+      title: "Error occurred",
+      description: "Residence not edited. Please contact me",
+    },
   }
+
+  const { mutate, isPending, isError, error } = useMutationQuery<
+    EditUserPayload,
+    User
+  >({
+    apiPath: `${API_EDIT_USER}${id}`,
+    method: "put",
+    toastObject: toastObject,
+    queryKeyToInvalidate: ["users"],
+    onSuccessCallback: () => handleCancel(),
+  })
+
+  const onSubmit = () => {
+    mutate({ userInfo: { residence: { country, city } } })
+  }
+
   return (
     <>
       <Form
-        onFinish={handleSubmit}
+        onFinish={onSubmit}
         name="basic"
         labelCol={{
           span: 8,
@@ -127,12 +116,11 @@ const EditCityAndCountry: React.FC<props> = ({ id, inCity, inCountry }) => {
         >
           <UiButton
             textContent="Submit"
-            loading={loadings[0]}
-            clickHandler={() => enterLoading(0)}
+            loading={isPending}
             htmlType="submit"
             ghost
           />
-          {error ? <h4 className="errorH">{error}</h4> : null}
+          {isError ? <h4 className="errorH">{error.message}</h4> : null}
         </Form.Item>
       </Form>
     </>

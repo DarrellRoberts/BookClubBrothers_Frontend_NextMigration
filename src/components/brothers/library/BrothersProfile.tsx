@@ -30,8 +30,8 @@ const BrothersProfile: React.FC<Props> = ({ user, readBooks, userData }) => {
         user?.userInfo?.books?.booksScored[
           user?.userInfo?.books?.booksScored.length - 1
         ],
-        readBooks
-      )
+        readBooks,
+      ),
     )
     for (let i = 0; i < bookIdArray?.length; i++) {
       userBookObj[i] = bookIdArray[i]
@@ -89,27 +89,30 @@ const BrothersProfile: React.FC<Props> = ({ user, readBooks, userData }) => {
           </li>
           <div className="flex">
             {user?.userInfo?.residence?.city ? (
-              <li className="max-xs:text-[0.75rem]">
-                City: {user?.userInfo?.residence?.city}
-              </li>
+              <div className="flex flex-col">
+                <li className="max-xs:text-[0.75rem]">
+                  Country: {user?.userInfo?.residence?.country}
+                </li>
+                <li className="max-xs:text-[0.75rem]">
+                  City: {user?.userInfo?.residence?.city}
+                </li>
+              </div>
             ) : (
-              <li className="font-bold text-red-500 max-xs:text-[0.75rem]">
+              <span className="font-bold text-red-500 max-xs:text-[0.75rem]">
                 No city written
-              </li>
+              </span>
             )}
           </div>
 
-          <div className="flex">
+          {/* <div className="flex">
             {user?.userInfo?.residence?.country ? (
-              <li className="max-xs:text-[0.75rem]">
-                Country: {user?.userInfo?.residence?.country}
-              </li>
+
             ) : (
               <li className="font-bold text-red-500 max-xs:text-[0.75rem]">
                 No country written
               </li>
             )}
-          </div>
+          </div> */}
 
           <div className="flex">
             <li className="underline pt-5 text-xl max-sm:pt-[15px] max-sm:text-base max-xs:text-[0.75rem]">
@@ -153,8 +156,8 @@ const BrothersProfile: React.FC<Props> = ({ user, readBooks, userData }) => {
             handleHideScores_NoSetter(
               findDateOfMeeting(
                 userBookObj[userData?.indexOf(user)][1] as string,
-                readBooks
-              )
+                readBooks,
+              ),
             )
               ? " ?"
               : ` ${

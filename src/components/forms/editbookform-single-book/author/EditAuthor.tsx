@@ -1,12 +1,14 @@
 "use client"
 
-import { config } from "@/configs/config"
+import { API_EDIT_BOOK } from "@/configs/config"
 import { UiButton } from "@/components/ui/button/UiButton"
-import useForm from "@/hooks/crud-hooks/useForm"
 import { setFormData } from "@/store/lib/features/books/bookFormDataSlice"
 import { useAppDispatch, useAppSelector } from "@/store/lib/hooks"
-import { Button, Form, Input } from "antd"
+import { Form, Input } from "antd"
 import { InputConfigWrapper } from "../../InputConfigWrapper"
+import useMutationQuery from "@/hooks/crud-hooks/useMutationQuery"
+import { Book } from "@/types/BookInterface"
+import { EditBookPayload } from "@/types/Api"
 
 type Props = {
   id: string | string[]
@@ -18,15 +20,35 @@ const EditBookAuthor: React.FC<Props> = ({ id, inAuthor }) => {
   const formData = useAppSelector((state) => state.bookFormData.formData)
   const dispatch = useAppDispatch()
 
-  const { handleSubmit, error, enterLoading, loadings } = useForm(
-    `${config.API_URL}/books/${id}`,
-    "PUT",
-    { author }
-  )
+  const toastObject = {
+    success: {
+      title: "Author successfully edited",
+      description: "Author has been changed",
+    },
+    error: {
+      title: "Error occurred",
+      description: "Author not edited. Please contact me",
+    },
+  }
+
+  const { mutate, isPending, isError, error } = useMutationQuery<
+    Pick<EditBookPayload, "author">,
+    Book
+  >({
+    apiPath: `${API_EDIT_BOOK}${id}`,
+    method: "put",
+    toastObject: toastObject,
+    queryKeyToInvalidate: ["books", id as string],
+    onSuccessCallback: () => null,
+  })
+
+  const onSubmit = () => {
+    mutate({ author })
+  }
   return (
     <>
       <Form
-        onFinish={handleSubmit}
+        onFinish={onSubmit}
         name="basic"
         labelCol={{
           span: 8,
@@ -41,7 +63,7 @@ const EditBookAuthor: React.FC<Props> = ({ id, inAuthor }) => {
           author: inAuthor,
         }}
       >
-        <InputConfigWrapper>
+        <InputConfigWrapper labelColor="#000000">
           <Form.Item
             label="Author"
             name="author"
@@ -69,11 +91,10 @@ const EditBookAuthor: React.FC<Props> = ({ id, inAuthor }) => {
         >
           <UiButton
             textContent="Submit"
-            clickHandler={() => enterLoading()}
             htmlType="submit"
-            loading={loadings}
+            loading={isPending}
           />
-          {error ? <h4 className="errorH">{error}</h4> : null}
+          {isError ? <h4 className="errorH">{error.message}</h4> : null}
         </Form.Item>
       </Form>
     </>

@@ -1,67 +1,32 @@
 import { Book } from "@/types/BookInterface"
-import React, { useEffect, useState } from "react"
-import BookCover from "../BookCover"
+import React from "react"
 import { handleHideScores_NoSetter } from "@/utils/time-functions/hideScores"
-import Profile from "@/components/misc/profile/Profile"
-import useSingleUserFetch from "@/hooks/fetch-hooks/useSingleUserFetch"
-import NavigateBook from "./NavigateBook"
-import Image from "next/image"
 import { Skeleton } from "antd"
-import BookSkeleton from "../BookSkeleton"
 import { useAppSelector } from "@/store/lib/hooks"
-import { config } from "@/configs/config"
-import BookImageCover from "../BookImageCover"
+import BookCard from "../BookCard"
+import BookSkeleton from "../BookSkeleton"
 
 type Props = {
   bookData: Book
 }
 
 const UserViewLeftSide = ({ bookData }: Props) => {
-  const { singleUserData, loadingUser } = useSingleUserFetch(
-    `${config.API_URL}/users/id/${bookData?.suggestedBy}`,
-    bookData?.suggestedBy,
-  )
   const isDarkMode = useAppSelector((state) => state.darkMode.darkMode)
 
-  return !loadingUser ? (
+  return bookData ? (
     <div className="flex flex-col items-center justify-center max-md:flex-col max-md:items-center">
-      <div className="flex flex-col items-center justify-center">
-        <h2>Suggested by: </h2>
-        <Profile
-          imageURL={singleUserData?.userInfo?.profileURL}
-          width={75}
-          height={100}
-          isLink={singleUserData?.username?.length > 0}
-          username={singleUserData?.username}
-        />
-        <h2 className="p-[0] m-[0]">{singleUserData?.username}</h2>
-      </div>
       <div>
-        {bookData?.reviewImageURL ? (
-          <BookImageCover
-            title={bookData?.title}
-            imageURL={bookData?.reviewImageURL}
-            totalScore={bookData?.totalScore}
-            ratingArr={bookData?.scoreRatings?.rating}
-            raterArr={bookData?.scoreRatings?.raterId}
-            hideScores={handleHideScores_NoSetter(
-              bookData?.actualDateOfMeeting,
-            )}
-            isSingleBook={true}
-          />
-        ) : (
-          <BookCover
-            title={bookData?.title}
-            totalScore={bookData?.totalScore}
-            ratingArr={bookData?.scoreRatings?.rating}
-            raterArr={bookData?.scoreRatings?.raterId}
-            imageURL={bookData?.imageURL}
-            hideScores={handleHideScores_NoSetter(
-              bookData?.actualDateOfMeeting,
-            )}
-            isSingleBook={true}
-          />
-        )}
+        <BookCard
+          title={bookData?.title}
+          totalScore={bookData?.totalScore}
+          hideScores={handleHideScores_NoSetter(bookData?.actualDateOfMeeting)}
+          imageURL={
+            bookData?.imageURL ||
+            bookData?.reviewImageURL ||
+            "/Profile.unknown-profile-image.jpg"
+          }
+          isSingleBook={true}
+        />
       </div>
     </div>
   ) : (
@@ -73,24 +38,8 @@ const UserViewLeftSide = ({ bookData }: Props) => {
           filter: isDarkMode ? "invert(1)" : "invert(0)",
         }}
       />
-      <div className="flex flex-col items-center justify-center gap-2">
-        <h2>Suggested by: </h2>
-        <Skeleton.Avatar
-          active={true}
-          style={{
-            filter: isDarkMode ? "invert(1)" : "invert(0)",
-            width: 75,
-            height: 75,
-          }}
-        />
-        <Skeleton.Input
-          active={true}
-          size="small"
-          style={{ filter: isDarkMode ? "invert(1)" : "invert(0)" }}
-        />
-        <div className="">
-          <BookSkeleton freq={1} noTitle />
-        </div>
+      <div className="">
+        <BookSkeleton freq={1} noTitle />
       </div>
     </div>
   )

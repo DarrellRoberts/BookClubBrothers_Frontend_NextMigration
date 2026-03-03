@@ -1,15 +1,17 @@
 "use client"
 
-import { Button, Form, Input } from "antd"
-import useForm from "@/hooks/crud-hooks/useForm"
+import { Form, Input } from "antd"
 import { useAppDispatch, useAppSelector } from "@/store/lib/hooks"
 import { setFormData } from "@/store/lib/features/books/bookFormDataSlice"
 import { User } from "@/types/UserInterface"
 import ScorePreview from "./ScorePreview"
 import { useEffect } from "react"
-import { config } from "@/configs/config"
+import { API_CREATE_RATING } from "@/configs/config"
 import { UiButton } from "@/components/ui/button/UiButton"
 import { InputConfigWrapper } from "../InputConfigWrapper"
+import { CreateRatingPayload } from "@/types/Api"
+import { Book } from "@/types/BookInterface"
+import useMutationQuery from "@/hooks/crud-hooks/useMutationQuery"
 
 type Props = {
   id: string | string[]
@@ -25,22 +27,40 @@ const RatingForm: React.FC<Props> = ({
   handleCancel,
 }) => {
   const rating = useAppSelector(
-    (state) => state.bookFormData.formData.scoreRatings.rating
+    (state) => state.bookFormData.formData.scoreRatings.rating,
   ) as number
+  const scoreRatings = useAppSelector(
+    (state) => state.bookFormData.formData.scoreRatings,
+  )
   const formData = useAppSelector((state) => state.bookFormData.formData)
   const dispatch = useAppDispatch()
 
-  const { handleSubmit, error, enterLoading, loadings } = useForm(
-    `${config.API_URL}/books/rating/${id}`,
-    "POST",
-    { rating }
-  )
+  const toastObject = {
+    success: {
+      title: "Rating successfully submitted",
+      description: "Thank you for your rating. The club lives on",
+    },
+    error: {
+      title: "Error occurred",
+      description: "Rating not submitted. Please contact me",
+    },
+  }
 
-  const handleLoading = () => {
-    enterLoading()
-    setTimeout(() => {
+  const { mutate, isPending, isError, error } = useMutationQuery<
+    CreateRatingPayload,
+    Book
+  >({
+    apiPath: `${API_CREATE_RATING}${id}`,
+    method: "post",
+    toastObject: toastObject,
+    queryKeyToInvalidate: ["books"],
+    onSuccessCallback: () => {
       handleCancel()
-    }, 1250)
+    },
+  })
+
+  const onSubmit = () => {
+    mutate(scoreRatings)
   }
 
   useEffect(() => {
@@ -48,14 +68,14 @@ const RatingForm: React.FC<Props> = ({
       setFormData({
         ...formData,
         scoreRatings: { rating: 0 },
-      })
+      }),
     )
   }, [id])
 
   return (
     <>
       <Form
-        onFinish={handleSubmit}
+        onFinish={onSubmit}
         name="basic"
         labelCol={{
           span: 8,
@@ -92,7 +112,7 @@ const RatingForm: React.FC<Props> = ({
                   setFormData({
                     ...formData,
                     scoreRatings: { rating: Number(e.target.value) },
-                  })
+                  }),
                 )
               }}
               value={Number(rating)}
@@ -109,11 +129,10 @@ const RatingForm: React.FC<Props> = ({
         >
           <UiButton
             textContent="Submit"
-            loading={loadings}
-            clickHandler={() => handleLoading()}
+            loading={isPending}
             htmlType="submit"
           />
-          {error ? <h4 className="errorH">{error}</h4> : null}
+          {isError ? <h4 className="errorH">{error.message}</h4> : null}
         </Form.Item>
       </Form>
     </>

@@ -1,45 +1,65 @@
 "use client"
 
-import { Button, Form, Input } from "antd"
-import useForm from "@/hooks/crud-hooks/useForm"
+import { Form, Input } from "antd"
 import { useAppDispatch, useAppSelector } from "@/store/lib/hooks"
 import { setFormData } from "@/store/lib/features/books/bookFormDataSlice"
-import { config } from "@/configs/config"
+import { API_EDIT_COMMENT, config } from "@/configs/config"
 import { UiButton } from "@/components/ui/button/UiButton"
 import { InputConfigWrapper } from "../InputConfigWrapper"
+import useMutationQuery from "@/hooks/crud-hooks/useMutationQuery"
+import { Book } from "@/types/BookInterface"
+import { EditCommentPayload } from "@/types/Api"
 
 const { TextArea } = Input
 
 type Props = {
-  id: string | string[]
+  id: string
   inComment: string
   handleCancel: () => void
 }
 
 const EditCommentForm: React.FC<Props> = ({ id, inComment, handleCancel }) => {
   const comments = useAppSelector(
-    (state) => state.bookFormData.formData.commentInfo.comments
+    (state) => state.bookFormData.formData.commentInfo.comments,
+  )
+  const commentsInfo = useAppSelector(
+    (state) => state.bookFormData.formData.commentInfo,
   )
   const formData = useAppSelector((state) => state.bookFormData.formData)
   const dispatch = useAppDispatch()
 
-  const { handleSubmit, error, enterLoading, loadings } = useForm(
-    `${config.API_URL}/books/comment/edit/${id}`,
-    "PUT",
-    { comments }
-  )
+  const toastObject = {
+    success: {
+      title: "Comment successfully edited",
+      description: "Comment has been changed",
+    },
+    error: {
+      title: "Error occurred",
+      description: "Comment not edited. Please contact me",
+    },
+  }
 
-  const handleLoadings = () => {
-    enterLoading()
-    setTimeout(() => {
+  const { mutate, isPending, isError, error } = useMutationQuery<
+    EditCommentPayload,
+    Book
+  >({
+    apiPath: `${API_EDIT_COMMENT}${id}`,
+    method: "put",
+    toastObject: toastObject,
+    queryKeyToInvalidate: ["books", id],
+    onSuccessCallback: () => {
       handleCancel()
-    }, 1250)
+    },
+  })
+
+  const onSubmit = () => {
+    mutate(commentsInfo)
   }
 
   return (
     <>
       <Form
-        onFinish={handleSubmit}
+        onFinish={onSubmit}
         name="basic"
         labelCol={{
           span: 8,
@@ -65,7 +85,7 @@ const EditCommentForm: React.FC<Props> = ({ id, inComment, handleCancel }) => {
                   setFormData({
                     ...formData,
                     commentInfo: { comments: e.target.value },
-                  })
+                  }),
                 )
               }
               value={comments}
@@ -83,11 +103,11 @@ const EditCommentForm: React.FC<Props> = ({ id, inComment, handleCancel }) => {
           <UiButton
             textContent="Submit"
             ghost
-            loading={loadings}
-            clickHandler={() => handleLoadings()}
+            loading={isPending}
+            disabled={isError}
             htmlType="submit"
           />
-          {error ? <h4 className="errorH">{error}</h4> : null}
+          {isError ? <h4 className="errorH">{error.message}</h4> : null}
         </Form.Item>
       </Form>
     </>

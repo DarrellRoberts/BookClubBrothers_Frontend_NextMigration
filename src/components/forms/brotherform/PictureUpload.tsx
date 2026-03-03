@@ -1,12 +1,14 @@
 "use client"
 
 import { useState } from "react"
-import axios from "axios"
 import { PlusOutlined } from "@ant-design/icons"
-import { Upload, Form, Button } from "antd"
-import { useAppSelector } from "@/store/lib/hooks"
-import { config } from "@/configs/config"
+import { Upload, Form } from "antd"
+import { useAppDispatch } from "@/store/lib/hooks"
+import { API_EDIT_AVATAR } from "@/configs/config"
 import { UiButton } from "@/components/ui/button/UiButton"
+import useMutationQuery from "@/hooks/crud-hooks/useMutationQuery"
+import { User } from "@/types/UserInterface"
+import { setShowImage } from "@/store/lib/features/auth/editButtonsSlice"
 
 const normFile = (e) => {
   if (Array.isArray(e)) {
@@ -15,76 +17,63 @@ const normFile = (e) => {
   return e && e.fileList
 }
 
-interface props {
+type Props = {
   id: string
   inImage: string
 }
 
-interface imageInt {
-  image: string
-  name?: string
-  size: number
-  type: string
-  text: () => Promise<string>
-  arrayBuffer: () => Promise<ArrayBuffer>
-  slice: {
-    (start?: number, end?: number, contentType?: string)
-  }
-  stream: () => ReadableStream<Uint8Array>
-}
-
-const PictureUpload: React.FC<props> = ({ id, inImage }) => {
-  const token = useAppSelector((state) => state.token.tokenState)
-
+const PictureUpload = ({ id, inImage }: Props) => {
   const [form] = Form.useForm() // Create a form instance
-  const [image, setImage] = useState<imageInt>()
-  const [error, setError] = useState(null)
-  const [loadings, setLoadings] = useState([])
+  const [image, setImage] = useState<File | null>()
 
-  const handleSubmit = async () => {
-    try {
-      const formData = new FormData()
-      formData.append("avatar", image, image?.name)
-      await axios.post(`${config.API_URL}/users/upload/${id}`, formData, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-    } catch (error) {
-      setError(error)
-      console.error(error)
-    }
+  const dispatch = useAppDispatch()
+
+  const handleCancel = () => {
+    dispatch(setShowImage())
   }
 
-  const handleImageChange = (info) => {
+  const toastObject = {
+    success: {
+      title: "Image successfully uploaded",
+      description: "Image has been changed",
+    },
+    error: {
+      title: "Error occurred",
+      description: "Image not uploaded. Please contact me",
+    },
+  }
+
+  const { mutate, isPending, isError, error } = useMutationQuery<
+    FormData,
+    User
+  >({
+    apiPath: `${API_EDIT_AVATAR}${id}`,
+    method: "post",
+    toastObject: toastObject,
+    queryKeyToInvalidate: ["users"],
+    onSuccessCallback: () => handleCancel(),
+  })
+
+  const onSubmit = () => {
+    if (!image) return
+    const formData = new FormData()
+    formData.append("avatar", image, image?.name)
+    mutate(formData)
+  }
+
+  const handleImageChange = (info: any) => {
     setImage(info.file)
   }
-
-  const enterLoading = (index) => {
-    setLoadings((prevLoadings) => {
-      const newLoadings = [...prevLoadings]
-      newLoadings[index] = true
-      return newLoadings
-    })
-    setTimeout(() => {
-      setLoadings((prevLoadings) => {
-        const newLoadings = [...prevLoadings]
-        newLoadings[index] = false
-        document.location.reload()
-        return newLoadings
-      })
-    }, 500)
-  }
-
   return (
     <Form
       form={form}
-      onFinish={handleSubmit}
+      onFinish={onSubmit}
       name="picture_upload_form"
       initialValues={{ fileList: [] }}
     >
       <div className="flex justify-center round mb-10">
         <img
+          key={inImage}
           className="rounded"
           src={inImage}
           alt="profile_pic"
@@ -98,13 +87,11 @@ const PictureUpload: React.FC<props> = ({ id, inImage }) => {
       >
         <Upload
           name="picture"
-          action={`${config.API_URL}/users/${id}`}
           listType="picture-card"
           onChange={handleImageChange}
           beforeUpload={() => false}
         >
           <div>
-            <PlusOutlined />
             <PlusOutlined />
             <div className="text-white" style={{ marginTop: 8 }}>
               Upload
@@ -114,12 +101,11 @@ const PictureUpload: React.FC<props> = ({ id, inImage }) => {
       </Form.Item>
       <UiButton
         textContent="Submit"
-        loading={loadings[0]}
-        clickHandler={() => enterLoading(0)}
+        loading={isPending}
         htmlType="submit"
         ghost
       />
-      {error ? <p>{error}</p> : null}
+      {isError ? <p>{error.message}</p> : null}
     </Form>
   )
 }

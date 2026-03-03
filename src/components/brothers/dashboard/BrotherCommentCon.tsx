@@ -12,17 +12,17 @@ type Props = {
 
 const CommentCon: React.FC<Props> = ({ username, userId, readBooks }) => {
   const userReadBooks: Book[] = filterUserReadBooks(readBooks, userId)?.filter(
-    (book) => !handleHideScores_NoSetter(book.actualDateOfMeeting)
+    (book) => !handleHideScores_NoSetter(book.actualDateOfMeeting),
   )
   const filterComments = userReadBooks?.filter((book) =>
-    book.commentInfo.commentId.includes(userId)
+    book.commentInfo.commentId.includes(userId),
   )
 
   return (
     <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-      {filterComments?.length > 0 ? (
+      {filterComments?.length ? (
         filterComments.map((book, i) => (
-          <div className="flex flex-col p-4 rounded-lg">
+          <div className="flex flex-col p-4 rounded-lg" key={book._id}>
             <div className="flex justify-center">
               <h3 className="text-3xl sm:text-1.75xl font-bold text-center underline overflow-hidden whitespace-nowrap text-ellipsis max-w-[275px] mb-2">
                 {book.title}

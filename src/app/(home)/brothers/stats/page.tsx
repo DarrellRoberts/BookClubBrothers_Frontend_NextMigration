@@ -6,31 +6,30 @@ import {
   unreadBookTitles,
   userReadBookTitles,
 } from "@/utils/stat-functions/scoreFunctions"
-import useBookFetch from "@/hooks/fetch-hooks/useReadBookFetch"
-import useUserFetch from "@/hooks/fetch-hooks/useUserFetch"
 import BrothersScores from "@/components/brothers/stats/BrothersScores"
 import BrothersSuggestedBooks from "@/components/brothers/stats/BrothersSuggestedBooks"
 import React from "react"
-import { useAppSelector } from "@/store/lib/hooks"
 import BrotherLoadingBooksScored from "@/components/brothers/dashboard/BrotherLoadingBooksScored"
-import { useMediaQuery } from "react-responsive"
-import { config } from "@/configs/config"
+import { API_BOOKS, API_USERS, config } from "@/configs/config"
 import { UiSkeletonTitle } from "@/components/ui/skeleton/UiSkeletonTitle"
 import { UiSkeletonCircle } from "@/components/ui/skeleton/UiSkeletonCircle"
+import { useGetQuery } from "@/hooks/fetch-hooks/useGetQuery"
+import { User } from "@/types/UserInterface"
+import { Book } from "@/types/BookInterface"
 
 const BrothersStats: React.FC = () => {
-  const { userData, loadingUsers } = useUserFetch(
-    `${config.API_URL}/users`,
-    null
-  )
+  const { data: userData, isLoading: isLoadingUsers } = useGetQuery<User[]>({
+    queryKey: ["users"],
+    apiPath: API_USERS,
+  })
 
-  const { bookData, loadingBooks } = useBookFetch(
-    `${config.API_URL}/books`,
-    null
-  )
-  const isDarkMode = useAppSelector((state) => state.darkMode.darkMode)
-  const handleDesktop = useMediaQuery({ query: "(min-device-width: 601px)" })
-  const readBooks = bookData?.filter((book) => book.read === true)
+  const { data: bookData, isLoading: isLoadingBooks } = useGetQuery<Book[]>({
+    queryKey: ["books"],
+    apiPath: API_BOOKS,
+  })
+  const readBooks = bookData?.length
+    ? bookData?.filter((book) => book.read === true)
+    : []
 
   let newArr = new Array()
   newArr.length = 5
@@ -106,8 +105,8 @@ max-[600px]:grid-cols-[repeat(auto-fill,minmax(150px,1fr))]"
                 Average Scores
               </h2>
               <BrothersScores
-                loadingBooks={loadingBooks}
-                loadingUsers={loadingUsers}
+                loadingBooks={isLoadingBooks}
+                loadingUsers={isLoadingUsers}
                 userData={userData}
               />
             </div>

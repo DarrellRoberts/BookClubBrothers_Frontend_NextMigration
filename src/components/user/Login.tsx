@@ -9,7 +9,7 @@ const Login: React.FC = () => {
   const [loginOpen, setLoginOpen] = useState<boolean>(false)
   const [confirmLoading, setConfirmLoading] = useState<boolean>(false)
   const [modalText, setModalText] = useState(
-    <LoginForm setLoginOpen={setLoginOpen} />
+    <LoginForm setLoginOpen={setLoginOpen} />,
   )
 
   const showModal = () => {

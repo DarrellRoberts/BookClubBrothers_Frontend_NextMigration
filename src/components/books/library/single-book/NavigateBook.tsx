@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react"
 import NavigateArrow from "@/assets/right-nav-arrow.svg"
 import Link from "next/link"
-import useBookFetch from "@/hooks/fetch-hooks/useReadBookFetch"
 import { useAppSelector } from "@/store/lib/hooks"
 import { useParams } from "next/navigation"
-import { config } from "@/configs/config"
+import { API_BOOKS, config } from "@/configs/config"
+import { useGetQuery } from "@/hooks/fetch-hooks/useGetQuery"
+import { Book } from "@/types/BookInterface"
 
 type Props = {
   isLeft?: boolean
@@ -23,17 +24,17 @@ const NavigateBook = ({
 
   const isDarkMode = useAppSelector((state) => state.darkMode.darkMode)
 
-  const { bookData, loadingBooks } = useBookFetch(
-    `${config.API_URL}/books`,
-    null
-  )
+  const { data: bookData, isLoading } = useGetQuery<Book[]>({
+    queryKey: ["books"],
+    apiPath: API_BOOKS,
+  })
 
   const filteredBooks = bookData?.filter((book) => book.read)
 
   useEffect(() => {
     if (paramsId) {
       const newIndex = filteredBooks?.indexOf(
-        filteredBooks?.find((book) => book._id === paramsId)
+        filteredBooks?.find((book) => book._id === paramsId),
       )
       if (newIndex === 0) {
         setShowLeftNavArrows(false)
@@ -42,10 +43,10 @@ const NavigateBook = ({
       }
       setIndex(newIndex)
     }
-  }, [loadingBooks])
+  }, [isLoading])
   return (
     <>
-      {!loadingBooks && (
+      {!isLoading && (
         <div
           className={`absolute ${
             isLeft ? "left-[0%] ml-[1rem]" : "right-[0%] mr-[1rem]"

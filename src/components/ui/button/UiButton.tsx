@@ -13,6 +13,7 @@ type Props = {
   clickHandler?: () => void
   loading?: boolean
   ghost?: boolean
+  disabled?: boolean
   htmlType?: "button" | "submit" | "reset"
 }
 
@@ -27,6 +28,7 @@ export const UiButton = ({
   clickHandler,
   loading = false,
   ghost = false,
+  disabled = false,
   htmlType,
 }: Props) => {
   const buttonType = type === "default" || type === "dashed" ? "primary" : type

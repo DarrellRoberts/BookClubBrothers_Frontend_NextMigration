@@ -1,7 +1,5 @@
 "use client"
 
-import { Modal } from "antd"
-import { useState } from "react"
 import PictureUpload from "./PictureUpload"
 import { useAppDispatch, useAppSelector } from "@/store/lib/hooks"
 import { setShowImage } from "@/store/lib/features/auth/editButtonsSlice"
@@ -14,10 +12,6 @@ type Props = {
 }
 
 const PictureUploadButton: React.FC<Props> = ({ id, inImage }) => {
-  const [modalText, setModalText] = useState(
-    <PictureUpload id={id} inImage={inImage} />
-  )
-  const [confirmLoading, setConfirmLoading] = useState<boolean>(false)
   const showImage = useAppSelector((state) => state.editButtons.showImage)
 
   const dispatch = useAppDispatch()
@@ -25,13 +19,7 @@ const PictureUploadButton: React.FC<Props> = ({ id, inImage }) => {
   const showModal = () => {
     dispatch(setShowImage())
   }
-  const handleOk = () => {
-    setConfirmLoading(true)
-    setTimeout(() => {
-      dispatch(setShowImage())
-    }, 500)
-    setModalText(<PictureUpload id={id} inImage={inImage} />)
-  }
+
   const handleCancel = () => {
     dispatch(setShowImage())
   }
@@ -41,13 +29,12 @@ const PictureUploadButton: React.FC<Props> = ({ id, inImage }) => {
         <UiButton clickHandler={() => showModal()} textContent="Change Image" />
       </div>
       <UiModal
+        key={inImage}
         title={"Change your profile picture"}
         open={showImage}
         handleCancel={handleCancel}
-        handleOk={handleOk}
-        confirmLoading={confirmLoading}
       >
-        {modalText}
+        <PictureUpload id={id} inImage={inImage} />
       </UiModal>
     </>
   )

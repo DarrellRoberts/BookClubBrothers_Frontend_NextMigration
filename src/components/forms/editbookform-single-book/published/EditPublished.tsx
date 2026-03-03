@@ -1,12 +1,14 @@
 "use client"
 
-import { Button, Form, Input } from "antd"
-import useForm from "@/hooks/crud-hooks/useForm"
+import { Form, Input } from "antd"
 import { useAppDispatch, useAppSelector } from "@/store/lib/hooks"
 import { setFormData } from "@/store/lib/features/books/bookFormDataSlice"
-import { config } from "@/configs/config"
+import { API_EDIT_BOOK, config } from "@/configs/config"
 import { UiButton } from "@/components/ui/button/UiButton"
 import { InputConfigWrapper } from "../../InputConfigWrapper"
+import useMutationQuery from "@/hooks/crud-hooks/useMutationQuery"
+import { EditBookPayload } from "@/types/Api"
+import { Book } from "@/types/BookInterface"
 
 type Props = {
   id: string | string[]
@@ -15,20 +17,40 @@ type Props = {
 
 const EditPublished: React.FC<Props> = ({ id, inPublish }) => {
   const yearPublished = useAppSelector(
-    (state) => state.bookFormData.formData.yearPublished
+    (state) => state.bookFormData.formData.yearPublished,
   )
   const formData = useAppSelector((state) => state.bookFormData.formData)
   const dispatch = useAppDispatch()
 
-  const { handleSubmit, error, enterLoading, loadings } = useForm(
-    `${config.API_URL}/books/${id}`,
-    "PUT",
-    { yearPublished }
-  )
+  const toastObject = {
+    success: {
+      title: "Year successfully edited",
+      description: "Year has been changed",
+    },
+    error: {
+      title: "Error occurred",
+      description: "Year not edited. Please contact me",
+    },
+  }
+
+  const { mutate, isPending, isError, error } = useMutationQuery<
+    Pick<EditBookPayload, "yearPublished">,
+    Book
+  >({
+    apiPath: `${API_EDIT_BOOK}${id}`,
+    method: "put",
+    toastObject: toastObject,
+    queryKeyToInvalidate: ["books", id as string],
+    onSuccessCallback: () => null,
+  })
+
+  const onSubmit = () => {
+    mutate({ yearPublished })
+  }
   return (
     <>
       <Form
-        onFinish={handleSubmit}
+        onFinish={onSubmit}
         name="basic"
         labelCol={{
           span: 8,
@@ -44,7 +66,7 @@ const EditPublished: React.FC<Props> = ({ id, inPublish }) => {
         }}
       >
         {/* Year Published */}
-        <InputConfigWrapper>
+        <InputConfigWrapper labelColor="#000000">
           <Form.Item
             label="yearPublished"
             name="yearPublished"
@@ -62,7 +84,7 @@ const EditPublished: React.FC<Props> = ({ id, inPublish }) => {
                   setFormData({
                     ...formData,
                     yearPublished: Number(e.target.value),
-                  })
+                  }),
                 )
               }
               value={yearPublished}
@@ -79,11 +101,10 @@ const EditPublished: React.FC<Props> = ({ id, inPublish }) => {
         >
           <UiButton
             textContent="Submit"
-            clickHandler={() => enterLoading()}
             htmlType="submit"
-            loading={loadings}
+            loading={isPending}
           />
-          {error ? <h4 className="errorH">{error}</h4> : null}
+          {isError ? <h4 className="errorH">{error.message}</h4> : null}
         </Form.Item>
       </Form>
     </>

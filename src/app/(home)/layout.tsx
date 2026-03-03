@@ -8,6 +8,7 @@ import StoreProvider from "@/store/StoreProvider"
 import HeaderCon from "@/components/header/HeaderCon"
 import { ConfigProvider } from "antd"
 import theme from "@/theme/theme.config"
+import { NotificationProvider } from "@/context/NotificationProvider"
 
 export const metadata: Metadata = {
   title: "Book Club Brothers",
@@ -30,9 +31,11 @@ export default function RootLayout({
               <link rel="icon" href="./icon.svg" type="image/svg+xml" />
             </head>
             <body className="overflow-x-hidden">
-              <HeaderCon />
-              {children}
-              <Footer />
+              <NotificationProvider>
+                <HeaderCon />
+                {children}
+                <Footer />
+              </NotificationProvider>
             </body>
           </StoreProvider>
         </QueryProvider>

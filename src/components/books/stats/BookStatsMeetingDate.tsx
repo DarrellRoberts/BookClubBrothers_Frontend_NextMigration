@@ -11,34 +11,30 @@ type Props = {
 
 const BookStatsMeetingDate: React.FC<Props> = ({ readBooks, loadingBooks }) => {
   const dateArray: string[] = readBooks?.map((book) =>
-    dateFormatter(book.actualDateOfMeeting)
+    dateFormatter(book.actualDateOfMeeting),
   )
 
   const pagesPerYear = useMemo(() => {
-    const yearArray: string[] | number[] = dateArray
-      ?.map((date) => date.split(" ")[3])
-      .reverse()
-    const pagesDateArray = readBooks?.map((book) => ({
-      year: dateFormatter(book.actualDateOfMeeting).split(" ")[3],
-      totalPages: book.pages,
-      numberBooks: yearArray.filter(
-        (yr) => yr === dateFormatter(book.actualDateOfMeeting).split(" ")[3]
-      ).length,
-    }))
-    const pageMap = new Map()
-    if (pagesDateArray?.length > 0) {
-      for (const date of pagesDateArray) {
-        if (!pageMap.has(date.year)) {
-          pageMap.set(date.year, [
-            pagesDateArray
-              .filter((item) => item.year === date.year)
-              .reduce((prev, current) => prev + current.totalPages, 0),
-            date.numberBooks,
-          ])
-        }
-      }
-    }
-    return Array.from(pageMap.entries()).reverse()
+    if (!readBooks?.length) return []
+
+    const pageMap = new Map<string, { totalPages: number; count: number }>()
+
+    readBooks.forEach((book) => {
+      if (!book.actualDateOfMeeting) return
+
+      const year = new Date(book.actualDateOfMeeting).getFullYear().toString()
+      const current = pageMap.get(year) || { totalPages: 0, count: 0 }
+
+      pageMap.set(year, {
+        totalPages: current.totalPages + (book.pages || 0),
+        count: current.count + 1,
+      })
+    })
+
+    // Convert to array and sort by year descending
+    return Array.from(pageMap.entries()).sort((a, b) =>
+      a[0].localeCompare(b[0]),
+    )
   }, [readBooks])
 
   const totalScoreArray = readBooks?.map((book) => book.totalScore?.toFixed(2))
@@ -49,9 +45,9 @@ const BookStatsMeetingDate: React.FC<Props> = ({ readBooks, loadingBooks }) => {
     <>
       <div className="flex w-full justify-center">
         <ul>
-          {pagesPerYear?.map((year, i) => (
-            <li key={`${year}${i}`}>
-              {year[0]}: {year[1][1]} book(s), {year[1][0]} pages
+          {pagesPerYear.map(([year, stats]) => (
+            <li key={year}>
+              {year}: {stats.count} book(s), {stats.totalPages} pages
             </li>
           ))}
         </ul>

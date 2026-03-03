@@ -1,5 +1,3 @@
-import BookCover from "@/components/books/library/BookCover"
-import BookImageCover from "@/components/books/library/BookImageCover"
 import PictureUploadButton from "@/components/forms/brotherform/PictureUploadButton"
 import PieChart from "@/components/graphs/brothers/PieChart"
 import Badges from "@/components/misc/badges/Badges"
@@ -19,8 +17,8 @@ import {
   userReadBookTitles,
 } from "@/utils/stat-functions/scoreFunctions"
 import { useAuth } from "@/hooks/auth-hooks/useAuth"
-import { Button } from "antd"
 import { UiButton } from "@/components/ui/button/UiButton"
+import BookCard from "@/components/books/library/BookCard"
 
 type Props = {
   user: User
@@ -59,12 +57,20 @@ const BrotherBanner: React.FC<Props> = ({ user, readBooks }) => {
 
         <div className="flex flex-col-reverse sm:flex-row items-center mr-0 md:mr-8 max-md:mr-0">
           <div className="flex flex-col items-center">
-            <Profile imageURL={user?.userInfo?.profileURL} />
+            <Profile
+              imageURL={
+                user?.userInfo?.profileURL ??
+                "/Profile.unknown-profile-image.jpg"
+              }
+            />
             {decodedToken?._id === user?._id ? (
               <div className="flex justify-center mt-2">
                 <PictureUploadButton
                   id={user?._id}
-                  inImage={user?.userInfo?.profileURL}
+                  inImage={
+                    user?.userInfo?.profileURL ??
+                    "/Profile.unknown-profile-image.jpg"
+                  }
                 />
               </div>
             ) : null}
@@ -75,62 +81,36 @@ const BrotherBanner: React.FC<Props> = ({ user, readBooks }) => {
       <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-8 overflow-hidden max-md:flex max-md:flex-col max-md:items-center my-6">
         <div className="flex flex-col items-center justify-center">
           <h2 className="font-main text-2xl underline">Worst book</h2>
-          <div className="w-96 max-sm:w-75 max-xs:w-70">
-            <Link href={`/books/library/${findMinBook?._id}`}>
-              {findMinBook?.reviewImageURL ? (
-                <BookImageCover
-                  imageURL={findMinBook?.reviewImageURL}
-                  totalScore={findMinBook?.totalScore}
-                  ratingArr={findMinBook?.scoreRatings?.rating}
-                  raterArr={findMinBook?.scoreRatings?.raterId}
-                  hideScores={handleHideScores_NoSetter(
-                    findMinBook?.actualDateOfMeeting,
-                  )}
-                />
-              ) : (
-                <BookCover
-                  title={findMinBook?.title}
-                  totalScore={findMinBook?.totalScore}
-                  ratingArr={findMinBook?.scoreRatings?.rating}
-                  raterArr={findMinBook?.scoreRatings?.raterId}
-                  imageURL={findMinBook?.imageURL}
-                  hideScores={handleHideScores_NoSetter(
-                    findMinBook?.actualDateOfMeeting,
-                  )}
-                />
+          <Link href={`/books/library/${findMinBook?._id}`}>
+            <BookCard
+              title={findMinBook?.title}
+              totalScore={findMinBook?.totalScore}
+              hideScores={handleHideScores_NoSetter(
+                findMinBook?.actualDateOfMeeting,
               )}
-            </Link>
-          </div>
+              imageURL={
+                findMinBook?.reviewImageURL ??
+                "/Profile.unknown-profile-image.jpg"
+              }
+            />
+          </Link>
         </div>
 
         <div className="flex flex-col items-center justify-center">
           <h2 className="font-main text-2xl underline">Best book</h2>
-          <div className="w-96 max-sm:w-75 max-xs:w-70">
-            <Link href={`/books/library/${findMaxBook?._id}`}>
-              {findMaxBook?.reviewImageURL ? (
-                <BookImageCover
-                  imageURL={findMaxBook?.reviewImageURL}
-                  totalScore={findMaxBook?.totalScore}
-                  ratingArr={findMaxBook?.scoreRatings?.rating}
-                  raterArr={findMaxBook?.scoreRatings?.raterId}
-                  hideScores={handleHideScores_NoSetter(
-                    findMaxBook?.actualDateOfMeeting,
-                  )}
-                />
-              ) : (
-                <BookCover
-                  title={findMaxBook?.title}
-                  totalScore={findMaxBook?.totalScore}
-                  ratingArr={findMaxBook?.scoreRatings?.rating}
-                  raterArr={findMaxBook?.scoreRatings?.raterId}
-                  imageURL={findMaxBook?.imageURL}
-                  hideScores={handleHideScores_NoSetter(
-                    findMaxBook?.actualDateOfMeeting,
-                  )}
-                />
+          <Link href={`/books/library/${findMaxBook?._id}`}>
+            <BookCard
+              title={findMaxBook?.title}
+              totalScore={findMaxBook?.totalScore}
+              hideScores={handleHideScores_NoSetter(
+                findMaxBook?.actualDateOfMeeting,
               )}
-            </Link>
-          </div>
+              imageURL={
+                findMaxBook?.reviewImageURL ??
+                "/Profile.unknown-profile-image.jpg"
+              }
+            />
+          </Link>
         </div>
 
         <div className="flex flex-col items-center justify-center">
@@ -145,10 +125,13 @@ const BrotherBanner: React.FC<Props> = ({ user, readBooks }) => {
           </div>
         </div>
 
-        <div className="flex flex-col items-center justify-center">
+        <div className="flex flex-col items-center justify-center h-full">
           <h2 className="font-main text-2xl underline">Average Score</h2>
-          <Link href="/brothers/stats">
-            <div className="border-4 border-[var(--main-font-color)] border-dotted h-80 w-80  max-w-sm max-sm:w-80 max-sm:h-64 flex items-center justify-center rounded-full">
+          <Link
+            href="/brothers/stats"
+            className="flex justify-center h-full items-center"
+          >
+            <div className="flex flex-col border-4 border-[var(--main-font-color)] border-dotted rounded-full px-10 py-20">
               <h2 className="text-6xl md:text-8xl font-main text-center p-4">
                 {avgScore}
               </h2>

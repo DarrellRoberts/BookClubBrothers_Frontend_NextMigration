@@ -3,13 +3,20 @@ import React from "react"
 
 type Props = {
   children: React.ReactNode
+  labelColor?: string
 }
 
-export const InputConfigWrapper = ({ children }: Props) => {
+export const InputConfigWrapper = ({
+  children,
+  labelColor = "#FFFFFF",
+}: Props) => {
   const inputTheme = {
     components: {
       Input: {
         colorText: "black",
+      },
+      Form: {
+        labelColor: labelColor,
       },
       Select: {
         colorText: "black",
@@ -18,7 +25,11 @@ export const InputConfigWrapper = ({ children }: Props) => {
         colorIcon: "red",
       },
       DatePicker: {
-        colorText: "black",
+        colorText: "white",
+        colorBgElevated: "#095d09",
+        activeBorderColor: "black",
+        colorBgContainer: "black",
+        cellHoverBg: "black",
       },
     },
   }

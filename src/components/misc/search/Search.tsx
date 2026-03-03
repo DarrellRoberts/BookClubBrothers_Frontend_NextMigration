@@ -11,8 +11,8 @@ import Link from "next/link"
 
 interface Props {
   setSearchBar: React.Dispatch<React.SetStateAction<string>>
-  filteredBooks?: Book[]
-  filteredUsers?: User[]
+  filteredBooks?: Book[] | string[]
+  filteredUsers?: User[] | string[]
   isDisabled: boolean
 }
 
@@ -88,7 +88,7 @@ const SearchBar: React.FC<Props> = ({
               </Link>
             </div>
           ),
-        }
+        },
   ) ?? [{ value: "", label: <h2>No results loaded</h2> }]
 
   options.push({
