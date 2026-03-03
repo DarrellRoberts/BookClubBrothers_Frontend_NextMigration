@@ -9,15 +9,18 @@ type Props = {
   isSingleBook?: boolean
 }
 
-const BookCard = ({ title, totalScore, hideScores, imageURL, isSingleBook }: Props) => {
-  const calcTotalPercentage = useMemo(() => {
-    return Math.floor(totalScore * 10)
-  }, [totalScore])
+const BookCard = ({
+  title,
+  totalScore,
+  hideScores,
+  imageURL,
+  isSingleBook,
+}: Props) => {
   return (
     <UiCard
       bookTitle={title}
       bookCoverImage={imageURL}
-      calcTotalPercentage={calcTotalPercentage}
+      totalScore={totalScore}
       hideScores={hideScores}
       isSingleBook={isSingleBook}
     />

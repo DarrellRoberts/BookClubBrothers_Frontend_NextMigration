@@ -6,7 +6,7 @@ import React, { useMemo } from "react"
 type Props = {
   bookTitle: string
   bookCoverImage: string
-  calcTotalPercentage: number
+  totalScore: number
   hideScores: boolean
   isSingleBook?: boolean
 }
@@ -14,7 +14,7 @@ type Props = {
 const UiCard = ({
   bookTitle,
   bookCoverImage,
-  calcTotalPercentage,
+  totalScore,
   hideScores,
   isSingleBook,
 }: Props) => {
@@ -22,12 +22,12 @@ const UiCard = ({
     if (hideScores) {
       return { src: UNKNOWN_IMAGE, textColor: "#FFFFFF", text: "" }
     }
-    if (calcTotalPercentage >= 50) {
+    if (totalScore >= 5) {
       return { src: F_WORM_IMAGE, textColor: "#FFDC73", text: "Fresh" }
     } else {
       return { src: R_WORM_IMAGE, textColor: "#F77A7D", text: "Rotten" }
     }
-  }, [hideScores, calcTotalPercentage])
+  }, [hideScores, totalScore])
 
   const cardTheme = {
     components: {
@@ -77,7 +77,7 @@ const UiCard = ({
                 color: imageObject.textColor,
                 fontSize: isSingleBook ? "3rem" : "1.5rem",
               }}
-            >{`${hideScores ? "?" : calcTotalPercentage + "%"}`}</span>
+            >{`${hideScores ? "?" : totalScore.toFixed(1) + "/10"}`}</span>
             <span
               className="text-xl font-(family-name:--main) font-bold"
               style={{

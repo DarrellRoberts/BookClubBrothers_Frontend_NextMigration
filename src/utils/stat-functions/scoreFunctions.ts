@@ -3,7 +3,7 @@ import { User } from "@/types/UserInterface"
 
 export const maxScoreFunction = (
   scoreArr: number[],
-  user: User
+  user: User,
 ): string | null => {
   if (scoreArr && user) {
     const maxScore = Math.max(...scoreArr)
@@ -17,7 +17,7 @@ export const maxScoreFunction = (
 
 export const minScoreFunction = (
   scoreArr: number[],
-  user: User
+  user: User,
 ): string | null => {
   if (scoreArr && user) {
     const minScore = Math.min(...scoreArr)
@@ -33,7 +33,7 @@ export const averageScore = (user: User): number | null => {
   if (user) {
     const accumulatedScore: number = user.userInfo?.books?.score?.reduce(
       (a, c) => a + c,
-      0
+      0,
     )
     const freqScore: number = user.userInfo?.books?.score?.length
     const averageScore: number = accumulatedScore / freqScore
@@ -46,11 +46,11 @@ export const averageScore = (user: User): number | null => {
 export const findMinScoreBook = (
   bookArr: Book[],
   scoreArr: number[],
-  user: User
+  user: User,
 ): Book | null => {
   if (bookArr && scoreArr && user) {
     const book = bookArr?.find(
-      (book) => book._id === minScoreFunction(scoreArr, user)
+      (book) => book._id === minScoreFunction(scoreArr, user),
     )
     return book
   } else {
@@ -61,11 +61,11 @@ export const findMinScoreBook = (
 export const findMaxScoreBook = (
   bookArr: Book[],
   scoreArr: number[],
-  user: User
+  user: User,
 ): Book | null => {
   if (bookArr && scoreArr && user) {
     const book = bookArr?.find(
-      (book) => book._id === maxScoreFunction(scoreArr, user)
+      (book) => book._id === maxScoreFunction(scoreArr, user),
     )
     return book
   } else {
@@ -88,7 +88,7 @@ export const unreadBookTitles = (bookArr: Book[], userId: string): string[] => {
 
 export const userReadBookTitles = (
   bookArr: Book[],
-  userId: string
+  userId: string,
 ): string[] | null => {
   const readBooks = filterUserReadBooks(bookArr, userId)
   return readBooks?.map((book) => book.title)
@@ -114,11 +114,12 @@ export const findWorstBook = (user: User, bookData: Book[]): string | null => {
 
 export const genreAverageScore = (
   bookData: Book[],
-  genre: string
+  genre: string,
 ): number | null => {
+  console.log("book data from function", bookData)
   if (bookData?.length > 0) {
     const genreJson: Book[] = bookData?.filter((book) =>
-      book.genre[0].includes(genre)
+      book.genre?.includes(genre),
     )
     if (genreJson.length > 0) {
       return (
