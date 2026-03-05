@@ -81,15 +81,12 @@ const EditGenre: React.FC<Props> = ({ id, inGenre }) => {
             >
               {genres.map((genre) => (
                 <Option
-                  value={genre.label}
+                  value={genre.value}
                   label={genre.label}
                   key={genre.label}
                 >
                   <Space>
-                    <span role="img" aria-label={genre.label}>
-                      {genre.emoji}
-                    </span>
-                    {genre.label}
+                    <span aria-label={genre.value}>{genre.label}</span>
                   </Space>
                 </Option>
               ))}
