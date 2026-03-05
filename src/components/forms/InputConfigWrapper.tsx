@@ -20,9 +20,11 @@ export const InputConfigWrapper = ({
       },
       Select: {
         colorText: "black",
-        colorBgBase: "black",
-        colorBorder: "black",
+        colorHoverText: "red",
         colorIcon: "red",
+        optionActiveBg: "#cecece",
+        colorTextPlaceholder: "#919191",
+        colorIconHover: "#000000",
       },
       DatePicker: {
         colorText: "white",

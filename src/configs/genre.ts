@@ -3,54 +3,67 @@ import { Genre } from "@/types/Genre"
 export const genres = [
   {
     emoji: "🧟",
-    label: Genre.HORROR,
+    label: `🧟${Genre.HORROR}`,
+    value: Genre.HORROR,
   },
   {
     emoji: "🔪",
-    label: Genre.THRILLER,
+    label: `🔪${Genre.THRILLER}`,
+    value: Genre.THRILLER,
   },
   {
     emoji: "🥸",
-    label: Genre.COMEDY,
+    label: `🥸${Genre.COMEDY}`,
+    value: Genre.COMEDY,
   },
   {
     emoji: "🌹",
-    label: Genre.ROMANCE,
+    label: `🌹${Genre.ROMANCE}`,
+    value: Genre.ROMANCE,
   },
   {
     emoji: "🧙‍♂️",
-    label: Genre.FANTASY,
+    label: `🧙‍♂️${Genre.FANTASY}`,
+    value: Genre.FANTASY,
   },
   {
     emoji: "🏝️",
-    label: Genre.ADVENTURE,
+    label: `🏝️${Genre.ADVENTURE}`,
+    value: Genre.ADVENTURE,
   },
   {
     emoji: "🪖",
-    label: Genre.ANTIWAR,
+    label: `🪖${Genre.ANTIWAR}`,
+    value: Genre.ANTIWAR,
   },
   {
     emoji: "🎭",
-    label: Genre.DRAMA,
+    label: `🎭${Genre.DRAMA}`,
+    value: Genre.DRAMA,
   },
   {
     emoji: "💥",
-    label: Genre.ACTION,
+    label: `💥${Genre.ACTION}`,
+    value: Genre.ACTION,
   },
   {
     emoji: "🤖",
-    label: Genre.SCIFI,
+    label: `🤖${Genre.SCIFI}`,
+    value: Genre.SCIFI,
   },
   {
     emoji: "👁️",
-    label: Genre.DYSTOPIAN,
+    label: `👁️${Genre.DYSTOPIAN}`,
+    value: Genre.DYSTOPIAN,
   },
   {
     emoji: "🟥",
-    label: Genre.POSTMODERN,
+    label: `🟥${Genre.POSTMODERN}`,
+    value: Genre.POSTMODERN,
   },
   {
     emoji: "🤸",
-    label: Genre.ANTHOLOGY,
+    label: `🤸${Genre.ANTHOLOGY}`,
+    value: Genre.ANTHOLOGY,
   },
 ]

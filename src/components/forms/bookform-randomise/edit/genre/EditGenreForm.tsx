@@ -26,12 +26,9 @@ const EditGenreForm = () => {
           onChange={(e) => dispatch(setFormData({ ...formData, genre: e }))}
         >
           {genres.map((genre) => (
-            <Option value={genre.label} label={genre.label} key={genre.label}>
+            <Option value={genre.value} label={genre.label} key={genre.label}>
               <Space>
-                <span role="img" aria-label={genre.label}>
-                  {genre.emoji}
-                </span>
-                {genre.label}
+                <span aria-label={genre.value}>{genre.label}</span>
               </Space>
             </Option>
           ))}

@@ -37,7 +37,7 @@ const RandomiserHomepage: React.FC = () => {
 
   return (
     <div>
-      <h1 className="font-main text-[clamp(4rem,8vw,8rem)] ml-8 text-center mt-12 max-md:text-[2.5rem] max-md:mt-12">
+      <h1 className="font-main text-[clamp(4rem,8vw,8rem)] text-center mt-12 max-md:text-[2.5rem] max-md:mt-12">
         Randomiser
       </h1>
       <div className="flex justify-center">
