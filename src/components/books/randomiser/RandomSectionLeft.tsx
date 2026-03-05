@@ -3,9 +3,8 @@ import CreateUnreadBook from "@/components/forms/bookform-randomise/CreateUnread
 import { Book } from "@/types/BookInterface"
 import { User } from "@/types/UserInterface"
 import { useAuth } from "@/hooks/auth-hooks/useAuth"
-import { useAppDispatch, useAppSelector } from "@/store/lib/hooks"
+import { useAppDispatch } from "@/store/lib/hooks"
 import { setIndex } from "@/store/lib/features/randomise/randomiseSlice"
-import { Skeleton } from "antd"
 import { UiSkeletonImage } from "@/components/ui/skeleton/UiSkeletonImage"
 
 type Props = {
