@@ -3,7 +3,7 @@ import style from "./homepage.module.css"
 
 const Homepage: React.FC = () => {
   return (
-    <>
+    <div className="h-[calc(85vh-100px)] max-xs:h-[calc(85vh-75px)]">
       <div className="flex justify-center mt-10 text-center">
         <h1 className={style.homepageTitle}>The Book Club Brothers</h1>
       </div>
@@ -35,7 +35,7 @@ const Homepage: React.FC = () => {
           </Link>
         </div>
       </div>
-    </>
+    </div>
   )
 }
 

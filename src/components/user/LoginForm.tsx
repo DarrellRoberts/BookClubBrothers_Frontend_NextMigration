@@ -7,6 +7,7 @@ import { UiButton } from "../ui/button/UiButton"
 import useMutationQuery from "@/hooks/crud-hooks/useMutationQuery"
 import { API_LOGIN_USER } from "@/configs/config"
 import { LoginUserPayload } from "@/types/Api"
+import Cookies from "js-cookie"
 
 type Props = {
   setLoginOpen: React.Dispatch<React.SetStateAction<boolean>>
@@ -38,7 +39,7 @@ const LoginForm = ({ setLoginOpen }: Props) => {
     toastObject: toastObject,
     onSuccessCallback: (data) => {
       localStorage.setItem("username", username)
-      login(data.token)
+      login(data.token, username)
       setLoginOpen(false)
     },
   })
