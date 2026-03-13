@@ -18,7 +18,7 @@ type Props = {
   isVertical?: boolean
 }
 
-const Badges: React.FC<Props> = ({ badgeData, isVertical }) => {
+const BadgeCollection: React.FC<Props> = ({ badgeData, isVertical }) => {
   return (
     <div className={isVertical ? "grid grid-rows-6 h-150 gap-10" : "flex"}>
       <FirstBook firstBookWorm={badgeData?.firstBook} isVertical={isVertical} />
@@ -37,4 +37,4 @@ const Badges: React.FC<Props> = ({ badgeData, isVertical }) => {
   )
 }
 
-export default Badges
+export default BadgeCollection

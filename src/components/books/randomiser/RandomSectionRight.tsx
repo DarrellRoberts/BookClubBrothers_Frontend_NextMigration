@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import Randomiser from "./Randomiser"
+import RandomiserButton from "./RandomiserButton"
 import EditUnreadBook from "@/components/forms/bookform-randomise/edit/EditUnreadBook"
 import DeleteBook from "@/components/forms/bookform-randomise/DeleteBook"
 import { Book } from "@/types/BookInterface"
@@ -106,7 +106,7 @@ const RandomSectionRight: React.FC<Props> = ({
                 </li>
               </ul>
               <div className="flex items-center justify-center w-full">
-                <Randomiser
+                <RandomiserButton
                   bookLength={bookData?.length}
                   bookId={bookData[index]?._id}
                 />
