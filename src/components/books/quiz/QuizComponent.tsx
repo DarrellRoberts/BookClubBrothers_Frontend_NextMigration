@@ -1,3 +1,5 @@
+"use client"
+
 import React, { useState } from "react"
 import quiz from "./quiz.json"
 
@@ -54,7 +56,7 @@ const QuizComponent = () => {
               >
                 {option}
               </li>
-            )
+            ),
           )}
           {showCorrect ? (
             <li
