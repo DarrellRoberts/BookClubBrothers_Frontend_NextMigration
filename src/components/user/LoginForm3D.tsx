@@ -25,7 +25,7 @@ const LoginForm3D: React.FC<Login> = ({ setLoginOpen }) => {
     ])
     if (data && data.token) {
       localStorage.setItem("username", username)
-      login(data.token)
+      login(data.token, username)
     }
     setLoadings(false)
   }
