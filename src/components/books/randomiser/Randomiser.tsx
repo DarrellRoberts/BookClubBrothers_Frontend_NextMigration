@@ -3,8 +3,7 @@
 import RandomSectionLeft from "@/components/books/randomiser/RandomSectionLeft"
 import RandomSectionRight from "@/components/books/randomiser/RandomSectionRight"
 import RandomiserFilters from "@/components/books/randomiser/RandomiserFilters"
-import { useEffect, useState } from "react"
-import { useAppSelector } from "@/store/lib/hooks"
+import { useState } from "react"
 import { API_UNREAD_BOOKS, API_USERS } from "@/configs/config"
 import { useGetQuery } from "@/hooks/fetch-hooks/useGetQuery"
 import { Book } from "@/types/BookInterface"
@@ -12,8 +11,6 @@ import { User } from "@/types/UserInterface"
 
 const Randomiser = () => {
   const [randomiserBooks, setRandomiserBooks] = useState([])
-
-  const isRefresh = useAppSelector((state) => state.editButtons.isRefresh)
 
   const {
     data: bookData,
@@ -30,9 +27,6 @@ const Randomiser = () => {
     apiPath: API_USERS,
   })
 
-  useEffect(() => {
-    setRandomiserBooks(bookData)
-  }, [bookData, isLoading, isRefresh])
   return (
     <div>
       <h1 className="font-main text-[clamp(4rem,8vw,8rem)] text-center mt-12 max-md:text-[2.5rem] max-md:mt-12">

@@ -104,16 +104,6 @@ const BrothersProfile: React.FC<Props> = ({ user, readBooks, userData }) => {
             )}
           </div>
 
-          {/* <div className="flex">
-            {user?.userInfo?.residence?.country ? (
-
-            ) : (
-              <li className="font-bold text-red-500 max-xs:text-[0.75rem]">
-                No country written
-              </li>
-            )}
-          </div> */}
-
           <div className="flex">
             <li className="underline pt-5 text-xl max-sm:pt-[15px] max-sm:text-base max-xs:text-[0.75rem]">
               Favourite Genres

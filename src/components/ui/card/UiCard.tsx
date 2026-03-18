@@ -77,7 +77,7 @@ const UiCard = ({
                 color: imageObject.textColor,
                 fontSize: isSingleBook ? "3rem" : "1.5rem",
               }}
-            >{`${hideScores ? "?" : totalScore.toFixed(1) + "/10"}`}</span>
+            >{`${hideScores ? "?" : totalScore?.toFixed(1) + "/10"}`}</span>
             <span
               className="text-xl font-(family-name:--main) font-bold"
               style={{

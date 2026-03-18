@@ -1,7 +1,7 @@
 import Graph from "@/components/graphs/brothers/Graph"
 import LoaderNoText from "@/components/loader/LoaderNoText"
 import { User } from "@/types/UserInterface"
-import React from "react"
+import React, { useMemo } from "react"
 import { Book } from "@/types/BookInterface"
 import { findUser } from "@/utils/find-functions/find"
 
@@ -16,26 +16,45 @@ type UserTitles = {
 }
 
 const BrothersSuggestedBooks: React.FC<Props> = ({ userData, bookData }) => {
-  const suggestedTitlesObject = {}
-  const createSuggestedTitlesMap = () => {
+  const suggestedTitlesObject = useMemo(() => {
+    const tempObject = {}
     if (!bookData) return {}
     if (bookData?.length === 0) return {}
     if (userData?.length === 0) return {}
     for (const user of bookData) {
       const username = findUser(user.suggestedBy, userData)
-      if (!suggestedTitlesObject[username]) {
-        suggestedTitlesObject[username] = {}
+      if (!tempObject[username]) {
+        tempObject[username] = {}
       }
-      suggestedTitlesObject[username]["titles"] = bookData
+      tempObject[username]["titles"] = bookData
         ?.filter((book) => book.suggestedBy === user.suggestedBy)
         ?.map((book) => book.title)
-      suggestedTitlesObject[username]["score"] = bookData
+      tempObject[username]["score"] = bookData
         ?.filter((book) => book.suggestedBy === user.suggestedBy)
         ?.map((book) => book.totalScore)
     }
-    return suggestedTitlesObject
-  }
-  createSuggestedTitlesMap()
+    return tempObject
+  }, [bookData, userData])
+  // const suggestedTitlesObject = {}
+  // const createSuggestedTitlesMap = () => {
+  //   if (!bookData) return {}
+  //   if (bookData?.length === 0) return {}
+  //   if (userData?.length === 0) return {}
+  //   for (const user of bookData) {
+  //     const username = findUser(user.suggestedBy, userData)
+  //     if (!suggestedTitlesObject[username]) {
+  //       suggestedTitlesObject[username] = {}
+  //     }
+  //     suggestedTitlesObject[username]["titles"] = bookData
+  //       ?.filter((book) => book.suggestedBy === user.suggestedBy)
+  //       ?.map((book) => book.title)
+  //     suggestedTitlesObject[username]["score"] = bookData
+  //       ?.filter((book) => book.suggestedBy === user.suggestedBy)
+  //       ?.map((book) => book.totalScore)
+  //   }
+  //   return suggestedTitlesObject
+  // }
+  // createSuggestedTitlesMap()
   return (
     <>
       {bookData?.length === 0 ? (
@@ -45,7 +64,7 @@ const BrothersSuggestedBooks: React.FC<Props> = ({ userData, bookData }) => {
           <Graph
             bookTitles={Object.keys(suggestedTitlesObject)}
             bookScores={Object.entries(suggestedTitlesObject)?.map(
-              (user: [string, UserTitles]) => user[1].titles.length
+              (user: [string, UserTitles]) => user[1].titles.length,
             )}
             username="User"
             isSuggested={true}

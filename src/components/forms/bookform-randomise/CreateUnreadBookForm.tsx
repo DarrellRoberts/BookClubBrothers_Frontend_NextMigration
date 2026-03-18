@@ -237,16 +237,11 @@ const CreateBook: React.FC = () => {
             >
               {genres.map((genre) => (
                 <Option
-                  value={genre.label}
+                  value={genre.value}
                   label={genre.label}
                   key={genre.label}
                 >
-                  <Space>
-                    <span role="img" aria-label={genre.label}>
-                      {genre.emoji}
-                    </span>
-                    {genre.label}
-                  </Space>
+                  <Space>{genre.label}</Space>
                 </Option>
               ))}
             </Select>

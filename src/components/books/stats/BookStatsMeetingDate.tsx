@@ -31,7 +31,6 @@ const BookStatsMeetingDate: React.FC<Props> = ({ readBooks, loadingBooks }) => {
       })
     })
 
-    // Convert to array and sort by year descending
     return Array.from(pageMap.entries()).sort((a, b) =>
       a[0].localeCompare(b[0]),
     )
