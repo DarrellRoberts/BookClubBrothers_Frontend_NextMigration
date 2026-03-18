@@ -3,6 +3,7 @@ import { genreAverageScore } from "@/utils/stat-functions/scoreFunctions"
 import { Book } from "@/types/BookInterface"
 import React from "react"
 import BrotherLoadingBooksScored from "@/components/brothers/dashboard/BrotherLoadingBooksScored"
+import { genres } from "@/configs/genre"
 
 type Props = {
   readBooks: Book[]
@@ -10,24 +11,10 @@ type Props = {
 }
 
 const BookStatsGenre: React.FC<Props> = ({ readBooks, loadingBooks }) => {
-  const genreArray: string[] = [
-    "Horror",
-    "Thriller",
-    "Comedy",
-    "Romance",
-    "Fantasy",
-    "Adventure",
-    "Anti-war",
-    "Drama",
-    "Action",
-    "Science-fiction",
-    "Dystopian",
-    "Postmodern",
-    "Anthology",
-    "Non-fiction",
-  ]
+  const genresLabels = genres.map((genre) => genre.value)
+
   const genreAvgScoreArray =
-    genreArray.map((genre) => genreAverageScore(readBooks, genre)) ?? []
+    genresLabels.map((genre) => genreAverageScore(readBooks, genre)) ?? []
   return (
     <>
       {loadingBooks ? (
@@ -35,7 +22,7 @@ const BookStatsGenre: React.FC<Props> = ({ readBooks, loadingBooks }) => {
       ) : (
         <>
           <Graph
-            bookTitles={genreArray}
+            bookTitles={genresLabels}
             bookScores={genreAvgScoreArray}
             username="Genre"
           />

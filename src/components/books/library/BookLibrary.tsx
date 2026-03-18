@@ -29,7 +29,7 @@ const BookLibrary: React.FC = () => {
   } = useGetQuery<Book[]>({
     queryKey: ["books"],
     apiPath: API_BOOKS,
-    staleTime: TIME_MILLISECONDS.ONE_MONTH,
+    staleTime: TIME_MILLISECONDS.FIVE_MINUTES,
   })
 
   const readBooks = bookData?.length

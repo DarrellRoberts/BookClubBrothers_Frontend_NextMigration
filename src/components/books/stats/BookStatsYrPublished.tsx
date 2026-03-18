@@ -1,6 +1,5 @@
 import BrotherLoadingBooksScored from "@/components/brothers/dashboard/BrotherLoadingBooksScored"
 import ScatterGraph from "@/components/graphs/brothers/ScatterGraph"
-import LoaderNoText from "@/components/loader/LoaderNoText"
 import { Book } from "@/types/BookInterface"
 import React from "react"
 

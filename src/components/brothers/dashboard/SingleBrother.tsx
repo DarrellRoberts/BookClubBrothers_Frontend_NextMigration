@@ -9,7 +9,7 @@ import BrotherBooksScored from "@/components/brothers/dashboard/BrotherBooksScor
 import BrotherLoadingBanner from "@/components/brothers/dashboard/BrotherLoadingBanner"
 import BrotherLoadingBooksScored from "@/components/brothers/dashboard/BrotherLoadingBooksScored"
 import BrotherLoadingCommentCon from "@/components/brothers/dashboard/BrotherLoadingCommentCon"
-import { API_BOOKS, API_USERS, config } from "@/configs/config"
+import { API_BOOKS, API_USERS } from "@/configs/config"
 import { useGetQuery } from "@/hooks/fetch-hooks/useGetQuery"
 import { User } from "@/types/UserInterface"
 import { Book } from "@/types/BookInterface"

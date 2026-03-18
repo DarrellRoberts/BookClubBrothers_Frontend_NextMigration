@@ -53,7 +53,6 @@ const RandomiserFilters: React.FC<Props> = ({
 
     if (genreFilter.length > 0) {
       filteredResults = filteredResults.filter((book) =>
-        // Check if EVERY selected filter genre exists in the book's genre array
         genreFilter.every((selected) => book.genre.includes(selected)),
       )
     }
