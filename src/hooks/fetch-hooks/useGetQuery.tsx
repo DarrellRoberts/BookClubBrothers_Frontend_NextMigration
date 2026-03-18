@@ -2,6 +2,7 @@ import { useNotification } from "@/context/NotificationProvider"
 import { useQuery } from "@tanstack/react-query"
 import axios from "axios"
 import { useEffect } from "react"
+import { TIME_MILLISECONDS } from "../timeVars"
 
 const fetchData = async <T,>(apiPath: string, params: Params) => {
   const response = await axios.get(apiPath, { params })
@@ -29,7 +30,7 @@ export const useGetQuery = <T,>({
   queryKey,
   apiPath,
   params = {},
-  staleTime,
+  staleTime = TIME_MILLISECONDS.FIVE_MINUTES,
   enabled,
 }: UseGetQuery) => {
   const { data, isLoading, isError, error } = useQuery<ApiResponse<T>, Error>({

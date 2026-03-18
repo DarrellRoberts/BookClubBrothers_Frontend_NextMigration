@@ -2,6 +2,7 @@ import { useNotification } from "@/context/NotificationProvider"
 import { HttpMethod } from "@/types/Api"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { AxiosError } from "axios"
+import Cookies from "js-cookie"
 import axios from "@/configs/axios"
 
 type DataMutationOptions<TResponse, TData> = {
@@ -25,11 +26,18 @@ const mutateData = async <TData, TResponse>(
   method: HttpMethod,
   data: TData,
 ): Promise<TResponse> => {
+  const token = Cookies.get("token")
+
+  const config = {
+    headers: {
+      Authorization: token ? `Bearer ${token}` : "",
+    },
+  }
   if (method === "delete") {
-    const response = await axios.delete(apiPath)
+    const response = await axios.delete(apiPath, config)
     return response.data
   }
-  const response = await axios[method](apiPath, data)
+  const response = await axios[method](apiPath, data, config)
   return response.data
 }
 
