@@ -1,0 +1,132 @@
+"use client"
+
+import PieChart from "@/components/graphs/brothers/PieChart"
+import BrotherTable from "@/components/stats/brother-table/BrotherTable"
+import {
+  unreadBookTitles,
+  userReadBookTitles,
+} from "@/utils/stat-functions/scoreFunctions"
+import BrothersScores from "@/components/brothers/stats/BrothersScores"
+import BrothersSuggestedBooks from "@/components/brothers/stats/BrothersSuggestedBooks"
+import React from "react"
+import BrotherLoadingBooksScored from "@/components/brothers/dashboard/BrotherLoadingBooksScored"
+import { API_BOOKS, API_USERS, config } from "@/configs/config"
+import { UiSkeletonTitle } from "@/components/ui/skeleton/UiSkeletonTitle"
+import { UiSkeletonCircle } from "@/components/ui/skeleton/UiSkeletonCircle"
+import { useGetQuery } from "@/hooks/fetch-hooks/useGetQuery"
+import { User } from "@/types/UserInterface"
+import { Book } from "@/types/BookInterface"
+
+const BrothersStats: React.FC = () => {
+  const { data: userData, isLoading: isLoadingUsers } = useGetQuery<User[]>({
+    queryKey: ["users"],
+    apiPath: API_USERS,
+  })
+
+  const { data: bookData, isLoading: isLoadingBooks } = useGetQuery<Book[]>({
+    queryKey: ["books"],
+    apiPath: API_BOOKS,
+  })
+  const readBooks = bookData?.length
+    ? bookData?.filter((book) => book.read === true)
+    : []
+
+  let newArr = new Array()
+  newArr.length = 5
+  newArr.fill(1.1).forEach((_, index) => index * 5)
+
+  return (
+    <div>
+      <h1 className="text-[5rem] ml-12 max-[825px]:text-[3.5rem] max-[450px]:text-[2.5rem]">
+        Brothers Stats
+      </h1>
+
+      <div className="flex flex-col items-center">
+        <BrotherTable userData={userData} bookData={readBooks} />
+      </div>
+
+      <div className="flex flex-col justify-evenly ml-12 max-[450px]:ml-0">
+        <h2
+          className="text-[2.5rem] underline my-8 ml-12
+max-[450px]:text-center max-[450px]:ml-0 max-[450px]:my-8"
+        >
+          Books Read
+        </h2>
+        {!readBooks ? (
+          <>
+            <div className="flex justify-evenly flex-wrap gap-5">
+              {Array.from({ length: 5 }).map((_, index) => (
+                <div className="flex flex-col items-center gap-2" key={index}>
+                  <UiSkeletonTitle height={2} width={75} />
+                  <UiSkeletonCircle radius={17} />
+                </div>
+              ))}
+            </div>
+            <div>
+              <h2 className="text-[2.5rem] underline my-8 ml-12 max-[450px]:text-center max-[450px]:ml-0 max-[450px]:my-8">
+                Average Scores
+              </h2>
+              <BrotherLoadingBooksScored />
+            </div>
+            <div>
+              <h2 className="text-[2.5rem] underline my-8 ml-12 max-[450px]:text-center max-[450px]:ml-0 max-[450px]:my-8">
+                Number of Suggested Books
+              </h2>
+              <BrotherLoadingBooksScored />
+            </div>
+          </>
+        ) : (
+          <>
+            <div
+              className="grid grid-cols-[repeat(auto-fill,minmax(250px,1fr))] gap-8
+max-[600px]:grid-cols-[repeat(auto-fill,minmax(150px,1fr))]"
+            >
+              {userData?.map((user, i) => (
+                <div key={i}>
+                  <h3 className="text-center text-[1.5rem]">{user.username}</h3>
+                  <PieChart
+                    key={i}
+                    booksRead={[
+                      user.userInfo.books.score.length,
+                      unreadBookTitles(readBooks, user._id)?.length,
+                    ]}
+                    unreadBooks={unreadBookTitles(readBooks, user._id)}
+                    userReadBooks={userReadBookTitles(readBooks, user._id)}
+                    bookTotal={readBooks?.length}
+                  />
+                </div>
+              ))}
+            </div>
+            <div>
+              <h2
+                className="text-[2.5rem] underline my-8 ml-12
+ max-[450px]:text-center max-[450px]:ml-0 max-[450px]:my-8"
+              >
+                Average Scores
+              </h2>
+              <BrothersScores
+                loadingBooks={isLoadingBooks}
+                loadingUsers={isLoadingUsers}
+                userData={userData}
+              />
+            </div>
+            <div>
+              <h2
+                className="text-[2.5rem] underline my-8 ml-12
+max-[450px]:text-center max-[450px]:ml-0 max-[450px]:my-8"
+              >
+                Number of Suggested Books
+              </h2>
+              <BrothersSuggestedBooks
+                bookData={readBooks}
+                userData={userData}
+              />
+            </div>
+          </>
+        )}
+      </div>
+    </div>
+  )
+}
+
+export default BrothersStats

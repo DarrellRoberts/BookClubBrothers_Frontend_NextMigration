@@ -1,6 +1,6 @@
 import PictureUploadButton from "@/components/forms/brotherform/PictureUploadButton"
 import PieChart from "@/components/graphs/brothers/PieChart"
-import Badges from "@/components/misc/badges/Badges"
+import Badges from "@/components/club/badges/badges/BadgeCollection"
 import Profile from "@/components/misc/profile/Profile"
 import { formatServerDate } from "@/utils/time-functions/formatServerDate"
 import { handleHideScores_NoSetter } from "@/utils/time-functions/hideScores"

@@ -1,10 +1,12 @@
 import { Book } from "@/types/BookInterface"
 import { User } from "@/types/UserInterface"
-import React, { useCallback, useEffect, useState } from "react"
+import React, { useEffect, useMemo, useState } from "react"
 import { useAppDispatch } from "@/store/lib/hooks"
 import { setIndex } from "@/store/lib/features/randomise/randomiseSlice"
-import RandomiserSkeletonFilters from "./RandomiserSkeletonFilters"
-import { Genre } from "@/types/Genre"
+import { genres } from "@/configs/genre"
+import { Select } from "antd"
+import { InputConfigWrapper } from "@/components/forms/InputConfigWrapper"
+import { UiSkeletonTitle } from "@/components/ui/skeleton/UiSkeletonTitle"
 
 type Props = {
   bookData: Book[]
@@ -22,158 +24,82 @@ const RandomiserFilters: React.FC<Props> = ({
 
   const dispatch = useAppDispatch()
 
-  const genreList = [
-    Genre.HORROR,
-    Genre.THRILLER,
-    Genre.COMEDY,
-    Genre.ROMANCE,
-    Genre.FANTASY,
-    Genre.ADVENTURE,
-    Genre.ANTIWAR,
-    Genre.DRAMA,
-    Genre.ACTION,
-    Genre.SCIFI,
-    Genre.DYSTOPIAN,
-    Genre.POSTMODERN,
-    Genre.ANTHOLOGY,
-    Genre.NONFICT,
-  ]
+  const usernameArray = useMemo(() => {
+    if (!userData?.length) return []
+    return userData.map((user) => ({
+      value: user._id,
+      label: user.username,
+    }))
+  }, [userData])
 
-  const handleNameCheckbox = useCallback(
-    (value) => {
-      if (nameFilter.includes(value)) {
-        const tempArr = [...nameFilter]
-        setNameFilter(tempArr.filter((item) => item !== value))
-      } else {
-        const tempArr = [...nameFilter]
-        setNameFilter([...tempArr, value])
-      }
-    },
-    [nameFilter],
-  )
+  const handleGenreSelect = (values) => {
+    setGenreFilter(values)
+  }
 
-  const handleGenreCheckbox = useCallback(
-    (value) => {
-      if (genreFilter.includes(value)) {
-        const tempArr = [...genreFilter]
-        setGenreFilter(tempArr.filter((item) => item !== value))
-      } else {
-        const tempArr = [...genreFilter]
-        setGenreFilter([...tempArr, value])
-      }
-    },
-    [genreFilter],
-  )
+  const handleUsernameSelect = (values) => {
+    setNameFilter(values)
+  }
 
   useEffect(() => {
-    if (nameFilter.length === 0 && genreFilter.length === 0) {
-      setBookData(bookData)
-      dispatch(setIndex(0))
-    } else if (nameFilter.length === 0 && genreFilter.length > 0) {
-      const tempArray = bookData?.filter((book) =>
-        book.genre[0].some((genre) => genre.includes(genreFilter)),
+    if (!bookData?.length) return
+
+    let filteredResults = [...bookData]
+
+    if (nameFilter.length > 0) {
+      filteredResults = filteredResults.filter((book) =>
+        nameFilter.includes(book.suggestedBy),
       )
-      setBookData(tempArray)
-      dispatch(setIndex(0))
-    } else if (nameFilter.length > 0 && genreFilter.length === 0) {
-      const tempArray = bookData?.filter((book) =>
-        nameFilter?.includes(book.suggestedBy),
-      )
-      setBookData(tempArray)
-      dispatch(setIndex(0))
-    } else if (nameFilter.length > 0 && genreFilter.length > 0) {
-      let tempArray = bookData?.filter((book) =>
-        nameFilter?.includes(book.suggestedBy),
-      )
-      tempArray = tempArray?.filter((book) =>
-        genreFilter.every((selectedGenre) =>
-          book.genre[0].includes(selectedGenre),
-        ),
-      )
-      setBookData(tempArray)
-      dispatch(setIndex(0))
     }
-  }, [nameFilter, genreFilter])
-  return (
-    <div className="flex flex-col w-full">
-      <div>
+
+    if (genreFilter.length > 0) {
+      filteredResults = filteredResults.filter((book) =>
+        genreFilter.every((selected) => book.genre.includes(selected)),
+      )
+    }
+    setBookData(filteredResults)
+    dispatch(setIndex(0))
+  }, [nameFilter, genreFilter, bookData, dispatch, setBookData])
+
+  return !userData ? (
+    <div className="my-12 flex items-center max-lg:flex-col w-full max-lg:gap-5">
+      <div className="flex flex-col w-full items-center">
         <h2 className="text-center">Filter by suggestor</h2>
-        <div className="flex w-full justify-evenly flex-wrap gap-4">
-          {!userData ? (
-            <div className="flex flex-col w-full">
-              <div className="flex w-full justify-evenly flex-wrap gap-4">
-                <RandomiserSkeletonFilters freq={6} />
-              </div>
-              <div className="my-4">
-                <h2 className="text-center">Filter by genre</h2>
-                <div className="flex w-full justify-evenly flex-wrap gap-4">
-                  <RandomiserSkeletonFilters freq={genreList.length} />
-                </div>
-              </div>
-            </div>
-          ) : (
-            <>
-              {userData?.map((user) => (
-                <div key={user._id}>
-                  <input
-                    className="accent-bc-green"
-                    type="checkbox"
-                    checked={nameFilter.includes(user._id)}
-                    name={user.username}
-                    value={user._id}
-                    onChange={() => handleNameCheckbox(user._id)}
-                  />
-                  <label htmlFor={user.username} className="font-main ml-1">
-                    {user.username}
-                  </label>
-                </div>
-              ))}
-              <div>
-                <input
-                  type="checkbox"
-                  className="accent-bc-green"
-                  name="Clear all"
-                  checked={nameFilter.length === 0}
-                  onChange={() => setNameFilter([])}
-                />
-                <label htmlFor="Clear all" className="font-main ml-1">
-                  Clear all
-                </label>
-              </div>
-              <div className="my-12 flex flex-col w-full">
-                <h2 className="text-center">Filter by genre</h2>
-                <div className="flex w-full justify-evenly flex-wrap gap-8">
-                  {genreList?.map((genre, index) => (
-                    <div key={index}>
-                      <input
-                        type="checkbox"
-                        className="accent-bc-green"
-                        checked={genreFilter.includes(genre)}
-                        name={genre}
-                        value={genre}
-                        onChange={() => handleGenreCheckbox(genre)}
-                      />
-                      <label htmlFor={genre} className="font-main ml-1">
-                        {genre}
-                      </label>
-                    </div>
-                  ))}
-                  <div>
-                    <input
-                      type="checkbox"
-                      className="accent-bc-green"
-                      name="Clear all"
-                      checked={genreFilter.length === 0}
-                      onChange={() => setGenreFilter([])}
-                    />
-                    <label htmlFor="Clear all" className="font-main ml-1">
-                      Clear all
-                    </label>
-                  </div>
-                </div>
-              </div>
-            </>
-          )}
+        <UiSkeletonTitle height={2} width={50} />
+      </div>
+      <div className="flex flex-col w-full items-center">
+        <h2 className="text-center">Filter by genre</h2>
+        <UiSkeletonTitle height={2} width={50} />
+      </div>
+    </div>
+  ) : (
+    <div className="my-12 flex items-center max-lg:flex-col w-full max-lg:gap-5">
+      <div className="flex flex-col w-full items-center">
+        <h2 className="text-center">Filter by Username</h2>
+        <div className="flex w-full justify-evenly flex-wrap gap-8"></div>
+        <InputConfigWrapper>
+          <Select
+            mode="tags"
+            className="w-3/4"
+            placeholder="Select username(s)"
+            onChange={handleUsernameSelect}
+            value={nameFilter}
+            options={usernameArray}
+          />
+        </InputConfigWrapper>
+      </div>
+      <div className=" flex flex-col w-full">
+        <h2 className="text-center">Filter by genre</h2>
+        <div className="flex w-full justify-evenly flex-wrap gap-8">
+          <InputConfigWrapper>
+            <Select
+              mode="tags"
+              className="w-3/4"
+              placeholder="Select genre(s)"
+              onChange={handleGenreSelect}
+              value={genreFilter}
+              options={genres}
+            />
+          </InputConfigWrapper>
         </div>
       </div>
     </div>

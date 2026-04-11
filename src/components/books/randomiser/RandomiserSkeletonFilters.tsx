@@ -1,8 +1,6 @@
 import { UiSkeletonCircle } from "@/components/ui/skeleton/UiSkeletonCircle"
 import { UiSkeletonTitle } from "@/components/ui/skeleton/UiSkeletonTitle"
-import { useAppSelector } from "@/store/lib/hooks"
-import { Skeleton } from "antd"
-import React, { useMemo } from "react"
+import React from "react"
 
 type Props = {
   freq: number

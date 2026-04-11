@@ -1,7 +1,4 @@
 import React from "react"
-import { Skeleton } from "antd"
-import { useAppSelector } from "@/store/lib/hooks"
-import { useMediaQuery } from "react-responsive"
 import { UiSkeletonTitle } from "@/components/ui/skeleton/UiSkeletonTitle"
 import { UiSkeletonImage } from "@/components/ui/skeleton/UiSkeletonImage"
 
