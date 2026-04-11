@@ -12,7 +12,6 @@ type Props = {
 
 const UserViewLeftSide = ({ bookData }: Props) => {
   const isDarkMode = useAppSelector((state) => state.darkMode.darkMode)
-
   return bookData ? (
     <div className="flex flex-col items-center justify-center max-md:flex-col max-md:items-center">
       <div>
@@ -21,8 +20,8 @@ const UserViewLeftSide = ({ bookData }: Props) => {
           totalScore={bookData?.totalScore}
           hideScores={handleHideScores_NoSetter(bookData?.actualDateOfMeeting)}
           imageURL={
-            bookData?.imageURL ||
             bookData?.reviewImageURL ||
+            bookData?.imageURL ||
             "/Profile.unknown-profile-image.jpg"
           }
           isSingleBook={true}

@@ -36,8 +36,8 @@ const AdminViewSingleBook: React.FC<Props> = ({ bookData, bookId }) => {
               bookData?.actualDateOfMeeting,
             )}
             imageURL={
-              bookData?.imageURL ||
               bookData?.reviewImageURL ||
+              bookData?.imageURL ||
               "/Profile.unknown-profile-image.jpg"
             }
             isSingleBook={true}
