@@ -19,6 +19,9 @@ const UiCard = ({
   isSingleBook,
 }: Props) => {
   const imageObject = useMemo(() => {
+    if (!totalScore) {
+      return { src: UNKNOWN_IMAGE, textColor: "#FFFFFF", text: "" }
+    }
     if (hideScores) {
       return { src: UNKNOWN_IMAGE, textColor: "#FFFFFF", text: "" }
     }
@@ -77,7 +80,7 @@ const UiCard = ({
                 color: imageObject.textColor,
                 fontSize: isSingleBook ? "3rem" : "1.5rem",
               }}
-            >{`${hideScores ? "?" : totalScore?.toFixed(1) + "/10"}`}</span>
+            >{`${hideScores ? "?" : totalScore ? totalScore?.toFixed(1) + "/10" : "?"}`}</span>
             <span
               className="text-xl font-(family-name:--main) font-bold"
               style={{
