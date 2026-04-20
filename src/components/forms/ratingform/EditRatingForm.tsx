@@ -55,7 +55,7 @@ const EditRatingForm: React.FC<Props> = ({
     apiPath: `${API_EDIT_RATING}${id}`,
     method: "put",
     toastObject: toastObject,
-    queryKeyToInvalidate: ["books"],
+    queryKeyToInvalidate: ["books", `${id}`],
     onSuccessCallback: () => {
       handleCancel()
     },

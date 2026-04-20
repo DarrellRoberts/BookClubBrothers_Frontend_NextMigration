@@ -7,6 +7,7 @@ import { handleMultipleSubmits } from "@/utils/handleMultipleSubmits"
 import { useAppSelector } from "@/store/lib/hooks"
 import { config } from "@/configs/config"
 import { InputConfigWrapper } from "../InputConfigWrapper"
+import { UiButton } from "@/components/ui/button/UiButton"
 
 type Props = {
   id: string | string[]
@@ -14,7 +15,7 @@ type Props = {
 }
 
 const AnthologyRatingForm: React.FC<Props> = ({ id, singleBook }) => {
-  const [raterStoriesObject, setRaterStoriesObject] = useState<object>({})
+  const [raterStoriesArray, setRaterStoriesArray] = useState([])
   const [loadings, setLoadings] = useState<boolean>(false)
   const token = useAppSelector((state) => state.token.tokenState)
 
@@ -33,10 +34,10 @@ const AnthologyRatingForm: React.FC<Props> = ({ id, singleBook }) => {
       promiseArr.push(
         await handleMultipleSubmits(
           `${config.API_URL}/books/${id}/${singleBook?.shortStories[i]._id}`,
-          { rating: Object.values(raterStoriesObject)[i] },
+          { rating: raterStoriesArray.map((story) => story.score)[i] },
           "POST",
-          token
-        )
+          token,
+        ),
       )
     }
     if (promiseArr.length > 0) {
@@ -46,24 +47,27 @@ const AnthologyRatingForm: React.FC<Props> = ({ id, singleBook }) => {
     }
   }
 
-  const handleTotalRatingArr = (value: number, key: string) => {
-    setRaterStoriesObject({ ...raterStoriesObject, [key]: value })
+  const handleTotalRatingArr = (value: number, title: string) => {
+    const findObject = raterStoriesArray.find((story) => story.title === title)
+    findObject.score = value
+    const newArray = raterStoriesArray.map((story) =>
+      story.title !== title ? story : findObject,
+    )
+    setRaterStoriesArray(newArray)
   }
 
   const handleTotalRating = useMemo(() => {
-    if (!singleBook?.shortStories) return null
-    if (Object.values(raterStoriesObject).length === 0) return null
-    const total: number = Object.values(raterStoriesObject).reduce(
-      (prev: number, curr: number) => prev + curr,
-      0
-    )
+    if (raterStoriesArray.length === 0) return null
+    const total: number = raterStoriesArray
+      .map((story) => story.score)
+      .reduce((prev, curr) => prev + curr, 0)
     if (total === 0) return null
-    return total / Object.values(raterStoriesObject).length
-  }, [raterStoriesObject])
+    return total / raterStoriesArray.length
+  }, [raterStoriesArray])
 
   const handleRatingsReset = () => {
     if (!singleBook?.shortStories) return null
-    setRaterStoriesObject({})
+    setRaterStoriesArray([])
   }
   return (
     <>
@@ -71,25 +75,22 @@ const AnthologyRatingForm: React.FC<Props> = ({ id, singleBook }) => {
         onFinish={handleSubmit2}
         name="basic"
         labelCol={{
-          span: 8,
+          span: 20,
         }}
         wrapperCol={{
-          span: 16,
+          span: 20,
         }}
         style={{
           maxWidth: 600,
         }}
       >
-        <Button
+        <UiButton
           type="primary"
           ghost
-          className="loginButtons"
-          onClick={() => handleRatingsReset()}
-          size="large"
-        >
-          Reset
-        </Button>
-        {singleBook.shortStories?.map((story) => (
+          clickHandler={() => handleRatingsReset()}
+          textContent={"Reset"}
+        />
+        {singleBook.shortStories?.map((story, idx) => (
           <InputConfigWrapper>
             <Form.Item key={story._id} label={story.title}>
               <InputNumber
@@ -99,7 +100,7 @@ const AnthologyRatingForm: React.FC<Props> = ({ id, singleBook }) => {
                 onChange={(e) => {
                   handleTotalRatingArr(Number(e), story.title)
                 }}
-                value={raterStoriesObject[story.title]}
+                value={raterStoriesArray[idx]?.score}
               />
             </Form.Item>
           </InputConfigWrapper>

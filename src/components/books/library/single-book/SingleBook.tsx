@@ -32,7 +32,7 @@ const SingleBook = () => {
     isError,
     error,
   } = useGetQuery<Book>({
-    queryKey: ["books", id],
+    queryKey: ["books", `${id}`],
     apiPath: `${API_SINGLE_BOOK}${id}`,
   })
 
