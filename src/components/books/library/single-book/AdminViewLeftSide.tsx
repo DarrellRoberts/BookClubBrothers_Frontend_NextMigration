@@ -1,4 +1,3 @@
-import DeleteBook from "@/components/forms/bookform-delete/DeleteBook"
 import EditTitleButton from "@/components/forms/editbookform-single-book/title/EditTitleButton"
 import { Book } from "@/types/BookInterface"
 import React from "react"
@@ -8,6 +7,7 @@ import EditTitle from "@/components/forms/editbookform-single-book/title/EditTit
 import EditImage from "@/components/forms/editbookform-single-book/image/EditImage"
 import { useAppSelector } from "@/store/lib/hooks"
 import BookCard from "../BookCard"
+import DeleteBook from "@/components/forms/bookform-randomise/DeleteBook"
 
 type Props = {
   bookData: Book
