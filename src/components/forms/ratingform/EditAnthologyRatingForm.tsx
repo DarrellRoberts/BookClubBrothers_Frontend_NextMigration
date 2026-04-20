@@ -12,7 +12,7 @@ import { InputConfigWrapper } from "../InputConfigWrapper"
 type Props = {
   id: string | string[]
   singleBook: Book
-  shortStoryData: any[]
+  shortStoryData: { title: string; score: number }[]
 }
 
 const EditAnthologyRatingForm: React.FC<Props> = ({

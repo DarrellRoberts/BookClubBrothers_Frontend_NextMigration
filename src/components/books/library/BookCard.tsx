@@ -1,5 +1,4 @@
 import UiCard from "@/components/ui/card/UiCard"
-import React, { useMemo } from "react"
 
 type Props = {
   title: string
