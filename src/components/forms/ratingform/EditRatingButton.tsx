@@ -63,6 +63,7 @@ const EditRatingButton: React.FC<Props> = ({
             id={id}
             shortStoryData={shortStoryData}
             singleBook={singleBook}
+            handleCancel={handleCancel}
           />
         )}
       </UiModal>
