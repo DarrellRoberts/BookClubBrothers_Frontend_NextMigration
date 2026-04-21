@@ -53,7 +53,7 @@ const RatingForm: React.FC<Props> = ({
     apiPath: `${API_CREATE_RATING}${id}`,
     method: "post",
     toastObject: toastObject,
-    queryKeyToInvalidate: ["books"],
+    queryKeyToInvalidate: ["books", `${id}`],
     onSuccessCallback: () => {
       handleCancel()
     },

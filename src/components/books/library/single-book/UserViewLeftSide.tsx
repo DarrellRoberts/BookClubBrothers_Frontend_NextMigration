@@ -5,6 +5,7 @@ import { Skeleton } from "antd"
 import { useAppSelector } from "@/store/lib/hooks"
 import BookCard from "../BookCard"
 import BookSkeleton from "../BookSkeleton"
+import { BookLeftSideSkeleton } from "./skeletons/BookLeftSideSkeleton"
 
 type Props = {
   bookData: Book
@@ -29,18 +30,7 @@ const UserViewLeftSide = ({ bookData }: Props) => {
       </div>
     </div>
   ) : (
-    <div className="flex flex-col items-center gap-4 w-full mt-4">
-      <Skeleton.Input
-        active={true}
-        size="large"
-        style={{
-          filter: isDarkMode ? "invert(1)" : "invert(0)",
-        }}
-      />
-      <div className="">
-        <BookSkeleton freq={1} noTitle />
-      </div>
-    </div>
+    <BookLeftSideSkeleton />
   )
 }
 

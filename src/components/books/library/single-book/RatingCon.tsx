@@ -1,13 +1,15 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useMemo } from "react"
 import RatingButton from "../../../forms/ratingform/RatingButton"
 import EditRatingButton from "../../../forms/ratingform/EditRatingButton"
 import { useJwt } from "react-jwt"
 import { Book } from "@/types/BookInterface"
 import { useAppSelector } from "@/store/lib/hooks"
-import { Skeleton } from "antd"
-import { config } from "@/configs/config"
+import { API_USERS } from "@/configs/config"
+import { useGetQuery } from "@/hooks/fetch-hooks/useGetQuery"
+import { User } from "@/types/UserInterface"
+import { RatingConSkeleton } from "./skeletons/RatingConSkeleton"
 
 type Props = {
   singleBook: Book
@@ -16,160 +18,72 @@ type Props = {
   hideScores: boolean
 }
 
-const RatingCon: React.FC<Props> = ({
-  singleBook,
-  id,
-  loading,
-  hideScores,
-}) => {
-  const [users, setUserData] = useState([])
+const RatingCon: React.FC<Props> = ({ singleBook, id, hideScores }) => {
   const [showRating, setShowRating] = useState<boolean>(false)
   const [showEditRating, setShowEditRating] = useState<boolean>(false)
-  const [error, setError] = useState("")
 
   const token = useAppSelector((state) => state.token.tokenState)
   const { decodedToken }: { decodedToken?: { username: string; _id: string } } =
     useJwt(token)
   const username = decodedToken?.username
-  const isDarkMode = useAppSelector((state) => state.darkMode.darkMode)
-  const isRefresh = useAppSelector((state) => state.editButtons.isRefresh)
 
-  const getData = async () => {
-    try {
-      const data = await fetch(`${config.API_URL}/users`)
-      const user = await data.json()
-      setUserData(user)
-    } catch (err) {
-      setError(err)
-      console.log(error)
-    }
-  }
+  const {
+    data: users,
+    isLoading,
+    isError,
+  } = useGetQuery<User[]>({
+    queryKey: ["users"],
+    apiPath: API_USERS,
+  })
 
-  const findUser = (id) => {
-    if (users.length === 0) return null
-    const user = users.find((user) => user._id === id)
-    return user ? user.username : "user not found"
-  }
-
-  const raterArr2 = singleBook?.scoreRatings?.raterId?.map((id) => findUser(id))
-
-  let raterObj: object = {}
-  const findBookScore = () => {
-    for (let i = 0; i < raterArr2?.length; i++) {
-      raterObj[raterArr2[i]] = singleBook?.scoreRatings?.rating[i]
-      findUser(raterObj[singleBook?.scoreRatings?.rating[i]])
-    }
-    raterObj = Object.entries(raterObj)
-    return raterObj
-  }
-  findBookScore()
-
-  const shortStoryRatingsByRater = {}
-  const findShortStoriesScoresCorrected = () => {
-    if (!singleBook?.shortStories) return {}
-    if (users.length === 0) return {}
-    singleBook.shortStories?.forEach((story) => {
-      const title = story.title
-      const scoreRatings = story.scoreRatings
-      if (scoreRatings && scoreRatings.raterId && scoreRatings.rating) {
-        scoreRatings.raterId.forEach((raterId, index) => {
-          const username = findUser(raterId)
-          if (username === "user not found" || username === null) return
-          const rating = scoreRatings.rating[index]
-          if (!shortStoryRatingsByRater[username]) {
-            shortStoryRatingsByRater[username] = {}
-          }
-          shortStoryRatingsByRater[username][title] = rating
-        })
-      }
-    })
-    return shortStoryRatingsByRater
-  }
-  findShortStoriesScoresCorrected()
-
-  const findRatingByUsername = (raterObj, username) => {
-    const result = raterObj?.find((pair) => pair[0] === username)
+  const findRatingByUsername = (raterObjArray, username) => {
+    const result = raterObjArray?.find((pair) => pair.name === username)
     if (result) {
-      return result[1]
+      return result.bookRating
     } else {
       return false
     }
   }
-  const initialRating = findRatingByUsername(raterObj, username)
 
-  useEffect(() => {
-    getData()
-  }, [loading, isRefresh])
+  const processedRatings = useMemo(() => {
+    if (!singleBook || !users?.length) return []
 
+    const userMap = new Map(users.map((u) => [u._id, u.username]))
+    const raterIds = singleBook.scoreRatings?.raterId || []
+    const ratings = singleBook.scoreRatings?.rating || []
+
+    return raterIds.map((raterId, index) => {
+      const name = userMap.get(raterId) || "User not found"
+      const bookRating = ratings[index]
+
+      const stories = (singleBook.shortStories || [])
+        .map((story) => {
+          const storyRaterIdx = story.scoreRatings?.raterId?.indexOf(raterId)
+          return {
+            title: story.title,
+            score:
+              storyRaterIdx !== -1
+                ? story.scoreRatings?.rating[storyRaterIdx]
+                : null,
+          }
+        })
+        .filter((s) => s.score !== null)
+
+      return { name, bookRating, stories }
+    })
+  }, [users, singleBook])
+
+  const initialRating = findRatingByUsername(processedRatings, username)
+  const initialShortStoryRatings =
+    processedRatings?.find((user) => user.name === username)?.stories || []
   return (
     <div className="border-2 border-[var(--default-border-color)] flex flex-col h-fit w-[600px] max-md:w-full ml-4 max-md:m-0">
       <h2 className="text-4xl text-center font-main underline">Ratings</h2>
-      {!singleBook ? (
-        <div className="flex flex-col gap-4 mt-4">
-          <div className="flex flex-col gap-2">
-            <Skeleton.Input
-              active={true}
-              size="small"
-              style={{ filter: isDarkMode ? "invert(1)" : "invert(0)" }}
-            />
-            <Skeleton.Input
-              active={true}
-              size="large"
-              style={{ filter: isDarkMode ? "invert(1)" : "invert(0)" }}
-            />
-          </div>
-          <div className="flex flex-col gap-2">
-            <Skeleton.Input
-              active={true}
-              size="small"
-              style={{ filter: isDarkMode ? "invert(1)" : "invert(0)" }}
-            />
-            <Skeleton.Input
-              active={true}
-              size="large"
-              style={{ filter: isDarkMode ? "invert(1)" : "invert(0)" }}
-            />
-          </div>
-          <div className="flex flex-col gap-2">
-            <Skeleton.Input
-              active={true}
-              size="small"
-              style={{ filter: isDarkMode ? "invert(1)" : "invert(0)" }}
-            />
-            <Skeleton.Input
-              active={true}
-              size="large"
-              style={{ filter: isDarkMode ? "invert(1)" : "invert(0)" }}
-            />
-          </div>
-          <div className="flex flex-col gap-2">
-            <Skeleton.Input
-              active={true}
-              size="small"
-              style={{ filter: isDarkMode ? "invert(1)" : "invert(0)" }}
-            />
-            <Skeleton.Input
-              active={true}
-              size="large"
-              style={{ filter: isDarkMode ? "invert(1)" : "invert(0)" }}
-            />
-          </div>
-          <div className="flex flex-col gap-2">
-            <Skeleton.Input
-              active={true}
-              size="small"
-              style={{ filter: isDarkMode ? "invert(1)" : "invert(0)" }}
-            />
-            <Skeleton.Input
-              active={true}
-              size="large"
-              style={{ filter: isDarkMode ? "invert(1)" : "invert(0)" }}
-            />
-          </div>
-        </div>
-      ) : Array.isArray(raterObj) ? (
-        raterObj.map(([name, value], index) => (
-          <div key={index}>
+      {isLoading || isError ? (
+        <RatingConSkeleton />
+      ) : processedRatings?.length > 0 ? (
+        processedRatings.map(({ name, bookRating, stories }) => (
+          <div key={name}>
             <li className="list-none m-2 font-bold">{name}:</li>
             <div
               className={`flex w-full ${
@@ -184,48 +98,47 @@ const RatingCon: React.FC<Props> = ({
                   width:
                     hideScores && username !== name
                       ? "fit-content"
-                      : `${value * 10}%`,
+                      : `${bookRating * 10}%`,
                   padding:
                     hideScores && username !== name ? "0.5rem 1rem" : "0",
                   borderRadius: hideScores && username !== name ? "50%" : "0",
                 }}
               >
-                {hideScores && username !== name ? "?" : value.toFixed(2)}
+                {hideScores && username !== name ? "?" : bookRating?.toFixed(2)}
               </div>
             </div>
+
             <div className="flex flex-col h-full">
-              {shortStoryRatingsByRater[`${name}`] &&
-                Object.entries(shortStoryRatingsByRater[`${name}`])?.map(
-                  ([title, value]: [string, number], index) => (
-                    <h2
-                      key={index}
-                      className="w-full text-center border-b border-solid border-var(--default-border-color) mb-4 mt-4 leading-[0.25em]"
-                      style={{
-                        borderColor: "var(--default-border-color)",
-                      }}
-                    >
-                      <span
-                        className="pt-[2px] pb-[2px] pr-[8px] pl-[8px] border"
-                        style={{
-                          background: "var(--nested-bg-color)",
-                          borderColor: "var(--default-border-color)",
-                          color: "var(--nested-font-color)",
-                        }}
-                      >
-                        {hideScores && username !== name
-                          ? "?"
-                          : title + ": " + value.toFixed(2)}
-                      </span>
-                    </h2>
-                  ),
-                )}
+              {stories.map((story, index) => (
+                <h2
+                  key={index}
+                  className="w-full text-center border-b border-solid border-var(--default-border-color) mb-4 mt-4 leading-[0.25em]"
+                  style={{
+                    borderColor: "var(--default-border-color)",
+                  }}
+                >
+                  <span
+                    className="pt-[2px] pb-[2px] pr-[8px] pl-[8px] border"
+                    style={{
+                      background: "var(--nested-bg-color)",
+                      borderColor: "var(--default-border-color)",
+                      color: "var(--nested-font-color)",
+                    }}
+                  >
+                    {hideScores && username !== name
+                      ? "?"
+                      : `${story.title}: ${story.score.toFixed(2)}`}
+                  </span>
+                </h2>
+              ))}
             </div>
           </div>
         ))
       ) : (
-        Object.entries(raterObj).map(([name, value], index) => (
-          <li className="list-none mb-1 ml-2" key={index}>
-            {name}: {hideScores && username !== name ? "?" : value}
+        processedRatings.map(({ name, bookRating }) => (
+          <li className="list-none mb-1 ml-2" key={name}>
+            {name}:{" "}
+            {hideScores && username !== name ? "?" : bookRating?.toFixed(2)}
           </li>
         ))
       )}
@@ -237,7 +150,7 @@ const RatingCon: React.FC<Props> = ({
             : Math.floor(singleBook?.totalScore * 100) / 100
           : "Pending..."}
       </h2>
-      {decodedToken ? (
+      {decodedToken && (
         <div className="flex justify-center">
           {initialRating ? (
             <EditRatingButton
@@ -246,8 +159,8 @@ const RatingCon: React.FC<Props> = ({
               id={id}
               initialRating={initialRating}
               singleBook={singleBook}
-              shortStoryData={shortStoryRatingsByRater[username]}
-              isAnthology={singleBook?.shortStories.length > 0}
+              shortStoryData={initialShortStoryRatings}
+              isAnthology={singleBook?.shortStories?.length > 0}
               users={users}
             />
           ) : (
@@ -257,11 +170,11 @@ const RatingCon: React.FC<Props> = ({
               id={id}
               singleBook={singleBook}
               users={users}
-              isAnthology={singleBook?.shortStories.length > 0}
+              isAnthology={singleBook?.shortStories?.length > 0}
             />
           )}
         </div>
-      ) : null}
+      )}
     </div>
   )
 }

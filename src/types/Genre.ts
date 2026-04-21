@@ -8,7 +8,7 @@ export enum Genre {
   ANTIWAR = "Anti-war",
   DRAMA = "Drama",
   ACTION = "Action",
-  SCIFI = "Science-Fiction",
+  SCIFI = "Science-fiction",
   DYSTOPIAN = "Dystopian",
   POSTMODERN = "Postmodern",
   ANTHOLOGY = "Anthology",

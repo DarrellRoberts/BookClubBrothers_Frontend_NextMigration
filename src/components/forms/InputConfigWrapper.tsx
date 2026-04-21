@@ -12,6 +12,9 @@ export const InputConfigWrapper = ({
 }: Props) => {
   const inputTheme = {
     components: {
+      InputNumber: {
+        colorText: "black",
+      },
       Input: {
         colorText: "black",
       },

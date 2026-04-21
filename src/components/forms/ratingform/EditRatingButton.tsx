@@ -14,7 +14,7 @@ type Props = {
   id: string | string[]
   initialRating: number
   isAnthology: boolean
-  shortStoryData: object
+  shortStoryData: { title: string; score: number }[]
   singleBook: Book
   users: User[]
 }
@@ -63,6 +63,7 @@ const EditRatingButton: React.FC<Props> = ({
             id={id}
             shortStoryData={shortStoryData}
             singleBook={singleBook}
+            handleCancel={handleCancel}
           />
         )}
       </UiModal>
