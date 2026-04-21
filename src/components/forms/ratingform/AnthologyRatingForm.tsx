@@ -1,50 +1,66 @@
 "use client"
 
-import { Button, Form, InputNumber } from "antd"
+import { Form, InputNumber } from "antd"
 import { Book } from "@/types/BookInterface"
 import { useMemo, useState } from "react"
-import { handleMultipleSubmits } from "@/utils/handleMultipleSubmits"
 import { useAppSelector } from "@/store/lib/hooks"
 import { config } from "@/configs/config"
 import { InputConfigWrapper } from "../InputConfigWrapper"
 import { UiButton } from "@/components/ui/button/UiButton"
+import useMutationQuery from "@/hooks/crud-hooks/useMutationQuery"
+import axios from "axios"
 
 type Props = {
   id: string | string[]
   singleBook: Book
+  handleCancel: () => void
 }
 
-const AnthologyRatingForm: React.FC<Props> = ({ id, singleBook }) => {
+const AnthologyRatingForm: React.FC<Props> = ({
+  id,
+  singleBook,
+  handleCancel,
+}) => {
   const [raterStoriesArray, setRaterStoriesArray] = useState([])
-  const [loadings, setLoadings] = useState<boolean>(false)
   const token = useAppSelector((state) => state.token.tokenState)
 
-  const enterLoading = () => {
-    setLoadings(true)
-    setTimeout(() => {
-      setLoadings(false)
-      document.location.reload()
-    }, 1250)
-  }
+  const { mutate, isPending, isError, error } = useMutationQuery<void, any>({
+    mutationFn: async () => {
+      if (!singleBook.shortStories) return
 
-  const handleSubmit2 = async () => {
-    const promiseArr = []
-    if (!singleBook.shortStories) return null
-    for (let i = 0; i < singleBook.shortStories.length; i++) {
-      promiseArr.push(
-        await handleMultipleSubmits(
-          `${config.API_URL}/books/${id}/${singleBook?.shortStories[i]._id}`,
-          { rating: raterStoriesArray.map((story) => story.score)[i] },
-          "POST",
-          token,
-        ),
-      )
-    }
-    if (promiseArr.length > 0) {
-      Promise.all(promiseArr)
-    } else {
-      return null
-    }
+      const results = []
+      for (let i = 0; i < singleBook.shortStories.length; i++) {
+        const story = singleBook.shortStories[i]
+        const score = raterStoriesArray[i]?.score
+
+        const response = await axios.put(
+          `${config.API_URL}/books/${id}/${story._id}`,
+          { rating: score },
+          { headers: { Authorization: `Bearer ${token}` } },
+        )
+        results.push(response.data)
+      }
+
+      return results
+    },
+    toastObject: {
+      success: {
+        title: "Rating successfully edited",
+        description: "Rating has been changed",
+      },
+      error: {
+        title: "Error occurred",
+        description: "Rating not edited. Please contact me",
+      },
+    },
+    queryKeyToInvalidate: ["books", `${id}`],
+    onSuccessCallback: () => {
+      handleCancel()
+    },
+  })
+
+  const onSubmit = () => {
+    mutate()
   }
 
   const handleTotalRatingArr = (value: number, title: string) => {
@@ -72,7 +88,7 @@ const AnthologyRatingForm: React.FC<Props> = ({ id, singleBook }) => {
   return (
     <>
       <Form
-        onFinish={handleSubmit2}
+        onFinish={onSubmit}
         name="basic"
         labelCol={{
           span: 20,
@@ -109,25 +125,20 @@ const AnthologyRatingForm: React.FC<Props> = ({ id, singleBook }) => {
           Your rating: {handleTotalRating?.toFixed(2)}
         </h3>
 
-        {/* Submission */}
         <Form.Item
           wrapperCol={{
             offset: 8,
             span: 16,
           }}
         >
-          <Button
+          <UiButton
             type="primary"
             ghost
-            className="loginButtons"
-            loading={loadings}
-            onClick={() => enterLoading()}
+            loading={isPending}
             htmlType="submit"
-            size="large"
-          >
-            Submit
-          </Button>
-          {/* {error ? <h4 className="errorH">{error}</h4> : null} */}
+            textContent="Submit"
+          />
+          {isError ? <h4 className="errorH">{error.message}</h4> : null}
         </Form.Item>
       </Form>
     </>

@@ -39,7 +39,13 @@ const RatingButton: React.FC<Props> = ({
 
   useEffect(() => {
     if (isAnthology) {
-      setModalText(<AnthologyRatingForm singleBook={singleBook} id={id} />)
+      setModalText(
+        <AnthologyRatingForm
+          singleBook={singleBook}
+          id={id}
+          handleCancel={handleCancel}
+        />,
+      )
     } else {
       setModalText(
         <RatingForm
@@ -47,7 +53,7 @@ const RatingButton: React.FC<Props> = ({
           users={users}
           bookTitle={singleBook.title}
           handleCancel={handleCancel}
-        />
+        />,
       )
     }
   }, [])
@@ -65,7 +71,11 @@ const RatingButton: React.FC<Props> = ({
         handleCancel={handleCancel}
       >
         {isAnthology ? (
-          <AnthologyRatingForm singleBook={singleBook} id={id} />
+          <AnthologyRatingForm
+            singleBook={singleBook}
+            id={id}
+            handleCancel={handleCancel}
+          />
         ) : (
           <RatingForm
             id={id}

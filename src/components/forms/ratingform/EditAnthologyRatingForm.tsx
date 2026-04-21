@@ -3,54 +3,67 @@
 import { Form, InputNumber } from "antd"
 import { Book } from "@/types/BookInterface"
 import { useEffect, useMemo, useState } from "react"
-import { handleMultipleSubmits } from "@/utils/handleMultipleSubmits"
+// import { handleMultipleSubmits } from "@/utils/handleMultipleSubmits"
 import { useAppSelector } from "@/store/lib/hooks"
 import { config } from "@/configs/config"
 import { UiButton } from "@/components/ui/button/UiButton"
 import { InputConfigWrapper } from "../InputConfigWrapper"
+import useMutationQuery from "@/hooks/crud-hooks/useMutationQuery"
+import axios from "axios"
 
 type Props = {
   id: string | string[]
   singleBook: Book
   shortStoryData: { title: string; score: number }[]
+  handleCancel: () => void
 }
 
 const EditAnthologyRatingForm: React.FC<Props> = ({
   id,
   singleBook,
   shortStoryData,
+  handleCancel,
 }) => {
   const [raterStoriesArray, setRaterStoriesArray] = useState([])
-  const [loadings, setLoadings] = useState<boolean>(false)
   const token = useAppSelector((state) => state.token.tokenState)
-  const enterLoading = () => {
-    setLoadings(true)
-    setTimeout(() => {
-      setLoadings(false)
-      document.location.reload()
-    }, 1250)
-  }
 
-  const handleSubmit2 = async () => {
-    const promiseArr = []
-    if (!singleBook.shortStories) return null
-    for (let i = 0; i < singleBook.shortStories.length; i++) {
-      promiseArr.push(
-        await handleMultipleSubmits(
-          `${config.API_URL}/books/${id}/${singleBook?.shortStories[i]._id}`,
-          {
-            rating: raterStoriesArray.map((story) => story.score)[i],
-          },
-          "PUT",
-          token,
-        ),
-      )
-    }
-    if (promiseArr.length > 0) {
-      Promise.all(promiseArr)
-    } else {
-      return null
-    }
+  const { mutate, isPending, isError, error } = useMutationQuery<void, any>({
+    mutationFn: async () => {
+      if (!singleBook.shortStories) return
+
+      const results = []
+      for (let i = 0; i < singleBook.shortStories.length; i++) {
+        const story = singleBook.shortStories[i]
+        const score = raterStoriesArray[i]?.score
+
+        const response = await axios.put(
+          `${config.API_URL}/books/${id}/${story._id}`,
+          { rating: score },
+          { headers: { Authorization: `Bearer ${token}` } },
+        )
+        results.push(response.data)
+      }
+
+      return results
+    },
+    toastObject: {
+      success: {
+        title: "Rating successfully edited",
+        description: "Rating has been changed",
+      },
+      error: {
+        title: "Error occurred",
+        description: "Rating not edited. Please contact me",
+      },
+    },
+    queryKeyToInvalidate: ["books", `${id}`],
+    onSuccessCallback: () => {
+      handleCancel()
+    },
+  })
+
+  const onSubmit = () => {
+    mutate()
   }
 
   const handleTotalRatingArr = (value: number, title: string) => {
@@ -82,7 +95,7 @@ const EditAnthologyRatingForm: React.FC<Props> = ({
   }, [])
   return (
     <Form
-      onFinish={handleSubmit2}
+      onFinish={onSubmit}
       name="basic"
       labelCol={{
         span: 20,
@@ -128,12 +141,11 @@ const EditAnthologyRatingForm: React.FC<Props> = ({
       >
         <UiButton
           textContent="Submit"
-          loading={loadings}
-          clickHandler={() => enterLoading()}
+          loading={isPending}
           htmlType="submit"
           ghost
         />
-        {/* {error ? <h4 className="errorH">{error}</h4> : null} */}
+        {isError ? <h4 className="errorH">{error.message}</h4> : null}
       </Form.Item>
     </Form>
   )
