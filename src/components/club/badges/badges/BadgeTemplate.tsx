@@ -1,5 +1,4 @@
 import React, { ReactNode } from "react"
-import { Popover } from "antd"
 import "./popover.css"
 import "./icon-number.css"
 import Image from "next/image"

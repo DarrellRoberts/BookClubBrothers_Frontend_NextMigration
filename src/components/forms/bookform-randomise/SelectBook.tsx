@@ -1,5 +1,5 @@
 import { Form } from "antd"
-import { API_SELECT_BOOK, config } from "@/configs/config"
+import { API_SELECT_BOOK } from "@/configs/config"
 import { UiButton } from "@/components/ui/button/UiButton"
 import { Book } from "@/types/BookInterface"
 import useMutationQuery from "@/hooks/crud-hooks/useMutationQuery"

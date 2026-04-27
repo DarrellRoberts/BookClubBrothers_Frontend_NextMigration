@@ -4,8 +4,6 @@ import {
 } from "@/store/lib/features/auth/tokenSlice"
 import { useAppDispatch, useAppSelector } from "@/store/lib/hooks"
 import { useEffect } from "react"
-import { useJwt } from "react-jwt"
-import { type Jwt } from "@/types/Jwt"
 import Cookies from "js-cookie"
 import { useRouter } from "next/navigation"
 
@@ -21,28 +19,38 @@ export const useAuth = () => {
     router.refresh()
   }
 
-  const decodedToken = useJwt<Jwt>(token)
-
   const logout = (): void => {
+    if (!token) return
     Cookies.remove("token", { path: "/" })
     dispatch(removeToken())
     dispatch(setTokenState(null))
-    router.refresh()
   }
 
-  const handleExpired = (): void => {
-    if (!token) return
-    if (decodedToken.decodedToken === null) return
-    if (!decodedToken.isExpired) return
-    logout()
-  }
-
-  useEffect(() => {
+  const isAuth = (): void => {
     const cookieToken = Cookies.get("token")
-    if (!cookieToken) return
-    dispatch(setTokenState(cookieToken))
-    handleExpired()
-  }, [token, dispatch, handleExpired])
+    if (!cookieToken && !token) return
 
-  return { login, logout, handleExpired, ...decodedToken }
+    if (cookieToken && !token) {
+      dispatch(setTokenState(cookieToken))
+      return
+    }
+    try {
+      const payload = JSON.parse(atob(token.split(".")[1]))
+      const expiryTime = payload.exp * 1000 // convert to ms
+      const currentTime = Date.now()
+
+      if (currentTime >= expiryTime) {
+        logout()
+      }
+    } catch (e) {
+      console.error("Invalid token format")
+      logout()
+    }
+  }
+
+  return {
+    login,
+    logout,
+    isAuth,
+  }
 }

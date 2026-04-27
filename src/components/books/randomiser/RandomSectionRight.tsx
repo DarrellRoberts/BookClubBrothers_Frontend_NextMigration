@@ -5,9 +5,9 @@ import DeleteBook from "@/components/forms/bookform-randomise/DeleteBook"
 import { Book } from "@/types/BookInterface"
 import { useAppSelector } from "@/store/lib/hooks"
 import { User } from "@/types/UserInterface"
-import { useAuth } from "@/hooks/auth-hooks/useAuth"
 import Image from "next/image"
 import { UiSkeletonTitle } from "@/components/ui/skeleton/UiSkeletonTitle"
+import { useDecodedJwt } from "@/hooks/auth-hooks/useDecodedJwt"
 
 type Props = {
   bookData: Book[]
@@ -25,7 +25,7 @@ const RandomSectionRight: React.FC<Props> = ({
   const [isLoading, setIsLoading] = useState<boolean>(true)
   const index = useAppSelector((state) => state.randomise.index)
   const showRandom = useAppSelector((state) => state.randomise.showRandom)
-  const { decodedToken } = useAuth()
+  const { userId } = useDecodedJwt()
   const adminId = process.env.NEXT_PUBLIC_ADMIN_ID
 
   const findUser = (id) => {
@@ -110,9 +110,8 @@ const RandomSectionRight: React.FC<Props> = ({
                   bookLength={bookData?.length}
                   bookId={bookData[index]?._id}
                 />
-                {(showRandom &&
-                  bookData[index]?.suggestedBy === decodedToken?._id) ||
-                decodedToken?._id === adminId ? (
+                {(showRandom && bookData[index]?.suggestedBy === userId) ||
+                userId === adminId ? (
                   <>
                     <EditUnreadBook
                       id={bookData[index]?._id}

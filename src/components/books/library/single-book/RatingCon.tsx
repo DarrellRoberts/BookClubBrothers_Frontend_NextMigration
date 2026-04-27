@@ -3,13 +3,12 @@
 import { useState, useMemo } from "react"
 import RatingButton from "../../../forms/ratingform/RatingButton"
 import EditRatingButton from "../../../forms/ratingform/EditRatingButton"
-import { useJwt } from "react-jwt"
 import { Book } from "@/types/BookInterface"
-import { useAppSelector } from "@/store/lib/hooks"
 import { API_USERS } from "@/configs/config"
 import { useGetQuery } from "@/hooks/fetch-hooks/useGetQuery"
 import { User } from "@/types/UserInterface"
 import { RatingConSkeleton } from "./skeletons/RatingConSkeleton"
+import { useDecodedJwt } from "@/hooks/auth-hooks/useDecodedJwt"
 
 type Props = {
   singleBook: Book
@@ -22,10 +21,7 @@ const RatingCon: React.FC<Props> = ({ singleBook, id, hideScores }) => {
   const [showRating, setShowRating] = useState<boolean>(false)
   const [showEditRating, setShowEditRating] = useState<boolean>(false)
 
-  const token = useAppSelector((state) => state.token.tokenState)
-  const { decodedToken }: { decodedToken?: { username: string; _id: string } } =
-    useJwt(token)
-  const username = decodedToken?.username
+  const { username } = useDecodedJwt()
 
   const {
     data: users,
@@ -150,7 +146,7 @@ const RatingCon: React.FC<Props> = ({ singleBook, id, hideScores }) => {
             : Math.floor(singleBook?.totalScore * 100) / 100
           : "Pending..."}
       </h2>
-      {decodedToken && (
+      {username && (
         <div className="flex justify-center">
           {initialRating ? (
             <EditRatingButton

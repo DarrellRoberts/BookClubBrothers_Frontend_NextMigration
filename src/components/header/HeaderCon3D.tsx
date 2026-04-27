@@ -9,25 +9,25 @@ import Link from "next/link"
 import { useMediaQuery } from "react-responsive"
 import Logo from "../misc/Logo"
 import Logout3D from "../user/Logout3D"
-import { useJwt } from "react-jwt"
+import { useDecodedJwt } from "@/hooks/auth-hooks/useDecodedJwt"
+import { useAuth } from "@/hooks/auth-hooks/useAuth"
 
 type Props = {
   propsToken?: string
 }
 
 const HeaderCon: React.FC<Props> = ({ propsToken }) => {
-  const {
-    decodedToken,
-  }: { decodedToken?: { token: string; username: string; exp: number } } =
-    useJwt(propsToken)
+  const { username } = useDecodedJwt()
 
   const handleDesktop = useMediaQuery({ query: "(min-device-width: 801px)" })
+  const { isAuth } = useAuth()
   const headerCon = useRef<HTMLElement>(null)
 
   const headerMessage = getTime()
 
   // Necessary for the (3d) layout
   useEffect(() => {
+    isAuth()
     if (headerCon.current) {
       if (headerCon.current.parentElement) {
         headerCon.current.parentElement.style.position = "static"
@@ -59,7 +59,7 @@ const HeaderCon: React.FC<Props> = ({ propsToken }) => {
           <div className="flex items-center mr-10">
             <Link href="/">
               <h2 className="text-white text-3xl max-xs:text-xl text-end max-xs:w-10">
-                {`${headerMessage} ${decodedToken?.username}`}
+                {`${headerMessage} ${username}`}
               </h2>
             </Link>
           </div>

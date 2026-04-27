@@ -1,12 +1,10 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { Modal, Button } from "antd"
 import RatingForm from "./RatingForm"
 import { Book } from "@/types/BookInterface"
 import AnthologyRatingForm from "./AnthologyRatingForm"
 import { User } from "@/types/UserInterface"
-import { useRouter } from "next/navigation"
 import { UiButton } from "@/components/ui/button/UiButton"
 import { UiModal } from "@/components/ui/modal/UiModal"
 

@@ -9,6 +9,7 @@ import Link from "next/link"
 import Logo from "../misc/Logo"
 import Logout from "../user/Logout"
 import { useAppSelector } from "@/store/lib/hooks"
+import { useDecodedJwt } from "@/hooks/auth-hooks/useDecodedJwt"
 import { useAuth } from "@/hooks/auth-hooks/useAuth"
 
 type Props = {
@@ -16,19 +17,15 @@ type Props = {
 }
 
 const HeaderCon: React.FC<Props> = ({ propsToken }) => {
-  const token = propsToken
-    ? propsToken
-    : useAppSelector((state) => state.token.tokenState)
-
-  const { decodedToken } = useAuth()
-
-  // const handleDesktop = useMediaQuery({ query: "(min-device-width: 801px)" })
+  const { username } = useDecodedJwt()
+  const { isAuth } = useAuth()
   const headerCon = useRef<HTMLElement>(null)
 
   const headerMessage = getTime()
 
   // Necessary for the (3d) layout
   useEffect(() => {
+    isAuth()
     if (headerCon.current) {
       if (headerCon.current.parentElement) {
         headerCon.current.parentElement.style.position = "static"
@@ -36,15 +33,14 @@ const HeaderCon: React.FC<Props> = ({ propsToken }) => {
       headerCon.current.style.height = "88px"
     }
   }, [])
-
   return (
     <header
       ref={headerCon}
       className={`flex justify-between items-center w-full bg-black ${
-        !token && !propsToken ? "pb-0" : ""
+        username ? "pb-0" : ""
       }`}
     >
-      {token || propsToken ? (
+      {username ? (
         <>
           <Logout />
           <div className="hidden md:flex justify-evenly w-1/2 text-2xl text-white">
@@ -58,10 +54,10 @@ const HeaderCon: React.FC<Props> = ({ propsToken }) => {
             <Link href="/">
               <h2
                 className={`text-white text-3xl max-sm:text-xl text-end mx-2 ${
-                  !token && !propsToken ? "pb-0" : ""
+                  username ? "pb-0" : ""
                 }`}
               >
-                {`${headerMessage} ${decodedToken?.username}`}
+                {`${headerMessage} ${username}`}
               </h2>
             </Link>
           </div>
