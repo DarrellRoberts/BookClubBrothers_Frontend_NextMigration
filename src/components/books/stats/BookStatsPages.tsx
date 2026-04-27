@@ -1,7 +1,6 @@
 import BrotherLoadingBooksScored from "@/components/brothers/dashboard/BrotherLoadingBooksScored"
 import ScatterGraph from "@/components/graphs/brothers/ScatterGraph"
 import { Book } from "@/types/BookInterface"
-import React from "react"
 
 type Props = {
   readBooks: Book[]

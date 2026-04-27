@@ -3,7 +3,7 @@ import NavigateArrow from "@/assets/right-nav-arrow.svg"
 import Link from "next/link"
 import { useAppSelector } from "@/store/lib/hooks"
 import { useParams } from "next/navigation"
-import { API_BOOKS, config } from "@/configs/config"
+import { API_BOOKS } from "@/configs/config"
 import { useGetQuery } from "@/hooks/fetch-hooks/useGetQuery"
 import { Book } from "@/types/BookInterface"
 

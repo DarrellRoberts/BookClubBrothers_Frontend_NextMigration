@@ -1,11 +1,10 @@
 import { UiButton } from "@/components/ui/button/UiButton"
 import { setShowPublish } from "@/store/lib/features/books/editBookButtonsSlice"
 import { useAppDispatch, useAppSelector } from "@/store/lib/hooks"
-import { Button } from "antd"
 
 const EditPublishButton = () => {
   const showPublish = useAppSelector(
-    (state) => state.editBookButtons.showPublish
+    (state) => state.editBookButtons.showPublish,
   )
   const dispatch = useAppDispatch()
   return (

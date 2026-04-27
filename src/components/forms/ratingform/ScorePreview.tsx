@@ -1,12 +1,11 @@
 import { API_BOOKS } from "@/configs/config"
+import { useDecodedJwt } from "@/hooks/auth-hooks/useDecodedJwt"
 import { useGetQuery } from "@/hooks/fetch-hooks/useGetQuery"
-import { useAppSelector } from "@/store/lib/hooks"
 import { Book } from "@/types/BookInterface"
 import { User } from "@/types/UserInterface"
 import { findBook } from "@/utils/find-functions/find"
 import { useRouter } from "next/navigation"
 import { useEffect, useMemo } from "react"
-import { useJwt } from "react-jwt"
 
 type Props = {
   users: User[]
@@ -21,13 +20,11 @@ const ScorePreview = ({ users, rating, bookTitle }: Props) => {
     apiPath: API_BOOKS,
   })
 
-  const token = useAppSelector((state) => state.token.tokenState)
-  const { decodedToken }: { decodedToken?: { username: string; _id: string } } =
-    useJwt(token)
+  const { userId } = useDecodedJwt()
 
   const router = useRouter()
 
-  const user = users?.find((user) => user._id === decodedToken?._id)
+  const user = users?.find((user) => user._id === userId)
   const createScoreObj = useMemo(() => {
     let arr = []
     if (user) {
@@ -79,7 +76,7 @@ const ScorePreview = ({ users, rating, bookTitle }: Props) => {
           <div className="pt-5" />
           {createScoreObj?.map((book, index) => (
             <div
-              key={book?.title}
+              key={`${book?.title}${index}`}
               id={
                 createScoreObj[index + 1]?.title?.includes("#") ||
                 book?.title?.includes("#")

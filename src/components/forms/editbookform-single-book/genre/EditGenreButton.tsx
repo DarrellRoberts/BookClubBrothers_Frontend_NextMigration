@@ -1,7 +1,6 @@
 import { UiButton } from "@/components/ui/button/UiButton"
 import { setShowGenre } from "@/store/lib/features/books/editBookButtonsSlice"
 import { useAppDispatch, useAppSelector } from "@/store/lib/hooks"
-import { Button } from "antd"
 
 const EditGenreButton = () => {
   const showGenre = useAppSelector((state) => state.editBookButtons.showGenre)

@@ -1,11 +1,9 @@
-/* eslint-disable react/prop-types */
 "use client"
 
 import React, { useMemo } from "react"
 import { useState } from "react"
 import CommentButton from "../../../forms/commentform/CommentButton"
 import EditCommentButton from "../../../forms/commentform/EditCommentButton"
-import { useJwt } from "react-jwt"
 import { type Book } from "@/types/BookInterface"
 import {
   findComment,
@@ -19,6 +17,7 @@ import { Skeleton } from "antd"
 import { API_USERS } from "@/configs/config"
 import { useGetQuery } from "@/hooks/fetch-hooks/useGetQuery"
 import { User } from "@/types/UserInterface"
+import { useDecodedJwt } from "@/hooks/auth-hooks/useDecodedJwt"
 
 type Props = {
   bookData: Book
@@ -30,10 +29,7 @@ const CommentCon: React.FC<Props> = ({ bookData, id, hideScores }) => {
   const [addComment, setAddComment] = useState<boolean>(false)
   const [showEditComment, setShowEditComment] = useState<boolean>(false)
 
-  const token = useAppSelector((state) => state.token.tokenState)
-  const { decodedToken }: { decodedToken?: { username: string } } =
-    useJwt(token)
-  const username = decodedToken?.username
+  const { username } = useDecodedJwt()
 
   const {
     data: userData,
@@ -111,7 +107,7 @@ const CommentCon: React.FC<Props> = ({ bookData, id, hideScores }) => {
         })
       )}
 
-      {decodedToken ? (
+      {username ? (
         <div className="flex justify-center items-end mt-auto">
           {initialComment ? (
             <EditCommentButton

@@ -1,6 +1,5 @@
 import { badges } from "@/configs/badges"
 import BadgeCollection from "./badges/BadgeCollection"
-import { BadgeTitles } from "@/types/Badges"
 
 const Badges: React.FC = () => {
   const badgeData = {

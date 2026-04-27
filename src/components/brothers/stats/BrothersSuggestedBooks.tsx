@@ -35,26 +35,6 @@ const BrothersSuggestedBooks: React.FC<Props> = ({ userData, bookData }) => {
     }
     return tempObject
   }, [bookData, userData])
-  // const suggestedTitlesObject = {}
-  // const createSuggestedTitlesMap = () => {
-  //   if (!bookData) return {}
-  //   if (bookData?.length === 0) return {}
-  //   if (userData?.length === 0) return {}
-  //   for (const user of bookData) {
-  //     const username = findUser(user.suggestedBy, userData)
-  //     if (!suggestedTitlesObject[username]) {
-  //       suggestedTitlesObject[username] = {}
-  //     }
-  //     suggestedTitlesObject[username]["titles"] = bookData
-  //       ?.filter((book) => book.suggestedBy === user.suggestedBy)
-  //       ?.map((book) => book.title)
-  //     suggestedTitlesObject[username]["score"] = bookData
-  //       ?.filter((book) => book.suggestedBy === user.suggestedBy)
-  //       ?.map((book) => book.totalScore)
-  //   }
-  //   return suggestedTitlesObject
-  // }
-  // createSuggestedTitlesMap()
   return (
     <>
       {bookData?.length === 0 ? (

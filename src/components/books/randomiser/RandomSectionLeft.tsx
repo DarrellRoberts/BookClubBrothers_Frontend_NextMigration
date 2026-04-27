@@ -2,10 +2,10 @@ import React from "react"
 import CreateUnreadBook from "@/components/forms/bookform-randomise/CreateUnreadBook"
 import { Book } from "@/types/BookInterface"
 import { User } from "@/types/UserInterface"
-import { useAuth } from "@/hooks/auth-hooks/useAuth"
 import { useAppDispatch } from "@/store/lib/hooks"
 import { setIndex } from "@/store/lib/features/randomise/randomiseSlice"
 import { UiSkeletonImage } from "@/components/ui/skeleton/UiSkeletonImage"
+import { useDecodedJwt } from "@/hooks/auth-hooks/useDecodedJwt"
 
 type Props = {
   loadingBooks: boolean
@@ -20,14 +20,13 @@ const RandomSectionLeft: React.FC<Props> = ({
   bookData,
   userData,
 }) => {
-  const { decodedToken } = useAuth()
+  const { userId } = useDecodedJwt()
   const dispatch = useAppDispatch()
 
   const findUser = (id) => {
     const user = userData?.find((user) => user._id === id)
     return user ? user.username : "user not found"
   }
-
   return (
     <div className="flex flex-col items-center">
       <div className="border-[var(--default-border-color)] border-5 border-solid flex flex-col items-center h-[25vh] overflow-y-scroll max-md:h-[20vh] [&::-webkit-scrollbar]:w-[20px] [&::-webkit-scrollbar-track]:bg-gray-200 [&::-webkit-scrollbar-track]:rounded-lg [&::-webkit-scrollbar-thumb]:bg-gray-400 [&::-webkit-scrollbar-thumb]:rounded-lg [&::-webkit-scrollbar-thumb:hover]:bg-gray-600">
@@ -56,7 +55,7 @@ const RandomSectionLeft: React.FC<Props> = ({
             </div>
           ))
         )}
-        {decodedToken ? <CreateUnreadBook /> : null}
+        {userId ? <CreateUnreadBook /> : null}
       </div>
 
       <div className="flex flex-col justify-evenly items-center h-1/2 mt-5 max-md:hidden">

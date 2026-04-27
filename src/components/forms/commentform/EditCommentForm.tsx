@@ -3,7 +3,7 @@
 import { Form, Input } from "antd"
 import { useAppDispatch, useAppSelector } from "@/store/lib/hooks"
 import { setFormData } from "@/store/lib/features/books/bookFormDataSlice"
-import { API_EDIT_COMMENT, config } from "@/configs/config"
+import { API_EDIT_COMMENT } from "@/configs/config"
 import { UiButton } from "@/components/ui/button/UiButton"
 import { InputConfigWrapper } from "../InputConfigWrapper"
 import useMutationQuery from "@/hooks/crud-hooks/useMutationQuery"

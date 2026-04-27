@@ -6,7 +6,6 @@ import RatingCon from "@/components/books/library/single-book/RatingCon"
 import CommentCon from "@/components/books/library/single-book/CommentCon"
 import { handleHideScores_NoSetter } from "@/utils/time-functions/hideScores"
 import { useAppSelector } from "@/store/lib/hooks"
-import { useAuth } from "@/hooks/auth-hooks/useAuth"
 import UserViewLeftSide from "@/components/books/library/single-book/UserViewLeftSide"
 import AdminViewLeftSide from "@/components/books/library/single-book/AdminViewLeftSide"
 import AdminViewRightSide from "@/components/books/library/single-book/AdminViewRightSide"
@@ -17,6 +16,7 @@ import { API_SINGLE_BOOK } from "@/configs/config"
 import SuggestedByIcon from "@/components/books/library/single-book/SuggestedByIcon"
 import { Book } from "@/types/BookInterface"
 import { useGetQuery } from "@/hooks/fetch-hooks/useGetQuery"
+import { useDecodedJwt } from "@/hooks/auth-hooks/useDecodedJwt"
 
 const SingleBook = () => {
   const [showLeftNavArrows, setShowLeftNavArrows] = useState<boolean>(true)
@@ -24,7 +24,7 @@ const SingleBook = () => {
 
   const { id } = useParams<{ id: string }>()
   const adminId = process.env.NEXT_PUBLIC_ADMIN_ID
-  const { decodedToken } = useAuth()
+  const { userId } = useDecodedJwt()
 
   const {
     data: bookData,
@@ -67,14 +67,14 @@ const SingleBook = () => {
         )}
       </div>
       <div className="flex justify-around w-full max-lg:flex-col max-lg:gap-5">
-        {decodedToken?._id === adminId ? (
+        {userId === adminId ? (
           <AdminViewLeftSide bookData={bookData} bookId={bookData._id} />
         ) : (
           <UserViewLeftSide bookData={bookData} />
         )}
         <div className="font-main border-2 border-[var(--default-border-color)] p-6 max-md:mb-8 flex flex-col">
           <h2 className="text-5xl underline">Details</h2>
-          {decodedToken?._id === adminId ? (
+          {userId === adminId ? (
             <AdminViewRightSide bookData={bookData} bookId={bookData._id} />
           ) : (
             <UserViewRightSide bookData={bookData} />

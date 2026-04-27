@@ -1,7 +1,6 @@
 "use client"
 
 import { useState } from "react"
-import { Modal, Button } from "antd"
 import EditCommentForm from "./EditCommentForm"
 import { UiButton } from "@/components/ui/button/UiButton"
 import { UiModal } from "@/components/ui/modal/UiModal"

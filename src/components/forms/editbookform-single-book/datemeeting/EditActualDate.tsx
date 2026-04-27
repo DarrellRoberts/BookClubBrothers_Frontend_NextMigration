@@ -1,6 +1,6 @@
 "use client"
 
-import { API_EDIT_BOOK, config } from "@/configs/config"
+import { API_EDIT_BOOK } from "@/configs/config"
 import { UiButton } from "@/components/ui/button/UiButton"
 import { setFormData } from "@/store/lib/features/books/bookFormDataSlice"
 import { useAppDispatch, useAppSelector } from "@/store/lib/hooks"

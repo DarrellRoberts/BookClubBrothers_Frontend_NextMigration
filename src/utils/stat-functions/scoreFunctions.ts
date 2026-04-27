@@ -116,7 +116,6 @@ export const genreAverageScore = (
   bookData: Book[],
   genre: string,
 ): number | null => {
-  console.log("book data from function", bookData)
   if (bookData?.length > 0) {
     const genreJson: Book[] = bookData?.filter((book) =>
       book.genre?.includes(genre),
