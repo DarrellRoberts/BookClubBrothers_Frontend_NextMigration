@@ -4,9 +4,9 @@ import {
   setIndex,
   setShowRandom,
 } from "@/store/lib/features/randomise/randomiseSlice"
-import { useAuth } from "@/hooks/auth-hooks/useAuth"
 import { useCallback } from "react"
 import { UiButton } from "@/components/ui/button/UiButton"
+import { useDecodedJwt } from "@/hooks/auth-hooks/useDecodedJwt"
 
 type Props = {
   bookLength: number
@@ -16,8 +16,8 @@ type Props = {
 const RandomiserButton: React.FC<Props> = ({ bookLength, bookId }) => {
   const dispatch = useAppDispatch()
   const showRandom = useAppSelector((state) => state.randomise.showRandom)
+  const { userId } = useDecodedJwt()
   const adminId = process.env.NEXT_PUBLIC_ADMIN_ID
-  const { decodedToken } = useAuth()
 
   const handleRandomise = useCallback(() => {
     dispatch(setShowRandom())
@@ -39,9 +39,7 @@ const RandomiserButton: React.FC<Props> = ({ bookLength, bookId }) => {
             type="primary"
             textContent="Randomise"
           />
-          {adminId === decodedToken?._id ? (
-            <SelectBook bookId={bookId} />
-          ) : null}
+          {adminId === userId ? <SelectBook bookId={bookId} /> : null}
         </>
       ) : null}
     </div>

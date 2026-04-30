@@ -1,6 +1,5 @@
 "use client"
 
-import { Modal } from "antd"
 import { useState } from "react"
 import EditUsername from "./EditUsername"
 import { useAppDispatch, useAppSelector } from "@/store/lib/hooks"
@@ -15,7 +14,7 @@ type Props = {
 
 const EditUsernameButton: React.FC<Props> = ({ id, inUsername }) => {
   const [modalText, setModalText] = useState(
-    <EditUsername id={id} inUsername={inUsername} />
+    <EditUsername id={id} inUsername={inUsername} />,
   )
   const [confirmLoading, setConfirmLoading] = useState<boolean>(false)
   const showUsername = useAppSelector((state) => state.editButtons.showUsername)

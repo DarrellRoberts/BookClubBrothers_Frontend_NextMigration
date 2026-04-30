@@ -1,7 +1,6 @@
 import React from "react"
 import style from "./profileSmall.module.css"
 import Image from "next/image"
-import ProfileUnknownUserImage from "@/assets/Profile.unknown-profile-image.jpg"
 
 type Props = {
   imageURL: string

@@ -1,7 +1,6 @@
 import { UiButton } from "@/components/ui/button/UiButton"
 import { setShowTitle } from "@/store/lib/features/books/editBookButtonsSlice"
 import { useAppDispatch, useAppSelector } from "@/store/lib/hooks"
-import { Button } from "antd"
 
 const EditTitleButton = () => {
   const showTitle = useAppSelector((state) => state.editBookButtons.showTitle)

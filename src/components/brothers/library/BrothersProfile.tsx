@@ -11,7 +11,7 @@ import { findBook, findDateOfMeeting } from "@/utils/find-functions/find"
 import { User } from "@/types/UserInterface"
 import ProfileUnknownUserImage from "@/assets/Profile.unknown-profile-image.jpg"
 import { Book } from "@/types/BookInterface"
-import { useAuth } from "@/hooks/auth-hooks/useAuth"
+import { useDecodedJwt } from "@/hooks/auth-hooks/useDecodedJwt"
 
 type Props = {
   user: User
@@ -20,7 +20,7 @@ type Props = {
 }
 
 const BrothersProfile: React.FC<Props> = ({ user, readBooks, userData }) => {
-  const { decodedToken } = useAuth()
+  const { userId } = useDecodedJwt()
 
   const userBookObj = useMemo(() => {
     let userBookObj = {}
@@ -42,7 +42,7 @@ const BrothersProfile: React.FC<Props> = ({ user, readBooks, userData }) => {
   return (
     <div className="mx-5 my-5 flex h-[500px] w-[700px] border-4 border-solid border-[var(--default-border-color)] bg-[var(--user-background-color)] max-sm:h-[400px] max-sm:w-[350px] sm:bg-[rgba(244,236,8,0.087)] max-xs:h-[300px] max-xs:w-[250px]">
       <div className="flex w-1/2 flex-col items-center justify-evenly border-r-2 border-solid border-[rgba(0,0,0,0.193)]">
-        {decodedToken?._id === user?._id ? (
+        {userId === user?._id ? (
           <div className="flex">
             <EditUsernameButton inUsername={user?.username} id={user?._id} />
             <h2 className="underline max-sm:text-[2.5rem] max-xs:text-[1.5rem] text-5xl">
@@ -65,7 +65,7 @@ const BrothersProfile: React.FC<Props> = ({ user, readBooks, userData }) => {
             className="h-[350px] w-[200px] border-3 border-[var(--default-border-color)] grayscale max-sm:h-[250px] max-sm:w-[125px] sm:border-black"
           />
         </Link>
-        {decodedToken?._id === user?._id && (
+        {userId === user?._id && (
           <div className="flex">
             <PictureUploadButton
               id={user?._id}
@@ -79,7 +79,7 @@ const BrothersProfile: React.FC<Props> = ({ user, readBooks, userData }) => {
         <ul>
           <li className="underline pt-5 text-xl max-sm:pt-[15px] max-sm:text-base max-xs:text-[0.75rem]">
             Location
-            {decodedToken?._id === user?._id ? (
+            {userId === user?._id ? (
               <EditCityAndCountryButton
                 id={user?._id}
                 inCity={user?.userInfo?.residence?.city}
@@ -108,10 +108,10 @@ const BrothersProfile: React.FC<Props> = ({ user, readBooks, userData }) => {
             <li className="underline pt-5 text-xl max-sm:pt-[15px] max-sm:text-base max-xs:text-[0.75rem]">
               Favourite Genres
             </li>
-            {decodedToken?._id === user?._id ? (
+            {userId === user?._id ? (
               <EditGenreButton
                 inGenre={user?.userInfo?.favGenre?.map((genre) => genre)}
-                id={decodedToken?._id}
+                id={userId}
               />
             ) : null}
           </div>

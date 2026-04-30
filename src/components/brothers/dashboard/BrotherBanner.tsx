@@ -16,9 +16,9 @@ import {
   unreadBookTitles,
   userReadBookTitles,
 } from "@/utils/stat-functions/scoreFunctions"
-import { useAuth } from "@/hooks/auth-hooks/useAuth"
 import { UiButton } from "@/components/ui/button/UiButton"
 import BookCard from "@/components/books/library/BookCard"
+import { useDecodedJwt } from "@/hooks/auth-hooks/useDecodedJwt"
 
 type Props = {
   user: User
@@ -26,7 +26,7 @@ type Props = {
 }
 
 const BrotherBanner: React.FC<Props> = ({ user, readBooks }) => {
-  const { decodedToken } = useAuth()
+  const { userId } = useDecodedJwt()
 
   const scoreArray = user?.userInfo?.books?.score
   const findMinBook: Book = findMinScoreBook(readBooks, scoreArray, user)
@@ -63,7 +63,7 @@ const BrotherBanner: React.FC<Props> = ({ user, readBooks }) => {
                 "/Profile.unknown-profile-image.jpg"
               }
             />
-            {decodedToken?._id === user?._id ? (
+            {userId === user?._id ? (
               <div className="flex justify-center mt-2">
                 <PictureUploadButton
                   id={user?._id}

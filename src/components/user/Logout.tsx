@@ -5,15 +5,14 @@ import { useAuth } from "@/hooks/auth-hooks/useAuth"
 import { UiButton } from "../ui/button/UiButton"
 
 const Logout: React.FC = () => {
-  const [loadings, setLoadings] = useState([])
+  const [loadings, setLoadings] = useState(false)
 
   const { logout } = useAuth()
 
   const handleClick = () => {
-    setLoadings([true])
+    setLoadings(true)
     setTimeout(() => {
-      localStorage.removeItem("username")
-      setLoadings([false])
+      setLoadings(false)
       logout()
     }, 1000)
   }
@@ -22,7 +21,7 @@ const Logout: React.FC = () => {
       <UiButton
         ghost
         clickHandler={handleClick}
-        loading={loadings[0]}
+        loading={loadings}
         textContent={"Logout"}
         htmlType="submit"
       />

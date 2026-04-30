@@ -1,6 +1,5 @@
 "use client"
 
-import { Modal } from "antd"
 import { useState } from "react"
 import EditGenre from "./EditGenre"
 import { useAppDispatch, useAppSelector } from "@/store/lib/hooks"
@@ -15,7 +14,7 @@ type Props = {
 
 const EditGenreButton: React.FC<Props> = ({ id, inGenre }) => {
   const [modalText, setModalText] = useState(
-    <EditGenre id={id} inGenre={inGenre} />
+    <EditGenre id={id} inGenre={inGenre} />,
   )
   const [confirmLoading, setConfirmLoading] = useState<boolean>(false)
   const showGenre = useAppSelector((state) => state.editButtons.showGenre)

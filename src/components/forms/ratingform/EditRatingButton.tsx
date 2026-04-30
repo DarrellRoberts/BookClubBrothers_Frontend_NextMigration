@@ -1,6 +1,5 @@
 "use client"
 
-import { Modal, Button } from "antd"
 import EditRatingForm from "./EditRatingForm"
 import EditAnthologyRatingForm from "./EditAnthologyRatingForm"
 import { Book } from "@/types/BookInterface"

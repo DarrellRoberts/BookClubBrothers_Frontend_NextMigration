@@ -1,7 +1,6 @@
 import { UiButton } from "@/components/ui/button/UiButton"
 import { setShowPage } from "@/store/lib/features/books/editBookButtonsSlice"
 import { useAppDispatch, useAppSelector } from "@/store/lib/hooks"
-import { Button } from "antd"
 
 const EditPagesButton = () => {
   const showPage = useAppSelector((state) => state.editBookButtons.showPage)
