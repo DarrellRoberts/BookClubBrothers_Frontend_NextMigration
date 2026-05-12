@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test"
 
 test("book circle link mounts on homepage", async ({ page }) => {
-  await page.goto("http://localhost:3000/")
+  await page.goto("https://intbook-club-brothers.vercel.app/")
 
   const bookCircleLink = page.getByTestId("book-egg-link")
 
@@ -11,7 +11,7 @@ test("book circle link mounts on homepage", async ({ page }) => {
 })
 
 test("club circle link mounts on homepage", async ({ page }) => {
-  await page.goto("http://localhost:3000/")
+  await page.goto("https://intbook-club-brothers.vercel.app/")
 
   const clubCircleLink = page.getByTestId("club-egg-link")
 
@@ -21,7 +21,7 @@ test("club circle link mounts on homepage", async ({ page }) => {
 })
 
 test("brother circle link mounts on homepage", async ({ page }) => {
-  await page.goto("http://localhost:3000/")
+  await page.goto("https://intbook-club-brothers.vercel.app/")
 
   const brotherCircleLink = page.getByTestId("brothers-egg-link")
 
