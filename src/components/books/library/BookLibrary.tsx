@@ -69,7 +69,8 @@ const BookLibrary: React.FC = () => {
           filteredBooks={filteredResults}
           isDisabled={isLoading}
         />
-        <UiButton isLink href="/books/library/3d" textContent="3D View" />
+        {/* temp disable until fix */}
+        {/* <UiButton isLink href="/books/library/3d" textContent="3D View" /> */}
       </div>
       <h1 className="text-8xl m-5 max-lg:text-6xl max-lg:text-center max-lg:mb-20">
         Book Library
