@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "test": "jest test",
+    "test:watch": "jest --watch",
     "e2e_test": "npx playwright test",
     "e2e_report": "npx playwright show-report",
     "e2e_ui": "npx playwright test --ui"

@@ -39,7 +39,7 @@ describe("book functions that return a key value given its parameters", () => {
     const expectedDateOfMeeting =
       "Thu Nov 17 2025 15:56:20 GMT+0100 (Mitteleuropäische Normalzeit)"
     expect(findDateOfMeeting(bookTitle, mockBookArray)).toBe(
-      expectedDateOfMeeting
+      expectedDateOfMeeting,
     )
   })
 })
