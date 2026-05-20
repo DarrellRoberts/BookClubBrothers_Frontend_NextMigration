@@ -9,19 +9,70 @@ jobs:
     timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
+    # 1. Pull down the frontend code into its own folder
+    - name: Checkout Frontend Repository
+      uses: actions/checkout@v4
+      with:
+        path: frontend
+
+    # 2. Pull down the backend code right next to it
+    # Replace 'your-github-username/your-backend-repo-name' with your actual repo pointer
+    - name: Checkout Backend Repository
+      uses: actions/checkout@v4
+      with:
+        repository: https://github.com/DarrellRoberts/BookClubBrothers_Backend-API
+        path: backend
+        # token: ${{ secrets.DEPENDENT_REPO_PAT }} # ◄ Uncomment this line if backend repo is private
+
     - uses: actions/setup-node@v4
       with:
         node-version: lts/*
-    - name: Install dependencies
+
+    # 3. Explicitly install dependencies for both individual projects
+    - name: Install Frontend dependencies
+      working-directory: ./frontend
       run: npm ci
+
+    - name: Install Backend dependencies
+      working-directory: ./backend
+      run: npm ci
+
     - name: Install Playwright Browsers
+      working-directory: ./frontend
       run: npx playwright install --with-deps
+
+    # 4. Fire up the backend service on port 8080 in the background
+    - name: Start Dev Backend
+      working-directory: ./backend
+      run: npm run start:backend &
+      env:
+        PORT: 8080
+        MONGO_URI: ${{ secrets.MONGO_URI }}
+        CLOUD_NAME: ${{ secrets.CLOUD_NAME }}
+        API_KEY: ${{ secrets.API_KEY }}
+        API_SECRET: ${{ secrets.API_SECRET }}
+        SECRET: ${{ secrets.SECRET }}
+        ADMIN_ID: ${{ secrets.ADMIN_ID }}
+
+    # 5. Fire up the frontend service on port 3000 and bridge it to the local API
+    # Replace NEXT_PUBLIC_API_URL with whatever variable your frontend relies on to find the server
+    - name: Start Dev Frontend
+      working-directory: ./frontend
+      run: npm run start:frontend &
+      env:
+        PORT: 3000
+        NEXT_PUBLIC_API_URL: "http://localhost:8080"
+        NEXT_PUBLIC_ADMIN_ID: ${{secrets.ADMIN_ID}}
+
+    # 6. Run your E2E tests against your locally isolated frontend ecosystem
+    # Make sure your playwright.config.ts has its baseURL set to http://localhost:3000
     - name: Run Playwright tests
+      working-directory: ./frontend
       run: npx playwright test
+
     - uses: actions/upload-artifact@v4
       if: ${{ !cancelled() }}
       with:
         name: playwright-report
-        path: playwright-report/
+        path: frontend/playwright-report/ # ◄ Updated path to match frontend working directory
         retention-days: 30
