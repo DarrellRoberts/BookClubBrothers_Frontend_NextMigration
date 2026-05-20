@@ -94,6 +94,7 @@ const LoginForm = ({ setLoginOpen }: Props) => {
                 setUsername(e.target.value)
               }}
               value={username}
+              data-testid="username-input"
             />
           </Form.Item>
         </ConfigProvider>
@@ -113,6 +114,7 @@ const LoginForm = ({ setLoginOpen }: Props) => {
               type="password"
               onChange={(e) => setPassword(e.target.value)}
               value={password}
+              data-testid="password-input"
               styles={{
                 suffix: {
                   background: "#095d09",
