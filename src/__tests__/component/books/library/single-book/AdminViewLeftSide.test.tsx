@@ -13,11 +13,11 @@ beforeAll(() => {
       matches: false, // Default to desktop/mobile layout state
       media: query,
       onchange: null,
-      addListener: jest.fn(), // Deprecated but widely used by older packages
-      removeListener: jest.fn(), // Deprecated but widely used by older packages
-      addEventListener: jest.fn(),
-      removeEventListener: jest.fn(),
-      dispatchEvent: jest.fn(),
+      // addListener: jest.fn(), // Deprecated but widely used by older packages
+      // removeListener: jest.fn(), // Deprecated but widely used by older packages
+      // addEventListener: jest.fn(),
+      // removeEventListener: jest.fn(),
+      // dispatchEvent: jest.fn(),
     })),
   })
 })
