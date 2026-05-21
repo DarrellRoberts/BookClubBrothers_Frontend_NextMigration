@@ -104,6 +104,7 @@ const RatingForm: React.FC<Props> = ({
               max={10}
               type="number"
               step="0.25"
+              data-testid="book-rating-input"
               onChange={(e) => {
                 if (Number(e.target.value) > 10 || Number(e.target.value) < 0) {
                   return

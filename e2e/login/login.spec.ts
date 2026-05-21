@@ -44,6 +44,9 @@ test.describe("login flow", async () => {
       await expect(
         page.getByRole("heading", { name: "Test" }),
       ).not.toBeVisible()
+      await expect(
+        page.getByRole("alert").filter({ hasText: /login unsuccessful/i }),
+      ).toBeVisible()
     })
   })
   test("unsuccessful login with wrong password", async ({ page }) => {
@@ -62,6 +65,9 @@ test.describe("login flow", async () => {
     await test.step("get wrong password error", async () => {
       await expect(
         page.getByText(/hmmm incorrect password. let's hope you made a typo./i),
+      ).toBeVisible()
+      await expect(
+        page.getByRole("alert").filter({ hasText: /login unsuccessful/i }),
       ).toBeVisible()
     })
   })
