@@ -113,6 +113,7 @@ const CreateBook: React.FC = () => {
             <Input
               type="text"
               onBlur={() => handleSubmitSuggestion()}
+              data-testid="unread-book-title-input"
               onChange={(e) =>
                 dispatch(setFormData({ ...formData, title: e.target.value }))
               }
@@ -147,6 +148,7 @@ const CreateBook: React.FC = () => {
           >
             <Input
               type="text"
+              data-testid="unread-book-author-input"
               onChange={(e) =>
                 dispatch(setFormData({ ...formData, author: e.target.value }))
               }
@@ -175,6 +177,7 @@ const CreateBook: React.FC = () => {
           >
             <Input
               type="number"
+              data-testid="unread-book-pages-input"
               onChange={(e) =>
                 dispatch(
                   setFormData({ ...formData, pages: Number(e.target.value) }),
@@ -206,6 +209,7 @@ const CreateBook: React.FC = () => {
           >
             <Input
               type="number"
+              data-testid="unread-book-yearPublished-input"
               onChange={(e) =>
                 dispatch(
                   setFormData({
@@ -227,6 +231,7 @@ const CreateBook: React.FC = () => {
           >
             <Select
               mode="multiple"
+              data-testid="unread-book-genre-input"
               style={{
                 width: "100%",
               }}
